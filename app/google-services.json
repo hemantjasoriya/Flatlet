@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "488822754299",
+    "project_id": "firebase-flatlet"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488822754299:android:5954a4ffcb87dec3",
+        "android_client_info": {
+          "package_name": "in.flatlet.www.Flatlet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488822754299-1sdf7inngs7dlo8b09ctb9t4jia9hnr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.flatlet.www.Flatlet",
+            "certificate_hash": "a4e2ffd4791718cb206e2d7c025fe1db408bfde0"
+          }
+        },
+        {
+          "client_id": "488822754299-imr0tpi1pf01nc1qfsnk35dc085im8vi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0IxnE7gyrC6f2XtUMHBudqXNhtpJC5DU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

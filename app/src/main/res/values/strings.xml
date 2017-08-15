@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">Flatlet</string>
+    <string name="click_here_to_load_json_data_into_recyclerview">Click Here to load JSON data into RecyclerView</string>
+    <string name="subject">Subject :</string>
+    <string name="subject_show_here">Subject Show Here</string>
+    <string name="phone_number_show">Phone Number Show</string>
+    <string name="phone_number">Phone Number :</string>
+    <string name="name_show_here">Name Show Here</string>
+    <string name="name">Name :</string>
+    <string name="id_show_here">ID Show Here</string>
+    <string name="app_label">SearchView</string>
+    <string name="search_hint">search by locality</string>
+    <string name="city_name">Search for your dream home in KOTA</string>
+    <string-array name="localityArray">
+        <item>Mahaveer Nagar 1</item>
+        <item>Rajeev Gandhi Nagar</item>
+        <item>New Rajeev Gandhi Nagar</item>
+
+    </string-array>
+    <string name="id">ID :</string>
+    <string name="hostel_rent">hostel_rent</string>
+    <string name="hostel_title">hostel_title</string>
+    <string name="hostel_address">hostel_Address</string>
+    <string name="it_is_the_xml_for_viewpager_used_in_activity2">It is the xml for viewpager used in activity2</string>
+    <string name="recent_news">Da Nang International Fireworks</string>
+    <string name="details">Details</string>
+    <string name="only_for">Only For</string>
+    <string name="boys">Boys</string>
+    <string name="bedrooms">Bedrooms</string>
+    <string name="_3">3</string>
+    <string name="food_preference">Food Preference</string>
+    <string name="veg">Veg</string>
+    <string name="house_address">House Address</string>
+    <string name="size">Size</string>
+    <string name="_1500_sqft">1500 sqft</string>
+    <string name="hostel_id">hostel Id</string>
+    <string name="rules">Rules</string>
+    <string name="view">View</string>
+    <string name="n11010">N11010</string>
+    <string name="primary_card">Primary Card</string>
+    <string name="_1bhk">1BHK</string>
+    <string name="text1">This the text inside this fragment</string>
+
+    <string name="apartment">Apartment</string>
+    <string name="_10000">₹10000</string>
+    <string name="www_flatlet_in">www.flatlet.in</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string-array name="discovery_arrays">
+        <item>Boys</item>
+        <item>Girls</item>
+    </string-array>
+    <string name="owner">Owner</string>
+    <string name="cctv">CCTV</string>
+    <string name="attached_toilet">Attached Toilet</string>
+    <string name="evening_snacks">Evening Snacks</string>
+    <string name="elevator">Elevator</string>
+    <string name="tenant_type">Tenant Type</string>
+    <string name="girls">Girls</string>
+    <string name="room_type">Room Type</string>
+    <string name="price_high_to_low">₹↓ Price - high to low</string>
+    <string name="price_low_to_high">₹↑ Price - low to high</string>
+    <string name="a_area_low_to_high">A↑ Area - low to high</string>
+    <string name="a_area_high_to_low">A↓ Area - high to low</string>
+    <string name="Flatlet">Flatlet</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="my_account">My Account</string>
+    <string name="discovery">discovery</string>
+    <string name="profile">profile</string>
+    <string name="favourites">favourites</string>
+    <string name="more">more</string>
+    <string name="reset">Reset</string>
+    <string name="apply">Apply</string>
+    <string name="search">search</string>
+    <string name="enter_locality_here">Enter Locality here</string>
+    <string name="rent">Rent</string>
+    <string name="single_non_ac">Single Non-AC</string>
+    <string name="tenpowerthree">₹10000</string>
+    <string name="single_ac">Single AC</string>
+    <string name="_11500">11500</string>
+    <string name="double_non_ac">Double Non-AC</string>
+    <string name="_14000">14000</string>
+    <string name="double_ac">Double AC</string>
+    <string name="_18000">18000</string>
+    <string name="amenities">Amenities</string>
+    <string name="security_image_vector">security image vector</string>
+    <string name="_5_more">+5 more</string>
+    <string name="title_3">Title 3</string>
+    <string name="textview">TextView</string>
+    <string name="specification">Specification</string>
+    <string name="area_single_room_sqft">Area Single Room(sqft)</string>
+    <string name="area_double_room_sqft">Area Double Room(sqft)</string>
+    <string name="n_a">N/A</string>
+    <string name="locality">Locality</string>
+    <string name="non_ac">Non AC</string>
+    <string name="ac">AC</string>
+    <string name="air_cooling">Air Cooling</string>
+    <string name="single_room">Single Room</string>
+    <string name="double_room">Double Room</string>
+    <string name="progress">progress</string>
+    <string name="set_max_rent">Set Max Rent</string>
+    <string name="facebook_app_id">261128957726181</string>
+    <string name="fb_login_protocol_scheme">fb261128957726181</string>
+
+</resources>
