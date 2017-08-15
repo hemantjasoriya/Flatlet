@@ -21,6 +21,9 @@ public class FavouriteFragment extends Fragment {
     Context context;
     @Nullable
     @Override
+
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         sharedPreferences = context.getSharedPreferences("mypref",context.MODE_PRIVATE);
         String hostelname = sharedPreferences.getString("hostelname",null);
