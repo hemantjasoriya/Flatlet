@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet;
+package in.flatlet.www.Flatlet.recyclerView;
 
 import android.provider.BaseColumns;
 
@@ -13,9 +13,13 @@ public final class FeedReaderContract {
 
     /* Inner class that defines the table contents */
     public static class FeedEntry implements BaseColumns {
-        public static final String TABLE_NAME = "entry";
+        public static final String TABLE_NAME = "favourite";
         public static final String COLUMN_NAME_TITLE = "title";
-        public static final String COLUMN_NAME_SUBTITLE = "subtitle";
+        public static final String COLUMN_NAME_SECONDARY_ADDRESS = "address_secondary";
+        public static final String COLUMN_NAME_RENT="rent";
+        public static final String COLUMN_NAME_IMG_URL="imgUrl";
+        public static final String COLUMN_NAME_RATING="rating";
+
     }
 }
 

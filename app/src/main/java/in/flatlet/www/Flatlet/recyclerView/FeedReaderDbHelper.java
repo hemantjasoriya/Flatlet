@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet;
+package in.flatlet.www.Flatlet.recyclerView;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,8 +16,13 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedReaderContract.FeedEntry.TABLE_NAME + " (" +
                     FeedReaderContract.FeedEntry._ID + " INTEGER PRIMARY KEY," +
-                    FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " TEXT)";/*+
-                    FeedReaderContract.FeedEntry.COLUMN_NAME_SUBTITLE + " TEXT)";*/
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " TEXT,"+
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS + " TEXT,"+
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_RENT + " INTEGER,"+
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL + " TEXT," +
+                    FeedReaderContract.FeedEntry.COLUMN_NAME_RATING + " REAL)";
+
+
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedReaderContract.FeedEntry.TABLE_NAME;

@@ -1,8 +1,12 @@
 package in.flatlet.www.Flatlet.recyclerView;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +33,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
    SharedPreferences sharedPreferences;
     List<GetDataAdapter> dataModelArrayList;
 
+    SQLiteDatabase db_favourite;
+    FeedReaderDbHelper feedReaderDbHelper ;
+
 
     private final String TAG = "RecyclerViewAdapter";
 
@@ -36,11 +43,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         super();
         this.dataModelArrayList = getDataAdapter;
         this.context = context;
+        feedReaderDbHelper = new FeedReaderDbHelper(context);
+        db_favourite=feedReaderDbHelper.getWritableDatabase();
+
+        SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!pref_default.getBoolean("thirdTime", false)) {
+            // <---- run your one time code here
+            Log.i(TAG, "onCreate: before oncreate");
+
+
+            feedReaderDbHelper.onCreateOriginal(db_favourite);
+            Log.i(TAG, "onCreate: called");
+            SharedPreferences.Editor editor = pref_default.edit();
+            editor.putBoolean("thirdTime", true);
+            editor.apply();
+        }
+
 
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.i(TAG, "onCreateViewHolder:invoked ");
+
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_cards, parent, false);
         return new ViewHolder(v);
     }
@@ -65,11 +89,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
-                    sharedPreferences= context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor =  sharedPreferences.edit();
-                    editor.putString("favHostel",getDataAdapter1.getName());
-                    editor.apply();
-                    Log.i(TAG, "onCheckedChanged: Added to sharedpref"+getDataAdapter1.getName());
+
+                    ContentValues values=new ContentValues();
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,getDataAdapter1.getName());
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,getDataAdapter1.getAddress());
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT,getDataAdapter1.getRent());
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING,1);
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
+                    long newRowId=db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
+                    String[] projection = {
+                            FeedReaderContract.FeedEntry._ID,
+                            FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
+
+                    };
+
+                    Cursor cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
+                    int i = cursor.getCount();
+                    Log.i(TAG, "onCreate: k" + i);
+
                     Toast.makeText(context,"Added to favourites",Toast.LENGTH_SHORT).show();
                 }
                 else {
