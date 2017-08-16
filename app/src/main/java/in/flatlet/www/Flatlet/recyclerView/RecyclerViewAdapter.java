@@ -14,21 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-
     Context context;
-   /*private ToggleButton toggle;*/
    SharedPreferences sharedPreferences;
     List<GetDataAdapter> dataModelArrayList;
-   /* SharedPreferences sharedPreferences= context.getSharedPreferences("mypref",Context.MODE_PRIVATE);*/
+
 
     private final String TAG = "RecyclerViewAdapter";
 
@@ -51,7 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
-       /* holder.hostel_address.setText(position+"");*/
         Picasso.with(context).load("http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg").into(holder.imageView2);
         sharedPreferences=context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
         if (getDataAdapter1.getName().equalsIgnoreCase(sharedPreferences.getString("hostelname",null))){
@@ -68,7 +67,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
                     sharedPreferences= context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor =  sharedPreferences.edit();
-                    editor.putString("hostelname",getDataAdapter1.getName());
+                    editor.putString("favHostel",getDataAdapter1.getName());
                     editor.apply();
                     Log.i(TAG, "onCheckedChanged: Added to sharedpref"+getDataAdapter1.getName());
                     Toast.makeText(context,"Added to favourites",Toast.LENGTH_SHORT).show();
@@ -78,7 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
                     sharedPreferences= context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor =  sharedPreferences.edit();
-                    editor.remove("hostelname");
+                    editor.remove("favHostel");
                     editor.apply();
                     Log.i(TAG, "onCheckedChanged: removed from sharedpref"+getDataAdapter1.getName());
 

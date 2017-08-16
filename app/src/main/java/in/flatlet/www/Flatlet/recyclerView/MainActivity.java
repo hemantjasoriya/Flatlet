@@ -100,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
     private void JSON_PARSE_DATA_AFTER_WEBCALL(JSONArray array) {
         for (int i = 0; i < array.length(); i++) {
             GetDataAdapter GetDataAdapter2 = new GetDataAdapter();
-            JSONObject json;
+            JSONObject jsonObject;
             try {
-                json = array.getJSONObject(i);
-                GetDataAdapter2.setName(json.getString("title"));
-                Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + json.getString("title"));
-                GetDataAdapter2.setRent(json.getString(roomType));
-                GetDataAdapter2.setAddress(json.getString("address_secondary"));
+                jsonObject = array.getJSONObject(i);
+                GetDataAdapter2.setName(jsonObject.getString("title"));
+                Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + jsonObject.getString("title"));
+                GetDataAdapter2.setRent(jsonObject.getString(roomType));
+                GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

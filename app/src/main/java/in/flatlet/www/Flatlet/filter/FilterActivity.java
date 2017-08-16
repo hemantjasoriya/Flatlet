@@ -59,15 +59,7 @@ public class FilterActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);*/
-       /* fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FilterActivity.this, Activity2.class);
-                intent.putExtra("myObject", new Gson().toJson(getDataAdapter));
-                startActivity(intent);
-            }
-        });*/
+
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -147,11 +139,11 @@ public class FilterActivity extends AppCompatActivity {
                     Log.i(TAG, "onOptionsItemSelected: string formed yet is" + query);
                 }
                 if (checkBox7.isChecked()) {
-                    query = query + " AND ame_eve_snacks=0x01";
+                    query = query + " AND ame_eve_snacks=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox6.isChecked()) {
-                    query = query + " AND ame_elevator=0x01";
+                    query = query + " AND ame_elevator=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox8.isChecked()) {
@@ -159,11 +151,11 @@ public class FilterActivity extends AppCompatActivity {
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox9.isChecked()) {
-                    query = query + " AND CCTV=0x01";
+                    query = query + " AND CCTV=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox10.isChecked()) {
-                    query = query + " AND ownership=0x01";
+                    query = query + " AND ownership=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 query = query.replace(" ","%20");
@@ -218,8 +210,6 @@ public class FilterActivity extends AppCompatActivity {
                 query = query.replace(" ","%20");
                 locality="";
                 Log.i(TAG, "onOptionsItemSelected:just before StringRequest the query is" + query);
-                /*locality = getIntent().getStringExtra("locality");*/
-                /*Log.i(TAG, "onOptionsItemSelected: Data came from prev activity is locality"+locality);*/
                 Intent intent = new Intent(FilterActivity.this, MainActivity.class);
                 intent.putExtra("locality",locality);
                 intent.putExtra("dbqry",query);
