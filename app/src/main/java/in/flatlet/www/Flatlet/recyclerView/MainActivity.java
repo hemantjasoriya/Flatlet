@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dataModelArrayList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView1);
-       /* //this add a divider between two cards
+       /* //this add a divider between two card
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));*/
         Log.i(TAG, "onCreate: RecyclerVIew is hinged");
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
