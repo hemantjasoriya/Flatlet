@@ -35,6 +35,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     SQLiteDatabase db_favourite;
     FeedReaderDbHelper feedReaderDbHelper ;
+    Cursor cursor;
+
+
 
 
     private final String TAG = "RecyclerViewAdapter";
@@ -76,16 +79,50 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         Picasso.with(context).load("http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg").into(holder.imageView2);
-        sharedPreferences=context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        Log.i(TAG, "onBindViewHolder: hostel name is "+getDataAdapter1.getName());
+
+        /*sharedPreferences=context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
         if (getDataAdapter1.getName().equalsIgnoreCase(sharedPreferences.getString("hostelname",null))){
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
         }
         else
         {
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+        }*/
+        String selection= FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?";
+        String[] projection={FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
+        String [] selectionArgs={getDataAdapter1.getName()};
+        cursor=db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
+
+        Log.i(TAG, "onBindViewHolder: before if and get count is "+cursor.getCount());
+        String[] projection1 = {
+                FeedReaderContract.FeedEntry._ID,
+                FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
+
+        };
+
+        Cursor cursor1 = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
+
+
+
+        if (cursor1.getCount()!=0 && cursor.getCount()!=0){
+            cursor.moveToNext();
+            Log.i(TAG, "onBindViewHolder: cursor.isnull returned true "+cursor.getString(0));
+
+        if (cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())){
+            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
+        }
+        else
+        {
+            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+        }}
+        else {
+            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
         }
 
-       holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        
+        
+        holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
@@ -97,28 +134,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING,1);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
                     long newRowId=db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
-                    String[] projection = {
+
+                    String[] projection1 = {
                             FeedReaderContract.FeedEntry._ID,
                             FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
 
                     };
 
-                    Cursor cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
+                    cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
                     int i = cursor.getCount();
-                    Log.i(TAG, "onCreate: k" + i);
+                    Log.i(TAG, "onCreate: No of entries now is" + i);
 
                     Toast.makeText(context,"Added to favourites",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Log.i(TAG, "onCheckedChanged: else chal giyo");
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-                    sharedPreferences= context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor =  sharedPreferences.edit();
-                    editor.remove("favHostel");
-                    editor.apply();
-                    Log.i(TAG, "onCheckedChanged: removed from sharedpref"+getDataAdapter1.getName());
+                    int deletedRows=db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{getDataAdapter1.getName()});
 
-                    Toast.makeText(context,"Removed From favourites",Toast.LENGTH_SHORT).show();
                 }
             }
         });
