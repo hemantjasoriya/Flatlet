@@ -147,7 +147,7 @@ public class FilterActivity extends AppCompatActivity {
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox8.isChecked()) {
-                    query = query + " AND ame_toilet_attached=0x01";
+                    query = query + " AND ame_toilet_attached=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
                 if (checkBox9.isChecked()) {
