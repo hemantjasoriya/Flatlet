@@ -30,17 +30,12 @@ import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     Context context;
-   SharedPreferences sharedPreferences;
     List<GetDataAdapter> dataModelArrayList;
-
     SQLiteDatabase db_favourite;
     FeedReaderDbHelper feedReaderDbHelper ;
     Cursor cursor;
-
-
-
-
     private final String TAG = "RecyclerViewAdapter";
+
 
     RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context) {
         super();
@@ -62,7 +57,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             editor.apply();
         }
 
-
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -79,16 +73,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         Picasso.with(context).load("http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg").into(holder.imageView2);
-        Log.i(TAG, "onBindViewHolder: hostel name is "+getDataAdapter1.getName());
+        /*Log.i(TAG, "onBindViewHolder: hostel name is "+getDataAdapter1.getName());*/
 
-        /*sharedPreferences=context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
-        if (getDataAdapter1.getName().equalsIgnoreCase(sharedPreferences.getString("hostelname",null))){
-            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
-        }
-        else
-        {
-            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-        }*/
         String selection= FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?";
         String[] projection={FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
         String [] selectionArgs={getDataAdapter1.getName()};
@@ -102,7 +88,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         };
 
         Cursor cursor1 = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
-
 
 
         if (cursor1.getCount()!=0 && cursor.getCount()!=0){
@@ -133,7 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT,getDataAdapter1.getRent());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING,1);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
-                    long newRowId=db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
+                   db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
 
                     String[] projection1 = {
                             FeedReaderContract.FeedEntry._ID,
@@ -149,7 +134,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 }
                 else {
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-                    int deletedRows=db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{getDataAdapter1.getName()});
+                    db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{getDataAdapter1.getName()});
 
                 }
             }

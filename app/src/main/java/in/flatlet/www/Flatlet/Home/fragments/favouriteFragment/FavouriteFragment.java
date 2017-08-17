@@ -1,47 +1,79 @@
 package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 
 public class FavouriteFragment extends Fragment {
-    ArrayList<String> list = new ArrayList<>();
-    SharedPreferences sharedPreferences;
+    SQLiteDatabase db;
+    final String TAG = "FavouriteFragment";
+    ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
 
-    Context context;
+    RecyclerView favouriteRecyclerView;
+    LinearLayoutManager recyclerViewLayoutManager;
+    ProgressBar progressBar;
     @Nullable
     @Override
 
-
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        sharedPreferences = context.getSharedPreferences("mypref",context.MODE_PRIVATE);
-        String hostelname = sharedPreferences.getString("hostelname",null);
-        if (!hostelname.isEmpty()){
-            for (int i=0;i>0;i++){
-                list.add(i,hostelname);
-            }
-
-        }
-
         return inflater.inflate(R.layout.favourites_fragment,container,false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        db = new FeedReaderDbHelper(getContext()).getWritableDatabase();
 
-        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(context,list);
+        Log.i(TAG, "onActivityCreated: SQLite Object Created successfully");
+
+        favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
+        progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
+        addSqliteDataToList();
+        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getContext(),favouriteHostelList);
+        favouriteRecyclerView.setHasFixedSize(true);
+        recyclerViewLayoutManager = new LinearLayoutManager(getContext());
+        favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);
+        favouriteRecyclerView.setAdapter(adapter);
+        progressBar.setVisibility(View.GONE);
+
+
+    }
+    private void addSqliteDataToList(){
+        Log.i(TAG, "addSqliteDataToList: Startig to add data into Model class from SQLiteDatabase");
+        progressBar.setVisibility(View.VISIBLE);
+        FavouriteHostelDataModel favouriteHostelDataModel = new FavouriteHostelDataModel();
+        String [] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
+                FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};
+        Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,null,null,null,null,null);
+
+        while(cursor.moveToNext()){
+            Log.i(TAG, "addSqliteDataToList: The records inside the sqlite dtabase is "+cursor.getString(0));
+            favouriteHostelDataModel.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE)));
+            favouriteHostelDataModel.setAddress_secondary(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS)));
+            favouriteHostelDataModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL)));
+            favouriteHostelDataModel.setRent(cursor.getInt(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT)));
+            favouriteHostelDataModel.setRating(cursor.getDouble(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING)));
+            favouriteHostelList.add(favouriteHostelDataModel);
+
+        }
+        Log.i(TAG, "addSqliteDataToList:  Items added in database are"+cursor.getCount());
+
 
 
     }

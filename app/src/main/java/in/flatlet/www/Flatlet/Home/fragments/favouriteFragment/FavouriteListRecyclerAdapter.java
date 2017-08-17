@@ -1,59 +1,57 @@
 package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import in.flatlet.www.Flatlet.R;
-import in.flatlet.www.Flatlet.recyclerView.GetDataAdapter;
-import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder>{
     Context context;
-    SharedPreferences sharedPreferences;
-
-
+    List<FavouriteHostelDataModel> favouriteHostelList;
     private final String TAG = "RecyclerViewAdapter";
 
-
-    FavouriteListRecyclerAdapter(Context getDataAdapter, ArrayList<String> context) {
+    public FavouriteListRecyclerAdapter(Context context, ArrayList<FavouriteHostelDataModel> favouriteHostelList) {
         super();
-
+        this.context= context;
+        this.favouriteHostelList=favouriteHostelList;
+        Log.i(TAG, "FavouriteListRecyclerAdapter: Context and List containing Model class object received");
 
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.i(TAG, "onCreateViewHolder:invoked ");
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_cards, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_recycler_view_cards, parent, false);
         return new FavouriteListRecyclerAdapter.ViewHolder(v);
     }
     @Override
     public void onBindViewHolder(final FavouriteListRecyclerAdapter.ViewHolder holder, final int position) {
-        Log.i(TAG, "onBindViewHolder: invoked" +position);
 
-        Picasso.with(context).load("http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg").into(holder.imageView2);
-        sharedPreferences=context.getSharedPreferences("mypref",Context.MODE_PRIVATE);
+        Log.i(TAG, "onBindViewHolder: invoked" +position);
+         FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
+        holder.hostel_title.setText(favouriteHostelDataModel.getTitle());
+
+        holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
+
+        holder.hostel_rent.setText(favouriteHostelDataModel.getRent()+"");
+
+        Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
+        Log.i(TAG, "onBindViewHolder: image bhi set bro");
+        holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
             }
         });
@@ -62,16 +60,15 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
     @Override
     public int getItemCount() {
         Log.i(TAG, "getItemCount: ");
-
-        return 2;
+        return favouriteHostelList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView hostel_title;
         TextView hostel_rent;
-        ImageView imageView2;
         TextView hostel_address;
+        ImageView imageView2;
         CardView cardView;
         ToggleButton toggle;
 

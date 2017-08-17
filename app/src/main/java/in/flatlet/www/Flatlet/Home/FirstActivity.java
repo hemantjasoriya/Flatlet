@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import in.flatlet.www.Flatlet.Home.fragments.favouriteFragment.FavouriteFragment;
 import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.Home.fragments.morefragment.MoreFragment;
 import in.flatlet.www.Flatlet.Home.fragments.profilefragment.ProfileFragment;
@@ -52,6 +53,11 @@ public class FirstActivity extends AppCompatActivity  {
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_favourites:
+                    fragment= new FavouriteFragment();
+                    fragmentTransaction= getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.content,fragment,"fragmentFavourite");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_more:
                     fragment= new MoreFragment();
