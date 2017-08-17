@@ -38,9 +38,12 @@ public class FavouriteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         db = new FeedReaderDbHelper(getContext()).getWritableDatabase();
 
-        Log.i(TAG, "onActivityCreated: SQLite Object Created successfully");
+        Log.i(TAG, "onActivityCreated: SQLite Object is Created successfully");
+
+
 
         favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
         progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
