@@ -21,6 +21,7 @@
             tools:mockup_opacity="5"
             android:textOn=""
             android:textOff=""
+            android:checked="true"
             android:background="@drawable/ic_favorite_white_24dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"

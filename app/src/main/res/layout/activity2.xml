@@ -15,7 +15,7 @@
         android:onClick="onFloatClick"
         android:src="@drawable/placeholder"
         android:visibility="visible"
-        app:elevation="2dp" />
+        app:elevation="6dp" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -217,7 +217,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/ic_ac" />
+                            app:srcCompat="@drawable/ic_ame_cleaning" />
 
                         <ImageView
                             android:id="@+id/imageView3"
@@ -232,8 +232,8 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:padding="5dp"
-                            app:srcCompat="@drawable/ic_backupgen" />
+                            android:padding="10dp"
+                            app:srcCompat="@drawable/ic_ame_ro" />
 
                         <ImageView
                             android:layout_width="0dp"
@@ -241,7 +241,7 @@
                             android:layout_marginEnd="22dp"
                             android:layout_weight="1"
                             android:padding="0dp"
-                            app:srcCompat="@drawable/ic_cooler" />
+                            app:srcCompat="@drawable/ic_ame_laundry" />
                         <Button
                             android:id="@+id/moreAmeButton"
                             android:layout_width="0dp"

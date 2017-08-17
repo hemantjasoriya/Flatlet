@@ -45,7 +45,7 @@ public class FavouriteFragment extends Fragment {
         favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
         progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
         addSqliteDataToList();
-        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getContext(),favouriteHostelList);
+        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getContext(),favouriteHostelList,db);
         favouriteRecyclerView.setHasFixedSize(true);
         recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);

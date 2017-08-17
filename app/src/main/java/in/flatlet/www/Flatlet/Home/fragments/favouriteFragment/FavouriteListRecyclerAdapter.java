@@ -1,12 +1,15 @@
 package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -14,16 +17,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder>{
     Context context;
     List<FavouriteHostelDataModel> favouriteHostelList;
+    SQLiteDatabase db;
     private final String TAG = "RecyclerViewAdapter";
 
-    public FavouriteListRecyclerAdapter(Context context, ArrayList<FavouriteHostelDataModel> favouriteHostelList) {
+    public FavouriteListRecyclerAdapter(Context context, ArrayList<FavouriteHostelDataModel> favouriteHostelList, SQLiteDatabase db) {
         super();
         this.context= context;
         this.favouriteHostelList=favouriteHostelList;
+        this.db=db;
         Log.i(TAG, "FavouriteListRecyclerAdapter: Context and List containing Model class object received");
 
     }
@@ -38,7 +45,7 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
     public void onBindViewHolder(final FavouriteListRecyclerAdapter.ViewHolder holder, final int position) {
 
         Log.i(TAG, "onBindViewHolder: invoked" +position);
-         FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
+         final FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
         holder.hostel_title.setText(favouriteHostelDataModel.getTitle());
 
         holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
@@ -48,10 +55,28 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
         Log.i(TAG, "onBindViewHolder: image bhi set bro");
         holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
+        holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){
+                    favouriteHostelList.remove(position);
+                    notifyDataSetChanged();
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position,favouriteHostelList.size());
+                    db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{favouriteHostelDataModel.getTitle()});
+
+
+                }
+            }
+        });
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context, Activity2.class);
+                intent.putExtra("hostel_title",favouriteHostelDataModel.getTitle());
+                Log.i(TAG, "onClick: data sent to activity2 is "+favouriteHostelDataModel.getTitle());
+                context.startActivity(intent);
 
             }
         });
