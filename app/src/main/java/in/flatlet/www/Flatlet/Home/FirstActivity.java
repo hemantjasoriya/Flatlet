@@ -24,8 +24,8 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 public class FirstActivity extends AppCompatActivity  {
     final static String TAG = "MainActivity";
-    private Fragment fragment;
-    private FragmentTransaction fragmentTransaction;
+    private static Fragment fragment;
+    private static FragmentTransaction fragmentTransaction;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -109,6 +109,7 @@ public class FirstActivity extends AppCompatActivity  {
                         startActivity(homeIntent);
                     }
                 }).create().show();
+
     }
 
 }
