@@ -378,7 +378,30 @@
                 android:layout_below="@id/cardview3"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="5dp"
+                android:background="#ffffff">
+
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="2"
+                        android:layout_marginBottom="16dp"
+                        android:layout_row="0"
+                        android:text="Rating for this Hostel"
+                        android:textAlignment="center"
+                        android:textColorLink="@color/colorPrimary"
+                        />
+
+
+                </GridLayout>
 
 
 

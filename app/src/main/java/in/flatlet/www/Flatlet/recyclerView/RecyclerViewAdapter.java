@@ -96,13 +96,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if (cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())){
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
+            holder.toggle.setChecked(true);
         }
         else
         {
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+            holder.toggle.setChecked(false);
         }}
         else {
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
+            holder.toggle.setChecked(false);
         }
 
         
