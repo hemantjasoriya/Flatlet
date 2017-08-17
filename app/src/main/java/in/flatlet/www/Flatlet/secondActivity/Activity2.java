@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 public class Activity2 extends AppCompatActivity {
-    private FloatingActionButton float_navigation;
     private final String TAG = "Activity2";
     private Toolbar toolbar;
     private RequestQueue requestQueue;
@@ -67,14 +67,17 @@ public class Activity2 extends AppCompatActivity {
         locality=(TextView)findViewById(R.id.locality);
         imageHead=(ImageView)findViewById(R.id.imageHead);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
-        float_navigation = (FloatingActionButton) findViewById(R.id.float_navigation);
+        FloatingActionButton float_navigation = (FloatingActionButton) findViewById(R.id.float_navigation);
         moreAmeButton=(Button)findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,6 +98,7 @@ public class Activity2 extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+                while(ameTitle.size()<11){
                 ameTitle.add(0,"CCTV Surveillance");
                 ameTitle.add(1,"Elevator");
                 ameTitle.add(2,"Attached Toilet");
@@ -106,8 +110,10 @@ public class Activity2 extends AppCompatActivity {
                 ameTitle.add(8,"Security Guard");
                 ameTitle.add(9,"Geyser");
                 ameTitle.add(10,"Study Table");
+                }
 
                 Log.i(TAG, "onClick: ametitle is filled");
+                while(ameVector.size()<11){
 
                 if ("1".equalsIgnoreCase(CCTV)){
                     ameVector.add(0,R.drawable.ic_cctv);
@@ -146,12 +152,13 @@ public class Activity2 extends AppCompatActivity {
                 ameVector.add(8,R.drawable.ic_security);
                 ameVector.add(9,R.drawable.ic_cctv);
                 ameVector.add(10,R.drawable.ic_studytable);
+                }
                 listView=new ListView(Activity2.this);
 
                 MoreAmenityArrayAdapter adapter1 = new MoreAmenityArrayAdapter(getApplicationContext(),ameTitle,ameVector);
                 listView.setAdapter(adapter1);
-                new android.support.v7.app.AlertDialog.Builder(Activity2.this)
-                        .setTitle("Amenities")
+                AlertDialog.Builder builder= new android.support.v7.app.AlertDialog.Builder(Activity2.this);
+                      builder.setTitle("Amenities")
                         .setView(listView)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override

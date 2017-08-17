@@ -13,9 +13,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
@@ -32,6 +35,7 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         this.favouriteHostelList=favouriteHostelList;
         this.db=db;
         Log.i(TAG, "FavouriteListRecyclerAdapter: Context and List containing Model class object received");
+
 
     }
 
@@ -96,6 +100,7 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         ImageView imageView2;
         CardView cardView;
         ToggleButton toggle;
+        /*RelativeLayout RL_favourite;*/
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -106,6 +111,7 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
             toggle=(ToggleButton)itemView.findViewById(R.id.toggleButton);
+           /* RL_favourite=(RelativeLayout)itemView.findViewById(R.id.RL_favourite);*/
         }
     }
     }
