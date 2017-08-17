@@ -57,13 +57,14 @@ public class FavouriteFragment extends Fragment {
     private void addSqliteDataToList(){
         Log.i(TAG, "addSqliteDataToList: Startig to add data into Model class from SQLiteDatabase");
         progressBar.setVisibility(View.VISIBLE);
-        FavouriteHostelDataModel favouriteHostelDataModel = new FavouriteHostelDataModel();
+
         String [] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};
         Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,null,null,null,null,null);
 
         while(cursor.moveToNext()){
             Log.i(TAG, "addSqliteDataToList: The records inside the sqlite dtabase is "+cursor.getString(0));
+            FavouriteHostelDataModel favouriteHostelDataModel = new FavouriteHostelDataModel();
             favouriteHostelDataModel.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE)));
             favouriteHostelDataModel.setAddress_secondary(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS)));
             favouriteHostelDataModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL)));
