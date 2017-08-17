@@ -27,7 +27,6 @@ public class FavouriteFragment extends Fragment {
 
     RecyclerView favouriteRecyclerView;
     LinearLayoutManager recyclerViewLayoutManager;
-
     ProgressBar progressBar;
     @Nullable
     @Override
