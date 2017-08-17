@@ -29,7 +29,7 @@ public class MyApplication extends Application {
             editor.apply();
 
 
-            // mark first time has runned.
+
             Log.i(TAG, "onCreate: first time has runned");
             editor = prefs.edit();
             editor.putBoolean("firstTime", true);

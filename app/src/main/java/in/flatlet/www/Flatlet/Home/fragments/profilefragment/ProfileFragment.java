@@ -418,9 +418,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     private void printHashKey() {
+        Log.i(TAG, "printHashKey: started");
         try {
-            PackageInfo info = getActivity().getPackageManager().getPackageInfo(
-                    "in.flatlet.www.bottomtoolbar",
+            PackageInfo info =getContext().getPackageManager().getPackageInfo(
+                    "in.flatlet.www.Flatlet",
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -429,9 +430,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             }
         }
         catch (PackageManager.NameNotFoundException e) {
+            Log.d(TAG, "printHashKey: "+e);
 
         }
         catch (NoSuchAlgorithmException e) {
+            Log.d(TAG, "printHashKey: "+e);
 
         }
     }
