@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class FavouriteFragment extends Fragment {
     ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
 
     RecyclerView favouriteRecyclerView;
+    RelativeLayout RL_favourite;
     LinearLayoutManager recyclerViewLayoutManager;
     ProgressBar progressBar;
     @Nullable
@@ -47,8 +49,14 @@ public class FavouriteFragment extends Fragment {
 
         favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
         progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
+        RL_favourite=(RelativeLayout)getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();
         FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getContext(),favouriteHostelList,db);
+        if (favouriteHostelList.size()==0){
+            RL_favourite.setBackgroundResource(R.drawable.ic_nothing_found);
+            favouriteRecyclerView.setVisibility(View.INVISIBLE);
+        }
+
         favouriteRecyclerView.setHasFixedSize(true);
         recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);
