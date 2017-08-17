@@ -42,6 +42,8 @@ public class FavouriteFragment extends Fragment {
 
         Log.i(TAG, "onActivityCreated: SQLite Object Created successfully");
 
+
+
         favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
         progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
         addSqliteDataToList();
