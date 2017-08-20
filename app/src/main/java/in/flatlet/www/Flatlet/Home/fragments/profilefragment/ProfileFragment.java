@@ -195,8 +195,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
-        loginArray = new String[]{"My Favourites", "Recent Searches", "My Reviews", "Invite"};
-        imgid = new int[]{R.drawable.favourite, R.drawable.ic_search_black_24dp, R.drawable.ic_rate_review_black_24dp,
+        loginArray = new String[]{"My Favourites", "My Reviews", "Invite"};
+        imgid = new int[]{R.drawable.favourite,R.drawable.ic_rate_review_black_24dp,
                 R.drawable.ic_insert_invitation_black_24dp};
         login_card = (CardView) getActivity().findViewById(R.id.login_card);
         login_card.setVisibility(View.GONE);

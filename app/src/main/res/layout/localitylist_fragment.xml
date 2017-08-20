@@ -13,14 +13,20 @@
         android:titleTextColor="#000000"
         android:titleMarginStart="40dp"
         android:id="@+id/toolbar" />
-    <AutoCompleteTextView
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </Spinner>
+    <!--<AutoCompleteTextView
         android:id="@+id/autoCompleteText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:dropDownHeight="50dp"
         android:hint="Enter the locality or Area"
         android:textColorHint="@color/divider"
-        android:completionThreshold="1"/>
+        android:completionThreshold="1"/>-->
 
     <TextView
         android:layout_width="wrap_content"

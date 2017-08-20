@@ -22,9 +22,6 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 public class FilterActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
-    GetDataAdapter getDataAdapter = new GetDataAdapter();
-
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -39,8 +36,9 @@ public class FilterActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    CheckBox checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
-    RadioButton pricehtl, pricelth, dimhtl, dimlth, ac, nonac, checkBox, checkBox2, checkBox3, checkBox4;
+    CheckBox checkBoxElevator, checkBoxEveningSnacks, checkBoxToiletAttached, checkBoxCCTV, checkBoxOwner;
+    RadioButton checkBoxAc, checkBoxNonAc, checkBoxBoys, checkBoxGirls, checkBoxSingleRoom, checkBoxDoubleRoom;
+    RadioButton pricehtl, pricelth, dimhtl, dimlth;
     SeekBar seekBar;
 
 
@@ -71,90 +69,94 @@ public class FilterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         String query=null;
-        checkBox = (RadioButton) findViewById(R.id.checkBox);
-        checkBox2 = (RadioButton) findViewById(R.id.checkBox2);
-        checkBox3 = (RadioButton) findViewById(R.id.checkBox3);
-        checkBox4 = (RadioButton) findViewById(R.id.checkBox4);
-        checkBox6 = (CheckBox) findViewById(R.id.checkBox6);
-        checkBox7 = (CheckBox) findViewById(R.id.checkBox7);
-        checkBox8 = (CheckBox) findViewById(R.id.checkBox8);
-        checkBox9 = (CheckBox) findViewById(R.id.checkBox9);
-        checkBox10 = (CheckBox) findViewById(R.id.checkBox10);
+        checkBoxBoys = (RadioButton)findViewById(R.id.checkBoxBoys);
+        checkBoxGirls = (RadioButton) findViewById(R.id.checkBoxGirls);
+        checkBoxSingleRoom = (RadioButton) findViewById(R.id.checkBoxSingleRoom);
+        checkBoxDoubleRoom = (RadioButton) findViewById(R.id.checkBoxDoubleRoom);
+        checkBoxNonAc = (RadioButton) findViewById(R.id.checkBoxNonAc);
+        checkBoxAc = (RadioButton) findViewById(R.id.checkBoxAc);
+        checkBoxElevator = (CheckBox) findViewById(R.id.checkBoxElevator);
+        checkBoxEveningSnacks = (CheckBox) findViewById(R.id.checkBoxEveningSnacks);
+        checkBoxToiletAttached = (CheckBox) findViewById(R.id.checkBoxToiletAttached);
+        checkBoxCCTV = (CheckBox) findViewById(R.id.checkBoxCCTV);
+        checkBoxOwner = (CheckBox) findViewById(R.id.checkBoxOwner);
         pricehtl = (RadioButton) findViewById(R.id.pricehtl);
         pricelth = (RadioButton) findViewById(R.id.pricelth);
         dimhtl = (RadioButton) findViewById(R.id.dimhtl);
         dimlth = (RadioButton) findViewById(R.id.dimlth);
-        ac = (RadioButton) findViewById(R.id.ac);
-        nonac = (RadioButton) findViewById(R.id.nonac);
-        seekBar = (SeekBar) findViewById(R.id.seekBar1);
+        checkBoxAc = (RadioButton) findViewById(R.id.checkBoxAc);
+        checkBoxNonAc = (RadioButton) findViewById(R.id.checkBoxNonAc);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
 
         switch (item.getItemId()) {
 
             case R.id.action_reset:
 
-                checkBox.setChecked(false);
-                checkBox2.setChecked(false);
-                checkBox3.setChecked(false);
-                checkBox4.setChecked(false);
-                checkBox6.setChecked(false);
-                checkBox7.setChecked(false);
-                checkBox8.setChecked(false);
-                checkBox9.setChecked(false);
-                checkBox10.setChecked(false);
+                checkBoxBoys.setChecked(true);
+                checkBoxGirls.setChecked(false);
+                checkBoxSingleRoom.setChecked(true);
+                checkBoxDoubleRoom.setChecked(false);
+                checkBoxAc.setChecked(false);
+                checkBoxNonAc.setChecked(false);
+                checkBoxCCTV.setChecked(false);
+                checkBoxElevator.setChecked(false);
+                checkBoxOwner.setChecked(false);
+                checkBoxEveningSnacks.setChecked(false);
+                checkBoxToiletAttached.setChecked(false);
+
+
                 pricehtl.setChecked(false);
                 pricelth.setChecked(false);
                 dimlth.setChecked(false);
                 dimhtl.setChecked(false);
-                ac.setChecked(false);
-                nonac.setChecked(false);
                 seekBar.setProgress(20000);
                 break;
 
             case R.id.action_apply:
                 String roomType=null;
 
-                if (checkBox4.isChecked() && ac.isChecked()) {
+                if (checkBoxSingleRoom.isChecked() && checkBoxAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_single_ac>0 AND rent_single_ac<" + seekBar.getProgress();
                     roomType="rent_single_ac";
                 }
-                if (checkBox4.isChecked() && nonac.isChecked()) {
+                if (checkBoxSingleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_single_nonac>0 AND rent_single_nonac<" + seekBar.getProgress();
                     roomType="rent_single_nonac";
                 }
-                if (checkBox3.isChecked() && ac.isChecked()) {
+                if (checkBoxDoubleRoom.isChecked() && checkBoxAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_double_ac>0 AND rent_double_ac<" + seekBar.getProgress();
                     roomType="rent_double_ac";
                 }
-                if (checkBox3.isChecked() && nonac.isChecked()) {
+                if (checkBoxDoubleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_double_nonac>0 AND rent_double_nonac<" + seekBar.getProgress();
                     roomType="rent_double_nonac";
                 }
 
-                if (checkBox.isChecked()) {
+                if (checkBoxBoys.isChecked()) {
                     query = query + " AND gender='boys' ";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                if (checkBox2.isChecked()) {
+                if (checkBoxGirls.isChecked()) {
                     query = query + " AND gender='girls' ";
                     Log.i(TAG, "onOptionsItemSelected: string formed yet is" + query);
                 }
-                if (checkBox7.isChecked()) {
+                if (checkBoxEveningSnacks.isChecked()) {
                     query = query + " AND ame_eve_snacks=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                if (checkBox6.isChecked()) {
+                if (checkBoxElevator.isChecked()) {
                     query = query + " AND ame_elevator=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                if (checkBox8.isChecked()) {
+                if (checkBoxToiletAttached.isChecked()) {
                     query = query + " AND ame_toilet_attached=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                if (checkBox9.isChecked()) {
+                if (checkBoxCCTV.isChecked()) {
                     query = query + " AND CCTV=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                if (checkBox10.isChecked()) {
+                if (checkBoxOwner.isChecked()) {
                     query = query + " AND ownership=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
@@ -163,47 +165,47 @@ public class FilterActivity extends AppCompatActivity {
                 query=query+locality;
 
                 if (pricehtl.isChecked()) {
-                    if (checkBox4.isChecked() && ac.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked() && checkBoxAc.isChecked()) {
                         query = query + " ORDER BY rent_single_ac DESC";
                     }
-                    if (checkBox4.isChecked() && nonac.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                         query = query + " ORDER BY rent_single_nonac DESC";
                     }
-                    if (checkBox3.isChecked() && ac.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked() && checkBoxAc.isChecked()) {
                         query = " ORDER BY rent_double_ac DESC";
                     }
-                    if (checkBox3.isChecked() && nonac.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                         query = "ORDER BY rent_double_nonac DESC";
                     }
 
                 }
                 if (pricelth.isChecked()) {
-                    if (checkBox4.isChecked() && ac.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked() && checkBoxAc.isChecked()) {
                         query = query + " ORDER BY rent_single_ac ASC";
                     }
-                    if (checkBox4.isChecked() && nonac.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                         query = query + " ORDER BY rent_single_nonac ASC";
                     }
-                    if (checkBox3.isChecked() && ac.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked() && checkBoxAc.isChecked()) {
                         query = query + " ORDER BY rent_double_ac ASC";
                     }
-                    if (checkBox3.isChecked() && nonac.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                         query = query + " ORDER BY rent_double_nonac ASC";
                     }
                 }
                 if (dimhtl.isChecked()) {
-                    if (checkBox3.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked()) {
                         query = query + " ORDER BY (dim_single_length*dim_single_width) DESC";
                     }
-                    if (checkBox4.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked()) {
                         query = query + " ORDER BY (dim_double_length*dim_double_width) DESC";
                     }
                 }
                 if (dimlth.isChecked()) {
-                    if (checkBox3.isChecked()) {
+                    if (checkBoxDoubleRoom.isChecked()) {
                         query = query + " ORDER BY (dim_single_length*dim_single_width) ASC";
                     }
-                    if (checkBox4.isChecked()) {
+                    if (checkBoxSingleRoom.isChecked()) {
                         query = query + " ORDER BY (dim_double_length*dim_double_width) ASC";
                     }
                 }
@@ -227,4 +229,3 @@ public class FilterActivity extends AppCompatActivity {
 
 
 }
-

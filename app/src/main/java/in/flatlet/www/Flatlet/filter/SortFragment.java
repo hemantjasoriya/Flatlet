@@ -1,5 +1,6 @@
 package in.flatlet.www.Flatlet.filter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,10 @@ import in.flatlet.www.Flatlet.R;
 public class SortFragment extends Fragment  {
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 
     @Nullable
     @Override
@@ -22,6 +27,11 @@ public class SortFragment extends Fragment  {
 
 
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 

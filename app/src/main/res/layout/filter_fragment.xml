@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <SeekBar
-                    android:id="@+id/seekBar1"
+                    android:id="@+id/seekBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/seekBar1"
+                    android:layout_below="@+id/seekBar"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
@@ -75,20 +75,20 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/checkBoxGirls"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:checked="true"
                     android:layout_weight="1"
+                    android:checked="true"
                     android:text="@string/girls"
                     android:textSize="14sp" />
 
 
                 <RadioButton
-                    android:id="@+id/checkBox"
+                    android:id="@+id/checkBoxBoys"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -128,16 +128,16 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/checkBoxDoubleRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="@string/double_room"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:text="@string/double_room" />
 
                 <RadioButton
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/checkBoxSingleRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -171,23 +171,23 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/ac"
+                    android:id="@+id/checkBoxAc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:text="@string/ac"
+                    android:checked="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"/>
 
                 <RadioButton
-                    android:id="@+id/nonac"
+                    android:id="@+id/checkBoxNonAc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:text="@string/non_ac" />
 
             </RadioGroup>
@@ -221,7 +221,7 @@
 
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/checkBoxElevator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -233,47 +233,46 @@
 
 
                 <CheckBox
-                    android:id="@+id/checkBox7"
+                    android:id="@+id/checkBoxEveningSnacks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/checkBox6"
+                    android:layout_alignTop="@+id/checkBoxElevator"
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_toEndOf="@+id/checkBox6"
+                    android:layout_toEndOf="@+id/checkBoxElevator"
                     android:text="@string/evening_snacks"
                     android:textSize="14sp"
                     />
 
 
                 <CheckBox
-                    android:id="@+id/checkBox9"
+                    android:id="@+id/checkBoxCCTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/checkBox7"
+                    android:layout_alignTop="@+id/checkBoxEveningSnacks"
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_toEndOf="@+id/checkBox7"
+                    android:layout_toEndOf="@+id/checkBoxEveningSnacks"
                     android:text="@string/cctv"
                     android:textSize="14sp"
                     android:marqueeRepeatLimit="marquee_forever"
                     />
                 <CheckBox
-                    android:id="@+id/checkBox10"
+                    android:id="@+id/checkBoxOwner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/checkBox6"
-                    android:layout_below="@+id/checkBox6"
+                    android:layout_alignStart="@+id/checkBoxElevator"
+                    android:layout_below="@+id/checkBoxElevator"
                     android:text="@string/owner"
-
                     android:textSize="14sp"
                     android:layout_marginBottom="10dp"/>
 
                 <CheckBox
-                    android:id="@+id/checkBox8"
+                    android:id="@+id/checkBoxToiletAttached"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/checkBox7"
-                    android:layout_below="@+id/checkBox7"
+                    android:layout_alignStart="@+id/checkBoxEveningSnacks"
+                    android:layout_below="@+id/checkBoxEveningSnacks"
                     android:text="@string/attached_toilet"
                     android:textSize="14sp" />
 

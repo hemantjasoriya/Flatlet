@@ -22,7 +22,7 @@ public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.filter_fragment,container,false);
-        seekBar1=(SeekBar)v.findViewById(R.id.seekBar1);
+        seekBar1=(SeekBar)v.findViewById(R.id.seekBar);
         seekBar1.setOnSeekBarChangeListener(this);
         tv1=(TextView)v.findViewById(R.id.tv1);
         tv2=(TextView)v.findViewById(R.id.tv2);
