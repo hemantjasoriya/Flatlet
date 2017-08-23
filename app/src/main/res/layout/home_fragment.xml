@@ -41,7 +41,8 @@
                 android:hint="@string/enter_locality_here"
                 android:paddingBottom="5dp"
                 android:paddingStart="5dp"
-                android:paddingTop="5dp" />
+                android:paddingTop="5dp"
+                />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

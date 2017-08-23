@@ -5,17 +5,48 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/float_navigation"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="115dp"
-        android:layout_marginEnd="15dp"
-        android:onClick="onFloatClick"
-        android:src="@drawable/placeholder"
-        android:visibility="visible"
-        app:elevation="6dp" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="?attr/actionBarTheme"
+                    android:visibility="visible"
+                    app:layout_collapseMode="parallax" />
+
+                <ImageView
+                    android:id="@+id/imageHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:layout_below="@+id/toolbar"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax" />
+            </RelativeLayout>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -38,8 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="15dp">
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,9 +90,9 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:text="@string/rent"
-                            android:textStyle="bold"
                             android:textAllCaps="true"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
                         <ProgressBar
                             android:id="@+id/progressBar"
@@ -182,7 +213,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview1"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -194,15 +226,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/amenities"
-                        android:textAlignment="center"
-                        />
+                        android:textAlignment="center" />
 
                     <LinearLayout
                         android:id="@+id/ll1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_below="@+id/title_ame"
+                        android:orientation="horizontal"
                         android:weightSum="6">
 
                         <ImageView
@@ -273,9 +304,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview2"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="15dp">
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="5dp">
 
                 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
@@ -294,8 +325,8 @@
                         android:text="@string/specification"
                         android:textAlignment="center"
                         android:textColorLink="@color/colorPrimary"
-                        tools:text="Specifications"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        tools:text="Specifications" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -391,17 +422,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview3"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                app:cardCornerRadius="15dp"
-                android:background="#ffffff">
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ffffff"
+                app:cardCornerRadius="5dp">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:weightSum="5">
+                    android:weightSum="8">
 
                     <RelativeLayout
                         android:id="@+id/RL2"
@@ -414,10 +445,32 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
                             android:text="Rating"
-                            android:textStyle="bold"
                             android:textAllCaps="true"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textView11"
+                            android:layout_centerHorizontal="true"
+                            android:text="N/A"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="@color/primary_light"
+                            android:textSize="42sp" />
+
+                        <TextView
+                            android:id="@+id/textViewTotalRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textViewRating"
+                            android:layout_centerHorizontal="true"
+                            android:drawableLeft="@drawable/ic_group"
+                            android:text="N/A"
+                            android:textSize="16sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -435,20 +488,20 @@
                             android:text="Food" />
 
                         <RatingBar
-                            android:id="@+id/ratingBar1"
+                            android:id="@+id/ratingBarFood"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView12"
                             android:layout_alignBaseline="@+id/textView12"
-                            android:layout_marginEnd="60dp"
+                            android:layout_alignBottom="@+id/textView12"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="60dp"
                             android:isIndicator="false"
                             android:numStars="5"
                             android:rating="5"
-                            android:stepSize="1"
                             android:scaleX="1.5"
-                            android:scaleY="1.5"/>
+                            android:scaleY="1.5"
+                            android:stepSize="1" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -463,24 +516,25 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="40dp"
-                            android:text="Accomodation" />
+                            android:text="Accommodation" />
 
                         <RatingBar
-                            android:id="@+id/ratingBar2"
+                            android:id="@+id/ratingBarAccommodation"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView13"
                             android:layout_alignBaseline="@+id/textView13"
-                            android:layout_marginEnd="60dp"
+                            android:layout_alignBottom="@+id/textView13"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="60dp"
                             android:isIndicator="false"
                             android:numStars="5"
                             android:rating="5"
-                            android:stepSize="1"
                             android:scaleX="1.5"
-                            android:scaleY="1.5"/>
+                            android:scaleY="1.5"
+                            android:stepSize="1" />
                     </RelativeLayout>
+
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -497,27 +551,27 @@
                             android:text="Staff Behaviour" />
 
                         <RatingBar
-                            android:id="@+id/ratingBar3"
+                            android:id="@+id/ratingBarStaff"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView14"
                             android:layout_alignBaseline="@+id/textView14"
-                            android:layout_marginEnd="60dp"
+                            android:layout_alignBottom="@+id/textView14"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="60dp"
                             android:isIndicator="false"
                             android:numStars="5"
                             android:rating="5"
-                            android:stepSize="1"
                             android:scaleX="1.5"
-                            android:scaleY="1.5"/>
+                            android:scaleY="1.5"
+                            android:stepSize="1" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginBottom="10dp">
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/textView15"
@@ -529,68 +583,58 @@
                             android:text="Study Environment" />
 
                         <RatingBar
-                            android:id="@+id/ratingBar4"
+                            android:id="@+id/ratingBarStudyEnvironment"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView15"
                             android:layout_alignBaseline="@+id/textView15"
-                            android:layout_marginEnd="60dp"
+                            android:layout_alignBottom="@+id/textView15"
                             android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="60dp"
                             android:isIndicator="false"
                             android:numStars="5"
-                            android:stepSize="1"
                             android:rating="5"
                             android:scaleX="1.5"
-                            android:scaleY="1.5"/>
+                            android:scaleY="1.5"
+                            android:stepSize="1" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="3">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"
+                            android:elevation="5dp"
+                            android:onClick="onSubmitRatingButton"
+                            android:text="Submit" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="onEditRatingsButton"
+                            android:text="Edit Ratings" />
+
                     </RelativeLayout>
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <fragment
+                android:id="@+id/map_fragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_below="@id/cardview4"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                tools:context="in.flatlet.www.Flatlet.secondActivity" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
-                    android:visibility="visible"
-                    app:layout_collapseMode="parallax" />
-
-                <ImageView
-                    android:id="@+id/imageHead"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_below="@+id/toolbar"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax" />
-            </RelativeLayout>
-
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>
