@@ -104,5 +104,6 @@
     <string name="set_max_rent">Set Max Rent</string>
     <string name="facebook_app_id">119030078752902</string>
     <string name="fb_login_protocol_scheme">fb261128957726181</string>
+    <!--<string name="google_maps_key">AIzaSyBm3Yrnljsk9jPZaJBgMrPz-Y2YWZokYLg</string>-->
 
 </resources>
