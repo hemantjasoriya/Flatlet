@@ -1,12 +1,18 @@
 package in.flatlet.www.Flatlet.recyclerView;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,22 +25,36 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
+import com.facebook.accountkit.ui.AccountKitActivity;
+import com.facebook.accountkit.ui.AccountKitConfiguration;
+import com.facebook.accountkit.ui.LoginType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
+import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    Context context;
-    List<GetDataAdapter> dataModelArrayList;
-    SQLiteDatabase db_favourite;
-    FeedReaderDbHelper feedReaderDbHelper ;
-    Cursor cursor;
+    private Context context;
+    private List<GetDataAdapter> dataModelArrayList;
+    private SQLiteDatabase db_favourite;
+    private FeedReaderDbHelper feedReaderDbHelper ;
+    private Cursor cursor;
     private final String TAG = "RecyclerViewAdapter";
+    public static int APP_REQUEST_CODE = 99;
 
 
     RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context) {
@@ -112,6 +132,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         
         holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                AccessToken accessToken= AccountKit.getCurrentAccessToken();
+                if (accessToken==null){
+                    AlertDialog.Builder alertDialog=new AlertDialog.Builder(context);
+                    alertDialog.setTitle("Login alert");
+                    alertDialog.setIcon(R.drawable.poipo);
+                    alertDialog.setMessage("You first have to login to make favourites");
+                    MyListener my=new MyListener();
+                    alertDialog.setPositiveButton("LogIn",my);
+                    alertDialog.setNegativeButton("Cancel",my);
+                    alertDialog.show();
+                    return;
+                }
                 if (isChecked) {
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
 
@@ -123,6 +155,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
                    db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
 
+
+
+                    // checking the size of sqlite database
                     String[] projection1 = {
                             FeedReaderContract.FeedEntry._ID,
                             FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
@@ -181,4 +216,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             toggle=(ToggleButton)itemView.findViewById(R.id.toggleButton);
         }
     }
+
+    class MyListener implements DialogInterface.OnClickListener{
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if(which==-1){
+               Intent intent=new Intent(context,FirstActivity.class);
+                intent.setFlags(2);
+                Log.i(TAG, "onClick: ");
+                context.startActivity(intent);
+
+
+            }
+
+            else
+                Toast.makeText(context,"Negative button clicked",Toast.LENGTH_LONG).show();
+
+
+        }
+    }
+
 }

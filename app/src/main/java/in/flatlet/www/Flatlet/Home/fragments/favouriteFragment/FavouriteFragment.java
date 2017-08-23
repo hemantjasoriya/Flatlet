@@ -51,7 +51,7 @@ public class FavouriteFragment extends Fragment {
         progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
         RL_favourite=(RelativeLayout)getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();
-        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getContext(),favouriteHostelList,db);
+        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getActivity(),favouriteHostelList,db);
         if (favouriteHostelList.size()==0){
             RL_favourite.setBackgroundResource(R.drawable.ic_nothing_found);
             favouriteRecyclerView.setVisibility(View.INVISIBLE);

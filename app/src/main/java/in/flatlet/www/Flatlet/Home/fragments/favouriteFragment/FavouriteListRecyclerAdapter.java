@@ -1,8 +1,11 @@
 package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,15 +15,20 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
+import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder>{
@@ -29,9 +37,9 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
     SQLiteDatabase db;
     private final String TAG = "RecyclerViewAdapter";
 
-    public FavouriteListRecyclerAdapter(Context context, ArrayList<FavouriteHostelDataModel> favouriteHostelList, SQLiteDatabase db) {
+    public FavouriteListRecyclerAdapter(Context context1, ArrayList<FavouriteHostelDataModel> favouriteHostelList, SQLiteDatabase db) {
         super();
-        this.context= context;
+        context= context1;
         this.favouriteHostelList=favouriteHostelList;
         this.db=db;
         Log.i(TAG, "FavouriteListRecyclerAdapter: Context and List containing Model class object received");
@@ -49,6 +57,8 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
     public void onBindViewHolder(final FavouriteListRecyclerAdapter.ViewHolder holder, final int position) {
 
         Log.i(TAG, "onBindViewHolder: invoked" +position);
+
+
          final FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
         holder.hostel_title.setText(favouriteHostelDataModel.getTitle());
 
@@ -114,4 +124,6 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
            /* RL_favourite=(RelativeLayout)itemView.findViewById(R.id.RL_favourite);*/
         }
     }
+
+
     }

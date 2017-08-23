@@ -5,6 +5,7 @@
     android:id="@+id/RL1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="in.flatlet.www.Flatlet.recyclerView.MainActivity">
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/filterFloatingButton"
@@ -19,6 +20,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         />
+    <FrameLayout
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView1"

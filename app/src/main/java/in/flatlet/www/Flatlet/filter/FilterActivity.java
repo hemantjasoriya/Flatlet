@@ -43,13 +43,16 @@ public class FilterActivity extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("bjb", "onCreate: ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.i("bjb", "onCreate: after toolbar ");
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         adapter = new FilterAdapter(getSupportFragmentManager());
+        Log.i("bjb", "onCreate: after adapter");
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(adapter);
@@ -57,6 +60,8 @@ public class FilterActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        Log.i("bjb", "onCreate:last ");
+
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {

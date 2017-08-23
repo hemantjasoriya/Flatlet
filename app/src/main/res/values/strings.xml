@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Flatlet</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">aa12950e3b99380921f626aa8d066635</string>
     <string name="click_here_to_load_json_data_into_recyclerview">Click Here to load JSON data into RecyclerView</string>
     <string name="subject">Subject :</string>
     <string name="subject_show_here">Subject Show Here</string>

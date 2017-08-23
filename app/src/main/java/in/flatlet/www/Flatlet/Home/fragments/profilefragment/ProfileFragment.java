@@ -58,6 +58,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.utility.Utility;
 
 
 public class ProfileFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -65,7 +66,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
     private Toolbar toolbar;
     private String[] loginArray;
     private int[] imgid;
-    private ListView listView;
+    /*private ListView listView;*/
     private Button SignOut;
     private SignInButton SignIn;
     private LoginButton loginButton;
@@ -207,10 +208,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
 
         Name = (TextView) getActivity().findViewById(R.id.user_name);
         Email = (TextView) getActivity().findViewById(R.id.email);
-        listView = (ListView) getActivity().findViewById(R.id.login_list);
+        /*listView = (ListView) getActivity().findViewById(R.id.login_list);*/
         prof_pic = (CircleImageView) getActivity().findViewById(R.id.circle_image_view);
         login_card = (CardView) getActivity().findViewById(R.id.login_card);
-        listView.setOnItemClickListener(this);
+        /*listView.setOnItemClickListener(this);*/
         SignIn.setOnClickListener(this);
         SignOut.setOnClickListener(this);
 
@@ -236,15 +237,15 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             updateUIFromFacebook(true);
         }
 
-        MyArrayAdapter adpt = new MyArrayAdapter(getActivity(), loginArray, imgid);
-        listView.setAdapter(adpt);
+        /*MyArrayAdapter adpt = new MyArrayAdapter(getActivity(), loginArray, imgid);*/
+       /* listView.setAdapter(adpt);*/
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i(TAG, "onItemClick: ");
-        String s = listView.getItemAtPosition(position).toString();
-        Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s, Toast.LENGTH_SHORT).show();
+        /*String s = listView.getItemAtPosition(position).toString();*/
+       /* Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s, Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -294,6 +295,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemClick
             name = account != null ? account.getDisplayName() : null;
 
             Log.i(TAG, "handleResult: " + name);
+            Utility utility=new Utility();
+            utility.setUser_name(account.getDisplayName());
 
             email = account.getEmail();
             name=account.getDisplayName();

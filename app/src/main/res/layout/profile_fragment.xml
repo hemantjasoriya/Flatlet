@@ -95,7 +95,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
-    <ListView
+   <!-- <ListView
         android:id="@+id/login_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -107,7 +107,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 
-    </ListView>
+    </ListView>-->
+
+
+
 
 
 </LinearLayout>
