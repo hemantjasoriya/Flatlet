@@ -141,6 +141,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     MyListener my=new MyListener();
                     alertDialog.setPositiveButton("LogIn",my);
                     alertDialog.setNegativeButton("Cancel",my);
+
                     alertDialog.show();
                     return;
                 }

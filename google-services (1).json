@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1089338761554",
+    "project_id": "flatlet-e7a41"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089338761554:android:5954a4ffcb87dec3",
+        "android_client_info": {
+          "package_name": "in.flatlet.www.Flatlet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1089338761554-6qa9kcjcni6ek9rm2qpvvgls4bilgb9g.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1089338761554-qgsvitvbdu46d6mnclg42t86n48dvau1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.flatlet.www.Flatlet",
+            "certificate_hash": "a63305a2232bb073ed7f67f9daee962c5fddab7a"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAChVB258ZTVJGdsuJ3zss3yrzXesQ4DkA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

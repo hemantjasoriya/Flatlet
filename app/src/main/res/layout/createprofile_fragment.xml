@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/personalDetailsTextView"
+        android:text="Personal Details"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="italic"
+        />
+
+    <EditText
+        android:id="@+id/mobileEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mobile Number"
+        android:layout_below="@+id/personalDetailsTextView"
+        android:enabled="false"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mobileEditText">
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Name"
+            android:textSize="13sp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_input_layout">
+
+        <EditText
+            android:inputType="textEmailAddress"
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Id(optional)"
+            android:textSize="13sp"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewIdentity"
+        android:text="Your Identity"
+        android:layout_below="@+id/text_input_layout1"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"/>
+
+
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/text_input_layout1"
+        android:id="@+id/radioGroupIdentity"
+        android:layout_toRightOf="@+id/textViewIdentity"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/textViewIdentity"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/maleRadioButton"
+            android:text="Male"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/femaleRadioButton"
+            android:text="Female"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveProfileButton"
+        android:text="Save Profile"
+        android:textColor="#ffffff"
+        android:background="#d01414"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/radioGroupIdentity"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"/>
+
+
+
+
+
+
+
+
+
+    <!-- <EditText
+         android:id="@+id/Id"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:background="@android:color/transparent"
+         android:layout_below="@+id/text_input_layout2"
+         android:text="amandeep sharma"
+         android:editable="false">
+     </EditText>-->
+
+
+
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:background="#d01414"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+
+</RelativeLayout>

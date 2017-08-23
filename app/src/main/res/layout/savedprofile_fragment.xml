@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userProfileTextView"
+        android:text="User Profile"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userNameLinearLayout"
+        android:layout_below="@+id/userProfileTextView"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameEditText"
+            android:enabled="false"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameEditButton"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/colorGreen"
+            android:text="Edit"
+            android:layout_marginLeft="13dp"
+
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/userNameView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/userNameLinearLayout"
+        android:layout_marginLeft="5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailLinearLayout"
+        android:layout_below="@+id/userNameView"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Email"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userEmailEditText"
+            android:enabled="false"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailEditButton"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/colorGreen"
+            android:text="Edit"
+            android:layout_marginLeft="13dp"
+
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/emailView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/emailLinearLayout"
+        android:layout_marginLeft="5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mobileLinearLayout"
+        android:layout_below="@+id/emailView"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Mobile No"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userMobileEditText"
+            android:enabled="false"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+
+            />
+
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/mobileView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/mobileLinearLayout"
+        android:layout_marginLeft="5dp"/>
+
+    <Button
+        android:id="@+id/logoutButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGOUT"
+        android:layout_below="@+id/mobileView"
+        android:textColor="#ffffff"
+        android:background="#e76565"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        />
+
+
+</RelativeLayout>
