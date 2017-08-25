@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
-/**
- * Created by javax on 31-Jul-17.
- */
+
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
     public static final String TAG = "FeedReaderDbHelper";
