@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
             dataModelArrayList.add(GetDataAdapter2);
         }
-        recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this);
+        recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this,recyclerView);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
     public void onFilterClick(View view) {

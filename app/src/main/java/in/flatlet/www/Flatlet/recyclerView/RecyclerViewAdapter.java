@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,12 +56,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Cursor cursor;
     private final String TAG = "RecyclerViewAdapter";
     public static int APP_REQUEST_CODE = 99;
+    private RecyclerView recyclerView;
 
 
-    RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context) {
+    RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context, RecyclerView recyclerView) {
         super();
         this.dataModelArrayList = getDataAdapter;
         this.context = context;
+        this.recyclerView=recyclerView;
         feedReaderDbHelper = new FeedReaderDbHelper(context);
         db_favourite=feedReaderDbHelper.getWritableDatabase();
 
@@ -86,9 +89,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(v);
     }
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Log.i(TAG, "onBindViewHolder: invoked" +position);
-        final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(position);
+    public void onBindViewHolder( final ViewHolder holder, final int position) {
+        Log.i(TAG, "onBindViewHolder: invoked" +holder.getAdapterPosition());
+        final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(holder.getAdapterPosition());
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
@@ -101,29 +104,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         cursor=db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
 
         Log.i(TAG, "onBindViewHolder: before if and get count is "+cursor.getCount());
-        String[] projection1 = {
+       /* String[] projection1 = {
                 FeedReaderContract.FeedEntry._ID,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
 
         };
+*/
+       /* Cursor cursor1 = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);*/
 
-        Cursor cursor1 = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
+        cursor.moveToNext();
+        if (cursor.getCount()!=0 && cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())) {
+            Log.i(TAG, "onBindViewHolder: if chala "+getDataAdapter1.getName());
 
-
-        if (cursor1.getCount()!=0 && cursor.getCount()!=0){
-            cursor.moveToNext();
-            Log.i(TAG, "onBindViewHolder: cursor.isnull returned true "+cursor.getString(0));
-
-        if (cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())){
+           
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
             holder.toggle.setChecked(true);
         }
-        else
-        {
-            holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-            holder.toggle.setChecked(false);
-        }}
         else {
+            Log.i(TAG, "onBindViewHolder: else chala "+getDataAdapter1.getName());
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
             holder.toggle.setChecked(false);
         }
@@ -131,8 +129,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         
         
         holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i(TAG, "onCheckedChanged: ");
                 AccessToken accessToken= AccountKit.getCurrentAccessToken();
+                SharedPreferences sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
+                String dbqry=null;
                 if (accessToken==null){
                     AlertDialog.Builder alertDialog=new AlertDialog.Builder(context);
                     alertDialog.setTitle("Login alert");
@@ -146,6 +148,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     return;
                 }
                 if (isChecked) {
+                    Log.i(TAG, "onCheckedChanged: insert query "+getDataAdapter1.getName());
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
 
                     ContentValues values=new ContentValues();
@@ -155,15 +158,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING,1);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
                    db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
+                    // sending favourites to mysql database
+                    dbqry="INSERT INTO `user_favourites`(`title`, `user_mobile`) VALUES ('"+getDataAdapter1.getName()+"'," +
+                            "'"+sharedPreferences.getString("userMobile","911")+"')";
 
 
 
                     // checking the size of sqlite database
                     String[] projection1 = {
                             FeedReaderContract.FeedEntry._ID,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
-
-                    };
+                            FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
 
                     cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
                     int i = cursor.getCount();
@@ -171,12 +175,53 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     Toast.makeText(context,"Added to favourites",Toast.LENGTH_SHORT).show();
                 }
-                else {
+                else  {
+                    LinearLayoutManager layoutManager= (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int i=layoutManager.findFirstVisibleItemPosition();
+                    int j=layoutManager.findLastVisibleItemPosition();
+                    Log.i(TAG, "onCheckedChanged: first visible "+i);
+                    if (position<=j && position>=i){
+                    Log.i(TAG, "onCheckedChanged: "+position);
+
+
+
+
+
+
+
+                    Log.i(TAG, "onCheckedChanged: delete query "+getDataAdapter1.getName());
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-                    db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{getDataAdapter1.getName()});
+                    db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",
+                            new String[]{getDataAdapter1.getName()});
+                    Log.i(TAG, "onCheckedChanged: position is "+position);
+                    dbqry="DELETE FROM `user_favourites` WHERE `title`='"+getDataAdapter1.getName()+"' AND " +
+                            "`user_mobile`='"+sharedPreferences.getString("userMobile","911")+"'";
+                    Log.i(TAG, "onCheckedChanged: "+dbqry);
 
                 }
-            }
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                String urlFinal = url.replace(" ", "%20");
+
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                Log.i(TAG, "onResponse: " + response);
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: " + error);
+
+                    }
+                });
+                RequestQueue queue1 = Volley.newRequestQueue(context);
+                queue1.add(stringRequest);
+
+            }}
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
