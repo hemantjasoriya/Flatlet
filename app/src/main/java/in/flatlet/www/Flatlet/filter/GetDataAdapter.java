@@ -1,9 +1,9 @@
 package in.flatlet.www.Flatlet.filter;
 
 public class GetDataAdapter {
-    public int rent_single_ac,rent_single_nonac,rent_double_ac,rent_double_nonac,
-    dim_single_length,dim_single_width,dim_double_length,dim_double_width;
-    public String title,address_primary,address_seconary,contact_primary,contact_secondary,count_single,count_double;
+    public int rent_single_ac, rent_single_nonac, rent_double_ac, rent_double_nonac,
+            dim_single_length, dim_single_width, dim_double_length, dim_double_width;
+    public String title, address_primary, address_seconary, contact_primary, contact_secondary, count_single, count_double;
 
     public int getRent_single_ac() {
         return rent_single_ac;
@@ -68,7 +68,6 @@ public class GetDataAdapter {
     public void setDim_double_width(int dim_double_width) {
         this.dim_double_width = dim_double_width;
     }
-
 
 
     public String getAddress_primary() {

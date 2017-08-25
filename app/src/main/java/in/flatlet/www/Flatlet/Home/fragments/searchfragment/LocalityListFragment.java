@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home;
+package in.flatlet.www.Flatlet.Home.fragments.searchfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,41 +25,42 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 public class LocalityListFragment extends Fragment {
     AutoCompleteTextView autoCompleteTextView;
-   private final String [] localityArray = {"Mahaveer Nagar 1", "Rajeev Gandhi Nagar","New Rajeev Gandhi Nagar"};
+    private final String[] localityArray = {"Mahaveer Nagar 1", "Rajeev Gandhi Nagar", "New Rajeev Gandhi Nagar"};
     final static String TAG = "LocalityListFragment";
     Button searchButton;
     String dbqry;
-    String roomType,gender;
+    String roomType, gender;
     Spinner spinner;
-     public String locality;
-    RadioButton checkBoxGirls,checkBoxBoys, checkBoxSingleRoom,checkBoxDoubleRoom,checkBoxAc,checkBoxNonAc;
+    public String locality;
+    RadioButton checkBoxGirls, checkBoxBoys, checkBoxSingleRoom, checkBoxDoubleRoom, checkBoxAc, checkBoxNonAc;
     Toolbar toolbar;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.localitylist_fragment,container,false);
+        return inflater.inflate(R.layout.localitylist_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        searchButton = (Button)getActivity().findViewById(R.id.searchButton);
+        searchButton = (Button) getActivity().findViewById(R.id.searchButton);
         Log.i(TAG, "onActivityCreated: started");
-        checkBoxBoys=(RadioButton)getActivity().findViewById(R.id.checkBoxBoys);
-        checkBoxGirls=(RadioButton)getActivity().findViewById(R.id.checkBoxGirls);
-        checkBoxSingleRoom=(RadioButton)getActivity().findViewById(R.id.checkBoxSingleRoom);
-        checkBoxDoubleRoom=(RadioButton)getActivity().findViewById(R.id.checkBoxDoubleRoom);
-        checkBoxAc=(RadioButton)getActivity().findViewById(R.id.checkBoxAc);
-        checkBoxNonAc=(RadioButton)getActivity().findViewById(R.id.checkBoxNonAc);
-        Spinner spinner=(Spinner)getActivity().findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter =  ArrayAdapter.createFromResource(getActivity(),R.array.localityArray,
+        checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
+        checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
+        checkBoxSingleRoom = (RadioButton) getActivity().findViewById(R.id.checkBoxSingleRoom);
+        checkBoxDoubleRoom = (RadioButton) getActivity().findViewById(R.id.checkBoxDoubleRoom);
+        checkBoxAc = (RadioButton) getActivity().findViewById(R.id.checkBoxAc);
+        checkBoxNonAc = (RadioButton) getActivity().findViewById(R.id.checkBoxNonAc);
+        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.localityArray,
                 android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                locality= parent.getItemAtPosition(position).toString();
+                locality = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -69,16 +70,16 @@ public class LocalityListFragment extends Fragment {
         });
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 HomeFragment homeFragment = new HomeFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content,homeFragment,null);
+                fragmentTransaction.replace(R.id.content, homeFragment, null);
                 fragmentTransaction.commit();
             }
         });
@@ -86,47 +87,46 @@ public class LocalityListFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbqry= "Select%20*%20from%20`hostel_specs`%20where%20";
+                dbqry = "Select%20*%20from%20`hostel_specs`%20where%20";
                 if (checkBoxBoys.isChecked()) {
                     dbqry = dbqry + "gender=" + "'boys' ";
-                    gender="boys";
+                    gender = "boys";
 
                 }
-                if(checkBoxGirls.isChecked()) {
+                if (checkBoxGirls.isChecked()) {
                     dbqry = dbqry + "gender=" + "'girls' ";
-                    gender="girls";
+                    gender = "girls";
                 }
-                if (checkBoxAc.isChecked()&&checkBoxSingleRoom.isChecked()) {
+                if (checkBoxAc.isChecked() && checkBoxSingleRoom.isChecked()) {
                     dbqry = dbqry + "AND rent_single_ac>0";
                     roomType = "rent_single_ac";
                 }
-                if (checkBoxAc.isChecked()&&checkBoxDoubleRoom.isChecked()) {
+                if (checkBoxAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
                     dbqry = dbqry + "AND rent_double_ac>0";
                     roomType = "rent_double_ac";
                 }
-                if (checkBoxNonAc.isChecked()&&checkBoxSingleRoom.isChecked()) {
+                if (checkBoxNonAc.isChecked() && checkBoxSingleRoom.isChecked()) {
                     dbqry = dbqry + "AND rent_single_nonac>0";
                     roomType = "rent_single_nonac";
                 }
-                if (checkBoxNonAc.isChecked()&&checkBoxDoubleRoom.isChecked()) {
+                if (checkBoxNonAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
                     dbqry = dbqry + "AND rent_double_nonac>0";
                     roomType = "rent_double_nonac";
                 }
 
-                dbqry=dbqry.replace(" ","%20");
+                dbqry = dbqry.replace(" ", "%20");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("dbqry",dbqry);
-                locality= locality.replace(" ","%20");
-                intent.putExtra("locality","%20AND%20address_secondary="+"'"+locality+"'");
-                intent.putExtra("roomType",roomType);
-                intent.putExtra("gender",gender);
-                Log.i(TAG, "onClick LocalityFragment:Roomtype"+roomType +locality);
+                intent.putExtra("dbqry", dbqry);
+                locality = locality.replace(" ", "%20");
+                intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'" + "ORDER%20BY%20RAND()");
+                intent.putExtra("roomType", roomType);
+                intent.putExtra("gender", gender);
+                Log.i(TAG, "onClick LocalityFragment:Roomtype" + roomType + locality);
                 startActivity(intent);
-                dbqry= null;
+                dbqry = null;
 
             }
         });
-
 
 
     }

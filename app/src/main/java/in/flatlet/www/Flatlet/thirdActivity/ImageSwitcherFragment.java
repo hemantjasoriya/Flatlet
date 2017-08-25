@@ -32,13 +32,12 @@ public class ImageSwitcherFragment extends Fragment {
                 Log.i(TAG, "onResponse:Raw response is" + response);
                 try {
                     response = response.replaceAll("[\n]", "");
-                    response= response.trim();
+                    response = response.trim();
                     int result = Integer.parseInt(response);
-                    Log.i(TAG, "onResponse: string converted into integer"+result);
+                    Log.i(TAG, "onResponse: string converted into integer" + result);
                     /*tv.setText(result+"");*/
-                }
-                catch(NumberFormatException ex){
-                    Log.i(TAG, "onResponse: "+ex);
+                } catch (NumberFormatException ex) {
+                    Log.i(TAG, "onResponse: " + ex);
                 }
             }
         },
@@ -51,13 +50,13 @@ public class ImageSwitcherFragment extends Fragment {
         RequestQueue requestqueue = Volley.newRequestQueue(getContext());
         requestqueue.add(request);
 
-        return inflater.inflate(R.layout.imageview_third,container,false);
+        return inflater.inflate(R.layout.imageview_third, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ViewPager viewPager = (ViewPager)getActivity().findViewById(R.id.viewPager1);
+        ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.viewPager1);
         ImageSwitcherAdapter adapter = new ImageSwitcherAdapter(getContext());
         viewPager.setAdapter(adapter);
     }

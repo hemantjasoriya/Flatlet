@@ -1,11 +1,8 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,23 +12,18 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.flatlet.www.Flatlet.Home.FirstActivity;
-import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
-import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
-public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder>{
+public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder> {
     Context context;
     List<FavouriteHostelDataModel> favouriteHostelList;
     SQLiteDatabase db;
@@ -39,9 +31,9 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
 
     public FavouriteListRecyclerAdapter(Context context1, ArrayList<FavouriteHostelDataModel> favouriteHostelList, SQLiteDatabase db) {
         super();
-        context= context1;
-        this.favouriteHostelList=favouriteHostelList;
-        this.db=db;
+        context = context1;
+        this.favouriteHostelList = favouriteHostelList;
+        this.db = db;
         Log.i(TAG, "FavouriteListRecyclerAdapter: Context and List containing Model class object received");
 
 
@@ -53,18 +45,19 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.favourite_recycler_view_cards, parent, false);
         return new FavouriteListRecyclerAdapter.ViewHolder(v);
     }
+
     @Override
     public void onBindViewHolder(final FavouriteListRecyclerAdapter.ViewHolder holder, final int position) {
 
-        Log.i(TAG, "onBindViewHolder: invoked" +position);
+        Log.i(TAG, "onBindViewHolder: invoked" + position);
 
 
-         final FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
+        final FavouriteHostelDataModel favouriteHostelDataModel = favouriteHostelList.get(position);
         holder.hostel_title.setText(favouriteHostelDataModel.getTitle());
 
         holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
 
-        holder.hostel_rent.setText(favouriteHostelDataModel.getRent()+"");
+        holder.hostel_rent.setText(favouriteHostelDataModel.getRent() + "");
 
         Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
         Log.i(TAG, "onBindViewHolder: image bhi set bro");
@@ -72,12 +65,12 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(!isChecked){
+                if (!isChecked) {
                     favouriteHostelList.remove(position);
                     notifyDataSetChanged();
                     notifyItemRemoved(position);
-                    notifyItemRangeChanged(position,favouriteHostelList.size());
-                    db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE+" = ?",new String[]{favouriteHostelDataModel.getTitle()});
+                    notifyItemRangeChanged(position, favouriteHostelList.size());
+                    db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
 
 
                 }
@@ -88,8 +81,8 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Activity2.class);
-                intent.putExtra("hostel_title",favouriteHostelDataModel.getTitle());
-                Log.i(TAG, "onClick: data sent to activity2 is "+favouriteHostelDataModel.getTitle());
+                intent.putExtra("hostel_title", favouriteHostelDataModel.getTitle());
+                Log.i(TAG, "onClick: data sent to activity2 is " + favouriteHostelDataModel.getTitle());
                 context.startActivity(intent);
 
             }
@@ -120,10 +113,10 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
             hostel_address = (TextView) itemView.findViewById(R.id.hostel_address);
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
-            toggle=(ToggleButton)itemView.findViewById(R.id.toggleButton);
+            toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
            /* RL_favourite=(RelativeLayout)itemView.findViewById(R.id.RL_favourite);*/
         }
     }
 
 
-    }
+}

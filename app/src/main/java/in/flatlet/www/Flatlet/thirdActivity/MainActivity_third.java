@@ -34,7 +34,7 @@ public class MainActivity_third extends AppCompatActivity {
         //now when the pager changes we wanna change the tab and vice-versa
         tabLayout.setupWithViewPager(pager);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -47,6 +47,7 @@ public class MainActivity_third extends AppCompatActivity {
         }
     }
 }
+
 class MyPageAdapter extends FragmentStatePagerAdapter {
     public final String TAG = "MainActivity";
 
@@ -54,6 +55,7 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
 
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         Log.i(TAG, "getItem:called ");
@@ -63,7 +65,7 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
         //a object of MyFragment class'
         /*MainActivity.MyFragment myFragment = MainActivity.MyFragment.newInstance(position);
         return myFragment;*/
-        switch(position){
+        switch (position) {
             case 0:
                 MyWebView webView = new MyWebView();
                 return webView;
@@ -84,16 +86,16 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
 
     public CharSequence getPageTitle(int position) {
             /*return super.getPageTitle(position);*/
-            switch (position){
-                case 0:
-                    return "360°";
+        switch (position) {
+            case 0:
+                return "360°";
 
-                case 1:
-                    return "Gallery";
+            case 1:
+                return "Gallery";
 
-            }
+        }
        /* return "Page" + position;*/
-       return null;
+        return null;
     }
 
 }
