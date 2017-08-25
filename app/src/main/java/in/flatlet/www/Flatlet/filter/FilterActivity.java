@@ -56,7 +56,7 @@ public class FilterActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(adapter);
-        String query= null;
+        String query = null;
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -64,6 +64,7 @@ public class FilterActivity extends AppCompatActivity {
 
 
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -73,8 +74,8 @@ public class FilterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        String query=null;
-        checkBoxBoys = (RadioButton)findViewById(R.id.checkBoxBoys);
+        String query = null;
+        checkBoxBoys = (RadioButton) findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) findViewById(R.id.checkBoxGirls);
         checkBoxSingleRoom = (RadioButton) findViewById(R.id.checkBoxSingleRoom);
         checkBoxDoubleRoom = (RadioButton) findViewById(R.id.checkBoxDoubleRoom);
@@ -118,23 +119,23 @@ public class FilterActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_apply:
-                String roomType=null;
+                String roomType = null;
 
                 if (checkBoxSingleRoom.isChecked() && checkBoxAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_single_ac>0 AND rent_single_ac<" + seekBar.getProgress();
-                    roomType="rent_single_ac";
+                    roomType = "rent_single_ac";
                 }
                 if (checkBoxSingleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_single_nonac>0 AND rent_single_nonac<" + seekBar.getProgress();
-                    roomType="rent_single_nonac";
+                    roomType = "rent_single_nonac";
                 }
                 if (checkBoxDoubleRoom.isChecked() && checkBoxAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_double_ac>0 AND rent_double_ac<" + seekBar.getProgress();
-                    roomType="rent_double_ac";
+                    roomType = "rent_double_ac";
                 }
                 if (checkBoxDoubleRoom.isChecked() && checkBoxNonAc.isChecked()) {
                     query = "select * from `hostel_specs` where rent_double_nonac>0 AND rent_double_nonac<" + seekBar.getProgress();
-                    roomType="rent_double_nonac";
+                    roomType = "rent_double_nonac";
                 }
 
                 if (checkBoxBoys.isChecked()) {
@@ -165,9 +166,9 @@ public class FilterActivity extends AppCompatActivity {
                     query = query + " AND ownership=1";
                     Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
                 }
-                query = query.replace(" ","%20");
+                query = query.replace(" ", "%20");
                 String locality = getIntent().getStringExtra("locality");
-                query=query+locality;
+                query = query + locality;
 
                 if (pricehtl.isChecked()) {
                     if (checkBoxSingleRoom.isChecked() && checkBoxAc.isChecked()) {
@@ -214,14 +215,14 @@ public class FilterActivity extends AppCompatActivity {
                         query = query + " ORDER BY (dim_double_length*dim_double_width) ASC";
                     }
                 }
-                query = query.replace(" ","%20");
-                locality="";
+                query = query.replace(" ", "%20");
+                locality = "";
                 Log.i(TAG, "onOptionsItemSelected:just before StringRequest the query is" + query);
                 Intent intent = new Intent(FilterActivity.this, MainActivity.class);
-                intent.putExtra("locality",locality);
-                intent.putExtra("dbqry",query);
-                intent.putExtra("roomType",roomType);
-                Log.i(TAG, "onOptionsItemSelected: Data sent to MainActivity is locality and query"+locality +query);
+                intent.putExtra("locality", locality);
+                intent.putExtra("dbqry", query);
+                intent.putExtra("roomType", roomType);
+                Log.i(TAG, "onOptionsItemSelected: Data sent to MainActivity is locality and query" + locality + query);
                 startActivity(intent);
                 query = null;
                 Log.i(TAG, "onOptionsItemSelected:query after null " + query);

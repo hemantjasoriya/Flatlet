@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.LoginFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -63,21 +62,22 @@ public class MainActivity extends AppCompatActivity {
         locality = getIntent().getStringExtra("locality");
         dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
-        gender=getIntent().getStringExtra("gender");
+        gender = getIntent().getStringExtra("gender");
         String finalDbQuery = dbqry + locality;
-        Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is "+ locality +"and roomType is "+ roomType +"and dbqry is" +dbqry +"and gender is" +gender);
+        Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is " + locality + "and roomType is " + roomType + "and dbqry is" + dbqry + "and gender is" + gender);
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/flatletwebservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         JSON_DATA_WEB_CALL();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-               if (dy>0)
-                   filterFloatingButton.hide();
+                if (dy > 0)
+                    filterFloatingButton.hide();
                 else
                     filterFloatingButton.show();
             }
         });
     }
+
     private void JSON_DATA_WEB_CALL() {
         Log.i(TAG, "url went to volley request is " + GET_JSON_DATA_HTTP_URL);
         jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
@@ -119,12 +119,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this,recyclerView);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
+
     public void onFilterClick(View view) {
         Intent intent = new Intent(MainActivity.this, FilterActivity.class);
         intent.putExtra("locality", locality);
-        intent.putExtra("gender",gender);
-        intent.putExtra("roomType",roomType);
-        Log.i(TAG, "onFilterClick: data sent to FilterActivity i.e. locality" + locality +gender +roomType);
+        intent.putExtra("gender", gender);
+        intent.putExtra("roomType", roomType);
+        Log.i(TAG, "onFilterClick: data sent to FilterActivity i.e. locality" + locality + gender + roomType);
         startActivity(intent);
     }
 }

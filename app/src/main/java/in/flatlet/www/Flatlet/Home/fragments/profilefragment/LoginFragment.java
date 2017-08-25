@@ -1,7 +1,5 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
-import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,30 +9,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.accountkit.Account;
-import com.facebook.accountkit.AccountKit;
-import com.facebook.accountkit.AccountKitCallback;
-import com.facebook.accountkit.AccountKitError;
 import com.facebook.accountkit.AccountKitLoginResult;
-import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 
-import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.R;
 
 /**
  * Created by javax on 20-Aug-17.
  */
 
-public class LoginFragment extends Fragment  {
+public class LoginFragment extends Fragment {
 
-    private final String TAG="loginfragment";
+    private final String TAG = "loginfragment";
     public static int APP_REQUEST_CODE = 99;
     private Button loginButton;
 
@@ -43,7 +33,6 @@ public class LoginFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
-
 
 
         return view;
@@ -62,9 +51,7 @@ public class LoginFragment extends Fragment  {
         super.onActivityCreated(savedInstanceState);
         Log.i(TAG, "onActivityCreated: ");
 
-        loginButton=(Button)getActivity().findViewById(R.id.loginButton);
-
-
+        loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -87,57 +74,57 @@ public class LoginFragment extends Fragment  {
             }
         });
 
-            }
+    }
 
 
-        @Override
-        public void onActivityResult(
-        final int requestCode,
-        final int resultCode,
-        final Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
-                AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
-                String toastMessage;
-                if (loginResult.getError() != null) {
-                    toastMessage = loginResult.getError().getErrorType().getMessage();
+    @Override
+    public void onActivityResult(
+            final int requestCode,
+            final int resultCode,
+            final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
+            AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
+            String toastMessage;
+            if (loginResult.getError() != null) {
+                toastMessage = loginResult.getError().getErrorType().getMessage();
                     /*showErrorActivity(loginResult.getError());*/
-                } else if (loginResult.wasCancelled()) {
-                    toastMessage = "Login Cancelled";
+            } else if (loginResult.wasCancelled()) {
+                toastMessage = "Login Cancelled";
+            } else {
+                if (loginResult.getAccessToken() != null) {
+                    Log.i(TAG, "onActivityResult: access token");
+                    Fragment fragment = new CreateProfileFragment();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    toastMessage = "Success:" + loginResult.getAccessToken().getAccountId();
                 } else {
-                    if (loginResult.getAccessToken() != null) {
-                        Log.i(TAG, "onActivityResult: access token");
-                        Fragment fragment= new CreateProfileFragment();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction= getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.content,fragment,"fragmetHome");
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
-                        toastMessage = "Success:" + loginResult.getAccessToken().getAccountId();
-                    } else {
-                        toastMessage = String.format(
-                                "Success:%s...",
-                                loginResult.getAuthorizationCode().substring(0,10));
-                    }
-
-                    // If you have an authorization code, retrieve it from
-                    // loginResult.getAuthorizationCode()
-                    // and pass it to your server and exchange it for an access token.
-
-                    // Success! Start your next activity...
-                   /* goToMyLoggedInActivity();*/
+                    toastMessage = String.format(
+                            "Success:%s...",
+                            loginResult.getAuthorizationCode().substring(0, 10));
                 }
 
-                // Surface the result to your user in an appropriate way.
-                Toast.makeText(
-                        getActivity(),
-                        toastMessage,
-                        Toast.LENGTH_LONG)
-                        .show();
+                // If you have an authorization code, retrieve it from
+                // loginResult.getAuthorizationCode()
+                // and pass it to your server and exchange it for an access token.
+
+                // Success! Start your next activity...
+                   /* goToMyLoggedInActivity();*/
             }
+
+            // Surface the result to your user in an appropriate way.
+            Toast.makeText(
+                    getActivity(),
+                    toastMessage,
+                    Toast.LENGTH_LONG)
+                    .show();
         }
-
-
     }
+
+
+}
 
 
 

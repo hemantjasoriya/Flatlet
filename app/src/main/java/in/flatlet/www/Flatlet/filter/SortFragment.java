@@ -11,8 +11,7 @@ import android.view.ViewGroup;
 import in.flatlet.www.Flatlet.R;
 
 
-
-public class SortFragment extends Fragment  {
+public class SortFragment extends Fragment {
 
 
     @Override

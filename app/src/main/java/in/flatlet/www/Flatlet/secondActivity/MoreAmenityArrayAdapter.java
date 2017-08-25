@@ -21,22 +21,22 @@ public class MoreAmenityArrayAdapter extends ArrayAdapter {
     private ArrayList<Integer> ameVector;
 
     public MoreAmenityArrayAdapter(Context context, ArrayList<String> ameTitle, ArrayList<Integer> ameVector) {
-        super(context, R.layout.listitems,ameTitle);
-        this.context=context;
-        this.ameTitle=ameTitle;
-        this.ameVector=ameVector;
+        super(context, R.layout.listitems, ameTitle);
+        this.context = context;
+        this.ameTitle = ameTitle;
+        this.ameVector = ameVector;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView==null){
-            LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView=inflater.inflate(R.layout.listitems,parent,false);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.listitems, parent, false);
         }
-        TextView textView=(TextView)convertView.findViewById(R.id.list_text);
+        TextView textView = (TextView) convertView.findViewById(R.id.list_text);
         textView.setText(ameTitle.get(position));
-        ImageView imageView=(ImageView)convertView.findViewById(R.id.list_vector);
+        ImageView imageView = (ImageView) convertView.findViewById(R.id.list_vector);
         imageView.setImageResource(ameVector.get(position));
         return convertView;
     }

@@ -39,12 +39,11 @@ import in.flatlet.www.Flatlet.R;
  */
 
 public class CreateProfileFragment extends Fragment {
-    private Button logoutButton,saveProfileButton;
-    private EditText mobileEditText,nameEditText,emailEditText;
+    private Button logoutButton, saveProfileButton;
+    private EditText mobileEditText, nameEditText, emailEditText;
     private TextView personalDetailsTextView;
-    private final String TAG="CreateProfileFragment";
-    private RadioButton maleRadioButton,femaleRadioButton;
-
+    private final String TAG = "CreateProfileFragment";
+    private RadioButton maleRadioButton, femaleRadioButton;
 
 
     @Nullable
@@ -59,45 +58,45 @@ public class CreateProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        logoutButton=(Button)getActivity().findViewById(R.id.logoutButton);
-        saveProfileButton=(Button)getActivity().findViewById(R.id.saveProfileButton);
-        mobileEditText=(EditText)getActivity().findViewById(R.id.mobileEditText);
-        nameEditText=(EditText)getActivity().findViewById(R.id.nameEditText);
-        emailEditText=(EditText)getActivity().findViewById(R.id.emailEditText);
-        personalDetailsTextView=(TextView)getActivity().findViewById(R.id.personalDetailsTextView);
-        maleRadioButton=(RadioButton)getActivity().findViewById(R.id.maleRadioButton);
-        femaleRadioButton=(RadioButton)getActivity().findViewById(R.id.femaleRadioButton);
+        logoutButton = (Button) getActivity().findViewById(R.id.logoutButton);
+        saveProfileButton = (Button) getActivity().findViewById(R.id.saveProfileButton);
+        mobileEditText = (EditText) getActivity().findViewById(R.id.mobileEditText);
+        nameEditText = (EditText) getActivity().findViewById(R.id.nameEditText);
+        emailEditText = (EditText) getActivity().findViewById(R.id.emailEditText);
+        personalDetailsTextView = (TextView) getActivity().findViewById(R.id.personalDetailsTextView);
+        maleRadioButton = (RadioButton) getActivity().findViewById(R.id.maleRadioButton);
+        femaleRadioButton = (RadioButton) getActivity().findViewById(R.id.femaleRadioButton);
 
         //handling button click of save profile
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // filling the user data in shared preferences
-                SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                Drawable drawable=getResources().getDrawable(R.drawable.ic_error);
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
-                if (nameEditText.getText().toString().matches("")){
-                    nameEditText.setError("Please enter name",drawable);
+                if (nameEditText.getText().toString().matches("")) {
+                    nameEditText.setError("Please enter name", drawable);
                     return;
                 }
 
-                if (!isEmailValid(emailEditText.getText().toString())){
-                    emailEditText.setError("Please enter a valid email id",drawable);
+                if (!isEmailValid(emailEditText.getText().toString())) {
+                    emailEditText.setError("Please enter a valid email id", drawable);
                     return;
                 }
-                if (!maleRadioButton.isChecked()&& !femaleRadioButton.isChecked()) {
-                    Toast.makeText(getActivity(),"Please select your Identity",Toast.LENGTH_SHORT);
+                if (!maleRadioButton.isChecked() && !femaleRadioButton.isChecked()) {
+                    Toast.makeText(getActivity(), "Please select your Identity", Toast.LENGTH_SHORT);
                     return;
                 }
                 editor.putString("userName", nameEditText.getText().toString());
-                editor.putString("userEmail",emailEditText.getText().toString());
+                editor.putString("userEmail", emailEditText.getText().toString());
                 editor.apply();
                 // launching SavedprofileFragment
-                Fragment fragment=new SavedProfileFragment();
-                FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content,fragment,"fragmetHome");
+                Fragment fragment = new SavedProfileFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 sendToDatabase();
@@ -118,11 +117,11 @@ public class CreateProfileFragment extends Fragment {
                 String phoneNumberString = phoneNumber.toString();
                 mobileEditText.setText(phoneNumberString);
                 //putting  mobile no in shared preferences
-                SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("userMobile", (phoneNumberString).replace("+91",""));
+                editor.putString("userMobile", (phoneNumberString).replace("+91", ""));
                 editor.apply();
-                Log.i(TAG, "onSuccess: "+phoneNumberString);
+                Log.i(TAG, "onSuccess: " + phoneNumberString);
 
             }
 
@@ -141,6 +140,7 @@ public class CreateProfileFragment extends Fragment {
             }
         });
     }
+
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -148,39 +148,38 @@ public class CreateProfileFragment extends Fragment {
         return matcher.matches();
     }
 
-    public void logout(){
+    public void logout() {
         AccountKit.logOut();
         //launching login fragment
-        Fragment fragment=new LoginFragment();
-        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content,fragment,"fragmetHome");
+        Fragment fragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         // changing user name in shared preferences
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString("userName","Application");
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userName", "Application");
         editor.apply();
     }
 
 
-    public void sendToDatabase(){
+    public void sendToDatabase() {
         Log.i(TAG, "sendToDatabase: started");
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-        String dbqry=null;
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        String dbqry = null;
         if (maleRadioButton.isChecked()) {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
                     getString("userEmail", "@johdoe") + "','male')";
-            Log.i(TAG, "sendToDatabase: "+dbqry);
-        }
-        else {
+            Log.i(TAG, "sendToDatabase: " + dbqry);
+        } else {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
                     getString("userEmail", "@johdoe") + "','female')";
-            Log.i(TAG, "sendToDatabase: "+dbqry);
+            Log.i(TAG, "sendToDatabase: " + dbqry);
         }
         String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
         String urlFinal = url.replace(" ", "%20");

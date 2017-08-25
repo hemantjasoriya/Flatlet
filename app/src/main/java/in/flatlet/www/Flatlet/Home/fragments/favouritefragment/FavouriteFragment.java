@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,11 +30,12 @@ public class FavouriteFragment extends Fragment {
     RelativeLayout RL_favourite;
     LinearLayoutManager recyclerViewLayoutManager;
     ProgressBar progressBar;
+
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.favourites_fragment,container,false);
+        return inflater.inflate(R.layout.favourites_fragment, container, false);
     }
 
     @Override
@@ -46,13 +47,12 @@ public class FavouriteFragment extends Fragment {
         Log.i(TAG, "onActivityCreated: SQLite Object is Created successfully");
 
 
-
-        favouriteRecyclerView = (RecyclerView)getActivity().findViewById(R.id.favouriteRecyclerView);
-        progressBar =(ProgressBar)getActivity().findViewById(R.id.progres_bar);
-        RL_favourite=(RelativeLayout)getActivity().findViewById(R.id.RL_favourite);
+        favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
+        progressBar = (ProgressBar) getActivity().findViewById(R.id.progres_bar);
+        RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();
-        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getActivity(),favouriteHostelList,db);
-        if (favouriteHostelList.size()==0){
+        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getActivity(), favouriteHostelList, db);
+        if (favouriteHostelList.size() == 0) {
             RL_favourite.setBackgroundResource(R.drawable.ic_nothing_found);
             favouriteRecyclerView.setVisibility(View.INVISIBLE);
         }
@@ -65,16 +65,17 @@ public class FavouriteFragment extends Fragment {
 
 
     }
-    private void addSqliteDataToList(){
+
+    private void addSqliteDataToList() {
         Log.i(TAG, "addSqliteDataToList: Startig to add data into Model class from SQLiteDatabase");
         progressBar.setVisibility(View.VISIBLE);
 
-        String [] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
+        String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};
-        Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,null,null,null,null,null);
+        Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
 
-        while(cursor.moveToNext()){
-            Log.i(TAG, "addSqliteDataToList: The records inside the sqlite dtabase is "+cursor.getString(0));
+        while (cursor.moveToNext()) {
+            Log.i(TAG, "addSqliteDataToList: The records inside the sqlite dtabase is " + cursor.getString(0));
             FavouriteHostelDataModel favouriteHostelDataModel = new FavouriteHostelDataModel();
             favouriteHostelDataModel.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE)));
             favouriteHostelDataModel.setAddress_secondary(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS)));
@@ -84,8 +85,7 @@ public class FavouriteFragment extends Fragment {
             favouriteHostelList.add(favouriteHostelDataModel);
 
         }
-        Log.i(TAG, "addSqliteDataToList:  Items added in database are"+cursor.getCount());
-
+        Log.i(TAG, "addSqliteDataToList:  Items added in database are" + cursor.getCount());
 
 
     }
