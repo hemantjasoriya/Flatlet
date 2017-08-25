@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

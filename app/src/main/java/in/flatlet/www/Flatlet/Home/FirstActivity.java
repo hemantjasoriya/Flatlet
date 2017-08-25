@@ -17,8 +17,8 @@ import android.view.MenuItem;
 import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.AccountKit;
 
-import in.flatlet.www.Flatlet.Home.fragments.favouritefragment.FavouriteFragment;
-import in.flatlet.www.Flatlet.Home.fragments.favouritefragment.LogoutFavouriteFragment;
+import in.flatlet.www.Flatlet.Home.fragments.favouriteFragment.FavouriteFragment;
+import in.flatlet.www.Flatlet.Home.fragments.favouriteFragment.LogoutFavouriteFragment;
 import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.Home.fragments.morefragment.MoreFragment;
 import in.flatlet.www.Flatlet.Home.fragments.profilefragment.CreateProfileFragment;
