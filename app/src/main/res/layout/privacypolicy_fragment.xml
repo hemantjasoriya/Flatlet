@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:title="Privacy Policies"
         android:elevation="4dp"
-        android:background="@color/primary">
+        android:background="@color/colorPrimary">
 
     </android.support.v7.widget.Toolbar>
     <TextView

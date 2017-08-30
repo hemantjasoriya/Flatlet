@@ -48,6 +48,19 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/callOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="60dp"
+        app:backgroundTint="@color/colorAccent"
+        app:elevation="6dp"
+        android:hapticFeedbackEnabled="true"
+        android:alpha="0.85"
+        app:srcCompat="@drawable/ic_call" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -63,14 +76,14 @@
             android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:paddingTop="0dp">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardview1"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
@@ -102,7 +115,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignEnd="@+id/textView2"
-                            android:layout_alignParentTop="true" />
+                            android:layout_alignParentTop="true"
+                            android:elevation="3dp" />
 
                     </RelativeLayout>
 
@@ -217,8 +231,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview1"
                 android:layout_marginBottom="5dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -296,7 +310,7 @@
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:textColor="@color/colorAccent"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -310,8 +324,8 @@
                 android:layout_below="@+id/cardview2"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
 
                 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
@@ -430,8 +444,8 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:background="#ffffff"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
 
 
                 <LinearLayout
@@ -463,8 +477,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView11"
                             android:layout_centerHorizontal="true"
-                            android:text="@string/n_a"
                             android:layout_marginBottom="5dp"
+                            android:text="@string/n_a"
                             android:textColor="@color/secondary_text"
                             android:textSize="42sp" />
 
@@ -618,13 +632,15 @@
                             android:layout_alignParentTop="true"
                             android:elevation="2dp"
                             android:onClick="onSubmitRatingButton"
-                            android:text="@string/submit" />
+                            android:text="@string/submit"
+                            android:textSize="14sp" />
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onEditRatingsButton"
-                            android:text="@string/edit_ratings" />
+                            android:text="@string/edit_ratings"
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
@@ -642,18 +658,5 @@
                 tools:context="in.flatlet.www.Flatlet.secondActivity" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/callOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_marginBottom="60dp"
-        android:layout_marginStart="60dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="6dp"
-        android:hapticFeedbackEnabled="true"
-        android:alpha="0.85"
-        app:srcCompat="@drawable/ic_call" />
 
 </android.support.design.widget.CoordinatorLayout>
