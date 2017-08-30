@@ -28,7 +28,7 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.i(TAG, "FeedReaderDbHelperReviewHostel: ");
+        Log.i(TAG, "FeedReaderDbHelperReviewHost ");
     }
 
     public void onCreate(SQLiteDatabase db) {

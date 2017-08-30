@@ -121,6 +121,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 SharedPreferences sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
                 String dbqry=null;
                 if (accessToken==null){
+                    holder.toggle.setChecked(false);
                     AlertDialog.Builder alertDialog=new AlertDialog.Builder(context);
                     alertDialog.setTitle("Login alert");
                     alertDialog.setIcon(R.drawable.poipo);
@@ -128,7 +129,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     MyListener my=new MyListener();
                     alertDialog.setPositiveButton("LogIn",my);
                     alertDialog.setNegativeButton("Cancel",my);
-
                     alertDialog.show();
                     return;
                 }
@@ -141,8 +141,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING,1);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL,"http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
                    db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME,null,values);
-                    dbqry="INSERT INTO `user_favourites`( `title`, `user_mobile`) VALUES ('"+getDataAdapter1.getName()+"'" +
-                            ",'"+sharedPreferences.getString("userMobile","911")+"')";
+                    dbqry="INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('"+getDataAdapter1.getName()+"'" +
+                            ",'"+sharedPreferences.getString("userMobile","911")+"','"+getDataAdapter1.getAddress()+"','"+getDataAdapter1.getRent()+"'," +
+                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','1')";
 
 
 
@@ -233,7 +234,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    class MyListener implements DialogInterface.OnClickListener{
+     class MyListener implements DialogInterface.OnClickListener{
 
         @Override
         public void onClick(DialogInterface dialog, int which) {

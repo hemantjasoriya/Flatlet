@@ -4,9 +4,25 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_toolbar"
+        android:background="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your Favourites"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="26sp"
+            android:textColor="#ffffff"/>
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="40dp"
@@ -31,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
                 android:background="@color/secondaryColor"
                 android:elevation="2dp"
                 android:fontFamily="sans-serif-smallcaps"

@@ -627,20 +627,16 @@
 
                         <Button
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentTop="true"
-                            android:elevation="2dp"
-                            android:onClick="onSubmitRatingButton"
-                            android:text="@string/submit"
-                            android:textSize="14sp" />
-
-                        <Button
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:onClick="onEditRatingsButton"
-                            android:text="@string/edit_ratings"
-                            android:textSize="14sp" />
+                            android:id="@+id/ratingSubmitButton"
+                            android:layout_alignParentTop="true"
+                            android:elevation="5dp"
+                            android:onClick="onSubmitRatingButton"
+                            android:text="Submit"
+                            android:layout_centerHorizontal="true"
+                            />
+
+
 
                     </RelativeLayout>
 

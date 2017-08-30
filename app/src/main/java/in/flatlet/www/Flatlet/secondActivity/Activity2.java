@@ -25,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
@@ -284,6 +287,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onSubmitRatingButton(View view) {
+        AccessToken accessToken= AccountKit.getCurrentAccessToken();
         Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
         if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
             ratingBarFood.setIsIndicator(false);
@@ -292,6 +296,20 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             ratingBarStudyEnvironment.setIsIndicator(false);
             ratingSubmitButton.setText("SUBMIT");
             return;
+        }
+        if (accessToken==null){
+            if (accessToken==null){
+
+                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+                alertDialog.setTitle("Login alert");
+                alertDialog.setIcon(R.drawable.poipo);
+                alertDialog.setMessage("You first have to login to make favourites");
+                MyListener my=new MyListener();
+                alertDialog.setPositiveButton("LogIn",my);
+                alertDialog.setNegativeButton("Cancel",my);
+                alertDialog.show();
+                return;
+            }
         }
 
         int rating_food = (int) ratingBarFood.getRating();
@@ -445,6 +463,25 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
         Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
 
+    }
+    class MyListener implements DialogInterface.OnClickListener{
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if(which==-1){
+                Intent intent=new Intent(Activity2.this,FirstActivity.class);
+                intent.setFlags(2);
+                Log.i(TAG, "onClick: ");
+                startActivity(intent);
+
+
+            }
+
+            else
+                Toast.makeText(getApplicationContext(),"Negative button clicked",Toast.LENGTH_LONG).show();
+
+
+        }
     }
 
 

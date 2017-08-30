@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/home_toolbar"
         android:background="@color/colorPrimary"
-        app:title="@string/Flatlet"
-        android:elevation="4dp"
-        android:titleTextColor="@color/primary_text">
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="More"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="26sp"
+            android:textColor="#ffffff"/>
     </android.support.v7.widget.Toolbar>
 
     <ListView

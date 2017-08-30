@@ -1,9 +1,12 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.Account;
@@ -29,10 +33,13 @@ import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 /**
@@ -44,6 +51,9 @@ public class LoginFragment extends Fragment {
     private final String TAG = "loginfragment";
     public static int APP_REQUEST_CODE = 99;
     private Button loginButton;
+    private FeedReaderDbHelper feedReaderDbHelper;
+    private SQLiteDatabase db_favourite;
+    private String phoneNumberString;
 
     @Nullable
     @Override
@@ -103,7 +113,7 @@ public class LoginFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
-            String toastMessage=null;
+            String toastMessage = null;
             if (loginResult.getError() != null) {
                 toastMessage = loginResult.getError().getErrorType().getMessage();
                     /*showErrorActivity(loginResult.getError());*/
@@ -119,25 +129,24 @@ public class LoginFragment extends Fragment {
                         public void onSuccess(final Account account) {
                             // Get phone number
                             PhoneNumber phoneNumber = account.getPhoneNumber();
-                            final String phoneNumberString = (phoneNumber.toString()).replace("+91","");
+                             phoneNumberString = (phoneNumber.toString()).replace("+91", "");
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userMobile", phoneNumberString);
                             editor.apply();
-                            Log.i(TAG, "onSuccess: "+phoneNumberString);
-                            String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" +phoneNumberString;
-                            Log.i(TAG, "onSuccess: "+url);
+                            Log.i(TAG, "onSuccess: " + phoneNumberString);
+                            String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" + phoneNumberString;
+                            Log.i(TAG, "onSuccess: " + url);
 
 
-
-                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Display the first 500 characters of the response string.
                                             Log.i(TAG, "onResponse: " + response);
                                             try {
-                                                if (response.getInt("tag")==0) {
+                                                if (response.getInt("tag") == 0) {
                                                     Log.i(TAG, "onResponse: if chala");
                                                     Fragment fragment = new CreateProfileFragment();
                                                     android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -145,8 +154,7 @@ public class LoginFragment extends Fragment {
                                                     fragmentTransaction.addToBackStack(null);
                                                     fragmentTransaction.commit();
 
-                                                }
-                                                else {
+                                                } else {
                                                     Log.i(TAG, "onResponse: else started");
                                                     // go to main activity
                                                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -157,73 +165,16 @@ public class LoginFragment extends Fragment {
                                                     getActivity().startActivity(intent);
 
                                                     // fetching data from database
-                                                    String url="http://flatlet.in/flatletuserdatafetcher/flatletuserdatafetcher.jsp?phoneNumberString=" + phoneNumberString;
-                                                    JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                                                            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                                                                @Override
-                                                                public void onResponse(JSONObject response) {
-                                                                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-                                                                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                                                                    try {
-                                                                        editor.putString("userName",response.getString("user_ka_naam"));
-                                                                        editor.putString("userEmail",response.getString("user_emailid"));
-                                                                        editor.putString("hostel1_name",response.getString("hostel1_name"));
-                                                                        editor.putFloat("hostel1_rating",((float) response.getDouble("hostel1_rating")));
-                                                                        editor.putInt("hostel1_food",response.getInt("hostel1_food"));
-                                                                        editor.putInt("hostel1_accommodation",response.getInt("hostel1_accommodation"));
-                                                                        editor.putInt("hostel1_staffbehaviour",response.getInt("hostel1_staffbehaviour"));
-                                                                        editor.putInt("hostel1_studyenvironment",response.getInt("hostel1_studyenvironment"));
-                                                                        editor.putFloat("hostel2_rating",(float) (response.getDouble("hostel2_rating")));
-                                                                        editor.putInt("hostel2_food",response.getInt("hostel2_food"));
-                                                                        editor.putInt("hostel2_accommodation",response.getInt("hostel2_accommodation"));
-                                                                        editor.putInt("hostel2_staffbehaviour",response.getInt("hostel2_staffbehaviour"));
-                                                                        editor.putInt("hostel2_studyenvironment",response.getInt("hostel2_studyenvironment"));
-                                                                    } catch (JSONException e) {
-                                                                        e.printStackTrace();
-                                                                        Log.i(TAG, "onResponse: JSONException "+e);
-                                                                    }
-                                                                    editor.apply();
-
-
-                                                                }
-                                                            }, new Response.ErrorListener() {
-
-                                                                @Override
-                                                                public void onErrorResponse(VolleyError error) {
-                                                                    // TODO Auto-generated method stub
-                                                                    Log.i(TAG, "onErrorResponse: "+error);
-
-
-                                                                }
-                                                            });
-                                                    RequestQueue queue2 = Volley.newRequestQueue(getContext());
-                                                    queue2.add(jsObjRequest);
+                                                    fetchDataFromDatabase();
 
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
+
+
                                             // fetching favourite hostels of user from database
-                                            /*JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(,
-                                                    new Response.Listener<JSONArray>() {
-                                                        @Override
-                                                        public void onResponse(JSONArray response) {
-
-
-                                                            Log.i(TAG, "onResponse: data is send further for parsing");
-                                                        }
-                                                    },
-                                                    new Response.ErrorListener() {
-                                                        @Override
-                                                        public void onErrorResponse(VolleyError error) {
-                                                            error.printStackTrace();
-                                                            Log.i(TAG, "onErrorResponse: response error ");
-                                                        }
-                                                    });
-                                            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                                            Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
-                                            requestQueue.add(jsonArrayRequest);*/
+                                            fetchFavouriteHostels();
 
                                         }
                                     }, new Response.ErrorListener() {
@@ -268,6 +219,106 @@ public class LoginFragment extends Fragment {
                     Toast.LENGTH_LONG)
                     .show();
         }
+    }
+
+    public void fetchDataFromDatabase() {
+        String url1 = "http://flatlet.in/flatletuserdatafetcher/flatletuserdatafetcher.jsp?phoneNumberString=" + phoneNumberString;
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url1, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        try {
+                            editor.putString("userName", response.getString("user_ka_naam"));
+                            editor.putString("userEmail", response.getString("user_emailid"));
+                            editor.putString("hostel1_name", response.getString("hostel1_name"));
+                            editor.putFloat("hostel1_rating", ((float) response.getDouble("hostel1_rating")));
+                            editor.putInt("hostel1_food", response.getInt("hostel1_food"));
+                            editor.putInt("hostel1_accommodation", response.getInt("hostel1_accommodation"));
+                            editor.putInt("hostel1_staffbehaviour", response.getInt("hostel1_staffbehaviour"));
+                            editor.putInt("hostel1_studyenvironment", response.getInt("hostel1_studyenvironment"));
+                            editor.putFloat("hostel2_rating", (float) (response.getDouble("hostel2_rating")));
+                            editor.putInt("hostel2_food", response.getInt("hostel2_food"));
+                            editor.putInt("hostel2_accommodation", response.getInt("hostel2_accommodation"));
+                            editor.putInt("hostel2_staffbehaviour", response.getInt("hostel2_staffbehaviour"));
+                            editor.putInt("hostel2_studyenvironment", response.getInt("hostel2_studyenvironment"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.i(TAG, "onResponse: JSONException " + e);
+                        }
+                        editor.apply();
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+                        Log.i(TAG, "onErrorResponse: " + error);
+
+
+                    }
+                });
+        RequestQueue queue2 = Volley.newRequestQueue(getContext());
+        queue2.add(jsObjRequest);
+    }
+
+    public void fetchFavouriteHostels() {
+        Log.i(TAG, "fetchFavouriteHostels: start");
+        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        db_favourite = feedReaderDbHelper.getWritableDatabase();
+
+        SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (!pref_default.getBoolean("thirdTime", false)) {
+            // <---- run your one time code here
+            Log.i(TAG, "onCreate: before oncreate");
+
+
+            feedReaderDbHelper.onCreateOriginal(db_favourite);
+            Log.i(TAG, "onCreate: called");
+            SharedPreferences.Editor editor = pref_default.edit();
+            editor.putBoolean("thirdTime", true);
+            editor.apply();
+        }
+        String url2 = "http://flatlet.in/flatletfavouritefetcher/flatletfavouritefetcher.jsp?phoneNumberString=" + phoneNumberString;
+        Log.i(TAG, "fetchFavouriteHostels: "+url2);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url2,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.i(TAG, "onResponse: response start for favourite hostels");
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                Log.i(TAG, "onResponse: response from favourite fetcher");
+                                JSONObject object = response.getJSONObject(i);
+                                ContentValues values = new ContentValues();
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, object.getString("title"));
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, object.getString("secondary_address"));
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, object.getInt("rent"));
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, object.getDouble("rating"));
+                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, object.getString("img_url"));
+                                db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.i(TAG, "onErrorResponse: response error ");
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
+        requestQueue.add(jsonArrayRequest);
     }
 
 
