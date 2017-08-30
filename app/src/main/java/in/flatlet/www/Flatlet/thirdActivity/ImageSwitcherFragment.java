@@ -21,6 +21,7 @@ import in.flatlet.www.Flatlet.R;
 
 public class ImageSwitcherFragment extends Fragment {
     private final String TAG = "ImageSwitcherFragment";
+    RequestQueue requestqueue;
 
     @Nullable
     @Override
@@ -47,7 +48,8 @@ public class ImageSwitcherFragment extends Fragment {
                         Log.i(TAG, "onErrorResponse: error in volley response");
                     }
                 });
-        RequestQueue requestqueue = Volley.newRequestQueue(getContext());
+         requestqueue = Volley.newRequestQueue(getContext());
+        request.setTag("MyRequestTag");
         requestqueue.add(request);
 
         return inflater.inflate(R.layout.imageview_third, container, false);
@@ -59,5 +61,13 @@ public class ImageSwitcherFragment extends Fragment {
         ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.viewPager1);
         ImageSwitcherAdapter adapter = new ImageSwitcherAdapter(getContext());
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (requestqueue!=null){
+            requestqueue.cancelAll("MyRequestTag");
+        }
     }
 }

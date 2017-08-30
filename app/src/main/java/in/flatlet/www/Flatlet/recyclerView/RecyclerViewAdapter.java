@@ -41,13 +41,13 @@ import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+    private final String MyRequestTag = "MyTag";
     private Context context;
     private List<GetDataAdapter> dataModelArrayList;
     private SQLiteDatabase db_favourite;
     private FeedReaderDbHelper feedReaderDbHelper ;
     private Cursor cursor;
     private final String TAG = "RecyclerViewAdapter";
-    public static int APP_REQUEST_CODE = 99;
     RecyclerView recyclerView;
 
 
@@ -191,6 +191,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
                 RequestQueue queue1 = Volley.newRequestQueue(context);
+                stringRequest.setTag(MyRequestTag);
                 queue1.add(stringRequest);
             }
         });

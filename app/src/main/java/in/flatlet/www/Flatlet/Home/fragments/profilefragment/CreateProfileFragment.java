@@ -34,9 +34,7 @@ import java.util.regex.Pattern;
 
 import in.flatlet.www.Flatlet.R;
 
-/**
- * Created by javax on 21-Aug-17.
- */
+
 
 public class CreateProfileFragment extends Fragment {
     private Button logoutButton, saveProfileButton;
@@ -44,6 +42,7 @@ public class CreateProfileFragment extends Fragment {
     private TextView personalDetailsTextView;
     private final String TAG = "CreateProfileFragment";
     private RadioButton maleRadioButton, femaleRadioButton;
+    RequestQueue queue1;
 
 
 
@@ -136,6 +135,15 @@ public class CreateProfileFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (queue1!=null){
+            queue1.cancelAll("MyTag");
+        }
+
+    }
+
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -167,7 +175,7 @@ public class CreateProfileFragment extends Fragment {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
-                    getString("userEmail", "@johdoe") + "','male')";
+                    getString("userEmail", "@johndoe") + "','male')";
             Log.i(TAG, "sendToDatabase: " + dbqry);
         } else {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
@@ -195,7 +203,8 @@ public class CreateProfileFragment extends Fragment {
 
             }
         });
-        RequestQueue queue1 = Volley.newRequestQueue(getActivity());
+         queue1 = Volley.newRequestQueue(getActivity());
+        stringRequest.setTag("MyTag");
         queue1.add(stringRequest);
 
     }

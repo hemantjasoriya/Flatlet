@@ -66,10 +66,10 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
         /*MainActivity.MyFragment myFragment = MainActivity.MyFragment.newInstance(position);
         return myFragment;*/
         switch (position) {
-            case 0:
+            case 1:
                 MyWebView webView = new MyWebView();
                 return webView;
-            case 1:
+            case 0:
                 ImageSwitcherFragment imageSwitcherFragment = new ImageSwitcherFragment();
                 return imageSwitcherFragment;
 
@@ -87,10 +87,10 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
             /*return super.getPageTitle(position);*/
         switch (position) {
-            case 0:
-                return "360°";
-
             case 1:
+                return "360° Live Tour";
+
+            case 0:
                 return "Gallery";
 
         }

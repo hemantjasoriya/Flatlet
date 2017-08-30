@@ -42,7 +42,7 @@ public class ReviewHostel extends AppCompatActivity {
     FeedReaderDbHelperReviewHostel mDbHelper;
     SQLiteDatabase db;
     JsonArrayRequest jsonArrayRequest;
-    RequestQueue requestQueue;
+    RequestQueue requestQueue,requestQueue1;
     private static final String TAG = "MainActivity";
     private AutoCompleteTextView autoComplete;
     private Cursor cursor1;
@@ -148,6 +148,7 @@ public class ReviewHostel extends AppCompatActivity {
                     }
                 });
         requestQueue = Volley.newRequestQueue(this);
+        jsonArrayRequest.setTag("MyRequestTag");
         requestQueue.add(jsonArrayRequest);
 
 
@@ -229,8 +230,9 @@ public class ReviewHostel extends AppCompatActivity {
                                 Log.i(TAG, "onErrorResponse: " + error);
                             }
                         });
-                RequestQueue queue = Volley.newRequestQueue(ReviewHostel.this);
-                queue.add(jsonObjRequest);
+                 requestQueue1 = Volley.newRequestQueue(ReviewHostel.this);
+                requestQueue1.add(jsonObjRequest);
+                jsonObjRequest.setTag("MyRequestTag2");
                 Picasso.with(getBaseContext()).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(reviewImageView);
                 reviewCard.setVisibility(View.VISIBLE);
 
@@ -248,6 +250,16 @@ reviewCard.setOnClickListener(new View.OnClickListener() {
 });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(requestQueue!=null){
+            requestQueue.cancelAll("MyRequestTag");
+        }
+        else if(requestQueue1!=null){
+            requestQueue1.cancelAll("MyRequestTag2");
+        }
+    }
 
 
 }

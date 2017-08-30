@@ -18,6 +18,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,8 +26,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.accountkit.AccessToken;
-import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,7 +39,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
@@ -48,7 +46,7 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private final String TAG = "Activity2";
     private Toolbar toolbar;
-    private RequestQueue requestQueue;
+    private RequestQueue requestQueue, requestQueue5,requestQueue4,requestQueue3,requestQueue2;
     private String hostel_title;
     private String dbqry;
     private Button moreAmeButton,ratingSubmitButton;
@@ -64,6 +62,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private Double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
     private SharedPreferences sharedPreferences;
+    private final String MyRequestTag = "MyTag";
 
 
     @Override
@@ -220,6 +219,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
+
+
     private void fetch_details() {
         Log.d(TAG, "fetch_details: Volley Request Sent");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
@@ -240,6 +241,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         requestQueue = Volley.newRequestQueue(this);
+        jsonObjectRequest.setTag(MyRequestTag);
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(2500,4,1f));
         requestQueue.add(jsonObjectRequest);
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
@@ -287,7 +290,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onSubmitRatingButton(View view) {
-        AccessToken accessToken= AccountKit.getCurrentAccessToken();
         Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
         if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
             ratingBarFood.setIsIndicator(false);
@@ -296,20 +298,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             ratingBarStudyEnvironment.setIsIndicator(false);
             ratingSubmitButton.setText("SUBMIT");
             return;
-        }
-        if (accessToken==null){
-            if (accessToken==null){
-
-                AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
-                alertDialog.setTitle("Login alert");
-                alertDialog.setIcon(R.drawable.poipo);
-                alertDialog.setMessage("You first have to login to make favourites");
-                MyListener my=new MyListener();
-                alertDialog.setPositiveButton("LogIn",my);
-                alertDialog.setNegativeButton("Cancel",my);
-                alertDialog.show();
-                return;
-            }
         }
 
         int rating_food = (int) ratingBarFood.getRating();
@@ -347,8 +335,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-            RequestQueue queue2 = Volley.newRequestQueue(getApplicationContext());
-            queue2.add(stringRequest);
+             requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+            stringRequest.setTag("MyTag2");
+            requestQueue2.add(stringRequest);
 
         }
         else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
@@ -380,8 +369,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-            RequestQueue queue2 = Volley.newRequestQueue(getApplicationContext());
-            queue2.add(stringRequest);
+             requestQueue3 = Volley.newRequestQueue(getApplicationContext());
+                     stringRequest.setTag("MyTag3");
+            requestQueue3.add(stringRequest);
         }
         else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
                 && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
@@ -413,8 +403,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-            RequestQueue queue2 = Volley.newRequestQueue(this);
-            queue2.add(stringRequest);
+             requestQueue4 = Volley.newRequestQueue(this);
+            stringRequest.setTag("MyTag4");
+            requestQueue4.add(stringRequest);
 
         }
         else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
@@ -446,8 +437,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-            RequestQueue queue2 = Volley.newRequestQueue(this);
-            queue2.add(stringRequest);
+            requestQueue5 = Volley.newRequestQueue(this);
+            stringRequest.setTag("MyTag5");
+            requestQueue5.add(stringRequest);
 
         }
         else {
@@ -464,24 +456,27 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
 
     }
-    class MyListener implements DialogInterface.OnClickListener{
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            if(which==-1){
-                Intent intent=new Intent(Activity2.this,FirstActivity.class);
-                intent.setFlags(2);
-                Log.i(TAG, "onClick: ");
-                startActivity(intent);
-
-
-            }
-
-            else
-                Toast.makeText(getApplicationContext(),"Negative button clicked",Toast.LENGTH_LONG).show();
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(requestQueue!=null){
+            requestQueue.cancelAll(MyRequestTag);
         }
+        if (requestQueue2!=null){
+            requestQueue2.cancelAll("MyTag2");
+        }
+        if (requestQueue3!=null){
+            requestQueue3.cancelAll("MyTag3");
+        }
+        if (requestQueue4!=null){
+            requestQueue4.cancelAll("MyTag4");
+        }
+        if (requestQueue5!=null){
+            requestQueue5.cancelAll("MyTag5");
+        }
+
+
+
     }
 
 
