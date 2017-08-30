@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Privacy Policies"
-        android:background="@color/primary"/>
+        android:elevation="4dp"
+        android:background="@color/colorPrimary"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

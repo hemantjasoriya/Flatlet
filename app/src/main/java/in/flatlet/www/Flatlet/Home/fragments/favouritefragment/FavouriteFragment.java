@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,13 +42,14 @@ public class FavouriteFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
 
         db = new FeedReaderDbHelper(getContext()).getWritableDatabase();
 
         Log.i(TAG, "onActivityCreated: SQLite Object is Created successfully");
 
-
         favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
+
         progressBar = (ProgressBar) getActivity().findViewById(R.id.progres_bar);
         RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();

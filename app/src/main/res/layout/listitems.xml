@@ -22,7 +22,7 @@
         android:layout_toEndOf="@+id/list_vector"
         android:text="jai hind"
         android:textAlignment="viewStart"
-        android:textColor="@color/primary_text"
+        android:textColor="@color/secondary_text"
         android:textSize="16sp" />
 
 </RelativeLayout>

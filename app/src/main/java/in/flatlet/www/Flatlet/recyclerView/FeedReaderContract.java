@@ -2,9 +2,7 @@ package in.flatlet.www.Flatlet.recyclerView;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by javax on 31-Jul-17.
- */
+
 
 public final class FeedReaderContract {
     // To prevent someone from accidentally instantiating the contract class,

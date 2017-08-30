@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    >
+    android:background="#ffffff">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/personalDetailsTextView"
-        android:text="Personal Details"
+        android:text="@string/personal_details"
         android:layout_centerHorizontal="true"
         android:textSize="24sp"
         android:layout_marginTop="10dp"
@@ -22,7 +21,7 @@
         android:id="@+id/mobileEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Mobile Number"
+        android:hint="@string/mobile_number"
         android:layout_below="@+id/personalDetailsTextView"
         android:enabled="false"/>
 
@@ -37,7 +36,7 @@
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Name"
+            android:hint="@string/your_name"
             android:textSize="13sp"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -53,7 +52,7 @@
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email Id(optional)"
+            android:hint="@string/email_id_optional"
             android:textSize="13sp"
             />
 
@@ -64,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textViewIdentity"
-        android:text="Your Identity"
+        android:text="@string/your_identity"
         android:layout_below="@+id/text_input_layout1"
         android:layout_marginTop="10dp"
         android:textSize="15sp"/>
@@ -77,34 +76,34 @@
         android:orientation="vertical"
         android:layout_below="@+id/text_input_layout1"
         android:id="@+id/radioGroupIdentity"
-        android:layout_toRightOf="@+id/textViewIdentity"
-        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/textViewIdentity"
+        android:layout_marginStart="10dp"
         android:layout_alignTop="@+id/textViewIdentity"
         >
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/maleRadioButton"
-            android:text="Male"/>
+            android:text="@string/male"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/femaleRadioButton"
-            android:text="Female"/>
+            android:text="@string/female"/>
     </RadioGroup>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/saveProfileButton"
-        android:text="Save Profile"
+        android:text="@string/save_profile"
         android:textColor="#ffffff"
         android:background="#d01414"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/radioGroupIdentity"
         android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="10dp"/>
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp"/>
 
 
 
