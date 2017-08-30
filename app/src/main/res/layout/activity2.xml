@@ -57,10 +57,11 @@
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/relative_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:background="@color/divider"
+            android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:padding="5dp">
 
@@ -70,7 +71,8 @@
                 android:layout_height="160dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="5dp"
-                app:cardCornerRadius="5dp">
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -126,7 +128,7 @@
                             android:layout_alignBottom="@+id/textView"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="63dp"
-                            android:text="N/A" />
+                            android:text="@string/n_a" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -151,10 +153,11 @@
                             android:layout_alignBottom="@+id/textView3"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="63dp"
-                            android:text="N/A" />
+                            android:text="@string/n_a" />
                     </RelativeLayout>
 
                     <RelativeLayout
+                        android:id="@+id/rl3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
@@ -176,7 +179,7 @@
                             android:layout_alignBottom="@+id/textView5"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="63dp"
-                            android:text="N/A" />
+                            android:text="@string/n_a" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -201,7 +204,7 @@
                             android:layout_alignBottom="@+id/textView7"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="63dp"
-                            android:text="N/A" />
+                            android:text="@string/n_a" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -214,6 +217,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview1"
                 android:layout_marginBottom="5dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="5dp">
 
                 <RelativeLayout
@@ -288,7 +292,7 @@
                             android:layout_height="50dp"
                             android:layout_weight="1"
                             android:paddingBottom="10dp"
-                            android:text="+6 more"
+                            android:text="@string/_6_more"
                             android:textAlignment="viewStart"
                             android:textAllCaps="false"
                             android:textColor="@color/colorAccent"
@@ -306,6 +310,7 @@
                 android:layout_below="@+id/cardview2"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="5dp">
 
                 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -346,7 +351,7 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="60dp"
                         android:layout_row="1"
-                        android:text="N/A"
+                        android:text="@string/n_a"
                         android:textAlignment="center" />
 
                     <TextView
@@ -425,6 +430,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:background="#ffffff"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="5dp">
 
 
@@ -446,7 +452,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginBottom="5dp"
-                            android:text="Rating"
+                            android:text="@string/rating"
                             android:textAllCaps="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -457,9 +463,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView11"
                             android:layout_centerHorizontal="true"
-                            android:text="N/A"
+                            android:text="@string/n_a"
                             android:layout_marginBottom="5dp"
-                            android:textColor="@color/primary_light"
+                            android:textColor="@color/secondary_text"
                             android:textSize="42sp" />
 
                         <TextView
@@ -468,8 +474,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textViewRating"
                             android:layout_centerHorizontal="true"
-                            android:drawableLeft="@drawable/ic_group"
-                            android:text="N/A"
+                            android:drawableStart="@drawable/ic_group"
+                            android:text="@string/n_a"
                             android:textSize="16sp" />
                     </RelativeLayout>
 
@@ -485,7 +491,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="40dp"
-                            android:text="Food" />
+                            android:text="@string/food" />
 
                         <RatingBar
                             android:id="@+id/ratingBarFood"
@@ -516,7 +522,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="40dp"
-                            android:text="Accommodation" />
+                            android:text="@string/accommodation" />
 
                         <RatingBar
                             android:id="@+id/ratingBarAccommodation"
@@ -548,7 +554,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="40dp"
-                            android:text="Staff Behaviour" />
+                            android:text="@string/staff_behaviour" />
 
                         <RatingBar
                             android:id="@+id/ratingBarStaff"
@@ -580,7 +586,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_centerVertical="true"
                             android:layout_marginStart="40dp"
-                            android:text="Study Environment" />
+                            android:text="@string/study_environment" />
 
                         <RatingBar
                             android:id="@+id/ratingBarStudyEnvironment"
@@ -610,15 +616,15 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentTop="true"
-                            android:elevation="5dp"
+                            android:elevation="2dp"
                             android:onClick="onSubmitRatingButton"
-                            android:text="Submit" />
+                            android:text="@string/submit" />
 
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="onEditRatingsButton"
-                            android:text="Edit Ratings" />
+                            android:text="@string/edit_ratings" />
 
                     </RelativeLayout>
 
@@ -636,5 +642,18 @@
                 tools:context="in.flatlet.www.Flatlet.secondActivity" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/callOwner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="60dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:elevation="6dp"
+        android:hapticFeedbackEnabled="true"
+        android:alpha="0.85"
+        app:srcCompat="@drawable/ic_call" />
 
 </android.support.design.widget.CoordinatorLayout>

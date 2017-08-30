@@ -104,6 +104,30 @@
     <string name="set_max_rent">Set Max Rent</string>
     <string name="facebook_app_id">119030078752902</string>
     <string name="fb_login_protocol_scheme">fb261128957726181</string>
+    <string name="user_profile">User Profile</string>
+    <string name="user_name">User Name</string>
+    <string name="logout">LOGOUT</string>
+    <string name="user_mobile_no">User Mobile No</string>
+    <string name="edit">Edit</string>
+    <string name="user_email">User Email</string>
+    <string name="_6_more">+6 more</string>
+    <string name="rating">Rating</string>
+    <string name="food">Food</string>
+    <string name="accommodation">Accommodation</string>
+    <string name="staff_behaviour">Staff Behaviour</string>
+    <string name="study_environment">Study Environment</string>
+    <string name="submit">Submit</string>
+    <string name="edit_ratings">Edit Ratings</string>
+    <string name="location_1">Location 1</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="your_name">Your Name</string>
+    <string name="email_id_optional">Email Id(optional)</string>
+    <string name="your_identity">Your Identity</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="air_conditioning">Air Conditioning</string>
     <!--<string name="google_maps_key">AIzaSyBm3Yrnljsk9jPZaJBgMrPz-Y2YWZokYLg</string>-->
 
 </resources>

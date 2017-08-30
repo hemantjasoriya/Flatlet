@@ -1,8 +1,12 @@
 package in.flatlet.www.Flatlet.secondActivity;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,16 +45,19 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private final String TAG = "Activity2";
+    private final String MyRequestTag = "Activity2RequestTag";
     private Toolbar toolbar;
     private RequestQueue requestQueue;
     private String hostel_title;
     private String dbqry;
     private Button moreAmeButton;
+    private FloatingActionButton callOwnerButton;
     private ListView listView;
+    private NestedScrollView nestedScrollView;
     RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
     private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality;
     ImageView imageHead;
-    String CCTV, ame_elevator, ame_toilet_attached, eve_snacks, ownership;
+    String CCTV, ame_elevator, ame_toilet_attached, eve_snacks, ownership,contact_primary;
     ProgressBar progressBar;
     ArrayList<String> ameTitle = new ArrayList<>();
     ArrayList<Integer> ameVector = new ArrayList<>();
@@ -59,7 +68,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ACtivity2 onCreate started");
+        Log.d(TAG, "onCreate: Activity2 onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
         hostel_title = getIntent().getStringExtra("hostel_title");
@@ -85,7 +94,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -109,6 +117,40 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         fetch_details();
+        callOwnerButton =(FloatingActionButton)findViewById(R.id.callOwner);
+        callOwnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try{
+                    Intent callIntent = new Intent();
+                    Log.i(TAG, "onClick: intent Created");
+                    callIntent.setData(Uri.parse(contact_primary));
+                    Log.i(TAG, "onClick: phone no parsed"+contact_primary);
+                    (Activity2.this).startActivity(callIntent);
+                    Log.i(TAG, "onClick: Call dial ho gya yaay");
+                }
+                catch (ActivityNotFoundException ex){
+                    Log.i(TAG, "onClick: "+ex);
+
+                }
+
+
+            }
+        });
+        nestedScrollView =(NestedScrollView)findViewById(R.id.nestedScrollView);
+        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY > oldScrollY){
+                    callOwnerButton.hide();
+                }
+                else {
+                    callOwnerButton.show();
+                }
+            }
+        });
+
 
         moreAmeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +224,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
+
     private void fetch_details() {
         Log.d(TAG, "fetch_details: Volley Request Sent");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
@@ -202,6 +245,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
         requestQueue = Volley.newRequestQueue(this);
+        jsonObjectRequest.setTag(MyRequestTag);
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(2500,4,1f));
         requestQueue.add(jsonObjectRequest);
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
@@ -225,6 +270,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         eve_snacks = response.getString("eve_snacks");
         ownership = response.getString("ownership");
         mapFragment.getMapAsync(this);
+        contact_primary = response.getString("contact_primary");
 
         Picasso.with(this).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(imageHead);
         progressBar.setVisibility(View.GONE);
@@ -272,5 +318,17 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         ratingBarStudyEnvironment.setIsIndicator(false);
 
     }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (requestQueue!=null){
+            requestQueue.cancelAll(MyRequestTag);
+        }
+    }
+
+
+    /*public void callOwnerButtonClick(View view) {
+
+    }*/
 }
 

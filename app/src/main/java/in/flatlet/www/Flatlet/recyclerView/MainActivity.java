@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -28,6 +29,7 @@ import in.flatlet.www.Flatlet.filter.FilterActivity;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MAINACTIVTY";
+    private final String MyRequestTag = "MyTag";
     private FloatingActionButton filterFloatingButton;
     private List<GetDataAdapter> dataModelArrayList;
     private RecyclerView recyclerView;
@@ -96,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "onErrorResponse: response error ");
                     }
                 });
+
         requestQueue = Volley.newRequestQueue(this);
+        jsonArrayRequest.setTag(MyRequestTag);
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(2000,3,1f));
         Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
         requestQueue.add(jsonArrayRequest);
     }
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             }
             dataModelArrayList.add(GetDataAdapter2);
         }
-        recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this,recyclerView);
+        recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList,MainActivity.this, recyclerView);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -127,5 +132,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("roomType", roomType);
         Log.i(TAG, "onFilterClick: data sent to FilterActivity i.e. locality" + locality + gender + roomType);
         startActivity(intent);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (requestQueue!=null){
+            requestQueue.cancelAll(MyRequestTag);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +14,7 @@ import android.widget.Button;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
-/**
- * Created by javax on 23-Aug-17.
- */
+
 
 public class LogoutFavouriteFragment extends Fragment {
     private final String TAG = "LogoutFavouriteFragment";

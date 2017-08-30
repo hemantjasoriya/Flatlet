@@ -2,15 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!-- <EditText
-        android:id="@+id/Id"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:layout_below="@+id/text_input_layout2"
-        android:text="amandeep sharma"
-        android:editable="false">
-    </EditText>-->
 
 
     <Button

@@ -113,12 +113,13 @@ public class LocalityListFragment extends Fragment {
                     dbqry = dbqry + "AND rent_double_nonac>0";
                     roomType = "rent_double_nonac";
                 }
+                dbqry = dbqry+" ORDER BY RAND()";
 
                 dbqry = dbqry.replace(" ", "%20");
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 intent.putExtra("dbqry", dbqry);
                 locality = locality.replace(" ", "%20");
-                intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'" + "ORDER%20BY%20RAND()");
+                intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'");
                 intent.putExtra("roomType", roomType);
                 intent.putExtra("gender", gender);
                 Log.i(TAG, "onClick LocalityFragment:Roomtype" + roomType + locality);

@@ -15,18 +15,12 @@
         android:id="@+id/toolbar" />
     <Spinner
         android:id="@+id/spinner"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </Spinner>
-    <!--<AutoCompleteTextView
-        android:id="@+id/autoCompleteText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:dropDownHeight="50dp"
-        android:hint="Enter the locality or Area"
-        android:textColorHint="@color/divider"
-        android:completionThreshold="1"/>-->
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,7 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
-        android:text="Tenant Type"
+        android:text="@string/tenant_type"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -46,7 +40,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
-        android:elevation="5dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="5dp">
 
         <RelativeLayout
@@ -66,7 +60,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="girls"
+                    android:text="@string/girls"
                     android:textSize="14sp" />
 
                 <RadioButton
@@ -76,7 +70,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="boys"
+                    android:text="@string/boys"
                     android:textSize="14sp" />
             </RadioGroup>
         </RelativeLayout>
@@ -87,7 +81,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
-        android:text="Room Type"
+        android:text="@string/room_type"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -98,7 +92,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:background="#ffffff"
-        android:elevation="5dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="5dp">
 
         <RelativeLayout
@@ -116,7 +110,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="Double Room" />
+                    android:text="@string/double_room" />
                 <RadioButton
                     android:id="@+id/checkBoxSingleRoom"
                     android:layout_width="wrap_content"
@@ -125,7 +119,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="Single Room" />
+                    android:text="@string/single_room" />
             </RadioGroup>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -136,12 +130,12 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:background="#ffffff"
-        android:elevation="5dp"
+        app:cardElevation="2dp"
         app:cardCornerRadius="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Air Conditioning"
+            android:text="@string/air_conditioning"
             android:textSize="16dp"
             android:textStyle="bold"
             android:textAlignment="center"/>
@@ -163,7 +157,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="AC" />
+                    android:text="@string/ac" />
                 <RadioButton
                     android:id="@+id/checkBoxNonAc"
                     android:layout_width="wrap_content"
@@ -171,7 +165,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0.72"
-                    android:text="Non AC" />
+                    android:text="@string/non_ac" />
             </RadioGroup>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -183,13 +177,11 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:background="@color/colorfav1"
+        android:background="@color/secondaryColor"
         android:elevation="2dp"
-        android:text="Search"
+        android:text="@string/search"
         android:textAlignment="center"
         android:textSize="18sp" />
-
-
 
 
 </LinearLayout>

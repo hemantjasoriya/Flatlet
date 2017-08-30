@@ -11,8 +11,8 @@
         android:hapticFeedbackEnabled="true"
         android:background="@color/primary"
         app:title="About Us"
-        android:titleTextColor="@color/primary_light">
-
+        android:elevation="4dp"
+        android:titleTextColor="@color/primary_text">
     </android.support.v7.widget.Toolbar>
     <TextView
         android:layout_width="match_parent"

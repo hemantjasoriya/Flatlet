@@ -38,6 +38,17 @@
             app:srcCompat="@android:drawable/editbox_dropdown_light_frame"
             android:contentDescription="@string/primary_card"
             android:layout_above="@+id/linearLayout" />
+
+        <TextView
+            android:id="@+id/viewsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/toggleButton"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_eye"
+            android:text="1500"
+            android:visibility="gone"
+            android:textSize="18sp" />
         <LinearLayout
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
@@ -49,25 +60,28 @@
             android:id="@+id/linearLayout">
             <TextView
                 android:id="@+id/hostel_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hostel_title"
                 android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/hostel_rent"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hostel_rent"
+                android:layout_gravity="center_horizontal"
                 android:textAlignment="center"
                 android:textSize="16sp" />
             <TextView
                 android:id="@+id/hostel_address"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hostel_address"
                 android:textAlignment="center"
+                android:layout_gravity="center_horizontal"
                 android:textSize="14sp"/>
         </LinearLayout>
     </RelativeLayout>

@@ -56,7 +56,6 @@ public class FilterActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(adapter);
-        String query = null;
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -217,7 +216,6 @@ public class FilterActivity extends AppCompatActivity {
                 }
                 query = query.replace(" ", "%20");
                 locality = "";
-                Log.i(TAG, "onOptionsItemSelected:just before StringRequest the query is" + query);
                 Intent intent = new Intent(FilterActivity.this, MainActivity.class);
                 intent.putExtra("locality", locality);
                 intent.putExtra("dbqry", query);

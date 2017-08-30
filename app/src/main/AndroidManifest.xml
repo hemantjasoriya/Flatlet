@@ -3,7 +3,9 @@
     package="in.flatlet.www.Flatlet">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
 
     <application
         android:allowBackup="true"
@@ -51,7 +53,12 @@
         <activity
             android:name="in.flatlet.www.Flatlet.secondActivity.Activity2"
             android:screenOrientation="portrait"
-            android:label="CollapsingToolbar" />
+            android:label="CollapsingToolbar">
+        </activity>
+<activity android:name=".reviewhostel.ReviewHostel"
+    android:screenOrientation="portrait"
+    />
+
         <activity android:name="in.flatlet.www.Flatlet.thirdActivity.MainActivity_third"
             android:screenOrientation="portrait">
             </activity>
