@@ -46,11 +46,11 @@ public class CreateProfileFragment extends Fragment {
     private RadioButton maleRadioButton, femaleRadioButton;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.createprofile_fragment, container, false);
-
         return view;
     }
 
@@ -116,12 +116,7 @@ public class CreateProfileFragment extends Fragment {
                 PhoneNumber phoneNumber = account.getPhoneNumber();
                 String phoneNumberString = phoneNumber.toString();
                 mobileEditText.setText(phoneNumberString);
-                //putting  mobile no in shared preferences
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("userMobile", (phoneNumberString).replace("+91", ""));
-                editor.apply();
-                Log.i(TAG, "onSuccess: " + phoneNumberString);
+
 
             }
 
@@ -159,7 +154,7 @@ public class CreateProfileFragment extends Fragment {
         // changing user name in shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("userName", "Application");
+        editor.clear();
         editor.apply();
     }
 

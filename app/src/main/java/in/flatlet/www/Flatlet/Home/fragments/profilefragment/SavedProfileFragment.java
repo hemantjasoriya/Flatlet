@@ -22,8 +22,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccountKit;
 
-import java.util.zip.Inflater;
-
 import in.flatlet.www.Flatlet.R;
 
 /**
@@ -128,7 +126,7 @@ public class SavedProfileFragment extends Fragment {
         // changing user name in shared preferences
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
-        editor.putString("userName","Application");
+        editor.clear();
         editor.apply();
     }
 

@@ -46,9 +46,9 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.android.gms:play-services-auth:11.0.1'
     compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
-   /* compile 'com.facebook.android:facebook-android-sdk:[4,5)'*/
-    compile 'com.facebook.android:facebook-android-sdk:4.23.+'
     compile 'com.facebook.android:account-kit-sdk:4.+'
+    compile 'com.facebook.android:facebook-android-sdk:4.23.+'
+
     apply plugin: 'com.google.gms.google-services'
 
 }

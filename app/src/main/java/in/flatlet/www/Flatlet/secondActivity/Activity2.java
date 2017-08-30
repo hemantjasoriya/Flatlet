@@ -1,7 +1,9 @@
 package in.flatlet.www.Flatlet.secondActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +16,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,18 +48,19 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private RequestQueue requestQueue;
     private String hostel_title;
     private String dbqry;
-    private Button moreAmeButton;
+    private Button moreAmeButton,ratingSubmitButton;
     private ListView listView;
-    RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
+    private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
     private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality;
-    ImageView imageHead;
-    String CCTV, ame_elevator, ame_toilet_attached, eve_snacks, ownership;
-    ProgressBar progressBar;
-    ArrayList<String> ameTitle = new ArrayList<>();
-    ArrayList<Integer> ameVector = new ArrayList<>();
-    Double location_latitude = 3.14;
-    Double location_longitude = 3.14;
-    SupportMapFragment mapFragment;
+    private ImageView imageHead;
+    private String CCTV, ame_elevator, ame_toilet_attached, eve_snacks, ownership;
+    private ProgressBar progressBar;
+    private ArrayList<String> ameTitle = new ArrayList<>();
+    private ArrayList<Integer> ameVector = new ArrayList<>();
+    private Double location_latitude = 3.14;
+    private Double location_longitude = 3.14;
+    private SupportMapFragment mapFragment;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -62,11 +68,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Log.d(TAG, "onCreate: ACtivity2 onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
+        sharedPreferences=getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
         hostel_title = getIntent().getStringExtra("hostel_title");
         dbqry = "Select * from hostel_specs where title=" + "'" + hostel_title + "'";
         dbqry = dbqry.replace(" ", "%20");
-        final String url = "http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry;
-        Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title + url);
+        Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title );
         Log.i(TAG, "onCreate: toolbar set ho gya");
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         text_single_nonac = (TextView) findViewById(R.id.text_single_nonac);
@@ -85,6 +91,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ratingSubmitButton=(Button)findViewById(R.id.ratingSubmitButton);
+
 
         setSupportActionBar(toolbar);
 
@@ -92,6 +100,33 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
+        }
+
+        // setting rating bar if logged in
+        SharedPreferences sharedPreferences=getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
+
+        {
+          ratingBarFood.setRating((float)sharedPreferences.getInt("hostel1_food",5));
+            ratingBarAccommodation.setRating((float)sharedPreferences.getInt("hostel1_accommodation",5));
+            ratingBarStaff.setRating((float)sharedPreferences.getInt("hostel1_staffbehaviour",5));
+            ratingBarStudyEnvironment.setRating((float)sharedPreferences.getInt("hostel1_studyenvironment",5));
+            ratingSubmitButton.setText("Edit");
+            ratingBarFood.setIsIndicator(true);
+            ratingBarAccommodation.setIsIndicator(true);
+            ratingBarStaff.setIsIndicator(true);
+            ratingBarStudyEnvironment.setIsIndicator(true);
+        }
+        if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
+            ratingBarFood.setRating((float)sharedPreferences.getInt("hostel2_food",5));
+            ratingBarAccommodation.setRating((float)sharedPreferences.getInt("hostel2_accommodation",5));
+            ratingBarStaff.setRating((float)sharedPreferences.getInt("hostel2_staffbehaviour",5));
+            ratingBarStudyEnvironment.setRating((float)sharedPreferences.getInt("hostel2_studyenvironment",5));
+            ratingSubmitButton.setText("Edit");
+            ratingBarFood.setIsIndicator(true);
+            ratingBarAccommodation.setIsIndicator(true);
+            ratingBarStaff.setIsIndicator(true);
+            ratingBarStudyEnvironment.setIsIndicator(true);
         }
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -205,7 +240,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         requestQueue.add(jsonObjectRequest);
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
-
     private void parseResponse(JSONObject response) throws JSONException {
         Log.d(TAG, "parseResponse: resopse parsing initiated");
         location_latitude = response.getDouble("location_latitude");
@@ -250,11 +284,160 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onSubmitRatingButton(View view) {
+        Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
+        if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
+            ratingBarFood.setIsIndicator(false);
+            ratingBarAccommodation.setIsIndicator(false);
+            ratingBarStaff.setIsIndicator(false);
+            ratingBarStudyEnvironment.setIsIndicator(false);
+            ratingSubmitButton.setText("SUBMIT");
+            return;
+        }
 
-        Float rating_food = ratingBarFood.getRating();
-        Float rating_staff = ratingBarStaff.getRating();
-        Float rating_accommodation = ratingBarAccommodation.getRating();
-        Float rating_studyEnvironment = ratingBarStudyEnvironment.getRating();
+        int rating_food = (int) ratingBarFood.getRating();
+        int rating_staff = (int) ratingBarStaff.getRating();
+        int rating_accommodation = (int) ratingBarAccommodation.getRating();
+        int rating_studyEnvironment = (int) ratingBarStudyEnvironment.getRating();
+
+        // saving the new data in sharedpreferences
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
+            Log.i(TAG, "onSubmitRatingButton: hostel2_name");
+            editor.putInt("hostel2_food",rating_food);
+            editor.putInt("hostel2_accommodation",rating_accommodation);
+            editor.putInt("hostel2_staffbehaviour",rating_staff);
+            editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+            editor.apply();
+
+
+            // sending rating to user database
+            String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
+                    " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
+            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+            Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+            String urlFinal = url.replace(" ", "%20");
+            StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, "onResponse: "+response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG, "onErrorResponse: "+error);
+
+                }
+            });
+            RequestQueue queue2 = Volley.newRequestQueue(getApplicationContext());
+            queue2.add(stringRequest);
+
+        }
+        else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
+                 {
+                     Log.i(TAG, "onSubmitRatingButton: hostel1 name");
+            editor.putInt("hostel1_food", rating_food);
+            editor.putInt("hostel1_accommodation", rating_accommodation);
+            editor.putInt("hostel1_staffbehaviour", rating_staff);
+            editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+            editor.apply();
+
+
+            // sending rating to user database
+            String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
+                    " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+            Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+            String urlFinal = url.replace(" ", "%20");
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, "onResponse: " + response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG, "onErrorResponse: " + error);
+
+                }
+            });
+            RequestQueue queue2 = Volley.newRequestQueue(getApplicationContext());
+            queue2.add(stringRequest);
+        }
+        else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
+                && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+            Log.i(TAG, "onSubmitRatingButton: both null");
+            editor.putString("hostel1_name",hostel_title);
+            editor.putInt("hostel1_food", rating_food);
+            editor.putInt("hostel1_accommodation", rating_accommodation);
+            editor.putInt("hostel1_staffbehaviour", rating_staff);
+            editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+            editor.apply();
+
+
+            // sending rating to user database
+            String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
+                    " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+            Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+            String urlFinal = url.replace(" ", "%20");
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, "onResponse: " + response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG, "onErrorResponse: " + error);
+
+                }
+            });
+            RequestQueue queue2 = Volley.newRequestQueue(this);
+            queue2.add(stringRequest);
+
+        }
+        else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+            Log.i(TAG, "onSubmitRatingButton: hostel 2 null");
+            editor.putString("hostel2_name",hostel_title);
+            editor.putInt("hostel2_food",rating_food);
+            editor.putInt("hostel2_accommodation",rating_accommodation);
+            editor.putInt("hostel2_staffbehaviour",rating_staff);
+            editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+            editor.apply();
+
+
+            // sending rating to user database
+            String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
+                    " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
+            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+            Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+            String urlFinal = url.replace(" ", "%20");
+            StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i(TAG, "onResponse: "+response);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG, "onErrorResponse: "+error);
+
+                }
+            });
+            RequestQueue queue2 = Volley.newRequestQueue(this);
+            queue2.add(stringRequest);
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"you can not review more than 2 hostels",Toast.LENGTH_SHORT).show();
+        }
+
+
+        // setting rating bar as indicator
         ratingBarFood.setIsIndicator(true);
         ratingBarAccommodation.setIsIndicator(true);
         ratingBarStaff.setIsIndicator(true);
@@ -264,13 +447,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public void onEditRatingsButton(View view) {
 
-        ratingBarFood.setIsIndicator(false);
-        ratingBarAccommodation.setIsIndicator(false);
-        ratingBarStaff.setIsIndicator(false);
-        ratingBarStudyEnvironment.setIsIndicator(false);
-
-    }
 }
 

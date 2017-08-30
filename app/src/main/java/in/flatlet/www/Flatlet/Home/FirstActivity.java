@@ -55,13 +55,15 @@ public class FirstActivity extends AppCompatActivity {
                 case R.id.navigation_profile:
                     SharedPreferences sharedPreferences = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
 
-                    if (accessToken != null && sharedPreferences.getString("userName", "johndoe").equalsIgnoreCase("Application")) {
-                        fragment = new CreateProfileFragment();
-                    } else if (sharedPreferences.getString("userName", "johndoe").equalsIgnoreCase("Application")) {
-                        fragment = new LoginFragment();
-                    } else {
-                        fragment = new SavedProfileFragment();
-                    }
+                   if (accessToken==null){
+                       fragment=new LoginFragment();
+                   }
+                   else if (!sharedPreferences.getString("userName","johndoe").equalsIgnoreCase("johndoe")){
+                       fragment=new SavedProfileFragment();
+                   }
+                   else {
+                       fragment=new CreateProfileFragment();
+                   }
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, fragment, "fragmentProfile");
                     fragmentTransaction.addToBackStack(null);

@@ -1,10 +1,7 @@
 package in.flatlet.www.Flatlet.application;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.squareup.leakcanary.LeakCanary;
 
@@ -20,7 +17,7 @@ public class MyApplication extends Application {
             // You should not init your app in this process.
             return;
         }
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+       /* SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("firstTime", false)) {
             // <---- run your one time code here
             sharedPreferences = this.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
@@ -32,9 +29,9 @@ public class MyApplication extends Application {
             Log.i(TAG, "onCreate: first time has runned");
             editor = prefs.edit();
             editor.putBoolean("firstTime", true);
-            editor.commit();
+            editor.commit();*/
 
             LeakCanary.install(this);
         }
     }
-}
+

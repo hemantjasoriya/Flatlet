@@ -96,11 +96,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         cursor=db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME,projection,selection,selectionArgs,null,null,null);
 
         Log.i(TAG, "onBindViewHolder: before if and get count is "+cursor.getCount());
-        String[] projection1 = {
-                FeedReaderContract.FeedEntry._ID,
-                FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
-
-        };
 
 
 
@@ -108,7 +103,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if ( cursor.getCount()!=0 && cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())) {
 
             Log.i(TAG, "onBindViewHolder: cursor.isnull returned true " + cursor.getString(0));
-
 
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
             holder.toggle.setChecked(true);
