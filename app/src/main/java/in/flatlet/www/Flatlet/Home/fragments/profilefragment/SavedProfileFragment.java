@@ -2,6 +2,7 @@ package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccountKit;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 /**
  * Created by javax on 21-Aug-17.
@@ -34,6 +37,8 @@ public class SavedProfileFragment extends Fragment {
     private Button logoutButton1;
     private final String TAG="SavedProfileFragment";
     private int i=0;
+    private FeedReaderDbHelper feedReaderDbHelper;
+    private SQLiteDatabase db_favourite;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -128,6 +133,10 @@ public class SavedProfileFragment extends Fragment {
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        // delete all rows from sqlite database
+        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
     @Override

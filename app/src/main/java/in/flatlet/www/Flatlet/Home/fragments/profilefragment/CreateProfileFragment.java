@@ -2,6 +2,7 @@ package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,8 +34,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
-
+/**
+ * Created by javax on 21-Aug-17.
+ */
 
 public class CreateProfileFragment extends Fragment {
     private Button logoutButton, saveProfileButton;
@@ -42,7 +47,8 @@ public class CreateProfileFragment extends Fragment {
     private TextView personalDetailsTextView;
     private final String TAG = "CreateProfileFragment";
     private RadioButton maleRadioButton, femaleRadioButton;
-    RequestQueue queue1;
+    private FeedReaderDbHelper feedReaderDbHelper;
+    private SQLiteDatabase db_favourite;
 
 
 
@@ -135,15 +141,6 @@ public class CreateProfileFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (queue1!=null){
-            queue1.cancelAll("MyTag");
-        }
-
-    }
-
     public static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -159,11 +156,15 @@ public class CreateProfileFragment extends Fragment {
         fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        // changing user name in shared preferences
+        // delete sahred preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        // delete all rows from sqlite database
+        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
 
@@ -175,7 +176,7 @@ public class CreateProfileFragment extends Fragment {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
-                    getString("userEmail", "@johndoe") + "','male')";
+                    getString("userEmail", "@johdoe") + "','male')";
             Log.i(TAG, "sendToDatabase: " + dbqry);
         } else {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
@@ -203,8 +204,7 @@ public class CreateProfileFragment extends Fragment {
 
             }
         });
-         queue1 = Volley.newRequestQueue(getActivity());
-        stringRequest.setTag("MyTag");
+        RequestQueue queue1 = Volley.newRequestQueue(getActivity());
         queue1.add(stringRequest);
 
     }
