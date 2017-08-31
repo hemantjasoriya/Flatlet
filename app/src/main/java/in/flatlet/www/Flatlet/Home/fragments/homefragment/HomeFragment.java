@@ -6,16 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
@@ -46,12 +49,20 @@ public class HomeFragment extends Fragment {
         exploreNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("locality", "");
-                intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
-                intent.putExtra("roomType", "rent_single_ac");
-                intent.putExtra("gender", "girls");
-                getActivity().startActivity(intent);
+                if (MySingleton.getInstance(getContext()).isOnline()){
+                    Log.i("ExploreNow check", "onClick: "+MySingleton.getInstance(getContext()).isOnline());
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("locality", "");
+                    intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
+                    intent.putExtra("roomType", "rent_single_ac");
+                    intent.putExtra("gender", "girls");
+                    getActivity().startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
         });
 

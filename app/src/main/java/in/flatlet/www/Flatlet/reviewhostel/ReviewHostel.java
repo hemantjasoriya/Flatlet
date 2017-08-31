@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -205,37 +206,44 @@ public class ReviewHostel extends AppCompatActivity {
         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                Log.i(TAG, "onItemClick: clicked hostel is " + adapter.getItem(arg2));
-                reviewHostelTitle.setText(adapter.getItem(arg2));
-                String title = adapter.getItem(arg2).replace(" ", "%20");
-                hostel_title = title;
 
-                jsonObjRequest = new JsonObjectRequest
-                        ("http://flatlet.in/flatletreviewdata/reviewdata.jsp?title=" + title, null, new Response.Listener<JSONObject>() {
+                if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+                    Log.i(TAG, "onItemClick: clicked hostel is " + adapter.getItem(arg2));
+                    reviewHostelTitle.setText(adapter.getItem(arg2));
+                    String title = adapter.getItem(arg2).replace(" ", "%20");
+                    hostel_title = title;
 
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    Log.i(TAG, "onResponse: ");
-                                    reviewSecAddress.setText(response.getString("address_secondary"));
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                    Log.i(TAG, "onResponse: catch " + e);
+                    jsonObjRequest = new JsonObjectRequest
+                            ("http://flatlet.in/flatletreviewdata/reviewdata.jsp?title=" + title, null, new Response.Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    try {
+                                        Log.i(TAG, "onResponse: ");
+                                        reviewSecAddress.setText(response.getString("address_secondary"));
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                        Log.i(TAG, "onResponse: catch " + e);
+                                    }
                                 }
-                            }
-                        }, new Response.ErrorListener() {
+                            }, new Response.ErrorListener() {
 
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.i(TAG, "onErrorResponse: " + error);
-                            }
-                        });
-                 requestQueue1 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-                jsonObjRequest.setTag("MyRequestTag2");
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjRequest);
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.i(TAG, "onErrorResponse: " + error);
+                                }
+                            });
+                    requestQueue1 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                    jsonObjRequest.setTag("MyRequestTag2");
+                    MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjRequest);
 
-                Picasso.with(getBaseContext()).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(reviewImageView);
-                reviewCard.setVisibility(View.VISIBLE);
+                    Picasso.with(getBaseContext()).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(reviewImageView);
+                    reviewCard.setVisibility(View.VISIBLE);
+                }
+                    else {
+                    Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
             }
         });

@@ -18,7 +18,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
@@ -45,7 +44,7 @@ public class LoginFragment extends Fragment {
     private final String TAG = "loginfragment";
     public static int APP_REQUEST_CODE = 99;
     private Button loginButton;
-    RequestQueue queue2,queue1;
+    RequestQueue queue2, queue1;
 
     @Nullable
     @Override
@@ -69,10 +68,9 @@ public class LoginFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(queue1!=null){
+        if (queue1 != null) {
             queue1.cancelAll("MyTag");
-        }
-        else if(queue2!=null){
+        } else if (queue2 != null) {
             queue2.cancelAll("MyTag");
         }
     }
@@ -88,19 +86,26 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "button clicked ");
-                final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
-                AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
-                        new AccountKitConfiguration.AccountKitConfigurationBuilder(
-                                LoginType.PHONE,
-                                AccountKitActivity.ResponseType.TOKEN); // or .ResponseType.TOKEN
-                // ... perform additional configuration ...
-                configurationBuilder.setDefaultCountryCode("IN");
+                if(MySingleton.getInstance(getContext()).isOnline()){
+                    Log.i(TAG, "button clicked ");
+                    final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
+                    AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
+                            new AccountKitConfiguration.AccountKitConfigurationBuilder(
+                                    LoginType.PHONE,
+                                    AccountKitActivity.ResponseType.TOKEN); // or .ResponseType.TOKEN
+                    // ... perform additional configuration ...
+                    configurationBuilder.setDefaultCountryCode("IN");
 
-                intent.putExtra(
-                        AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
-                        configurationBuilder.build());
-                startActivityForResult(intent, APP_REQUEST_CODE);
+                    intent.putExtra(
+                            AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
+                            configurationBuilder.build());
+                    startActivityForResult(intent, APP_REQUEST_CODE);
+                }
+                else {
+                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
             }
         });
@@ -116,7 +121,7 @@ public class LoginFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
-            String toastMessage=null;
+            String toastMessage = null;
             if (loginResult.getError() != null) {
                 toastMessage = loginResult.getError().getErrorType().getMessage();
                     /*showErrorActivity(loginResult.getError());*/
@@ -125,32 +130,29 @@ public class LoginFragment extends Fragment {
             } else {
                 if (loginResult.getAccessToken() != null) {
                     Log.i(TAG, "onActivityResult: access token");
-
                     //fetching phone no
                     AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                         @Override
                         public void onSuccess(final Account account) {
                             // Get phone number
                             PhoneNumber phoneNumber = account.getPhoneNumber();
-                            final String phoneNumberString = (phoneNumber.toString()).replace("+91","");
+                            final String phoneNumberString = (phoneNumber.toString()).replace("+91", "");
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userMobile", phoneNumberString);
                             editor.apply();
-                            Log.i(TAG, "onSuccess: "+phoneNumberString);
-                            String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" +phoneNumberString;
-                            Log.i(TAG, "onSuccess: "+url);
+                            Log.i(TAG, "onSuccess: " + phoneNumberString);
+                            String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" + phoneNumberString;
+                            Log.i(TAG, "onSuccess: " + url);
 
-
-
-                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Display the first 500 characters of the response string.
                                             Log.i(TAG, "onResponse: " + response);
                                             try {
-                                                if (response.getInt("tag")==0) {
+                                                if (response.getInt("tag") == 0) {
                                                     Log.i(TAG, "onResponse: if chala");
                                                     Fragment fragment = new CreateProfileFragment();
                                                     android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -158,8 +160,7 @@ public class LoginFragment extends Fragment {
                                                     fragmentTransaction.addToBackStack(null);
                                                     fragmentTransaction.commit();
 
-                                                }
-                                                else {
+                                                } else {
                                                     Log.i(TAG, "onResponse: else started");
                                                     // go to main activity
                                                     Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -170,31 +171,31 @@ public class LoginFragment extends Fragment {
                                                     getActivity().startActivity(intent);
 
                                                     // fetching data from database
-                                                    String url="http://flatlet.in/flatletuserdatafetcher/flatletuserdatafetcher.jsp?phoneNumberString=" + phoneNumberString;
+                                                    String url = "http://flatlet.in/flatletuserdatafetcher/flatletuserdatafetcher.jsp?phoneNumberString=" + phoneNumberString;
                                                     JsonObjectRequest jsObjRequest = new JsonObjectRequest
                                                             (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                                                                 @Override
                                                                 public void onResponse(JSONObject response) {
-                                                                    SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-                                                                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                                                                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
                                                                     try {
-                                                                        editor.putString("userName",response.getString("user_ka_naam"));
-                                                                        editor.putString("userEmail",response.getString("user_emailid"));
-                                                                        editor.putString("hostel1_name",response.getString("hostel1_name"));
-                                                                        editor.putFloat("hostel1_rating",((float) response.getDouble("hostel1_rating")));
-                                                                        editor.putInt("hostel1_food",response.getInt("hostel1_food"));
-                                                                        editor.putInt("hostel1_accommodation",response.getInt("hostel1_accommodation"));
-                                                                        editor.putInt("hostel1_staffbehaviour",response.getInt("hostel1_staffbehaviour"));
-                                                                        editor.putInt("hostel1_studyenvironment",response.getInt("hostel1_studyenvironment"));
-                                                                        editor.putFloat("hostel2_rating",(float) (response.getDouble("hostel2_rating")));
-                                                                        editor.putInt("hostel2_food",response.getInt("hostel2_food"));
-                                                                        editor.putInt("hostel2_accommodation",response.getInt("hostel2_accommodation"));
-                                                                        editor.putInt("hostel2_staffbehaviour",response.getInt("hostel2_staffbehaviour"));
-                                                                        editor.putInt("hostel2_studyenvironment",response.getInt("hostel2_studyenvironment"));
+                                                                        editor.putString("userName", response.getString("user_ka_naam"));
+                                                                        editor.putString("userEmail", response.getString("user_emailid"));
+                                                                        editor.putString("hostel1_name", response.getString("hostel1_name"));
+                                                                        editor.putFloat("hostel1_rating", ((float) response.getDouble("hostel1_rating")));
+                                                                        editor.putInt("hostel1_food", response.getInt("hostel1_food"));
+                                                                        editor.putInt("hostel1_accommodation", response.getInt("hostel1_accommodation"));
+                                                                        editor.putInt("hostel1_staffbehaviour", response.getInt("hostel1_staffbehaviour"));
+                                                                        editor.putInt("hostel1_studyenvironment", response.getInt("hostel1_studyenvironment"));
+                                                                        editor.putFloat("hostel2_rating", (float) (response.getDouble("hostel2_rating")));
+                                                                        editor.putInt("hostel2_food", response.getInt("hostel2_food"));
+                                                                        editor.putInt("hostel2_accommodation", response.getInt("hostel2_accommodation"));
+                                                                        editor.putInt("hostel2_staffbehaviour", response.getInt("hostel2_staffbehaviour"));
+                                                                        editor.putInt("hostel2_studyenvironment", response.getInt("hostel2_studyenvironment"));
                                                                     } catch (JSONException e) {
                                                                         e.printStackTrace();
-                                                                        Log.i(TAG, "onResponse: JSONException "+e);
+                                                                        Log.i(TAG, "onResponse: JSONException " + e);
                                                                     }
                                                                     editor.apply();
 
@@ -205,7 +206,7 @@ public class LoginFragment extends Fragment {
                                                                 @Override
                                                                 public void onErrorResponse(VolleyError error) {
                                                                     // TODO Auto-generated method stub
-                                                                    Log.i(TAG, "onErrorResponse: "+error);
+                                                                    Log.i(TAG, "onErrorResponse: " + error);
 
 
                                                                 }
@@ -229,7 +230,7 @@ public class LoginFragment extends Fragment {
 
                                 }
                             });
-                             queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+                            queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
                             jsonObjectRequest.setTag("MyTag");
                             MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 

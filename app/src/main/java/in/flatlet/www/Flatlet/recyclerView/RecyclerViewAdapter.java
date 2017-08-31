@@ -27,7 +27,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.AccountKit;
 import com.squareup.picasso.Picasso;
@@ -157,13 +156,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             ",'"+sharedPreferences.getString("userMobile","911")+"','"+getDataAdapter1.getAddress()+"','"+getDataAdapter1.getRent()+"'," +
                             "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','1')";
 
-
-
                     // checking the size of sqlite database
                     String[] projection1 = {
                             FeedReaderContract.FeedEntry._ID,
                             FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
-
                     };
 
                     cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
@@ -194,13 +190,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             public void onResponse(String response) {
                                 // Display the first 500 characters of the response string.
                                 Log.i(TAG, "onResponse: " + response);
-
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(TAG, "onErrorResponse: " + error);
-
                     }
                 });
 

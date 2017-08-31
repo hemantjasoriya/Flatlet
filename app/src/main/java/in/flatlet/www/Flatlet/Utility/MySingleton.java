@@ -1,6 +1,8 @@
 package in.flatlet.www.Flatlet.Utility;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,6 +11,7 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by Dragon on 31-08-2017.
  */
+
 public class MySingleton {
     private static MySingleton mInstance;
     private RequestQueue mRequestQueue;
@@ -18,7 +21,6 @@ public class MySingleton {
     private MySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
-
 
     }
 
@@ -38,9 +40,19 @@ public class MySingleton {
         return mRequestQueue;
     }
 
+
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
     }
 
+    public Boolean isOnline(){
+        ConnectivityManager cm =
+                (ConnectivityManager)mCtx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
 
 }

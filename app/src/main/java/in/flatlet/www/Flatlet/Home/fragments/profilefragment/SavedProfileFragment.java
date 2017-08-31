@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -139,7 +140,7 @@ public class SavedProfileFragment extends Fragment {
     public void onStop() {
         super.onStop();
         Log.i(TAG, "onStop: ");
-        if (i>0) {
+        if (i>0 && MySingleton.getInstance(getContext()).isOnline()) {
             //sending changes to database
             SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
 
@@ -170,6 +171,10 @@ public class SavedProfileFragment extends Fragment {
             queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyRequestTag");
             MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+        }
+        else {
+            Toast.makeText(getContext(),"Some Error Occurred. Please Try Later",Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 

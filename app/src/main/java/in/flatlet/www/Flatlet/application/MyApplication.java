@@ -17,19 +17,6 @@ public class MyApplication extends Application {
             // You should not init your app in this process.
             return;
         }
-       /* SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (!prefs.getBoolean("firstTime", false)) {
-            // <---- run your one time code here
-            sharedPreferences = this.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("userName", "Application");
-            editor.apply();
-
-
-            Log.i(TAG, "onCreate: first time has runned");
-            editor = prefs.edit();
-            editor.putBoolean("firstTime", true);
-            editor.commit();*/
 
             LeakCanary.install(this);
         }

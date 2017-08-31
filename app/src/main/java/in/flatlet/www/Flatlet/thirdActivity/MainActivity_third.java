@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 
 public class MainActivity_third extends AppCompatActivity {
@@ -24,27 +26,34 @@ public class MainActivity_third extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_third);
-        myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(myPageAdapter);
-        //now when the pager changes we wanna change the tab and vice-versa
-        tabLayout.setupWithViewPager(pager);
-        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+            setContentView(R.layout.activity_main_third);
+            myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+            pager = (ViewPager) findViewById(R.id.pager);
+            pager.setAdapter(myPageAdapter);
+            //now when the pager changes we wanna change the tab and vice-versa
+            tabLayout.setupWithViewPager(pager);
+            pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBackPressed();
+                    }
+                });
+            }
         }
+        else {
+            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 }
 

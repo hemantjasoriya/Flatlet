@@ -78,35 +78,42 @@ public class CreateProfileFragment extends Fragment {
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // filling the user data in shared preferences
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+                if (MySingleton.getInstance(getContext()).isOnline()){
+                    // filling the user data in shared preferences
+                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
-                if (nameEditText.getText().toString().matches("")) {
-                    nameEditText.setError("Please enter name", drawable);
+                    if (nameEditText.getText().toString().matches("")) {
+                        nameEditText.setError("Please enter name", drawable);
+                        return;
+                    }
+
+                    if (!isEmailValid(emailEditText.getText().toString())) {
+                        emailEditText.setError("Please enter a valid email id", drawable);
+                        return;
+                    }
+                    if (!maleRadioButton.isChecked() && !femaleRadioButton.isChecked()) {
+                        Toast.makeText(getActivity(), "Please select your Identity", Toast.LENGTH_SHORT);
+                        return;
+                    }
+                    editor.putString("userName", nameEditText.getText().toString());
+                    editor.putString("userEmail", emailEditText.getText().toString());
+                    editor.apply();
+                    // launching SavedprofileFragment
+                    Fragment fragment = new SavedProfileFragment();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                    sendToDatabase();
+                }
+                else {
+                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!isEmailValid(emailEditText.getText().toString())) {
-                    emailEditText.setError("Please enter a valid email id", drawable);
-                    return;
-                }
-                if (!maleRadioButton.isChecked() && !femaleRadioButton.isChecked()) {
-                    Toast.makeText(getActivity(), "Please select your Identity", Toast.LENGTH_SHORT);
-                    return;
-                }
-                editor.putString("userName", nameEditText.getText().toString());
-                editor.putString("userEmail", emailEditText.getText().toString());
-                editor.apply();
-                // launching SavedprofileFragment
-                Fragment fragment = new SavedProfileFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                sendToDatabase();
             }
         });
 
@@ -123,8 +130,6 @@ public class CreateProfileFragment extends Fragment {
                 PhoneNumber phoneNumber = account.getPhoneNumber();
                 String phoneNumberString = phoneNumber.toString();
                 mobileEditText.setText(phoneNumberString);
-
-
             }
 
             @Override

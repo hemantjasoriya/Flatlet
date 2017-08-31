@@ -11,8 +11,7 @@
         android:text="@string/user_profile"
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,9 +81,7 @@
             android:id="@+id/userEmailEditText"
             android:enabled="false"
             android:textSize="15sp"
-            android:layout_marginStart="10dp"
-
-            />
+            android:layout_marginStart="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"

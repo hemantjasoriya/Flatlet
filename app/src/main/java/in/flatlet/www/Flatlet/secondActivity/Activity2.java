@@ -26,6 +26,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
@@ -291,172 +294,186 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onSubmitRatingButton(View view) {
-        Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
-        if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
-            ratingBarFood.setIsIndicator(false);
-            ratingBarAccommodation.setIsIndicator(false);
-            ratingBarStaff.setIsIndicator(false);
-            ratingBarStudyEnvironment.setIsIndicator(false);
-            ratingSubmitButton.setText("SUBMIT");
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+            AccessToken accessToken= AccountKit.getCurrentAccessToken();
+            if (accessToken==null){
+                Intent intent=new Intent(Activity2.this,FirstActivity.class);
+                intent.setFlags(2);
+                startActivity(intent);
+            }
+            Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
+            if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
+                ratingBarFood.setIsIndicator(false);
+                ratingBarAccommodation.setIsIndicator(false);
+                ratingBarStaff.setIsIndicator(false);
+                ratingBarStudyEnvironment.setIsIndicator(false);
+                ratingSubmitButton.setText("SUBMIT");
+                return;
+            }
+
+            int rating_food = (int) ratingBarFood.getRating();
+            int rating_staff = (int) ratingBarStaff.getRating();
+            int rating_accommodation = (int) ratingBarAccommodation.getRating();
+            int rating_studyEnvironment = (int) ratingBarStudyEnvironment.getRating();
+
+            // saving the new data in sharedpreferences
+            SharedPreferences.Editor editor=sharedPreferences.edit();
+            if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
+                Log.i(TAG, "onSubmitRatingButton: hostel2_name");
+                editor.putInt("hostel2_food",rating_food);
+                editor.putInt("hostel2_accommodation",rating_accommodation);
+                editor.putInt("hostel2_staffbehaviour",rating_staff);
+                editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+                editor.apply();
+
+
+                // sending rating to user database
+                String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
+                        " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+                String urlFinal = url.replace(" ", "%20");
+                StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error);
+
+                    }
+                });
+                requestQueue2 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                stringRequest.setTag("MyTag2");
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }
+            else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
+            {
+                Log.i(TAG, "onSubmitRatingButton: hostel1 name");
+                editor.putInt("hostel1_food", rating_food);
+                editor.putInt("hostel1_accommodation", rating_accommodation);
+                editor.putInt("hostel1_staffbehaviour", rating_staff);
+                editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+                editor.apply();
+
+
+                // sending rating to user database
+                String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
+                        " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                String urlFinal = url.replace(" ", "%20");
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: " + response);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: " + error);
+
+                    }
+                });
+                requestQueue3 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                stringRequest.setTag("MyTag3");
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+            }
+            else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
+                    && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+                Log.i(TAG, "onSubmitRatingButton: both null");
+                editor.putString("hostel1_name",hostel_title);
+                editor.putInt("hostel1_food", rating_food);
+                editor.putInt("hostel1_accommodation", rating_accommodation);
+                editor.putInt("hostel1_staffbehaviour", rating_staff);
+                editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+                editor.apply();
+
+
+                // sending rating to user database
+                String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
+                        " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                String urlFinal = url.replace(" ", "%20");
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: " + response);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: " + error);
+
+                    }
+                });
+                requestQueue4 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                stringRequest.setTag("MyTag4");
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }
+            else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+                Log.i(TAG, "onSubmitRatingButton: hostel 2 null");
+                editor.putString("hostel2_name",hostel_title);
+                editor.putInt("hostel2_food",rating_food);
+                editor.putInt("hostel2_accommodation",rating_accommodation);
+                editor.putInt("hostel2_staffbehaviour",rating_staff);
+                editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+                editor.apply();
+
+
+                // sending rating to user database
+                String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
+                        " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+                String urlFinal = url.replace(" ", "%20");
+                StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error);
+
+                    }
+                });
+                requestQueue5 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                stringRequest.setTag("MyTag5");
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"you can not review more than 2 hostels",Toast.LENGTH_SHORT).show();
+            }
+
+
+            // setting rating bar as indicator
+            ratingBarFood.setIsIndicator(true);
+            ratingBarAccommodation.setIsIndicator(true);
+            ratingBarStaff.setIsIndicator(true);
+            ratingBarStudyEnvironment.setIsIndicator(true);
+
+            Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int rating_food = (int) ratingBarFood.getRating();
-        int rating_staff = (int) ratingBarStaff.getRating();
-        int rating_accommodation = (int) ratingBarAccommodation.getRating();
-        int rating_studyEnvironment = (int) ratingBarStudyEnvironment.getRating();
-
-        // saving the new data in sharedpreferences
-        SharedPreferences.Editor editor=sharedPreferences.edit();
-        if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
-            Log.i(TAG, "onSubmitRatingButton: hostel2_name");
-            editor.putInt("hostel2_food",rating_food);
-            editor.putInt("hostel2_accommodation",rating_accommodation);
-            editor.putInt("hostel2_staffbehaviour",rating_staff);
-            editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
-            editor.apply();
-
-
-            // sending rating to user database
-            String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
-                    " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
-            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-            Log.i(TAG, "onSubmitRatingButton: "+dbqry);
-            String urlFinal = url.replace(" ", "%20");
-            StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i(TAG, "onResponse: "+response);
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: "+error);
-
-                }
-            });
-             requestQueue2 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-            stringRequest.setTag("MyTag2");
-            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-        }
-        else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
-                 {
-                     Log.i(TAG, "onSubmitRatingButton: hostel1 name");
-            editor.putInt("hostel1_food", rating_food);
-            editor.putInt("hostel1_accommodation", rating_accommodation);
-            editor.putInt("hostel1_staffbehaviour", rating_staff);
-            editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
-            editor.apply();
-
-
-            // sending rating to user database
-            String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
-                    " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-            Log.i(TAG, "onSubmitRatingButton: " + dbqry);
-            String urlFinal = url.replace(" ", "%20");
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i(TAG, "onResponse: " + response);
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: " + error);
-
-                }
-            });
-             requestQueue3 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-                     stringRequest.setTag("MyTag3");
-            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-        }
-        else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
-                && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
-            Log.i(TAG, "onSubmitRatingButton: both null");
-            editor.putString("hostel1_name",hostel_title);
-            editor.putInt("hostel1_food", rating_food);
-            editor.putInt("hostel1_accommodation", rating_accommodation);
-            editor.putInt("hostel1_staffbehaviour", rating_staff);
-            editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
-            editor.apply();
-
-
-            // sending rating to user database
-            String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
-                    " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-            Log.i(TAG, "onSubmitRatingButton: " + dbqry);
-            String urlFinal = url.replace(" ", "%20");
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i(TAG, "onResponse: " + response);
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: " + error);
-
-                }
-            });
-             requestQueue4 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-            stringRequest.setTag("MyTag4");
-            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-        }
-        else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
-            Log.i(TAG, "onSubmitRatingButton: hostel 2 null");
-            editor.putString("hostel2_name",hostel_title);
-            editor.putInt("hostel2_food",rating_food);
-            editor.putInt("hostel2_accommodation",rating_accommodation);
-            editor.putInt("hostel2_staffbehaviour",rating_staff);
-            editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
-            editor.apply();
-
-
-            // sending rating to user database
-            String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
-                    " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
-            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-            Log.i(TAG, "onSubmitRatingButton: "+dbqry);
-            String urlFinal = url.replace(" ", "%20");
-            StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i(TAG, "onResponse: "+response);
-
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: "+error);
-
-                }
-            });
-            requestQueue5 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
-            stringRequest.setTag("MyTag5");
-            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"you can not review more than 2 hostels",Toast.LENGTH_SHORT).show();
-        }
-
-
-        // setting rating bar as indicator
-        ratingBarFood.setIsIndicator(true);
-        ratingBarAccommodation.setIsIndicator(true);
-        ratingBarStaff.setIsIndicator(true);
-        ratingBarStudyEnvironment.setIsIndicator(true);
-
-        Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -476,10 +493,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             requestQueue5.cancelAll("MyTag5");
         }
 
-
-
     }
-
-
 }
 

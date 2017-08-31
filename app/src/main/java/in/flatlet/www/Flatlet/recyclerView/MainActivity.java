@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
@@ -82,29 +83,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void JSON_DATA_WEB_CALL() {
-        Log.i(TAG, "url went to volley request is " + GET_JSON_DATA_HTTP_URL);
-        jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        progressBar.setVisibility(View.GONE);
-                        JSON_PARSE_DATA_AFTER_WEBCALL(response);
-                        Log.i(TAG, "onResponse: data is send further for parsing");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.i(TAG, "onErrorResponse: response error ");
-                    }
-                });
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+            Log.i(TAG, "url went to volley request is " + GET_JSON_DATA_HTTP_URL);
+            jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            progressBar.setVisibility(View.GONE);
+                            JSON_PARSE_DATA_AFTER_WEBCALL(response);
+                            Log.i(TAG, "onResponse: data is send further for parsing");
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            error.printStackTrace();
+                            Log.i(TAG, "onErrorResponse: response error ");
+                        }
+                    });
 
-        requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        jsonArrayRequest.setTag(MyRequestTag);
-        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(2000,3,1f));
-        Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
-        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+            requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+            jsonArrayRequest.setTag(MyRequestTag);
+            jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(2000,3,1f));
+            Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
+            MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 
     private void JSON_PARSE_DATA_AFTER_WEBCALL(JSONArray array) {

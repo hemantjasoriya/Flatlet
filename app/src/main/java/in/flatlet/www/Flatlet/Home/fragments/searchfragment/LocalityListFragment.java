@@ -17,9 +17,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 
@@ -87,45 +89,46 @@ public class LocalityListFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbqry = "Select%20*%20from%20`hostel_specs`%20where%20";
-                if (checkBoxBoys.isChecked()) {
-                    dbqry = dbqry + "gender=" + "'boys' ";
-                    gender = "boys";
+                if (MySingleton.getInstance(getContext()).isOnline()){
+                    dbqry = "Select%20*%20from%20`hostel_specs`%20where%20";
+                    if (checkBoxBoys.isChecked()) {
+                        dbqry = dbqry + "gender=" + "'boys' ";
+                        gender = "boys";
 
-                }
-                if (checkBoxGirls.isChecked()) {
-                    dbqry = dbqry + "gender=" + "'girls' ";
-                    gender = "girls";
-                }
-                if (checkBoxAc.isChecked() && checkBoxSingleRoom.isChecked()) {
-                    dbqry = dbqry + "AND rent_single_ac>0";
-                    roomType = "rent_single_ac";
-                }
-                if (checkBoxAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
-                    dbqry = dbqry + "AND rent_double_ac>0";
-                    roomType = "rent_double_ac";
-                }
-                if (checkBoxNonAc.isChecked() && checkBoxSingleRoom.isChecked()) {
-                    dbqry = dbqry + "AND rent_single_nonac>0";
-                    roomType = "rent_single_nonac";
-                }
-                if (checkBoxNonAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
-                    dbqry = dbqry + "AND rent_double_nonac>0";
-                    roomType = "rent_double_nonac";
-                }
-                dbqry = dbqry+" ORDER BY RAND()";
+                    }
+                    if (checkBoxGirls.isChecked()) {
+                        dbqry = dbqry + "gender=" + "'girls' ";
+                        gender = "girls";
+                    }
+                    if (checkBoxAc.isChecked() && checkBoxSingleRoom.isChecked()) {
+                        dbqry = dbqry + "AND rent_single_ac>0";
+                        roomType = "rent_single_ac";
+                    }
+                    if (checkBoxAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
+                        dbqry = dbqry + "AND rent_double_ac>0";
+                        roomType = "rent_double_ac";
+                    }
+                    if (checkBoxNonAc.isChecked() && checkBoxSingleRoom.isChecked()) {
+                        dbqry = dbqry + "AND rent_single_nonac>0";
+                        roomType = "rent_single_nonac";
+                    }
+                    if (checkBoxNonAc.isChecked() && checkBoxDoubleRoom.isChecked()) {
+                        dbqry = dbqry + "AND rent_double_nonac>0";
+                        roomType = "rent_double_nonac";
+                    }
+                    dbqry = dbqry+" ORDER BY RAND()";
 
-                dbqry = dbqry.replace(" ", "%20");
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("dbqry", dbqry);
-                locality = locality.replace(" ", "%20");
-                intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'");
-                intent.putExtra("roomType", roomType);
-                intent.putExtra("gender", gender);
-                Log.i(TAG, "onClick LocalityFragment:Roomtype" + roomType + locality);
-                startActivity(intent);
-                dbqry = null;
-
+                    dbqry = dbqry.replace(" ", "%20");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra("dbqry", dbqry);
+                    locality = locality.replace(" ", "%20");
+                    intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'");
+                    intent.putExtra("roomType", roomType);
+                    intent.putExtra("gender", gender);
+                    Log.i(TAG, "onClick LocalityFragment:Roomtype" + roomType + locality);
+                    startActivity(intent);
+                    dbqry = null;
+                }
             }
         });
 
