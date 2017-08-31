@@ -2,6 +2,7 @@ package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +34,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 /**
  * Created by javax on 21-Aug-17.
@@ -44,6 +47,8 @@ public class CreateProfileFragment extends Fragment {
     private TextView personalDetailsTextView;
     private final String TAG = "CreateProfileFragment";
     private RadioButton maleRadioButton, femaleRadioButton;
+    private FeedReaderDbHelper feedReaderDbHelper;
+    private SQLiteDatabase db_favourite;
 
 
 
@@ -151,11 +156,15 @@ public class CreateProfileFragment extends Fragment {
         fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        // changing user name in shared preferences
+        // delete sahred preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+        // delete all rows from sqlite database
+        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
 

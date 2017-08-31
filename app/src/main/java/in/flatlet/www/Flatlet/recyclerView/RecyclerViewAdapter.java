@@ -49,6 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final String TAG = "RecyclerViewAdapter";
     public static int APP_REQUEST_CODE = 99;
     RecyclerView recyclerView;
+    int i=0;
 
 
     RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context, RecyclerView recyclerView) {
@@ -82,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+
         Log.i(TAG, "onBindViewHolder: invoked" +position);
         final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(position);
         holder.hostel_title.setText(getDataAdapter1.getName());
@@ -105,7 +107,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Log.i(TAG, "onBindViewHolder: cursor.isnull returned true " + cursor.getString(0));
 
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
+            i++;
             holder.toggle.setChecked(true);
+
         }
 
         else {
@@ -132,7 +136,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     alertDialog.show();
                     return;
                 }
+                if (i>0){
+                    Log.i(TAG, "onCheckedChanged: value of i "+i);
+                    i=0;
+                    return;
+                }
                 if (isChecked) {
+                    Log.i(TAG, "onCheckedChanged: is checked start");
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
                     ContentValues values=new ContentValues();
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,getDataAdapter1.getName());
@@ -161,6 +171,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     Toast.makeText(context,"Added to favourites",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    Log.i(TAG, "onCheckedChanged: is checked false chala");
                     LinearLayoutManager layoutManager= (LinearLayoutManager) recyclerView.getLayoutManager();
                     int i=layoutManager.findFirstVisibleItemPosition();
                     int j=layoutManager.findLastVisibleItemPosition();
