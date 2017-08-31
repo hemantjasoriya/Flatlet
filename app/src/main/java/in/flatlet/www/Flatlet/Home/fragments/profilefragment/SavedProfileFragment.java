@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccountKit;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
@@ -39,6 +40,7 @@ public class SavedProfileFragment extends Fragment {
     private int i=0;
     private FeedReaderDbHelper feedReaderDbHelper;
     private SQLiteDatabase db_favourite;
+    RequestQueue queue1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,12 +115,6 @@ public class SavedProfileFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
     }
     public void logout(){
         AccountKit.logOut();
@@ -171,8 +167,17 @@ public class SavedProfileFragment extends Fragment {
 
                 }
             });
-            RequestQueue queue1 = Volley.newRequestQueue(getActivity());
-            queue1.add(stringRequest);
+            queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+            stringRequest.setTag("MyRequestTag");
+            MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (queue1!=null){
+            queue1.cancelAll("MyRequestTag");
         }
     }
 }

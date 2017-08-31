@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.flatlet.www.Flatlet.Home.fragments.favouritefragment.FavouriteHostelDataModel;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;

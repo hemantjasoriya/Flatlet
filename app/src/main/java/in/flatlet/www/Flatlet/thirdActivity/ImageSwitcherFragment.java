@@ -14,9 +14,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 
 public class ImageSwitcherFragment extends Fragment {
@@ -48,9 +48,9 @@ public class ImageSwitcherFragment extends Fragment {
                         Log.i(TAG, "onErrorResponse: error in volley response");
                     }
                 });
-         requestqueue = Volley.newRequestQueue(getContext());
+         requestqueue = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
         request.setTag("MyRequestTag");
-        requestqueue.add(request);
+        MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(request);
 
         return inflater.inflate(R.layout.imageview_third, container, false);
     }

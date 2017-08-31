@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.filter.FilterActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -99,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
         jsonArrayRequest.setTag(MyRequestTag);
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(2000,3,1f));
         Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
-        requestQueue.add(jsonArrayRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
     }
 
     private void JSON_PARSE_DATA_AFTER_WEBCALL(JSONArray array) {

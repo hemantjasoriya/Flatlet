@@ -36,6 +36,7 @@ import java.util.List;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
@@ -47,9 +48,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private SQLiteDatabase db_favourite;
     private FeedReaderDbHelper feedReaderDbHelper ;
     private Cursor cursor;
+    RequestQueue queue1;
     private final String TAG = "RecyclerViewAdapter";
     RecyclerView recyclerView;
-    int i=0;
+    private int i=0;
 
 
     RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context, RecyclerView recyclerView) {
@@ -201,9 +203,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     }
                 });
-                RequestQueue queue1 = Volley.newRequestQueue(context);
+
+                queue1 = MySingleton.getInstance(context).getRequestQueue();
                 stringRequest.setTag(MyRequestTag);
                 queue1.add(stringRequest);
+                MySingleton.getInstance(context).addToRequestQueue(stringRequest);
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {

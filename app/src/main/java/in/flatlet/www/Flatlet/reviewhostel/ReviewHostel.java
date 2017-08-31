@@ -35,6 +35,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
@@ -147,10 +148,9 @@ public class ReviewHostel extends AppCompatActivity {
 
                     }
                 });
-        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
         jsonArrayRequest.setTag("MyRequestTag");
-        requestQueue.add(jsonArrayRequest);
-
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
 
         autoComplete = (AutoCompleteTextView)findViewById(R.id.autoComplete);
         autoComplete.addTextChangedListener(new TextWatcher() {
@@ -230,9 +230,10 @@ public class ReviewHostel extends AppCompatActivity {
                                 Log.i(TAG, "onErrorResponse: " + error);
                             }
                         });
-                 requestQueue1 = Volley.newRequestQueue(ReviewHostel.this);
-                requestQueue1.add(jsonObjRequest);
+                 requestQueue1 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
                 jsonObjRequest.setTag("MyRequestTag2");
+                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjRequest);
+
                 Picasso.with(getBaseContext()).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(reviewImageView);
                 reviewCard.setVisibility(View.VISIBLE);
 

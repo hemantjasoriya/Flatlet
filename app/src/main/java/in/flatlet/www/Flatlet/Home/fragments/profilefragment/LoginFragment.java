@@ -33,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 /**
@@ -142,7 +143,7 @@ public class LoginFragment extends Fragment {
 
 
 
-                            final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,
+                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
@@ -209,9 +210,10 @@ public class LoginFragment extends Fragment {
 
                                                                 }
                                                             });
-                                                     queue2 = Volley.newRequestQueue(getContext());
+
+                                                    queue2 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
                                                     jsObjRequest.setTag("MyTag");
-                                                    queue2.add(jsObjRequest);
+                                                    MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
 
                                                 }
                                             } catch (JSONException e) {
@@ -227,9 +229,9 @@ public class LoginFragment extends Fragment {
 
                                 }
                             });
-                             queue1 = Volley.newRequestQueue(getActivity());
+                             queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
                             jsonObjectRequest.setTag("MyTag");
-                            queue1.add(jsonObjectRequest);
+                            MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 
 
                         }

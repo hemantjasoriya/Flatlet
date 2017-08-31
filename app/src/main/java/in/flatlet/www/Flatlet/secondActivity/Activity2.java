@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 
@@ -240,10 +241,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 Log.i(TAG, "onErrorResponse: Error in getting response" + error);
             }
         });
-        requestQueue = Volley.newRequestQueue(this);
+        requestQueue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
         jsonObjectRequest.setTag(MyRequestTag);
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(2500,4,1f));
-        requestQueue.add(jsonObjectRequest);
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
     private void parseResponse(JSONObject response) throws JSONException {
@@ -335,9 +336,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-             requestQueue2 = Volley.newRequestQueue(getApplicationContext());
+             requestQueue2 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyTag2");
-            requestQueue2.add(stringRequest);
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
         }
         else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
@@ -369,9 +370,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-             requestQueue3 = Volley.newRequestQueue(getApplicationContext());
+             requestQueue3 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
                      stringRequest.setTag("MyTag3");
-            requestQueue3.add(stringRequest);
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
         }
         else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
                 && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
@@ -403,9 +404,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-             requestQueue4 = Volley.newRequestQueue(this);
+             requestQueue4 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyTag4");
-            requestQueue4.add(stringRequest);
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
         }
         else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
@@ -437,9 +438,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 }
             });
-            requestQueue5 = Volley.newRequestQueue(this);
+            requestQueue5 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyTag5");
-            requestQueue5.add(stringRequest);
+            MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
         }
         else {
