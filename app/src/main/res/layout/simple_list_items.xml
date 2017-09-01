@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:drawableStart="@drawable/ic_location_on_black_24dp"
     android:paddingStart="20dp"
+    android:paddingEnd="20dp"
     android:padding="5dp"
     android:textSize="18sp"
     android:drawablePadding="7dp"

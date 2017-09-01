@@ -106,6 +106,7 @@ public class FirstActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Intent intent = getIntent();
         int i = intent.getFlags();
+        Log.i(TAG, "onCreate: Flag value is" +i);
 
         if (i == 1) {
             fragment = new HomeFragment();

@@ -13,7 +13,7 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class Splash extends AppCompatActivity {
-    ImageView imageView;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

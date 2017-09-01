@@ -13,11 +13,12 @@ import android.widget.TextView;
 import in.flatlet.www.Flatlet.R;
 
 public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
-    SeekBar seekBar1;
-    TextView tv1, tv2;
+    private SeekBar seekBar1;
+    private TextView tv1;
+    private TextView tv2;
 
 
-    final static String TAG = "Fragment 2";
+    private final static String TAG = "Fragment 2";
 
     @Nullable
     @Override

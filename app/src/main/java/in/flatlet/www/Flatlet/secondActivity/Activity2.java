@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,21 +53,30 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private RequestQueue requestQueue, requestQueue5,requestQueue4,requestQueue3,requestQueue2;
     private String hostel_title;
     private String dbqry;
-    private Button moreAmeButton,ratingSubmitButton;
+    private Button ratingSubmitButton;
     private ListView listView;
     private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
     private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality;
     private ImageView imageHead;
-    private String CCTV, ame_elevator, ame_toilet_attached, eve_snacks, ownership;
+    private String CCTV;
+    private String ame_elevator;
+    private String ame_toilet_attached;
+    private String eve_snacks;
+    private String ownership;
     private ProgressBar progressBar;
-    private ArrayList<String> ameTitle = new ArrayList<>();
-    private ArrayList<Integer> ameVector = new ArrayList<>();
+    private final ArrayList<String> ameTitle = new ArrayList<>();
+    private final ArrayList<Integer> ameVector = new ArrayList<>();
     private Double location_latitude = 3.14;
     private Double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
     private SharedPreferences sharedPreferences;
     private final String MyRequestTag = "MyTag";
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +104,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         locality = (TextView) findViewById(R.id.locality);
         imageHead = (ImageView) findViewById(R.id.imageHead);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
+        Button moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ratingSubmitButton=(Button)findViewById(R.id.ratingSubmitButton);
 
@@ -326,7 +335,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
                 editor.apply();
 
-
                 // sending rating to user database
                 String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
                         " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
@@ -468,7 +476,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
         else {
             Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-            return;
         }
 
 
@@ -494,5 +501,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
 
     }
+   /* private class InsertSpTask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            return null;
+        }
+    }*/
 }
 

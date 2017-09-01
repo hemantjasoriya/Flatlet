@@ -15,7 +15,7 @@ public class ImageSwitcherAdapter extends PagerAdapter {
     Context context;
     /* private int[] GalleryImages = new int[]{R.drawable.battleship,R.drawable.ic_elevator,
      R.drawable.ic_elevator,R.drawable.battleship};*/
-    private String[] GalleryURL = new String[]{"http://images.flatlet.in/images_thumbs/1/1.jpg"
+    private final String[] GalleryURL = new String[]{"http://images.flatlet.in/images_thumbs/1/1.jpg"
             , "http://images.flatlet.in/images_thumbs/6/1.jpg", "http://images.flatlet.in/images_thumbs/18/1.jpg"
             , "http://images.flatlet.in/images_thumbs/13/1.jpg"};
 

@@ -18,21 +18,24 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 
 public class MainActivity_third extends AppCompatActivity {
-    private Toolbar toolbar;
-    private ViewPager pager;
-    private TabLayout tabLayout;
-    private MyPageAdapter myPageAdapter;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (MySingleton.getInstance(getApplicationContext()).isOnline()){
             setContentView(R.layout.activity_main_third);
-            myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            MyPageAdapter myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-            pager = (ViewPager) findViewById(R.id.pager);
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+            ViewPager pager = (ViewPager) findViewById(R.id.pager);
             pager.setAdapter(myPageAdapter);
             //now when the pager changes we wanna change the tab and vice-versa
             tabLayout.setupWithViewPager(pager);
@@ -45,13 +48,13 @@ public class MainActivity_third extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         onBackPressed();
+                        finish();
                     }
                 });
             }
         }
         else {
             Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-            return;
         }
 
     }
@@ -76,11 +79,9 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
         return myFragment;*/
         switch (position) {
             case 1:
-                MyWebView webView = new MyWebView();
-                return webView;
+                return new MyWebView();
             case 0:
-                ImageSwitcherFragment imageSwitcherFragment = new ImageSwitcherFragment();
-                return imageSwitcherFragment;
+                return new ImageSwitcherFragment();
 
         }
         return null;

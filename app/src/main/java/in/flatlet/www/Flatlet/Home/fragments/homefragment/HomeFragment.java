@@ -19,8 +19,8 @@ import com.squareup.picasso.Picasso;
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
+import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 
 
 public class HomeFragment extends Fragment {
@@ -38,7 +38,9 @@ public class HomeFragment extends Fragment {
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
         ImageView exploreNowButton = (ImageView) getActivity().findViewById(R.id.exploreNowButton);
-        Picasso.with(getContext()).load("http://images.flatlet.in/images/explore2.jpg").error(R.drawable.explore).into(exploreNowButton);
+        /*Picasso.with(getContext()).load("http://images.flatlet.in/images/explore2.jpg").error(R.drawable.explore2).into(exploreNowButton);*/
+       /* ImageView imageRateButton = (ImageView)getActivity().findViewById(R.id.imageRateButton);
+        Picasso.with(getContext()).load("http://images.flatlet.in/images_thumbs/ratehostel.jpg").into(imageRateButton);*/
         reviewHostelCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +62,6 @@ public class HomeFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }

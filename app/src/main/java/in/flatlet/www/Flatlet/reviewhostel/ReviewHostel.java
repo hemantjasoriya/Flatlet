@@ -1,12 +1,18 @@
 package in.flatlet.www.Flatlet.reviewhostel;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +20,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -26,7 +33,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -41,21 +47,19 @@ import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
 public class ReviewHostel extends AppCompatActivity {
-    FeedReaderDbHelperReviewHostel mDbHelper;
-    SQLiteDatabase db;
-    JsonArrayRequest jsonArrayRequest;
-    RequestQueue requestQueue,requestQueue1;
-    private static final String TAG = "MainActivity";
+    private SQLiteDatabase db;
+    private RequestQueue requestQueue;
+    private RequestQueue requestQueue1;
+    private static final String TAG = "ReviewHostelActivity";
     private AutoCompleteTextView autoComplete;
-    private Cursor cursor1;
     private ArrayList<String> list = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    ImageView reviewImageView;
-    TextView reviewHostelTitle, reviewSecAddress;
-    CardView reviewCard;
-    JsonObjectRequest jsonObjRequest;
-    String hostel_title;
-    Toolbar toolbar;
+    private ArrayAdapter<String> adapter;
+    private ImageView reviewImageView;
+    private TextView reviewHostelTitle;
+    private TextView reviewSecAddress;
+    private CardView reviewCard;
+    private JsonObjectRequest jsonObjRequest;
+    private String hostel_title;
 
 
     @Override
@@ -68,7 +72,7 @@ public class ReviewHostel extends AppCompatActivity {
         reviewSecAddress = (TextView) findViewById(R.id.review_sec_address);
         reviewCard = (CardView) findViewById(R.id.review_hostel_card);
         reviewCard.setVisibility(View.GONE);
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -84,7 +88,7 @@ public class ReviewHostel extends AppCompatActivity {
             }
         });
 
-        mDbHelper = new FeedReaderDbHelperReviewHostel(this);
+        FeedReaderDbHelperReviewHostel mDbHelper = new FeedReaderDbHelperReviewHostel(this);
         db = mDbHelper.getWritableDatabase();
         Log.i(TAG, "onCreate: of main");
 
@@ -115,15 +119,14 @@ public class ReviewHostel extends AppCompatActivity {
         Log.i(TAG, "onCreate: k" + i);
 
 
-        jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,
 
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, "onResponse: " + response.length());
 
-                        for (int j = 0; j < response.length(); j++)
-                        {
+                        for (int j = 0; j < response.length(); j++) {
                             try {
                                 String title = response.getString(j);
                                 Log.i(TAG, "onResponse: " + title);
@@ -132,11 +135,9 @@ public class ReviewHostel extends AppCompatActivity {
                                 long newRowId = db.insert(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, null, values);
                                 Log.i(TAG, "onResponse:1 " + newRowId);
 
-                                }
-                                catch (JSONException e)
-                                {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
-                                }
+                            }
                         }
                     }
                 },
@@ -158,23 +159,26 @@ public class ReviewHostel extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.i(TAG, "beforeTextChanged: ");
-                if (start <= 7)
+                if (start <=7)
                     reviewCard.setVisibility(View.GONE);
                 reviewSecAddress.setText(null);
                 reviewImageView.setImageResource(0);
                 list.clear();
+                Log.i(TAG, "beforeTextChanged: "+list.size());
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                Log.i(TAG, "onTextChanged: char seq is"+s);
                 Log.i(TAG, "onTextChanged: before if " + count);
                 Log.i(TAG, "onTextChanged: before " + before);
                 Log.i(TAG, "onTextChanged: start " + start);
                 if (start > 1) {
+                    /*(new DBTask()).execute(s);*/
+
                     Log.i(TAG, "onTextChanged: after if" + s);
 
 
-                    cursor1 = db.rawQuery("Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
+                   Cursor cursor1 = db.rawQuery("Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
                             + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s + "%'", null);
 
                     Log.i(TAG, "onTextChanged: query=" + "Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
@@ -193,6 +197,8 @@ public class ReviewHostel extends AppCompatActivity {
                     }
                     adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, list);
                     autoComplete.setAdapter(adapter);
+                    /*adapter = new SpinnerAdapter(getApplicationContext(), R.layout.spinner_item, list);
+                    autoComplete.setAdapter(adapter);*/
                 }
             }
 
@@ -242,10 +248,10 @@ public class ReviewHostel extends AppCompatActivity {
                 }
                     else {
                     Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }
+
         });
 
 reviewCard.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +275,54 @@ reviewCard.setOnClickListener(new View.OnClickListener() {
             requestQueue1.cancelAll("MyRequestTag2");
         }
     }
+   /* private class SpinnerAdapter extends ArrayAdapter<String> {
+
+        SpinnerAdapter(@NonNull Context context, @LayoutRes int resource, ArrayList<String> list) {
+            super(context, resource, list);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            if (convertView==null){
+            convertView = getLayoutInflater().inflate(R.layout.spinner_item,parent,false);
+            }
+            return convertView;
+        }
+
+    }*/
+/*private class DBTask extends AsyncTask<CharSequence,Void,Void>{
+
+    @Override
+    protected Void doInBackground(CharSequence...s) {
+        Log.i(TAG, "doInBackground: Showing suggestion from sqlite and charsequence is "+s[0]);
+
+
+        Cursor cursor1 = db.rawQuery("Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
+                + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s[0] + "%'", null);
+
+        Log.i(TAG, "onTextChanged: query=" + "Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
+                + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s[0] + "%'", null);
+
+        while (cursor1.moveToNext()) {
+
+            String title = cursor1.getString(0);
+            Log.i(TAG, "onTextChanged: " + title);
+            Log.i(TAG, "onTextChanged: " + cursor1.getCount());
+            list.add(title);
+            Log.i(TAG, "onTextChanged: after add" + title);
+            Log.i(TAG, "onTextChanged: list size " + list.size());
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, list);
+        autoComplete.setAdapter(adapter);
+    }
+}*/
 
 
 }

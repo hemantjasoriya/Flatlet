@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,14 +44,14 @@ import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private final String MyRequestTag = "MyTag";
-    private Context context;
-    private List<GetDataAdapter> dataModelArrayList;
-    private SQLiteDatabase db_favourite;
-    private FeedReaderDbHelper feedReaderDbHelper ;
+    private final Context context;
+    private final List<GetDataAdapter> dataModelArrayList;
+    private final SQLiteDatabase db_favourite;
+    private final FeedReaderDbHelper feedReaderDbHelper ;
     private Cursor cursor;
-    RequestQueue queue1;
+    private RequestQueue queue1;
     private final String TAG = "RecyclerViewAdapter";
-    RecyclerView recyclerView;
+    private final RecyclerView recyclerView;
     private int i=0;
 
 
@@ -214,6 +216,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 context.startActivity(intent);
             }
         });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            holder.cardView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                }
+            });
+        }
     }
 
     @Override
@@ -225,12 +235,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView hostel_title;
-        TextView hostel_rent;
-        ImageView imageView2;
-        TextView hostel_address;
-        CardView cardView;
-        ToggleButton toggle;
+        final TextView hostel_title;
+        final TextView hostel_rent;
+        final ImageView imageView2;
+        final TextView hostel_address;
+        final CardView cardView;
+        final ToggleButton toggle;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -244,7 +254,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-     class MyListener implements DialogInterface.OnClickListener{
+     private class MyListener implements DialogInterface.OnClickListener{
 
         @Override
         public void onClick(DialogInterface dialog, int which) {

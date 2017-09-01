@@ -15,14 +15,13 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class MyWebView extends Fragment {
-    private ProgressBar progressBar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_webview_third, container, false);
         WebView webView = (WebView) view.findViewById(R.id.webView);
-        progressBar = (ProgressBar) view.findViewById(R.id.progres_bar);
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progres_bar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

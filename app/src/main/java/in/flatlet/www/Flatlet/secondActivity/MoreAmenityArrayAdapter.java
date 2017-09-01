@@ -16,9 +16,9 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class MoreAmenityArrayAdapter extends ArrayAdapter {
-    public Context context;
-    private ArrayList<String> ameTitle;
-    private ArrayList<Integer> ameVector;
+    private final Context context;
+    private final ArrayList<String> ameTitle;
+    private final ArrayList<Integer> ameVector;
 
     public MoreAmenityArrayAdapter(Context context, ArrayList<String> ameTitle, ArrayList<Integer> ameVector) {
         super(context, R.layout.listitems, ameTitle);

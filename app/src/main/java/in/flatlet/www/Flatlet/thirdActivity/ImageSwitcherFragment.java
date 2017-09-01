@@ -21,7 +21,7 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 public class ImageSwitcherFragment extends Fragment {
     private final String TAG = "ImageSwitcherFragment";
-    RequestQueue requestqueue;
+    private RequestQueue requestqueue;
 
     @Nullable
     @Override
