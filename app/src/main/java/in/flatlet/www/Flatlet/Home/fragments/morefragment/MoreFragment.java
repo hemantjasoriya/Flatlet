@@ -44,8 +44,7 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         /*s= moreFragmentList.getItemAtPosition(position).toString();*/
-        /*Toast.makeText(getActivity().getApplicationContext(),"you clicked on "+s +position,Toast.LENGTH_SHORT).show();*/
+
         switch (position) {
             case 0:
                 fragment = new HowItWorksFagment();

@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccessToken;
 import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,7 +51,6 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private final String TAG = "Activity2";
     private Toolbar toolbar;
-    private RequestQueue requestQueue, requestQueue5,requestQueue4,requestQueue3,requestQueue2;
     private String hostel_title;
     private String dbqry;
     private Button ratingSubmitButton;
@@ -80,7 +80,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: ACtivity2 onCreate started");
+        Log.d(TAG, "onCreate: Activity2 onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
         sharedPreferences=getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
@@ -88,7 +88,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         dbqry = "Select * from hostel_specs where title=" + "'" + hostel_title + "'";
         dbqry = dbqry.replace(" ", "%20");
         Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title );
-        Log.i(TAG, "onCreate: toolbar set ho gya");
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         text_single_nonac = (TextView) findViewById(R.id.text_single_nonac);
         text_single_ac = (TextView) findViewById(R.id.text_single_ac);
@@ -150,6 +149,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 onBackPressed();
             }
         });
+
         ImageView imageHead = (ImageView) findViewById(R.id.imageHead);
         imageHead.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +163,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         moreAmeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 while (ameTitle.size() < 11) {
                     ameTitle.add(0, "CCTV Surveillance");
                     ameTitle.add(1, "Elevator");
@@ -235,7 +236,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
 
     private void fetch_details() {
-        Log.d(TAG, "fetch_details: Volley Request Sent");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -253,10 +253,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 Log.i(TAG, "onErrorResponse: Error in getting response" + error);
             }
         });
-        requestQueue = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+        RequestQueue requestqueue = Volley.newRequestQueue(getApplicationContext());
+        requestqueue.add(jsonObjectRequest);
         jsonObjectRequest.setTag(MyRequestTag);
-        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(2500,4,1f));
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
     private void parseResponse(JSONObject response) throws JSONException {
@@ -267,8 +267,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         text_single_ac.setText(response.getString("rent_single_ac"));
         text_double_nonac.setText(response.getString("rent_double_nonac"));
         text_double_ac.setText(response.getString("rent_double_ac"));
-        area_single_room.setText(String.valueOf(response.getInt("dim_single_length") * response.getInt("dim_single_width") * 0.001));
-        area_double_room.setText(String.valueOf(response.getInt("dim_double_length") * response.getInt("dim_double_width") * 0.001));
+        double x ,y;
+        x=response.getInt("dim_single_length") * response.getInt("dim_single_width") * 0.001;
+        y=response.getInt("dim_double_length") * response.getInt("dim_double_width") * 0.001;
+        area_single_room.setText(String.valueOf((int)x));
+        area_double_room.setText(String.valueOf((int)y));
+
         gender.setText(response.getString("gender"));
         locality.setText(response.getString("address_secondary"));
         toolbar.setTitle(response.getString("title"));
@@ -354,7 +358,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                     }
                 });
-                requestQueue2 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
                 stringRequest.setTag("MyTag2");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
@@ -388,7 +391,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                     }
                 });
-                requestQueue3 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+
                 stringRequest.setTag("MyTag3");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
             }
@@ -422,7 +425,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                     }
                 });
-                requestQueue4 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+
                 stringRequest.setTag("MyTag4");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
@@ -456,7 +459,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                     }
                 });
-                requestQueue5 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
+
                 stringRequest.setTag("MyTag5");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
@@ -464,7 +467,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             else {
                 Toast.makeText(getApplicationContext(),"you can not review more than 2 hostels",Toast.LENGTH_SHORT).show();
             }
-
 
             // setting rating bar as indicator
             ratingBarFood.setIsIndicator(true);
@@ -478,10 +480,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         if(requestQueue!=null){
@@ -501,12 +502,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
 
     }
-   /* private class InsertSpTask extends AsyncTask<Void,Void,Void>{
+*/
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            return null;
-        }
-    }*/
+
 }
 

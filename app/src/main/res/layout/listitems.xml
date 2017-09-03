@@ -20,9 +20,8 @@
         android:layout_margin="10dp"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@+id/list_vector"
-        android:text="jai hind"
         android:textAlignment="viewStart"
         android:textColor="@color/secondary_text"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

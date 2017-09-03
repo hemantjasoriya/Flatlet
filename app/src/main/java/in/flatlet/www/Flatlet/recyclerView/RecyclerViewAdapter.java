@@ -200,9 +200,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     }
                 });
 
-                queue1 = MySingleton.getInstance(context).getRequestQueue();
+
                 stringRequest.setTag(MyRequestTag);
-                queue1.add(stringRequest);
                 MySingleton.getInstance(context).addToRequestQueue(stringRequest);
             }
         });

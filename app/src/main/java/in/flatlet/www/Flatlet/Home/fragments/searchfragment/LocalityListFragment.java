@@ -26,8 +26,6 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 
 public class LocalityListFragment extends Fragment {
-    AutoCompleteTextView autoCompleteTextView;
-    private final String[] localityArray = {"Mahaveer Nagar 1", "Rajeev Gandhi Nagar", "New Rajeev Gandhi Nagar"};
     final static String TAG = "LocalityListFragment";
     Button searchButton;
     String dbqry;

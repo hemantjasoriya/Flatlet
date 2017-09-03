@@ -4,7 +4,7 @@
     android:id="@+id/spinnerText"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="20sp"
+    android:textSize="18sp"
     android:gravity="start"
     android:textColor="@color/secondary_text"
     android:padding="5dip" />

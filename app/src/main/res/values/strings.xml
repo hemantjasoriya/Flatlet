@@ -74,7 +74,7 @@
     <string name="more">more</string>
     <string name="reset">Reset</string>
     <string name="apply">Apply</string>
-    <string name="search">search</string>
+    <string name="search">Search</string>
     <string name="enter_locality_here">Enter Locality here</string>
     <string name="rent">Rent</string>
     <string name="single_non_ac">Single Non-AC</string>
@@ -91,8 +91,8 @@
     <string name="title_3">Title 3</string>
     <string name="textview">TextView</string>
     <string name="specification">Specification</string>
-    <string name="area_single_room_sqft">Area Single Room(sqft)</string>
-    <string name="area_double_room_sqft">Area Double Room(sqft)</string>
+    <string name="area_single_room_sqft">Area Single Room(sqft)*</string>
+    <string name="area_double_room_sqft">Area Double Room(sqft)*</string>
     <string name="n_a">N/A</string>
     <string name="locality">Locality</string>
     <string name="non_ac">Non AC</string>
@@ -128,6 +128,7 @@
     <string name="female">Female</string>
     <string name="save_profile">Save Profile</string>
     <string name="air_conditioning">Air Conditioning</string>
+    <string name="note">* Area shown here is the area of a typical room in that building.Actual area might differ.</string>
     <!--<string name="google_maps_key">AIzaSyBm3Yrnljsk9jPZaJBgMrPz-Y2YWZokYLg</string>-->
 
 </resources>
