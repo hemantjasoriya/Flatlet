@@ -55,10 +55,10 @@
         android:layout_gravity="bottom|start"
         android:layout_marginBottom="60dp"
         android:layout_marginStart="60dp"
+        android:alpha="0.85"
+        android:hapticFeedbackEnabled="true"
         app:backgroundTint="@color/colorAccent"
         app:elevation="6dp"
-        android:hapticFeedbackEnabled="true"
-        android:alpha="0.85"
         app:srcCompat="@drawable/ic_call" />
 
     <android.support.v4.widget.NestedScrollView
@@ -97,9 +97,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/rent"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/rent"
                         android:textAllCaps="true"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -119,85 +119,85 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView2"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/single_non_ac" />
 
                     <TextView
                         android:id="@+id/text_single_nonac"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/textView"
-                        android:textAlignment="textEnd"
-                        android:layout_alignTop="@+id/textView"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/textView"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/single_ac" />
 
                     <TextView
                         android:id="@+id/text_single_ac"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/textView3"
-                        android:textAlignment="textEnd"
-                        android:layout_alignTop="@+id/textView3"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView3"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/textView3"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
                     <TextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView3"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/double_non_ac" />
 
                     <TextView
                         android:id="@+id/text_double_nonac"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/textView6"
-                        android:textAlignment="textEnd"
-                        android:layout_alignTop="@+id/textView6"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView6"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/textView6"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
                     <TextView
                         android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView6"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/double_ac" />
 
                     <TextView
                         android:id="@+id/text_double_ac"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/textView7"
-                        android:textAlignment="textEnd"
-                        android:layout_alignTop="@+id/textView7"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="60dp"
+                        android:layout_alignTop="@+id/textView7"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/n_a" />
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/textView7"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
                 </RelativeLayout>
 
 
@@ -222,10 +222,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:text="@string/amenities"
+                        android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textAlignment="center" />
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/ll1"
@@ -316,9 +316,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/specification"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="20dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/specification"
                         android:textAllCaps="true"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -328,21 +328,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text2"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/area_single_room_sqft" />
 
                     <TextView
                         android:id="@+id/area_single_room"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/text"
-                        android:textAlignment="textEnd"
-                        android:layout_alignTop="@+id/text"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/text"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/text"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
 
                     <TextView
@@ -350,22 +350,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/area_double_room_sqft" />
 
                     <TextView
                         android:id="@+id/area_double_room"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/text3"
-                        android:textAlignment="textEnd"
                         android:layout_alignBaseline="@+id/text3"
                         android:layout_alignBottom="@+id/text3"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/text3"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
 
                     <TextView
@@ -373,22 +373,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text3"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:text="@string/only_for" />
 
                     <TextView
                         android:id="@+id/gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/text5"
-                        android:textAlignment="textEnd"
                         android:layout_alignBaseline="@+id/text5"
                         android:layout_alignBottom="@+id/text5"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/text5"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
 
                     <TextView
@@ -396,31 +396,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text5"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="10dp"
                         android:text="@string/locality" />
 
                     <TextView
                         android:id="@+id/locality"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/text7"
-                        android:textAlignment="textEnd"
                         android:layout_alignBaseline="@+id/text7"
                         android:layout_alignBottom="@+id/text7"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="60dp"
-                        android:text="@string/n_a" />
+                        android:layout_toEndOf="@+id/text7"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd" />
 
                     <TextView
                         android:id="@+id/text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text7"
-                        android:text="@string/note"
-                        android:layout_marginStart="40dp"
                         android:layout_marginBottom="10dp"
+                        android:layout_marginStart="40dp"
+                        android:text="@string/note"
                         android:textAlignment="viewStart"
                         android:textSize="8sp" />
 
@@ -449,9 +449,9 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/rating"
                         android:textAllCaps="true"
                         android:textSize="14sp"
@@ -480,11 +480,11 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/textViewTotalRating"
                         android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textViewTotalRating"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/food" />
 
                     <RatingBar
@@ -492,8 +492,8 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/textView12"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView12"
                         android:layout_marginEnd="60dp"
                         android:isIndicator="false"
                         android:numStars="5"
@@ -503,16 +503,15 @@
                         android:stepSize="1" />
 
 
-
                     <TextView
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/textView12"
                         android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView12"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/accommodation" />
 
                     <RatingBar
@@ -520,8 +519,8 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/textView13"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView13"
                         android:layout_marginEnd="60dp"
                         android:isIndicator="false"
                         android:numStars="5"
@@ -531,16 +530,15 @@
                         android:stepSize="1" />
 
 
-
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/textView13"
                         android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView13"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/staff_behaviour" />
 
                     <RatingBar
@@ -548,8 +546,8 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/textView14"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView14"
                         android:layout_marginEnd="60dp"
                         android:isIndicator="false"
                         android:numStars="5"
@@ -563,11 +561,11 @@
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_below="@+id/textView14"
                         android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView14"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
                         android:text="@string/study_environment" />
 
                     <RatingBar
@@ -575,8 +573,8 @@
                         style="?android:attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/textView15"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView15"
                         android:layout_marginEnd="60dp"
                         android:isIndicator="false"
                         android:numStars="5"
@@ -586,16 +584,15 @@
                         android:stepSize="1" />
 
                     <Button
+                        android:id="@+id/ratingSubmitButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/ratingSubmitButton"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="5dp"
                         android:layout_below="@+id/textView15"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
                         android:elevation="5dp"
-                        android:text="@string/submit"
-                        android:layout_centerHorizontal="true" />
-
+                        android:text="@string/submit" />
 
 
                 </RelativeLayout>

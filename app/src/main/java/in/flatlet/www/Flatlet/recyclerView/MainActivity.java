@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
         progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setAlpha(0.7f);
+        toolbar.setAlpha(0.7f);
         locality = getIntent().getStringExtra("locality");
         String dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            progressBar.setVisibility(View.GONE);
+
                             JSON_PARSE_DATA_AFTER_WEBCALL(response);
                             Log.i(TAG, "onResponse: data is send further for parsing");
                         }
@@ -157,6 +159,9 @@ public class MainActivity extends AppCompatActivity {
         }
         RecyclerView.Adapter recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this, recyclerView);
         recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setAlpha(1f);
+        toolbar.setAlpha(1.0f);
+        progressBar.setVisibility(View.GONE);
     }
 
     public void onFilterClick(View view) {

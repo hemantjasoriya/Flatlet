@@ -129,6 +129,7 @@
     <string name="save_profile">Save Profile</string>
     <string name="air_conditioning">Air Conditioning</string>
     <string name="note">* Area shown here is the area of a typical room in that building.Actual area might differ.</string>
+
     <!--<string name="google_maps_key">AIzaSyBm3Yrnljsk9jPZaJBgMrPz-Y2YWZokYLg</string>-->
 
 </resources>

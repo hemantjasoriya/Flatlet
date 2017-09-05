@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +30,8 @@ import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
+import com.facebook.accountkit.ui.SkinManager;
+import com.facebook.accountkit.ui.UIManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +39,8 @@ import org.json.JSONObject;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
+
+import static android.support.v4.content.ContextCompat.getColor;
 
 /**
  * Created by javax on 20-Aug-17.
@@ -92,7 +99,13 @@ public class LoginFragment extends Fragment {
                     AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                             new AccountKitConfiguration.AccountKitConfigurationBuilder(
                                     LoginType.PHONE,
-                                    AccountKitActivity.ResponseType.TOKEN); // or .ResponseType.TOKEN
+                                    AccountKitActivity.ResponseType.TOKEN);
+                    UIManager uiManager;
+                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(),R.color.secondaryLightColor),R.drawable.splash , SkinManager.Tint.BLACK,0);
+                    configurationBuilder.setUIManager(uiManager);
+
+                    configurationBuilder.setUIManager(uiManager);
+                    // or .ResponseType.TOKEN
                     // ... perform additional configuration ...
                     configurationBuilder.setDefaultCountryCode("IN");
 
@@ -103,7 +116,6 @@ public class LoginFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
 
@@ -212,7 +224,6 @@ public class LoginFragment extends Fragment {
                                                                 }
                                                             });
 
-                                                    queue2 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
                                                     jsObjRequest.setTag("MyTag");
                                                     MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
 
@@ -230,7 +241,7 @@ public class LoginFragment extends Fragment {
 
                                 }
                             });
-                            queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+
                             jsonObjectRequest.setTag("MyTag");
                             MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 

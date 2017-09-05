@@ -21,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.AccountKit;
 
 import in.flatlet.www.Flatlet.R;
@@ -35,7 +34,8 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 public class SavedProfileFragment extends Fragment {
     private EditText userNameEditText,userEmailEditText,userMobileEditText;
-    private TextView userNameEditButton,emailEditButton;
+    private TextView userNameEditButton,emailEditButton,textView;
+
     private Button logoutButton1;
     private final String TAG="SavedProfileFragment";
     private int i=0;
@@ -68,21 +68,24 @@ public class SavedProfileFragment extends Fragment {
         userNameEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor=sharedPreferences.edit();
                 if (((userNameEditButton.getText().toString()).equalsIgnoreCase("Edit")) ){
                     userNameEditButton.setText("save changes");
                     userNameEditText.setEnabled(true);
-                }
-                else{
 
-                    userNameEditButton.setText("Edit");
-                    userNameEditText.setEnabled(false);
-                    editor.putString("userName",userNameEditText.getText().toString());
-                    editor.apply();
-                    i++;
-                    Log.i(TAG, "onClick: value of i is "+i);
                 }
+                else  {
+
+                        userNameEditButton.setText("Edit");
+                        userNameEditText.setEnabled(false);
+                        editor.putString("userName", userNameEditText.getText().toString());
+                        editor.apply();
+                        i++;
+                        Log.i(TAG, "onClick: value of i is " + i);
+                }
+
             }
         });
 
@@ -97,7 +100,7 @@ public class SavedProfileFragment extends Fragment {
                     userEmailEditText.setEnabled(true);
                 }
 
-                else {
+                else  {
                     emailEditButton.setText("Edit");
                     userEmailEditText.setEnabled(false);
                     editor.putString("userEmail",userEmailEditText.getText().toString());
@@ -105,6 +108,7 @@ public class SavedProfileFragment extends Fragment {
                     i++;
                     Log.i(TAG, "onClick: value of i is "+i);
                 }
+
             }
         });
 
@@ -174,7 +178,7 @@ public class SavedProfileFragment extends Fragment {
         }
         else {
             Toast.makeText(getContext(),"Some Error Occurred. Please Try Later",Toast.LENGTH_SHORT).show();
-            return;
+
         }
     }
 
