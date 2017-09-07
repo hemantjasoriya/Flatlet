@@ -152,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + jsonObject.getString("title"));
                 GetDataAdapter2.setRent(jsonObject.getString(roomType));
                 GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
+                GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
+                Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: "+((float) jsonObject.getDouble("rating")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

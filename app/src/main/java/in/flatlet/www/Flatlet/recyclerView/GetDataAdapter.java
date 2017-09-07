@@ -5,6 +5,17 @@ public class GetDataAdapter {
     String rent;
 
 
+    public float getCardRating() {
+        return cardRating;
+    }
+
+    public void setCardRating(float cardRating) {
+        this.cardRating = cardRating;
+    }
+
+    float cardRating;
+
+
     public String getAddress() {
         return address;
     }

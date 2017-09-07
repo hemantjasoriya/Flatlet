@@ -1,4 +1,4 @@
-package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
+package in.flatlet.www.Flatlet.Home.fragments.favouriteFragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -83,7 +83,7 @@ public class FavouriteFragment extends Fragment {
             favouriteHostelDataModel.setAddress_secondary(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS)));
             favouriteHostelDataModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL)));
             favouriteHostelDataModel.setRent(cursor.getInt(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT)));
-            favouriteHostelDataModel.setRating(cursor.getDouble(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING)));
+            favouriteHostelDataModel.setFavouriteCardRating((float) cursor.getDouble(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING)));
             favouriteHostelList.add(favouriteHostelDataModel);
 
         }

@@ -54,7 +54,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private Button ratingSubmitButton;
     private ListView listView;
     private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
-    private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality;
+    private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality,textViewRating,textViewTotalRating;
     private ImageView imageHead;
     private String CCTV;
     private String ame_elevator;
@@ -64,11 +64,13 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private ProgressBar progressBar;
     private final ArrayList<String> ameTitle = new ArrayList<>();
     private final ArrayList<Integer> ameVector = new ArrayList<>();
-    private Double location_latitude = 3.14;
-    private Double location_longitude = 3.14;
+    private double location_latitude = 3.14;
+    private double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
     private SharedPreferences sharedPreferences;
     private final String MyRequestTag = "MyTag";
+    private float rating, hostel_rating_food, hostel_rating_accommodation, hostel_rating_staff, hostel_rating_study;
+    private int total_ratings;
 
 
     @Override
@@ -81,11 +83,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Log.d(TAG, "onCreate: Activity2 onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
-        sharedPreferences=getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         hostel_title = getIntent().getStringExtra("hostel_title");
         dbqry = "Select * from hostel_specs where title=" + "'" + hostel_title + "'";
         dbqry = dbqry.replace(" ", "%20");
-        Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title );
+        Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
         text_single_nonac = (TextView) findViewById(R.id.text_single_nonac);
         text_single_ac = (TextView) findViewById(R.id.text_single_ac);
@@ -93,6 +95,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         text_double_ac = (TextView) findViewById(R.id.text_double_ac);
         area_single_room = (TextView) findViewById(R.id.area_single_room);
         area_double_room = (TextView) findViewById(R.id.area_double_room);
+        textViewRating=(TextView)findViewById(R.id.textViewRating);
+        textViewTotalRating=(TextView)findViewById(R.id.textViewTotalRating);
         ratingBarFood = (RatingBar) findViewById(R.id.ratingBarFood);
         ratingBarStaff = (RatingBar) findViewById(R.id.ratingBarStaff);
         ratingBarAccommodation = (RatingBar) findViewById(R.id.ratingBarAccommodation);
@@ -103,7 +107,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         Button moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ratingSubmitButton=(Button)findViewById(R.id.ratingSubmitButton);
+        ratingSubmitButton = (Button) findViewById(R.id.ratingSubmitButton);
 
 
         setSupportActionBar(toolbar);
@@ -115,25 +119,25 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
 
         // setting rating bar if logged in
-        SharedPreferences sharedPreferences=getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-        if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
+        SharedPreferences sharedPreferences = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        if (sharedPreferences.getString("hostel1_name", "default residency").equals(hostel_title))
 
         {
-          ratingBarFood.setRating((float)sharedPreferences.getInt("hostel1_food",5));
-            ratingBarAccommodation.setRating((float)sharedPreferences.getInt("hostel1_accommodation",5));
-            ratingBarStaff.setRating((float)sharedPreferences.getInt("hostel1_staffbehaviour",5));
-            ratingBarStudyEnvironment.setRating((float)sharedPreferences.getInt("hostel1_studyenvironment",5));
+            ratingBarFood.setRating((sharedPreferences.getFloat("hostel1_food", 5)));
+            ratingBarAccommodation.setRating(sharedPreferences.getFloat("hostel1_accommodation", 5));
+            ratingBarStaff.setRating(sharedPreferences.getFloat("hostel1_staffbehaviour", 5));
+            ratingBarStudyEnvironment.setRating( sharedPreferences.getFloat("hostel1_studyenvironment", 5));
             ratingSubmitButton.setText("Edit");
             ratingBarFood.setIsIndicator(true);
             ratingBarAccommodation.setIsIndicator(true);
             ratingBarStaff.setIsIndicator(true);
             ratingBarStudyEnvironment.setIsIndicator(true);
         }
-        if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
-            ratingBarFood.setRating((float)sharedPreferences.getInt("hostel2_food",5));
-            ratingBarAccommodation.setRating((float)sharedPreferences.getInt("hostel2_accommodation",5));
-            ratingBarStaff.setRating((float)sharedPreferences.getInt("hostel2_staffbehaviour",5));
-            ratingBarStudyEnvironment.setRating((float)sharedPreferences.getInt("hostel2_studyenvironment",5));
+        if (sharedPreferences.getString("hostel2_name", "default residency").equals(hostel_title)) {
+            ratingBarFood.setRating( sharedPreferences.getFloat("hostel2_food", 5));
+            ratingBarAccommodation.setRating( sharedPreferences.getFloat("hostel2_accommodation", 5));
+            ratingBarStaff.setRating(sharedPreferences.getFloat("hostel2_staffbehaviour", 5));
+            ratingBarStudyEnvironment.setRating( sharedPreferences.getFloat("hostel2_studyenvironment", 5));
             ratingSubmitButton.setText("Edit");
             ratingBarFood.setIsIndicator(true);
             ratingBarAccommodation.setIsIndicator(true);
@@ -231,8 +235,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
 
-
-
     private void fetch_details() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
             @Override
@@ -257,6 +259,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
+
     private void parseResponse(JSONObject response) throws JSONException {
         Log.d(TAG, "parseResponse: resopse parsing initiated");
         location_latitude = response.getDouble("location_latitude");
@@ -265,11 +268,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         text_single_ac.setText(response.getString("rent_single_ac"));
         text_double_nonac.setText(response.getString("rent_double_nonac"));
         text_double_ac.setText(response.getString("rent_double_ac"));
-        double x ,y;
-        x=response.getInt("dim_single_length") * response.getInt("dim_single_width") * 0.001;
-        y=response.getInt("dim_double_length") * response.getInt("dim_double_width") * 0.001;
-        area_single_room.setText(String.valueOf((int)x));
-        area_double_room.setText(String.valueOf((int)y));
+        double x, y;
+        x = response.getInt("dim_single_length") * response.getInt("dim_single_width") * 0.001;
+        y = response.getInt("dim_double_length") * response.getInt("dim_double_width") * 0.001;
+        area_single_room.setText(String.valueOf((int) x));
+        area_double_room.setText(String.valueOf((int) y));
 
         gender.setText(response.getString("gender"));
         locality.setText(response.getString("address_secondary"));
@@ -279,6 +282,15 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         ame_elevator = response.getString("ame_elevator");
         eve_snacks = response.getString("eve_snacks");
         ownership = response.getString("ownership");
+        rating = (float) response.getDouble("rating");
+        hostel_rating_accommodation = (float) response.getDouble("rating_accommodation");
+        hostel_rating_food = (float) response.getDouble("rating_food");
+        hostel_rating_staff = (float) response.getDouble("rating_staff");
+        hostel_rating_study = (float) response.getDouble("rating_study");
+        total_ratings = response.getInt("total_ratings");
+        textViewRating.setText(rating+"");
+        textViewTotalRating.setText(String.valueOf(total_ratings));
+
         mapFragment.getMapAsync(this);
 
         Picasso.with(this).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(imageHead);
@@ -305,15 +317,18 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     public void onSubmitRatingButton(View view) {
-        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
-            AccessToken accessToken= AccountKit.getCurrentAccessToken();
-            if (accessToken==null){
-                Intent intent=new Intent(Activity2.this,FirstActivity.class);
+        Log.i(TAG, "onSubmitRatingButton: started");
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+            Log.i(TAG, "onSubmitRatingButton: online");
+            AccessToken accessToken = AccountKit.getCurrentAccessToken();
+            if (accessToken == null) {
+                Intent intent = new Intent(Activity2.this, FirstActivity.class);
                 intent.setFlags(2);
                 startActivity(intent);
+                return;
             }
-            Log.i(TAG, "onSubmitRatingButton: "+sharedPreferences.getString("hostel1_name","yoyo"));
-            if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")){
+            Log.i(TAG, "onSubmitRatingButton: " + sharedPreferences.getString("hostel1_name", "yoyo"));
+            if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")) {
                 ratingBarFood.setIsIndicator(false);
                 ratingBarAccommodation.setIsIndicator(false);
                 ratingBarStaff.setIsIndicator(false);
@@ -322,58 +337,69 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 return;
             }
 
-            int rating_food = (int) ratingBarFood.getRating();
-            int rating_staff = (int) ratingBarStaff.getRating();
-            int rating_accommodation = (int) ratingBarAccommodation.getRating();
-            int rating_studyEnvironment = (int) ratingBarStudyEnvironment.getRating();
+            float rating_food =  ratingBarFood.getRating();
+            float rating_staff = ratingBarStaff.getRating();
+            float rating_accommodation =  ratingBarAccommodation.getRating();
+            float rating_studyEnvironment =  ratingBarStudyEnvironment.getRating();
+            float rating_final = (rating_food + rating_staff + rating_accommodation + rating_studyEnvironment) / 4;
+            Log.i(TAG, "onSubmitRatingButton: rating fetched " + rating_final);
+            rating = (float) ((rating * total_ratings) + rating_final) / (total_ratings + 1);
+            hostel_rating_food = (float) ((hostel_rating_food * total_ratings) + rating_food) / (total_ratings + 1);
+            hostel_rating_staff = (float) ((hostel_rating_staff * total_ratings) + rating_staff) / (total_ratings + 1);
+            hostel_rating_accommodation = (float) ((hostel_rating_accommodation * total_ratings) + rating_accommodation) / (total_ratings + 1);
+            hostel_rating_study = (float) ((hostel_rating_study * total_ratings) + rating_studyEnvironment) / (total_ratings + 1);
+            total_ratings = (total_ratings+1);
 
             // saving the new data in sharedpreferences
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            if (sharedPreferences.getString("hostel2_name","default residency").equals(hostel_title)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            if (sharedPreferences.getString("hostel2_name", "default residency").equals(hostel_title)) {
                 Log.i(TAG, "onSubmitRatingButton: hostel2_name");
-                editor.putInt("hostel2_food",rating_food);
-                editor.putInt("hostel2_accommodation",rating_accommodation);
-                editor.putInt("hostel2_staffbehaviour",rating_staff);
-                editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+                editor.putFloat("hostel2_food", (float) rating_food);
+                editor.putFloat("hostel2_accommodation", (float) rating_accommodation);
+                editor.putFloat("hostel2_staffbehaviour", (float) rating_staff);
+                editor.putFloat("hostel2_studyenvironment", (float) rating_studyEnvironment);
                 editor.apply();
 
                 // sending rating to user database
-                String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
-                        " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-                Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+                String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
+                        " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
+                        "WHERE `title`='" + hostel_title + "'";
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
                 String urlFinal = url.replace(" ", "%20");
-                StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i(TAG, "onResponse: "+response);
+                        Log.i(TAG, "onResponse: " + response);
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: "+error);
+                        Log.i(TAG, "onErrorResponse: " + error);
 
                     }
                 });
                 stringRequest.setTag("MyTag2");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
-            }
-            else if (sharedPreferences.getString("hostel1_name","default residency").equals(hostel_title))
-            {
+            } else if (sharedPreferences.getString("hostel1_name", "default residency").equals(hostel_title)) {
                 Log.i(TAG, "onSubmitRatingButton: hostel1 name");
-                editor.putInt("hostel1_food", rating_food);
-                editor.putInt("hostel1_accommodation", rating_accommodation);
-                editor.putInt("hostel1_staffbehaviour", rating_staff);
-                editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+                editor.putFloat("hostel2_food",  rating_food);
+                editor.putFloat("hostel2_accommodation",  rating_accommodation);
+                editor.putFloat("hostel2_staffbehaviour",  rating_staff);
+                editor.putFloat("hostel2_studyenvironment", rating_studyEnvironment);
                 editor.apply();
 
 
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry);
                 String urlFinal = url.replace(" ", "%20");
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
@@ -392,23 +418,26 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
                 stringRequest.setTag("MyTag3");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-            }
-            else if (sharedPreferences.getString("hostel1_name","default residency").equals("default residency")
-                    && sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+            } else if (sharedPreferences.getString("hostel1_name", "default residency").equals("default residency")
+                    && sharedPreferences.getString("hostel2_name", "default residency").equals("default residency")) {
                 Log.i(TAG, "onSubmitRatingButton: both null");
-                editor.putString("hostel1_name",hostel_title);
-                editor.putInt("hostel1_food", rating_food);
-                editor.putInt("hostel1_accommodation", rating_accommodation);
-                editor.putInt("hostel1_staffbehaviour", rating_staff);
-                editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
+                editor.putString("hostel1_name", hostel_title);
+                editor.putFloat("hostel1_food", (float) rating_food);
+                editor.putFloat("hostel1_accommodation", (float) rating_accommodation);
+                editor.putFloat("hostel1_staffbehaviour", (float) rating_staff);
+                editor.putFloat("hostel1_studyenvironment", (float) rating_studyEnvironment);
                 editor.apply();
 
 
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
+                        "WHERE `title`='" + hostel_title + "'";
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
                 String urlFinal = url.replace(" ", "%20");
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
                     @Override
@@ -427,33 +456,35 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 stringRequest.setTag("MyTag4");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
-            }
-            else if (sharedPreferences.getString("hostel2_name","default residency").equals("default residency")){
+            } else if (sharedPreferences.getString("hostel2_name", "default residency").equals("default residency")) {
                 Log.i(TAG, "onSubmitRatingButton: hostel 2 null");
-                editor.putString("hostel2_name",hostel_title);
-                editor.putInt("hostel2_food",rating_food);
-                editor.putInt("hostel2_accommodation",rating_accommodation);
-                editor.putInt("hostel2_staffbehaviour",rating_staff);
-                editor.putInt("hostel2_studyenvironment",rating_studyEnvironment);
+                editor.putString("hostel2_name", hostel_title);
+                editor.putFloat("hostel2_food", (float) rating_food);
+                editor.putFloat("hostel2_accommodation", (float) rating_accommodation);
+                editor.putFloat("hostel2_staffbehaviour", (float) rating_staff);
+                editor.putFloat("hostel2_studyenvironment", (float) rating_studyEnvironment);
                 editor.apply();
 
 
                 // sending rating to user database
-                String dbqry="UPDATE `our_users` SET `hostel2_name`='"+hostel_title+"',`hostel2_food`='"+rating_food+"',`hostel2_accommodation`='"+rating_accommodation+"',`hostel2_staffbehaviour`='"+rating_staff+"',`hostel2_studyenvironment`='"+rating_studyEnvironment+"'" +
-                        " WHERE `user_mobile`='"+sharedPreferences.getString("userMobile","could not fetch")+"'";
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-                Log.i(TAG, "onSubmitRatingButton: "+dbqry);
+                String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
+                        " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
+                        "WHERE `title`='" + hostel_title + "'";
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
                 String urlFinal = url.replace(" ", "%20");
-                StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i(TAG, "onResponse: "+response);
+                        Log.i(TAG, "onResponse: " + response);
 
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: "+error);
+                        Log.i(TAG, "onErrorResponse: " + error);
 
                     }
                 });
@@ -461,10 +492,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 stringRequest.setTag("MyTag5");
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
 
+            } else {
+                Toast.makeText(getApplicationContext(), "you can not review more than 2 hostels", Toast.LENGTH_SHORT).show();
             }
-            else {
-                Toast.makeText(getApplicationContext(),"you can not review more than 2 hostels",Toast.LENGTH_SHORT).show();
-            }
+
 
             // setting rating bar as indicator
             ratingBarFood.setIsIndicator(true);
@@ -473,14 +504,40 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             ratingBarStudyEnvironment.setIsIndicator(true);
 
             Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-   /* @Override
+    @Override
+    protected void onPause() {
+        Log.i(TAG, "onPause: started");
+        super.onPause();
+        /*String dbqry="UPDATE `hostel_specs` SET `rating`='"+rating+"',`total_ratings`='"+total_ratings+"',`rating_food`='"+rating_food+"',`rating_accommodation`='"+rating_accommodation+"',`rating_staff`='"+rating_staff+"',`rating_study`='"+rating_study+"'\n" +
+                "WHERE `title`='"+hostel_title+"'";
+        Log.i(TAG, "onPause: "+dbqry);
+        String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+        Log.i(TAG, "onPause: "+url);
+        String urlFinal = url.replace(" ", "%20");
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "onResponse: "+response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "onErrorResponse: "+error);
+
+            }
+        });
+
+        stringRequest.setTag("MyTag6");
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }*/
+    /* @Override
     protected void onStop() {
         super.onStop();
         if(requestQueue!=null){
@@ -503,5 +560,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 */
 
 
+    }
 }
 

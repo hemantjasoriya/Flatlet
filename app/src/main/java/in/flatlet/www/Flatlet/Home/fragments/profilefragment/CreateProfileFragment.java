@@ -23,7 +23,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
@@ -219,7 +218,7 @@ public class CreateProfileFragment extends Fragment {
 
             }
         });
-        queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
+
         stringRequest.setTag("MyRequestTag");
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
 
