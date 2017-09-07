@@ -11,6 +11,9 @@
 <color name="primary_text">#ffffff</color>
 <color name="secondary_text">#000000</color>
     <color name="red_error">#FFF00C0C</color>
+    <color name="welcome1">#25e7ba</color>
+    <color name="welcome2">#56abf1</color>
+    <color name="welcome3">#f1777d</color>
 
 
 </resources>

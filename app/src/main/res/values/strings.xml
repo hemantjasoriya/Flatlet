@@ -129,7 +129,11 @@
     <string name="save_profile">Save Profile</string>
     <string name="air_conditioning">Air Conditioning</string>
     <string name="note">* Area shown here is the area of a typical room in that building.Actual area might differ.</string>
-
-    <!--<string name="google_maps_key">AIzaSyBm3Yrnljsk9jPZaJBgMrPz-Y2YWZokYLg</string>-->
-
+    <string name="welcome_one_text">We help you find a hostel of your choice and budget, all within the app</string>
+    <string name="hey_there">Hey There!</string>
+    <string name="welcome_two_text">Explore the hostels from the largest database of Kota. Starting as low as 7000₹ per month</string>
+    <string name="explore">Explore</string>
+    <string name="welcome_three_text">Experience Every Corner of the room with our 360° Virtual Tour and High field Panoramas</string>
+    <string name="experience">Experience</string>
+    <string name="welcome_three_footer">P.S. Some useful abbreviation in Kota. PG: A room without food Hostel: A room including food</string>
 </resources>

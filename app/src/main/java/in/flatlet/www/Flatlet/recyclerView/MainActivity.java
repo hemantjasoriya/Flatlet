@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String roomType;
     public String gender;
     private Toolbar toolbar ;
+    String finalDbQuery;
 
     @Override
     public void onBackPressed() {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         String dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
         gender = getIntent().getStringExtra("gender");
-        String finalDbQuery = dbqry + locality;
+        finalDbQuery = dbqry + locality +"%20ORDER%20BY%20RAND()";
         Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is " + locality + "and roomType is " + roomType + "and dbqry is" + dbqry + "and gender is" + gender);
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/flatletwebservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         JSON_DATA_WEB_CALL();

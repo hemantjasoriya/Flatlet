@@ -31,7 +31,7 @@ public class LocalityListFragment extends Fragment {
     String dbqry;
     String roomType, gender;
     Spinner spinner;
-    public String locality;
+    private String locality;
     RadioButton checkBoxGirls, checkBoxBoys, checkBoxSingleRoom, checkBoxDoubleRoom, checkBoxAc, checkBoxNonAc;
     Toolbar toolbar;
 
@@ -92,7 +92,6 @@ public class LocalityListFragment extends Fragment {
                     if (checkBoxBoys.isChecked()) {
                         dbqry = dbqry + "gender=" + "'boys' ";
                         gender = "boys";
-
                     }
                     if (checkBoxGirls.isChecked()) {
                         dbqry = dbqry + "gender=" + "'girls' ";
@@ -114,7 +113,7 @@ public class LocalityListFragment extends Fragment {
                         dbqry = dbqry + "AND rent_double_nonac>0";
                         roomType = "rent_double_nonac";
                     }
-                    dbqry = dbqry+" ORDER BY RAND()";
+                    /*dbqry = dbqry+" ORDER BY RAND()";*/
 
                     dbqry = dbqry.replace(" ", "%20");
                     Intent intent = new Intent(getActivity(), MainActivity.class);
