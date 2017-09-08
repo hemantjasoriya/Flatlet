@@ -29,10 +29,10 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class FirstActivity extends AppCompatActivity {
-    final static String TAG = "MainActivity";
+    private final static String TAG = "MainActivity";
     private static Fragment fragment;
     private static FragmentTransaction fragmentTransaction;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -58,6 +58,11 @@ public class FirstActivity extends AppCompatActivity {
 
                    if (accessToken==null){
                        fragment=new LoginFragment();
+                       /*Bundle args = new Bundle();
+                       String hostel_title = getIntent().getStringExtra("hostel_title");
+                       args.putString("hostel_title",hostel_title);
+                       fragment.setArguments(args);*/
+
                    }
                    else if (!sharedPreferences.getString("userName","johndoe").equalsIgnoreCase("johndoe")){
                        fragment=new SavedProfileFragment();

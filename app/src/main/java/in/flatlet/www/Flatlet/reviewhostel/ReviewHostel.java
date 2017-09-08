@@ -40,21 +40,20 @@ import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
 public class ReviewHostel extends AppCompatActivity {
-    FeedReaderDbHelperReviewHostel mDbHelper;
-    SQLiteDatabase db;
-    JsonArrayRequest jsonArrayRequest;
-    RequestQueue requestQueue,requestQueue1;
+    private SQLiteDatabase db;
+    private RequestQueue requestQueue;
+    private RequestQueue requestQueue1;
     private static final String TAG = "ReviewHostel";
     private AutoCompleteTextView autoComplete;
     private Cursor cursor1;
-    private ArrayList<String> list = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    ImageView reviewImageView;
-    TextView reviewHostelTitle, reviewSecAddress;
-    CardView reviewCard;
-    JsonObjectRequest jsonObjRequest;
-    String hostel_title;
-    Toolbar toolbar;
+    private final ArrayList<String> list = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private ImageView reviewImageView;
+    private TextView reviewHostelTitle;
+    private TextView reviewSecAddress;
+    private CardView reviewCard;
+    private JsonObjectRequest jsonObjRequest;
+    private String hostel_title;
 
 
     @Override
@@ -67,7 +66,7 @@ public class ReviewHostel extends AppCompatActivity {
         reviewSecAddress = (TextView) findViewById(R.id.review_sec_address);
         reviewCard = (CardView) findViewById(R.id.review_hostel_card);
         reviewCard.setVisibility(View.GONE);
-         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -83,7 +82,7 @@ public class ReviewHostel extends AppCompatActivity {
             }
         });
 
-        mDbHelper = new FeedReaderDbHelperReviewHostel(this);
+        FeedReaderDbHelperReviewHostel mDbHelper = new FeedReaderDbHelperReviewHostel(this);
         db = mDbHelper.getWritableDatabase();
         Log.i(TAG, "onCreate: of main");
 
@@ -114,15 +113,14 @@ public class ReviewHostel extends AppCompatActivity {
         Log.i(TAG, "onCreate: k" + i);
 
 
-        jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,
 
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, "onResponse: " + response.length());
 
-                        for (int j = 0; j < response.length(); j++)
-                        {
+                        for (int j = 0; j < response.length(); j++) {
                             try {
                                 String title = response.getString(j);
                                 Log.i(TAG, "onResponse: " + title);
@@ -131,11 +129,9 @@ public class ReviewHostel extends AppCompatActivity {
                                 long newRowId = db.insert(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, null, values);
                                 Log.i(TAG, "onResponse:1 " + newRowId);
 
-                                }
-                                catch (JSONException e)
-                                {
+                            } catch (JSONException e) {
                                 e.printStackTrace();
-                                }
+                            }
                         }
                     }
                 },
@@ -242,7 +238,6 @@ public class ReviewHostel extends AppCompatActivity {
                 }
                     else {
                     Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }

@@ -13,14 +13,11 @@ import android.widget.ImageView;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
-import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 import in.flatlet.www.Flatlet.welcome.WelcomeActivity;
 
 
 public class Splash extends AppCompatActivity {
     private ImageView imageView;
-    private SharedPreferences sharedPreferences;
-    private final String TAG="SplashActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +27,8 @@ public class Splash extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
         Log.i("MainActivity", "onCreate: image loaded");
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String TAG = "SplashActivity";
         if(!(sharedPreferences.getBoolean("welcome",false)))
         {
             Log.i(TAG, "onCreate: if wala ");
@@ -54,7 +52,7 @@ public class Splash extends AppCompatActivity {
             editor.apply();
         }
         else {
-            Log.i(TAG, "onCreate:  else wala" +sharedPreferences.getBoolean("welcome",false));
+            Log.i(TAG, "onCreate:  else wala" + sharedPreferences.getBoolean("welcome",false));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

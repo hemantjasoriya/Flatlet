@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -38,9 +36,7 @@ import org.json.JSONObject;
 
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.recyclerView.MainActivity;
-
-import static android.support.v4.content.ContextCompat.getColor;
+import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 /**
  * Created by javax on 20-Aug-17.
@@ -49,18 +45,16 @@ import static android.support.v4.content.ContextCompat.getColor;
 public class LoginFragment extends Fragment {
 
     private final String TAG = "loginfragment";
-    public static int APP_REQUEST_CODE = 99;
-    private Button loginButton;
-    RequestQueue queue2, queue1;
+    private static final int APP_REQUEST_CODE = 99;
+    private final RequestQueue queue2=null;
+    private final RequestQueue queue1=null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.login_fragment, container, false);
 
-
-        return view;
+        return inflater.inflate(R.layout.login_fragment, container, false);
 
 
     }
@@ -87,7 +81,7 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Log.i(TAG, "onActivityCreated: ");
 
-        loginButton = (Button) getActivity().findViewById(R.id.loginButton);
+        Button loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +169,8 @@ public class LoginFragment extends Fragment {
                                                 } else {
                                                     Log.i(TAG, "onResponse: else started");
                                                     // go to main activity
-                                                    Intent intent = new Intent(getActivity(), MainActivity.class);
+
+                                                    Intent intent = new Intent(getActivity(), Activity2.class);
                                                     intent.putExtra("locality", "");
                                                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
                                                     intent.putExtra("roomType", "rent_single_ac");

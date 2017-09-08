@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.R;
@@ -26,14 +24,18 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 
 public class LocalityListFragment extends Fragment {
-    final static String TAG = "LocalityListFragment";
-    Button searchButton;
-    String dbqry;
-    String roomType, gender;
+    private final static String TAG = "LocalityListFragment";
+    private String dbqry;
+    private String roomType;
+    private String gender;
     Spinner spinner;
     private String locality;
-    RadioButton checkBoxGirls, checkBoxBoys, checkBoxSingleRoom, checkBoxDoubleRoom, checkBoxAc, checkBoxNonAc;
-    Toolbar toolbar;
+    private RadioButton checkBoxGirls;
+    private RadioButton checkBoxBoys;
+    private RadioButton checkBoxSingleRoom;
+    private RadioButton checkBoxDoubleRoom;
+    private RadioButton checkBoxAc;
+    private RadioButton checkBoxNonAc;
 
     @Nullable
     @Override
@@ -44,7 +46,7 @@ public class LocalityListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        searchButton = (Button) getActivity().findViewById(R.id.searchButton);
+        Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
         Log.i(TAG, "onActivityCreated: started");
         checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
@@ -69,7 +71,7 @@ public class LocalityListFragment extends Fragment {
             }
         });
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -213,6 +213,7 @@ public class FilterActivity extends AppCompatActivity {
                     query = query.replace(" ", "%20");
                     locality = "";
                     Intent intent = new Intent(FilterActivity.this, MainActivity.class);
+                    intent.setFlags(13);
                     intent.putExtra("locality", locality);
                     intent.putExtra("dbqry", query);
                     intent.putExtra("roomType", roomType);

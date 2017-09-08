@@ -14,8 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
@@ -55,7 +53,9 @@ public class HomeFragment extends Fragment {
                     Log.i("ExploreNow check", "onClick: "+MySingleton.getInstance(getContext()).isOnline());
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("locality", "");
-                    intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
+                   /* intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");*/
+                   //testing
+                    intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");
                     intent.putExtra("roomType", "rent_single_ac");
                     intent.putExtra("gender", "girls");
                     getActivity().startActivity(intent);

@@ -15,15 +15,11 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class MoreFragment extends Fragment implements AdapterView.OnItemClickListener {
-    ListView moreFragmentList;
 
-    private Fragment fragment;
-    private FragmentTransaction fragmentTransaction;
-    String s = null;
-    private String[] moreFragmentItems = {"How it works", "Rate us on PlayStore", "Privacy Policy",
-            "Contact us", "invite", "feedback", "About us"};
-    private int[] moreFragmentVectors = {R.drawable.ic_lightbulb_outline_black_24dp, R.drawable.ic_star_black_24dp,
-            R.drawable.ic_security, R.drawable.ic_contact_mail_black_24dp,
+    private final String s = null;
+    private final String[] moreFragmentItems = {"How it works", "Rate us on PlayStore", "Privacy Policy","invite", "feedback", "About us"};
+    private final int[] moreFragmentVectors = {R.drawable.ic_lightbulb_outline_black_24dp, R.drawable.ic_star_black_24dp,
+            R.drawable.ic_security,
             R.drawable.ic_insert_invitation_black_24dp,
             R.drawable.ic_feedback_black_24dp, R.drawable.ic_group_black_24dp};
 
@@ -36,7 +32,7 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        moreFragmentList = (ListView) getActivity().findViewById(R.id.moreFragmentList);
+        ListView moreFragmentList = (ListView) getActivity().findViewById(R.id.moreFragmentList);
         moreFragmentList.setOnItemClickListener(this);
         MoreFragmentArrayAdapter adapter = new MoreFragmentArrayAdapter(getActivity(), moreFragmentItems, moreFragmentVectors);
         moreFragmentList.setAdapter(adapter);
@@ -47,8 +43,8 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
 
         switch (position) {
             case 0:
-                fragment = new HowItWorksFagment();
-                fragmentTransaction = getFragmentManager().beginTransaction();
+                Fragment fragment = new HowItWorksFagment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, fragment, "how it works");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
@@ -64,25 +60,17 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-
             case 3:
-                fragment = new ContactUsFragment();
-                fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "contact us");
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                break;
-            case 4:
                 Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s + position, Toast.LENGTH_SHORT).show();
                 break;
-            case 5:
+            case 4:
                 fragment = new FeedBackFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, fragment, "feedback");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
-            case 6:
+            case 5:
                 fragment = new AboutUsFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, fragment, "about us");

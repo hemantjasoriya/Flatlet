@@ -13,10 +13,10 @@ import android.widget.TextView;
 import in.flatlet.www.Flatlet.R;
 
 
-public class MoreFragmentArrayAdapter extends ArrayAdapter<String> {
+class MoreFragmentArrayAdapter extends ArrayAdapter<String> {
     private final String[] moreFragmentItems;
-    public Context context;
-    private int[] moreFragmentVectors;
+    private final Context context;
+    private final int[] moreFragmentVectors;
 
     MoreFragmentArrayAdapter(Context context, String[] moreFragmentItems, int[] moreFragmentVectors) {
         super(context, android.R.layout.simple_list_item_1, moreFragmentItems);

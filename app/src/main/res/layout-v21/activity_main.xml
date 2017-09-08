@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:id="@+id/RL1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.flatlet.www.Flatlet.recyclerView.MainActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/filterFloatingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="50dp"
+            android:padding="10dp"
+            android:alpha="0.8"
+            android:onClick="onFilterClick"
+            app:backgroundTint="@color/colorAccent"
+            app:elevation="6dp"
+            app:srcCompat="@drawable/ic_filter" />
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:elevation="3dp"
+            android:visibility="visible" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            </android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="56dp"
+        android:theme="?attr/actionBarTheme"
+        app:title="@string/Flatlet" />
+
+</RelativeLayout>
+

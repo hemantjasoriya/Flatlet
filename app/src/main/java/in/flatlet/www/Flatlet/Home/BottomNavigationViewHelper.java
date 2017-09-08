@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 //this class is to remove animation of BottomNavigationView
 // reference https://stackoverflow.com/questions/41649494/how-to-remove-icon-animation-for-bottom-navigation-view-in-android
 
-public class BottomNavigationViewHelper {
+class BottomNavigationViewHelper {
     public static void disableShiftMode(BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
         try {

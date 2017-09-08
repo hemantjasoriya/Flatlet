@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,13 +43,10 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
  */
 
 public class CreateProfileFragment extends Fragment {
-    private Button logoutButton, saveProfileButton;
+    private Button logoutButton;
     private EditText mobileEditText, nameEditText, emailEditText;
-    private TextView personalDetailsTextView;
     private final String TAG = "CreateProfileFragment";
     private RadioButton maleRadioButton, femaleRadioButton;
-    private FeedReaderDbHelper feedReaderDbHelper;
-    private SQLiteDatabase db_favourite;
     RequestQueue queue1;
 
 
@@ -56,8 +54,7 @@ public class CreateProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.createprofile_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.createprofile_fragment, container, false);
     }
 
 
@@ -65,11 +62,11 @@ public class CreateProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         logoutButton = (Button) getActivity().findViewById(R.id.logoutButton);
-        saveProfileButton = (Button) getActivity().findViewById(R.id.saveProfileButton);
+        Button saveProfileButton = (Button) getActivity().findViewById(R.id.saveProfileButton);
         mobileEditText = (EditText) getActivity().findViewById(R.id.mobileEditText);
         nameEditText = (EditText) getActivity().findViewById(R.id.nameEditText);
         emailEditText = (EditText) getActivity().findViewById(R.id.emailEditText);
-        personalDetailsTextView = (TextView) getActivity().findViewById(R.id.personalDetailsTextView);
+        TextView personalDetailsTextView = (TextView) getActivity().findViewById(R.id.personalDetailsTextView);
         maleRadioButton = (RadioButton) getActivity().findViewById(R.id.maleRadioButton);
         femaleRadioButton = (RadioButton) getActivity().findViewById(R.id.femaleRadioButton);
 
@@ -81,7 +78,8 @@ public class CreateProfileFragment extends Fragment {
                     // filling the user data in shared preferences
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_error);
+                    /*Drawable drawable = getResources().getDrawable(R.drawable.ic_error);*/
+                    Drawable drawable = ContextCompat.getDrawable(getContext(),R.drawable.ic_error);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
                     if (nameEditText.getText().toString().matches("")) {
@@ -110,7 +108,6 @@ public class CreateProfileFragment extends Fragment {
                 }
                 else {
                     Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
             }
@@ -155,14 +152,14 @@ public class CreateProfileFragment extends Fragment {
         }
     }
 
-    public static boolean isEmailValid(String email) {
+    private static boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
 
-    public void logout() {
+    private void logout() {
         AccountKit.logOut();
         //launching login fragment
         Fragment fragment = new LoginFragment();
@@ -176,13 +173,13 @@ public class CreateProfileFragment extends Fragment {
         editor.clear();
         editor.apply();
         // delete all rows from sqlite database
-        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
-        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
         db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
 
-    public void sendToDatabase() {
+    private void sendToDatabase() {
         Log.i(TAG, "sendToDatabase: started");
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         String dbqry = null;

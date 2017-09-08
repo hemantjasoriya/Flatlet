@@ -12,24 +12,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 
 
 public class WelcomeActivity extends AppCompatActivity {
-    private String TAG = "WelcomeActivity";
+    private final String TAG = "WelcomeActivity";
     private ViewPager pager;
-    Button buttonNext, buttonPrev;
     SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
-        buttonPrev = (Button) findViewById(R.id.buttonPrev);
-        buttonNext = (Button) findViewById(R.id.buttonNext);
+        Button buttonPrev = (Button) findViewById(R.id.buttonPrev);
+        Button buttonNext = (Button) findViewById(R.id.buttonNext);
         final WelcomePagerAdapter pagerAdapter = new WelcomePagerAdapter(getSupportFragmentManager());
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
@@ -41,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     pager.setCurrentItem(getItem(+1), true);
                 } else {
-                    startActivity(new Intent(WelcomeActivity.this, FirstActivity.class));
+                    startActivity(new Intent(WelcomeActivity.this, FirstActivity.class).setFlags(1));
                 }
             }
         });

@@ -61,7 +61,6 @@ public class MainActivity_third extends AppCompatActivity {
 }
 
 class MyPageAdapter extends FragmentStatePagerAdapter {
-    public final String TAG = "MainActivity";
 
     public MyPageAdapter(FragmentManager fm) {
 
@@ -70,6 +69,7 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        String TAG = "MainActivity";
         Log.i(TAG, "getItem:called ");
 
         //this method is going to give the position at

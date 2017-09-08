@@ -1,8 +1,8 @@
 package in.flatlet.www.Flatlet.recyclerView;
 
-public class GetDataAdapter {
-    String name;
-    String rent;
+class GetDataAdapter {
+    private String name;
+    private String rent;
 
 
     public float getCardRating() {
@@ -13,7 +13,7 @@ public class GetDataAdapter {
         this.cardRating = cardRating;
     }
 
-    float cardRating;
+    private float cardRating;
 
 
     public String getAddress() {
@@ -24,7 +24,7 @@ public class GetDataAdapter {
         this.address = address;
     }
 
-    String address;
+    private String address;
 
     public String getName() {
         return name;

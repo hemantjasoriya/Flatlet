@@ -1,9 +1,9 @@
 package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 
-public class FavouriteHostelDataModel {
-    String title;
-    String address_secondary;
+class FavouriteHostelDataModel {
+    private String title;
+    private String address_secondary;
 
     public float getFavouriteCardRating() {
         return favouriteCardRating;
@@ -13,7 +13,7 @@ public class FavouriteHostelDataModel {
         this.favouriteCardRating = favouriteCardRating;
     }
 
-    float favouriteCardRating;
+    private float favouriteCardRating;
 
     public String getUrl() {
         return url;
@@ -23,9 +23,9 @@ public class FavouriteHostelDataModel {
         this.url = url;
     }
 
-    String url;
-    int rent;
-    double rating;
+    private String url;
+    private int rent;
+    private double rating;
 
     public String getTitle() {
         return title;

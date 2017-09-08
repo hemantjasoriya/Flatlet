@@ -31,9 +31,9 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRecyclerAdapter.ViewHolder> {
-    private Context context;
-    private List<FavouriteHostelDataModel> favouriteHostelList;
-    private SQLiteDatabase db;
+    private final Context context;
+    private final List<FavouriteHostelDataModel> favouriteHostelList;
+    private final SQLiteDatabase db;
     private final String TAG = "RecyclerViewAdapter";
     private RequestQueue queue1;
 
@@ -136,13 +136,13 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView hostel_title;
-        TextView hostel_rent;
-        TextView hostel_address;
-        ImageView imageView2;
-        CardView cardView;
-        ToggleButton toggle;
-        TextView favouriteCardRating;
+        final TextView hostel_title;
+        final TextView hostel_rent;
+        final TextView hostel_address;
+        final ImageView imageView2;
+        final CardView cardView;
+        final ToggleButton toggle;
+        final TextView favouriteCardRating;
         /*RelativeLayout RL_favourite;*/
 
         ViewHolder(View itemView) {

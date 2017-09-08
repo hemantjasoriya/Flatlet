@@ -45,7 +45,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private final Context context;
     private final List<GetDataAdapter> dataModelArrayList;
     private final SQLiteDatabase db_favourite;
-    private final FeedReaderDbHelper feedReaderDbHelper;
     private Cursor cursor;
     private RequestQueue queue1;
     private final String TAG = "RecyclerViewAdapter";
@@ -58,7 +57,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.dataModelArrayList = getDataAdapter;
         this.context = context;
         this.recyclerView = recyclerView;
-        feedReaderDbHelper = new FeedReaderDbHelper(context);
+        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(context);
         db_favourite = feedReaderDbHelper.getWritableDatabase();
 
         SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(context);
@@ -235,10 +234,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView hostel_rent,card_rating,hostel_title,hostel_address;
-        ImageView imageView2;
-        CardView cardView;
-        ToggleButton toggle;
+        final TextView hostel_rent;
+        final TextView card_rating;
+        final TextView hostel_title;
+        final TextView hostel_address;
+        final ImageView imageView2;
+        final CardView cardView;
+        final ToggleButton toggle;
 
         ViewHolder(View itemView) {
             super(itemView);

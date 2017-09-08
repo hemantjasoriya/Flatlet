@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
+import in.flatlet.www.Flatlet.recyclerView.RecyclerViewAdapter;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 
@@ -58,7 +60,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private ImageView imageHead;
     private String CCTV;
     private String ame_elevator;
-    private String ame_toilet_attached;
+    private final String ame_toilet_attached= null;
     private String eve_snacks;
     private String ownership;
     private ProgressBar progressBar;
@@ -68,15 +70,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
     private SharedPreferences sharedPreferences;
-    private final String MyRequestTag = "MyTag";
     private float rating, hostel_rating_food, hostel_rating_accommodation, hostel_rating_staff, hostel_rating_study;
     private int total_ratings;
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,6 +231,19 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         });
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        hostel_title = savedInstanceState.getString("hostel_title");
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("hostel_title",hostel_title);
+    }
+
 
     private void fetch_details() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/flatletwebservicescomplete/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
@@ -255,7 +265,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         });
         RequestQueue requestqueue = Volley.newRequestQueue(getApplicationContext());
         requestqueue.add(jsonObjectRequest);
-        jsonObjectRequest.setTag(MyRequestTag);
+        String myRequestTag = "MyTag";
+        jsonObjectRequest.setTag(myRequestTag);
 
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
@@ -322,9 +333,17 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             Log.i(TAG, "onSubmitRatingButton: online");
             AccessToken accessToken = AccountKit.getCurrentAccessToken();
             if (accessToken == null) {
-                Intent intent = new Intent(Activity2.this, FirstActivity.class);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Activity2.this);
+                alertDialog.setTitle("Login alert");
+                alertDialog.setIcon(R.drawable.poipo);
+                alertDialog.setMessage("You first have to login to make favourites");
+                Activity2.MyListener my = new Activity2.MyListener();
+                alertDialog.setPositiveButton("LogIn", my);
+                alertDialog.setNegativeButton("Cancel", my);
+                alertDialog.show();
+               /* Intent intent = new Intent(Activity2.this, FirstActivity.class);
                 intent.setFlags(2);
-                startActivity(intent);
+                startActivity(intent);*/
                 return;
             }
             Log.i(TAG, "onSubmitRatingButton: " + sharedPreferences.getString("hostel1_name", "yoyo"));
@@ -504,62 +523,26 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             ratingBarStudyEnvironment.setIsIndicator(true);
 
             Log.i(TAG, "onSubmitRatingButton: ratings are" + rating_food + rating_accommodation + rating_staff + rating_studyEnvironment);
-        } else {
+        }
+        else
+            {
             Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    @Override
-    protected void onPause() {
-        Log.i(TAG, "onPause: started");
-        super.onPause();
-        /*String dbqry="UPDATE `hostel_specs` SET `rating`='"+rating+"',`total_ratings`='"+total_ratings+"',`rating_food`='"+rating_food+"',`rating_accommodation`='"+rating_accommodation+"',`rating_staff`='"+rating_staff+"',`rating_study`='"+rating_study+"'\n" +
-                "WHERE `title`='"+hostel_title+"'";
-        Log.i(TAG, "onPause: "+dbqry);
-        String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-        Log.i(TAG, "onPause: "+url);
-        String urlFinal = url.replace(" ", "%20");
-        StringRequest stringRequest=new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i(TAG, "onResponse: "+response);
+    private class MyListener implements DialogInterface.OnClickListener {
 
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            if (which == -1) {
+                Intent intent = new Intent(Activity2.this, FirstActivity.class);
+                intent.setFlags(2);
+                intent.putExtra("hostel_title",hostel_title);
+                Log.i(TAG, "onClick: ");
+                startActivity(intent);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "onErrorResponse: "+error);
-
-            }
-        });
-
-        stringRequest.setTag("MyTag6");
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
-    }*/
-    /* @Override
-    protected void onStop() {
-        super.onStop();
-        if(requestQueue!=null){
-            requestQueue.cancelAll(MyRequestTag);
         }
-        if (requestQueue2!=null){
-            requestQueue2.cancelAll("MyTag2");
-        }
-        if (requestQueue3!=null){
-            requestQueue3.cancelAll("MyTag3");
-        }
-        if (requestQueue4!=null){
-            requestQueue4.cancelAll("MyTag4");
-        }
-        if (requestQueue5!=null){
-            requestQueue5.cancelAll("MyTag5");
-        }
-
-    }
-*/
-
-
     }
 }
 

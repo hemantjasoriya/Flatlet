@@ -13,8 +13,6 @@ import android.widget.TextView;
 import in.flatlet.www.Flatlet.R;
 
 public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
-    private SeekBar seekBar1;
-    private TextView tv1;
     private TextView tv2;
 
 
@@ -24,9 +22,9 @@ public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.filter_fragment, container, false);
-        seekBar1 = (SeekBar) v.findViewById(R.id.seekBar);
+        SeekBar seekBar1 = (SeekBar) v.findViewById(R.id.seekBar);
         seekBar1.setOnSeekBarChangeListener(this);
-        tv1 = (TextView) v.findViewById(R.id.tv1);
+        TextView tv1 = (TextView) v.findViewById(R.id.tv1);
         tv2 = (TextView) v.findViewById(R.id.tv2);
         seekBar1.setMax(25000);
         seekBar1.setProgress(25000);

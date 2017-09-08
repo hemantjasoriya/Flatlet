@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -23,14 +24,11 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 
 public class FavouriteFragment extends Fragment {
-    SQLiteDatabase db;
-    final String TAG = "FavouriteFragment";
-    ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
+    private SQLiteDatabase db;
+    private final String TAG = "FavouriteFragment";
+    private final ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
 
-    RecyclerView favouriteRecyclerView;
-    RelativeLayout RL_favourite;
-    LinearLayoutManager recyclerViewLayoutManager;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -48,10 +46,10 @@ public class FavouriteFragment extends Fragment {
 
         Log.i(TAG, "onActivityCreated: SQLite Object is Created successfully");
 
-        favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
+        RecyclerView favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
 
         progressBar = (ProgressBar) getActivity().findViewById(R.id.progres_bar);
-        RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
+        RelativeLayout RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();
         FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getActivity(), favouriteHostelList, db);
         if (favouriteHostelList.size() == 0) {
@@ -60,7 +58,7 @@ public class FavouriteFragment extends Fragment {
         }
 
         favouriteRecyclerView.setHasFixedSize(true);
-        recyclerViewLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);
         favouriteRecyclerView.setAdapter(adapter);
         progressBar.setVisibility(View.GONE);

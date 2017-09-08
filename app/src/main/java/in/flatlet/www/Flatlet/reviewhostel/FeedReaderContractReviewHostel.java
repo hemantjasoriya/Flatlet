@@ -6,7 +6,7 @@ import android.provider.BaseColumns;
  * Created by javax on 31-Jul-17.
  */
 
-public final class FeedReaderContractReviewHostel {
+final class FeedReaderContractReviewHostel {
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
     private FeedReaderContractReviewHostel() {}

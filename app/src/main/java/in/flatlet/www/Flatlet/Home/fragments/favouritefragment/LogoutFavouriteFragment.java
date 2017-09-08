@@ -18,22 +18,20 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 public class LogoutFavouriteFragment extends Fragment {
     private final String TAG = "LogoutFavouriteFragment";
-    private Button exploreButton;
     private Context context;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.logoutfavourite_fragment, container, false);
-        return view;
+        return inflater.inflate(R.layout.logoutfavourite_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context = getActivity();
-        exploreButton = (Button) getActivity().findViewById(R.id.explore_button);
+        Button exploreButton = (Button) getActivity().findViewById(R.id.explore_button);
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

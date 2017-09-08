@@ -33,21 +33,18 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
  */
 
 public class SavedProfileFragment extends Fragment {
-    private EditText userNameEditText,userEmailEditText,userMobileEditText;
+    private EditText userNameEditText;
+    private EditText userEmailEditText;
     private TextView userNameEditButton,emailEditButton,textView;
 
-    private Button logoutButton1;
     private final String TAG="SavedProfileFragment";
     private int i=0;
-    private FeedReaderDbHelper feedReaderDbHelper;
-    private SQLiteDatabase db_favourite;
-    RequestQueue queue1;
+    private RequestQueue queue1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.savedprofile_fragment, container, false);
 
-        return view;
+        return inflater.inflate(R.layout.savedprofile_fragment, container, false);
     }
 
     @Override
@@ -55,10 +52,10 @@ public class SavedProfileFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         userNameEditText=(EditText)getActivity().findViewById(R.id.userNameEditText);
         userEmailEditText=(EditText)getActivity().findViewById(R.id.userEmailEditText);
-        userMobileEditText=(EditText)getActivity().findViewById(R.id.userMobileEditText);
+        EditText userMobileEditText = (EditText) getActivity().findViewById(R.id.userMobileEditText);
         userNameEditButton=(TextView)getActivity().findViewById(R.id.userNameEditButton);
         emailEditButton=(TextView)getActivity().findViewById(R.id.emailEditButton);
-        logoutButton1=(Button)getActivity().findViewById(R.id.logoutButton1);
+        Button logoutButton1 = (Button) getActivity().findViewById(R.id.logoutButton1);
         SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         userNameEditText.setText(sharedPreferences.getString("userName","john doe"));
         userEmailEditText.setText(sharedPreferences.getString("userEmail","@johndoe"));
@@ -121,7 +118,7 @@ public class SavedProfileFragment extends Fragment {
         });
 
     }
-    public void logout(){
+    private void logout(){
         AccountKit.logOut();
         //launching login fragment
         Fragment fragment=new LoginFragment();
@@ -135,8 +132,8 @@ public class SavedProfileFragment extends Fragment {
         editor.clear();
         editor.apply();
         // delete all rows from sqlite database
-        feedReaderDbHelper = new FeedReaderDbHelper(getContext());
-        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+        SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
         db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 

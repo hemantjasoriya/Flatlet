@@ -10,8 +10,8 @@ import android.util.Log;
  * Created by javax on 31-Jul-17.
  */
 
-public class FeedReaderDbHelperReviewHostel extends SQLiteOpenHelper {
-    public static final String TAG ="FeedReaderDbHelperReviewHostel";
+class FeedReaderDbHelperReviewHostel extends SQLiteOpenHelper {
+    private static final String TAG ="FeedReaderDbHelperReviewHostel";
     // If you change the database schema, you must increment the database version.
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " (" +
@@ -21,8 +21,8 @@ public class FeedReaderDbHelperReviewHostel extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME;
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "FeedReader.db";
 
     public FeedReaderDbHelperReviewHostel(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

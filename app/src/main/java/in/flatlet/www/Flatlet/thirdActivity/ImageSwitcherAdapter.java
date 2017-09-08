@@ -11,8 +11,8 @@ import com.squareup.picasso.Picasso;
 import in.flatlet.www.Flatlet.R;
 
 
-public class ImageSwitcherAdapter extends PagerAdapter {
-    Context context;
+class ImageSwitcherAdapter extends PagerAdapter {
+    private final Context context;
     /* private int[] GalleryImages = new int[]{R.drawable.battleship,R.drawable.ic_elevator,
      R.drawable.ic_elevator,R.drawable.battleship};*/
     private final String[] GalleryURL = new String[]{"http://images.flatlet.in/images_thumbs/1/1.jpg"
