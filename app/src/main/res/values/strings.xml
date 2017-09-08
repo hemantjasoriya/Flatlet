@@ -122,7 +122,7 @@
     <string name="personal_details">Personal Details</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="your_name">Your Name</string>
-    <string name="email_id_optional">Email Id(optional)</string>
+    <string name="email_id_optional">Email Id</string>
     <string name="your_identity">Your Identity</string>
     <string name="male">Male</string>
     <string name="female">Female</string>

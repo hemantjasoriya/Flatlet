@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.recyclerView.RecyclerViewAdapter;
 import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 
@@ -355,7 +354,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 ratingSubmitButton.setText("SUBMIT");
                 return;
             }
-
+            ratingSubmitButton.setText("Edit");
             float rating_food =  ratingBarFood.getRating();
             float rating_staff = ratingBarStaff.getRating();
             float rating_accommodation =  ratingBarAccommodation.getRating();
@@ -382,12 +381,13 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
-                        "WHERE `title`='" + hostel_title + "'";
-                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
-                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
-                Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry="+dbqry+"&dbqry1="+dbqry1;
+                /*String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry="+dbqry;*/
+
+
                 String urlFinal = url.replace(" ", "%20");
+                Log.i(TAG, "onSubmitRatingButton: "+urlFinal);
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -397,12 +397,14 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: " + error);
+                        Log.i(TAG, "onErrorResponse: " + error.toString());
 
                     }
                 });
                 stringRequest.setTag("MyTag2");
-                MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(stringRequest);
+                /*MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);*/
 
             } else if (sharedPreferences.getString("hostel1_name", "default residency").equals(hostel_title)) {
                 Log.i(TAG, "onSubmitRatingButton: hostel1 name");
@@ -430,7 +432,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: " + error);
+                        Log.i(TAG, "onErrorResponse: " + error.toString());
 
                     }
                 });
@@ -451,8 +453,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel1_name`='" + hostel_title + "',`hostel1_food`='" + rating_food + "',`hostel1_accommodation`='" + rating_accommodation + "',`hostel1_staffbehaviour`='" + rating_staff + "',`hostel1_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
-                        "WHERE `title`='" + hostel_title + "'";
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
                 String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
 
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry);
@@ -467,7 +468,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: " + error);
+                        Log.i(TAG, "onErrorResponse: " + error.toString());
 
                     }
                 });
@@ -488,8 +489,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
-                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
-                        "WHERE `title`='" + hostel_title + "'";
+                String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
                 String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry);
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
@@ -503,7 +503,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: " + error);
+                        Log.i(TAG, "onErrorResponse: " + error.toString());
 
                     }
                 });
