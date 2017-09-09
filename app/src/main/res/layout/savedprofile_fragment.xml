@@ -152,7 +152,8 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/logoutButton1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/logoutButton1"
