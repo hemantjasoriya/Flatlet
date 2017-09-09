@@ -34,6 +34,7 @@ import com.facebook.accountkit.ui.UIManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
@@ -168,10 +169,10 @@ public class LoginFragment extends Fragment {
 
                                                 } else {
                                                     Log.i(TAG, "onResponse: else started");
-                                                    // go to main activity
-
+                                                    // go to activity2
                                                     Intent intent = new Intent(getActivity(), Activity2.class);
                                                     intent.putExtra("locality", "");
+                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
                                                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
                                                     intent.putExtra("roomType", "rent_single_ac");
                                                     intent.putExtra("gender", "girls");

@@ -32,6 +32,10 @@
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="220dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:scaleType="centerCrop"
             app:srcCompat="@android:drawable/editbox_dropdown_light_frame"
             android:contentDescription="@string/primary_card" />
@@ -40,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView2"
+            android:layout_marginTop="2dp"
             android:layout_centerHorizontal="true"
             android:text="@string/hostel_title"
             android:textSize="18sp"
@@ -53,6 +58,16 @@
             android:text="@string/hostel_rent"
             android:textSize="16sp" />
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/hostel_rent"
+            android:text="₹"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:textSize="16sp"
+            android:layout_below="@id/hostel_title"
+            android:layout_centerHorizontal="true"/>
+        <TextView
             android:id="@+id/hostel_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,11 +80,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="#fde60a19"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/hostel_address"
             android:drawableStart="@drawable/star1"
+            android:drawablePadding="2dp"
             />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

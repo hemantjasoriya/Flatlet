@@ -39,9 +39,13 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
+import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.RecyclerViewAdapter;
@@ -74,6 +78,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private int total_ratings;
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -327,7 +335,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public void onSubmitRatingButton(View view) {
+    public void onSubmitRatingButton(View view) throws UnsupportedEncodingException {
         Log.i(TAG, "onSubmitRatingButton: started");
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
             Log.i(TAG, "onSubmitRatingButton: online");
@@ -336,7 +344,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(Activity2.this);
                 alertDialog.setTitle("Login alert");
                 alertDialog.setIcon(R.drawable.poipo);
-                alertDialog.setMessage("You first have to login to make favourites");
+                alertDialog.setMessage("You first have to login to be able to rate this property");
                 Activity2.MyListener my = new Activity2.MyListener();
                 alertDialog.setPositiveButton("LogIn", my);
                 alertDialog.setNegativeButton("Cancel", my);
@@ -384,11 +392,18 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
                 String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'\n" +
                         "WHERE `title`='" + hostel_title + "'";
-                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
-                Log.i(TAG, "onSubmitRatingButton: " + dbqry);
+                String dbqryf = URLEncoder.encode(dbqry,"UTF-8");
+                String dbqry1f = URLEncoder.encode(dbqry1,"UTF-8");
+
+                String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry="+dbqryf+"&dbqry1="+dbqry1f;
+                String weburl = URLEncoder.encode(url,"UTF-8");
+                 weburl = weburl.replace(" ", "%20");
+                /*String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;*/
+               /* Log.i(TAG, "onSubmitRatingButton: " + dbqry);
                 Log.i(TAG, "onSubmitRatingButton: " + dbqry1);
-                String urlFinal = url.replace(" ", "%20");
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
+
+                /*StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {*/
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, weburl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: " + response);
@@ -530,6 +545,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
 
     }
+
 
     private class MyListener implements DialogInterface.OnClickListener {
 
