@@ -172,6 +172,7 @@ public class LoginFragment extends Fragment {
 
                                                     Intent intent = new Intent(getActivity(), Activity2.class);
                                                     intent.putExtra("locality", "");
+                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
                                                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
                                                     intent.putExtra("roomType", "rent_single_ac");
                                                     intent.putExtra("gender", "girls");
