@@ -45,8 +45,9 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
             case 0:
                 Fragment fragment = new HowItWorksFagment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "how it works");
                 fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.content, fragment, "how it works");
+
                 fragmentTransaction.commit();
                 break;
             case 1:
@@ -56,8 +57,9 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
             case 2:
                 fragment = new PrivacyPolicyFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "privacy policy");
                 fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.content, fragment, "privacy policy");
+
                 fragmentTransaction.commit();
                 break;
             case 3:
@@ -66,15 +68,17 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
             case 4:
                 fragment = new FeedBackFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "feedback");
                 fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.content, fragment, "feedback");
+
                 fragmentTransaction.commit();
                 break;
             case 5:
                 fragment = new AboutUsFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.content, fragment, "about us");
                 fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.replace(R.id.content, fragment, "about us");
+
                 fragmentTransaction.commit();
                 break;
 

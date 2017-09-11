@@ -156,7 +156,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + getDataAdapter1.getName() + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + getDataAdapter1.getAddress() + "','" + getDataAdapter1.getRent() + "'," +
-                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','1')";
+                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','"+getDataAdapter1.getCardRating()+"')";
 
                     // checking the size of sqlite database
                     String[] projection1 = {
@@ -182,7 +182,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     }
                 }
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry="+dbqry;
                 String urlFinal = url.replace(" ", "%20");
 
 
@@ -203,6 +203,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 stringRequest.setTag(MyRequestTag);
                 MySingleton.getInstance(context).addToRequestQueue(stringRequest);
+                Log.i(TAG, "onCheckedChanged: after volley request");
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +212,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.i(TAG, "onClicked on" + position + getDataAdapter1.getName());
                 Intent intent = new Intent(context, Activity2.class);
                 intent.putExtra("hostel_title", getDataAdapter1.getName());
+                intent.putExtra("hostel_rent",getDataAdapter1.getRent());
                 Log.i(TAG, "onClick: data sent to activity2 is " + getDataAdapter1.getName());
                 context.startActivity(intent);
             }
