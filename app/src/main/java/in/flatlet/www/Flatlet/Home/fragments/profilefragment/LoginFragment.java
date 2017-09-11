@@ -161,7 +161,6 @@ public class LoginFragment extends Fragment {
                                                 if (response.getInt("tag") == 0) {
                                                     Log.i(TAG, "onResponse: if chala");
                                                     Fragment fragment = new CreateProfileFragment();
-
                                                     android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                                     fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
                                                     fragmentTransaction.addToBackStack(null);
