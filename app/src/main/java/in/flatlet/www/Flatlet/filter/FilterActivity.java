@@ -94,7 +94,6 @@ public class FilterActivity extends AppCompatActivity {
                 checkBoxGirls.setChecked(false);
                 checkBoxSingleRoom.setChecked(true);
                 checkBoxDoubleRoom.setChecked(false);
-                checkBoxAc.setChecked(false);
                 checkBoxNonAc.setChecked(false);
                 checkBoxCCTV.setChecked(false);
                 checkBoxElevator.setChecked(false);
