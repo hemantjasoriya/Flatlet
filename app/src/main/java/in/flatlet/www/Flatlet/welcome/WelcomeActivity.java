@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
+
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 
@@ -21,11 +24,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private final String TAG = "WelcomeActivity";
     private ViewPager pager;
     SharedPreferences sharedPreferences;
+    AccessToken accessToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
+        accessToken= AccountKit.getCurrentAccessToken();
         Button buttonPrev = (Button) findViewById(R.id.buttonPrev);
         Button buttonNext = (Button) findViewById(R.id.buttonNext);
         final WelcomePagerAdapter pagerAdapter = new WelcomePagerAdapter(getSupportFragmentManager());
@@ -39,7 +44,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     pager.setCurrentItem(getItem(+1), true);
                 } else {
-                    startActivity(new Intent(WelcomeActivity.this, FirstActivity.class).setFlags(1));
+                    if (accessToken==null){
+                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                    }
+                    else {
+                        startActivity(new Intent(WelcomeActivity.this, FirstActivity.class).setFlags(1));
+                    }
                 }
             }
         });
@@ -80,6 +90,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 case 2:
 
                     return new WelcomeFragment3();
+
             }
             return null;
         }

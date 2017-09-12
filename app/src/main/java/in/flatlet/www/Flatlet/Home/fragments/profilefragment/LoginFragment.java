@@ -34,9 +34,9 @@ import com.facebook.accountkit.ui.UIManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 /**
  * Created by javax on 20-Aug-17.
@@ -54,7 +54,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        return inflater.inflate(R.layout.login_fragment, container, false);
+        return inflater.inflate(R.layout.login_fragment,container, false);
 
 
     }
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
         Button loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(MySingleton.getInstance(getContext()).isOnline()){
@@ -170,11 +170,13 @@ public class LoginFragment extends Fragment {
                                                     Log.i(TAG, "onResponse: else started");
                                                     // go to main activity
 
-                                                    Intent intent = new Intent(getActivity(), Activity2.class);
-                                                    intent.putExtra("locality", "");
+                                                    Intent intent = new Intent(getActivity(), FirstActivity.class);
+                                                    intent.setFlags(1);
+                                                   /* intent.putExtra("locality", "");
+                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
                                                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
                                                     intent.putExtra("roomType", "rent_single_ac");
-                                                    intent.putExtra("gender", "girls");
+                                                    intent.putExtra("gender", "girls");*/
                                                     getActivity().startActivity(intent);
 
                                                     // fetching data from database

@@ -2,14 +2,12 @@ package in.flatlet.www.Flatlet.recyclerView;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +32,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
@@ -127,18 +124,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 AccessToken accessToken = AccountKit.getCurrentAccessToken();
                 SharedPreferences sharedPreferences = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                 String dbqry = null;
-                if (accessToken == null) {
-                    holder.toggle.setChecked(false);
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                    alertDialog.setTitle("Login alert");
-                    alertDialog.setIcon(R.drawable.poipo);
-                    alertDialog.setMessage("You first have to login to make favourites");
-                    MyListener my = new MyListener();
-                    alertDialog.setPositiveButton("LogIn", my);
-                    alertDialog.setNegativeButton("Cancel", my);
-                    alertDialog.show();
-                    return;
-                }
+
                 if (i > 0) {
                     Log.i(TAG, "onCheckedChanged: value of i " + i);
                     i = 0;
@@ -156,7 +142,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + getDataAdapter1.getName() + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + getDataAdapter1.getAddress() + "','" + getDataAdapter1.getRent() + "'," +
-                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','1')";
+                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','"+getDataAdapter1.getCardRating()+"')";
 
                     // checking the size of sqlite database
                     String[] projection1 = {
@@ -182,7 +168,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     }
                 }
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry="+dbqry;
                 String urlFinal = url.replace(" ", "%20");
 
 
@@ -203,6 +189,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 stringRequest.setTag(MyRequestTag);
                 MySingleton.getInstance(context).addToRequestQueue(stringRequest);
+                Log.i(TAG, "onCheckedChanged: after volley request");
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +198,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.i(TAG, "onClicked on" + position + getDataAdapter1.getName());
                 Intent intent = new Intent(context, Activity2.class);
                 intent.putExtra("hostel_title", getDataAdapter1.getName());
+                intent.putExtra("hostel_rent",getDataAdapter1.getRent());
                 Log.i(TAG, "onClick: data sent to activity2 is " + getDataAdapter1.getName());
                 context.startActivity(intent);
             }
@@ -256,21 +244,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    private class MyListener implements DialogInterface.OnClickListener {
 
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            if (which == -1) {
-                Intent intent = new Intent(context, FirstActivity.class);
-                intent.setFlags(2);
-                Log.i(TAG, "onClick: ");
-                context.startActivity(intent);
-
-            } else
-                Toast.makeText(context, "Negative button clicked", Toast.LENGTH_LONG).show();
-
-
-        }
-    }
 
 }

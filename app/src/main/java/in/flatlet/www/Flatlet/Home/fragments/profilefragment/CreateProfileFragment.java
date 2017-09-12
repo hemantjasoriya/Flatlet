@@ -1,6 +1,7 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -33,6 +34,7 @@ import com.facebook.accountkit.PhoneNumber;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
@@ -99,11 +101,13 @@ public class CreateProfileFragment extends Fragment {
                     editor.putString("userEmail", emailEditText.getText().toString());
                     editor.apply();
                     // launching SavedprofileFragment
-                    Fragment fragment = new SavedProfileFragment();
+                    /*Fragment fragment = new SavedProfileFragment();
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+                    fragmentTransaction.commit();*/
+                    Intent intent=new Intent(getActivity(), FirstActivity.class);
+                    getActivity().startActivity(intent);
                     sendToDatabase();
                 }
                 else {

@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intent = new Intent(MainActivity.this, FirstActivity.class);
         intent.setFlags(1);
         startActivity(intent);

@@ -11,13 +11,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.facebook.accountkit.AccessToken;
+import com.facebook.accountkit.AccountKit;
+
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.welcome.LoginActivity;
 import in.flatlet.www.Flatlet.welcome.WelcomeActivity;
 
 
 public class Splash extends AppCompatActivity {
     private ImageView imageView;
+    private AccessToken accessToken;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class Splash extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setContentView(R.layout.splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
+        final AccessToken accessToken= AccountKit.getCurrentAccessToken();
         Log.i("MainActivity", "onCreate: image loaded");
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -56,9 +62,15 @@ public class Splash extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Intent intent;
+                    if (accessToken==null){
+                        intent = new Intent(Splash.this, LoginActivity.class);
+                    }
+                    else {
+                        intent=new Intent(Splash.this,FirstActivity.class);
+                        intent.setFlags(1);
+                    }
                     imageView.setImageResource(R.drawable.splash);
-                    Intent intent = new Intent(Splash.this,FirstActivity.class );
-                    intent.setFlags(1);
                     startActivity(intent);
                     overridePendingTransition(R.anim.mainfadein,R.anim.splashfadeout);
                     finish();

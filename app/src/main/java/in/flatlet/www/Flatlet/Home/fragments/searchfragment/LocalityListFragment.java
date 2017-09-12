@@ -3,6 +3,7 @@ package in.flatlet.www.Flatlet.Home.fragments.searchfragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class LocalityListFragment extends Fragment {
     private RadioButton checkBoxDoubleRoom;
     private RadioButton checkBoxAc;
     private RadioButton checkBoxNonAc;
+    private BottomNavigationView navigation;
 
     @Nullable
     @Override
@@ -48,6 +50,7 @@ public class LocalityListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
         Log.i(TAG, "onActivityCreated: started");
+        navigation = (BottomNavigationView)getActivity().findViewById(R.id.navigation);
         checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
         checkBoxSingleRoom = (RadioButton) getActivity().findViewById(R.id.checkBoxSingleRoom);
@@ -83,6 +86,7 @@ public class LocalityListFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, homeFragment, null);
                 fragmentTransaction.commit();
+                navigation.setSelectedItemId(R.id.navigation_home);
             }
         });
 

@@ -3,6 +3,7 @@ package in.flatlet.www.Flatlet.Home.fragments.homefragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
@@ -22,6 +23,7 @@ import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 
 
 public class HomeFragment extends Fragment {
+    BottomNavigationView navigation;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        navigation = (BottomNavigationView)getActivity().findViewById(R.id.navigation);
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
         ImageView exploreNowButton = (ImageView) getActivity().findViewById(R.id.exploreNowButton);
@@ -74,6 +77,7 @@ public class HomeFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, localityListFragment, "locality search");
                 fragmentTransaction.commit();
+                navigation.setSelectedItemId(R.id.navigation_search);
                 /*Intent intent = new Intent(getActivity(), LocalityList.class);
                 startActivity(intent);*/
             }
