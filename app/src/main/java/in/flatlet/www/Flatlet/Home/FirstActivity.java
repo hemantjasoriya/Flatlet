@@ -78,6 +78,7 @@ public class FirstActivity extends AppCompatActivity {
                 case R.id.navigation_favourites:
                     if (accessToken == null)
                         fragment = new LogoutFavouriteFragment();
+
                     else
                         fragment = new FavouriteFragment();
                     break;
