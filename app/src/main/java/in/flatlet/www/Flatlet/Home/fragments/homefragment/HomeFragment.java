@@ -24,6 +24,7 @@ import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 
 public class HomeFragment extends Fragment {
     BottomNavigationView navigation;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        navigation = (BottomNavigationView)getActivity().findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
         ImageView exploreNowButton = (ImageView) getActivity().findViewById(R.id.exploreNowButton);
@@ -52,19 +53,18 @@ public class HomeFragment extends Fragment {
         exploreNowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MySingleton.getInstance(getContext()).isOnline()){
-                    Log.i("ExploreNow check", "onClick: "+MySingleton.getInstance(getContext()).isOnline());
+                if (MySingleton.getInstance(getContext()).isOnline()) {
+                    Log.i("ExploreNow check", "onClick: " + MySingleton.getInstance(getContext()).isOnline());
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("locality", "");
                    /* intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");*/
-                   //testing
+                    //testing
                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");
                     intent.putExtra("roomType", "rent_single_ac");
                     intent.putExtra("gender", "girls");
                     getActivity().startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -78,8 +78,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.content, localityListFragment, "locality search");
                 fragmentTransaction.commit();
                 navigation.setSelectedItemId(R.id.navigation_search);
-                /*Intent intent = new Intent(getActivity(), LocalityList.class);
-                startActivity(intent);*/
             }
         });
 

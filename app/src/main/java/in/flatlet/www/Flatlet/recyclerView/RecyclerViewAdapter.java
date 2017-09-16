@@ -90,12 +90,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         Log.i(TAG, "onBindViewHolder: " + getDataAdapter1.getCardRating());
-
-
-
-        Picasso.with(context).load("http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg").into(holder.imageView2);
-        /*Log.i(TAG, "onBindViewHolder: hostel name is "+getDataAdapter1.getName());*/
-
+        String title = getDataAdapter1.getName().replace(" ","%20");
+        Picasso.with(context).load("http://images.flatlet.in/images/"+title+"/Thumb/1.webp").resize(300,200).centerCrop().into(holder.imageView2);
+        holder.imageView2.setAlpha(1.0f);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
         String[] selectionArgs = {getDataAdapter1.getName()};
@@ -168,7 +165,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                     }
                 }
-                String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry="+dbqry;
+                String url = "http://flatlet.in/webservices/flatletuserinsert.jsp?dbqry="+dbqry;
                 String urlFinal = url.replace(" ", "%20");
 
 
@@ -243,7 +240,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
         }
     }
-
-
 
 }

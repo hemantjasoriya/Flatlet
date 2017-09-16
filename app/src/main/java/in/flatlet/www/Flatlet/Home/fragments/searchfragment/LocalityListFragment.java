@@ -50,7 +50,7 @@ public class LocalityListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
         Log.i(TAG, "onActivityCreated: started");
-        navigation = (BottomNavigationView)getActivity().findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
         checkBoxSingleRoom = (RadioButton) getActivity().findViewById(R.id.checkBoxSingleRoom);
@@ -93,7 +93,7 @@ public class LocalityListFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MySingleton.getInstance(getContext()).isOnline()){
+                if (MySingleton.getInstance(getContext()).isOnline()) {
                     dbqry = "Select%20*%20from%20`hostel_specs`%20where%20";
                     if (checkBoxBoys.isChecked()) {
                         dbqry = dbqry + "gender=" + "'boys' ";

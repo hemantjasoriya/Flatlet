@@ -66,53 +66,53 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
         holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
 
         holder.hostel_rent.setText(favouriteHostelDataModel.getRent() + "");
-        holder.favouriteCardRating.setText(favouriteHostelDataModel.getFavouriteCardRating()+"");
+        holder.favouriteCardRating.setText(favouriteHostelDataModel.getFavouriteCardRating() + "");
 
         Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
         Log.i(TAG, "onBindViewHolder: image bhi set bro");
         holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
         holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    SharedPreferences sharedPreferences=context.getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-                    favouriteHostelList.remove(position);
-                    notifyDataSetChanged();
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, favouriteHostelList.size());
-                    db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
-                     String dbqry="DELETE FROM `user_favourites` WHERE `title`='"+favouriteHostelDataModel.getTitle()+"'  AND" +
-                            " `user_mobile`='"+sharedPreferences.getString("userMobile","911")+"'";
+                                                     @Override
+                                                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                         if (!isChecked) {
+                                                             SharedPreferences sharedPreferences = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                                                             favouriteHostelList.remove(position);
+                                                             notifyDataSetChanged();
+                                                             notifyItemRemoved(position);
+                                                             notifyItemRangeChanged(position, favouriteHostelList.size());
+                                                             db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
+                                                             String dbqry = "DELETE FROM `user_favourites` WHERE `title`='" + favouriteHostelDataModel.getTitle() + "'  AND" +
+                                                                     " `user_mobile`='" + sharedPreferences.getString("userMobile", "911") + "'";
 
 
-            String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
-            String urlFinal = url.replace(" ", "%20");
+                                                             String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
+                                                             String urlFinal = url.replace(" ", "%20");
 
 
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            // Display the first 500 characters of the response string.
-                            Log.i(TAG, "onResponse: " + response);
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: " + error);
-                }
-            });
+                                                             StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal,
+                                                                     new Response.Listener<String>() {
+                                                                         @Override
+                                                                         public void onResponse(String response) {
+                                                                             // Display the first 500 characters of the response string.
+                                                                             Log.i(TAG, "onResponse: " + response);
+                                                                         }
+                                                                     }, new Response.ErrorListener() {
+                                                                 @Override
+                                                                 public void onErrorResponse(VolleyError error) {
+                                                                     Log.i(TAG, "onErrorResponse: " + error);
+                                                                 }
+                                                             });
 
-            queue1 = MySingleton.getInstance(context).getRequestQueue();
-                stringRequest.setTag("MyRequestTag");
-                queue1.add(stringRequest);
-                MySingleton.getInstance(context).addToRequestQueue(stringRequest);
-                    db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
-        }
-    }
+                                                             queue1 = MySingleton.getInstance(context).getRequestQueue();
+                                                             stringRequest.setTag("MyRequestTag");
+                                                             queue1.add(stringRequest);
+                                                             MySingleton.getInstance(context).addToRequestQueue(stringRequest);
+                                                             db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
+                                                         }
+                                                     }
 
 
-                }
+                                                 }
 
         );
 
@@ -154,7 +154,7 @@ public class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<Favourite
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
-            favouriteCardRating=(TextView)itemView.findViewById(R.id.favourite_card_rating);
+            favouriteCardRating = (TextView) itemView.findViewById(R.id.favourite_card_rating);
            /* RL_favourite=(RelativeLayout)itemView.findViewById(R.id.RL_favourite);*/
         }
     }

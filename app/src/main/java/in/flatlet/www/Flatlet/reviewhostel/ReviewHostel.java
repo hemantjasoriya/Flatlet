@@ -88,7 +88,6 @@ public class ReviewHostel extends AppCompatActivity {
 
         // Gets the data repository in write mode
 
-       /* mDbHelper.onCreate(db);*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("secondTime", false)) {
             // <---- run your one time code here
@@ -113,7 +112,8 @@ public class ReviewHostel extends AppCompatActivity {
         Log.i(TAG, "onCreate: k" + i);
 
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,
+       /* JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,*/
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/webservices/titlefetcher.jsp?count=" + i,
 
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -148,7 +148,7 @@ public class ReviewHostel extends AppCompatActivity {
         jsonArrayRequest.setTag("MyRequestTag");
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonArrayRequest);
 
-        autoComplete = (AutoCompleteTextView)findViewById(R.id.autoComplete);
+        autoComplete = (AutoCompleteTextView) findViewById(R.id.autoComplete);
         autoComplete.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,6 +160,7 @@ public class ReviewHostel extends AppCompatActivity {
                 reviewImageView.setImageResource(0);
                 list.clear();
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -203,14 +204,14 @@ public class ReviewHostel extends AppCompatActivity {
 
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-                if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+                if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
                     Log.i(TAG, "onItemClick: clicked hostel is " + adapter.getItem(arg2));
                     reviewHostelTitle.setText(adapter.getItem(arg2));
                     String title = adapter.getItem(arg2).replace(" ", "%20");
                     hostel_title = title;
 
                     jsonObjRequest = new JsonObjectRequest
-                            ("http://flatlet.in/flatletreviewdata/reviewdata.jsp?title=" + title, null, new Response.Listener<JSONObject>() {
+                            ("http://flatlet.in/webservices/reviewdata.jsp?title=" + title, null, new Response.Listener<JSONObject>() {
 
                                 @Override
                                 public void onResponse(JSONObject response) {
@@ -233,34 +234,32 @@ public class ReviewHostel extends AppCompatActivity {
                     jsonObjRequest.setTag("MyRequestTag2");
                     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjRequest);
 
-                    Picasso.with(getBaseContext()).load("http://images.flatlet.in/images/24%20Paradise/IMG_20170607_203707-01.jpg").into(reviewImageView);
+                    Picasso.with(getApplicationContext()).load("http://images.flatlet.in/images/" + hostel_title + "/Thumb/1.webp").resize(200,150).centerCrop().into(reviewImageView);
                     reviewCard.setVisibility(View.VISIBLE);
-                }
-                    else {
-                    Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-reviewCard.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(ReviewHostel.this, Activity2.class);
-        intent.putExtra("hostel_title",hostel_title);
-        Log.i(TAG, "onClick: title sent to Activity 2 is");
-        startActivity(intent);
-    }
-});
+        reviewCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReviewHostel.this, Activity2.class);
+                intent.putExtra("hostel_title", hostel_title);
+                Log.i(TAG, "onClick: title sent to Activity 2 is");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(requestQueue!=null){
+        if (requestQueue != null) {
             requestQueue.cancelAll("MyRequestTag");
-        }
-        else if(requestQueue1!=null){
+        } else if (requestQueue1 != null) {
             requestQueue1.cancelAll("MyRequestTag2");
         }
     }

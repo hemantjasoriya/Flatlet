@@ -52,7 +52,6 @@ public class CreateProfileFragment extends Fragment {
     RequestQueue queue1;
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,12 +75,12 @@ public class CreateProfileFragment extends Fragment {
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MySingleton.getInstance(getContext()).isOnline()){
+                if (MySingleton.getInstance(getContext()).isOnline()) {
                     // filling the user data in shared preferences
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     /*Drawable drawable = getResources().getDrawable(R.drawable.ic_error);*/
-                    Drawable drawable = ContextCompat.getDrawable(getContext(),R.drawable.ic_error);
+                    Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_error);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
                     if (nameEditText.getText().toString().matches("")) {
@@ -100,18 +99,11 @@ public class CreateProfileFragment extends Fragment {
                     editor.putString("userName", nameEditText.getText().toString());
                     editor.putString("userEmail", emailEditText.getText().toString());
                     editor.apply();
-                    // launching SavedprofileFragment
-                    /*Fragment fragment = new SavedProfileFragment();
-                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();*/
-                    Intent intent=new Intent(getActivity(), FirstActivity.class);
+                    Intent intent = new Intent(getActivity(), FirstActivity.class);
                     getActivity().startActivity(intent);
                     sendToDatabase();
-                }
-                else {
-                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -151,7 +143,7 @@ public class CreateProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (queue1!=null){
+        if (queue1 != null) {
             queue1.cancelAll("MyRequestTag");
         }
     }
@@ -179,7 +171,7 @@ public class CreateProfileFragment extends Fragment {
         // delete all rows from sqlite database
         FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
         SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
-        db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
+        db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
 

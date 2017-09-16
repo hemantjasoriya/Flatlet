@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
             finalDbQuery = dbqry +locality;
         }
         Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is " + locality + "and roomType is " + roomType + "and dbqry is" + dbqry + "and gender is" + gender);
-        GET_JSON_DATA_HTTP_URL = "http://flatlet.in/flatletwebservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
+        /*GET_JSON_DATA_HTTP_URL = "http://flatlet.in/flatletwebservices/partialHostelData.jsp?dbqry=" + finalDbQuery;*/
+        GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         JSON_DATA_WEB_CALL();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

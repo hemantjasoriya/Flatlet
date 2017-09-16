@@ -7,13 +7,14 @@
     android:layout_height="wrap_content"
     app:cardElevation="2dp"
     android:layout_marginTop="5dp"
-    android:padding="2dp"
+    android:layout_marginBottom="5dp"
     android:animateLayoutChanges="true">
 
     <RelativeLayout
         android:id="@+id/cl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="5dp">
         <ToggleButton
             android:id="@+id/toggleButton"
             android:layout_width="40dp"
@@ -27,53 +28,55 @@
             android:layout_marginEnd="12dp"
             android:layout_marginTop="5dp"/>
 
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:padding="5dp"
+            app:srcCompat="@drawable/ic_blank_image"
             android:scaleType="centerCrop"
-            app:srcCompat="@android:drawable/editbox_dropdown_light_frame"
+            android:alpha="0.5"
             android:contentDescription="@string/primary_card" />
         <TextView
             android:id="@+id/hostel_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imageView2"
-            android:layout_marginTop="2dp"
-            android:layout_centerHorizontal="true"
             android:text="@string/hostel_title"
+            android:padding="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
             android:textSize="18sp"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/hostel_rent"
-            android:layout_below="@+id/hostel_title"
+            android:layout_below="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
             android:text="@string/hostel_rent"
             android:textSize="16sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/hostel_rent"
+            android:layout_alignBaseline="@+id/hostel_rent"
             android:text="₹"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
+            android:padding="5dp"
             android:textSize="16sp"
-            android:layout_below="@id/hostel_title"
             android:layout_centerHorizontal="true"/>
         <TextView
             android:id="@+id/hostel_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/hostel_rent"
-            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            android:layout_alignBaseline="@+id/card_rating"
+            android:layout_below="@+id/hostel_title"
+            android:layout_alignStart="@+id/hostel_title"
             android:text="@string/hostel_address"
+            android:textColor="@color/secondaryDarkColor"
             android:textSize="14sp"/>
         <TextView
             android:id="@+id/card_rating"
@@ -81,9 +84,11 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_marginEnd="10dp"
             android:textColor="#fde60a19"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/hostel_address"
+            android:layout_below="@+id/hostel_rent"
+            android:layout_alignParentEnd="true"
             android:drawableStart="@drawable/star1"
             android:drawablePadding="2dp"
             />

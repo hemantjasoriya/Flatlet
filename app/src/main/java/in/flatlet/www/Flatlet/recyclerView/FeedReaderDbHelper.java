@@ -3,9 +3,6 @@ package in.flatlet.www.Flatlet.recyclerView;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-
 
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
@@ -28,11 +25,11 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.i(TAG, "FeedReaderDbHelperReviewHost ");
+
     }
 
     public void onCreate(SQLiteDatabase db) {
-        Log.i(TAG, "onCreate: of feed ");
+
         /*db.execSQL(SQL_CREATE_ENTRIES);*/
 
     }
@@ -49,7 +46,6 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreateOriginal(SQLiteDatabase db) {
-        Log.i(TAG, "onCreate: of feed ");
         db.execSQL(SQL_CREATE_ENTRIES);
 
     }

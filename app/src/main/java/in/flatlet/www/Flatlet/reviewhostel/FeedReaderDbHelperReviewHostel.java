@@ -26,11 +26,10 @@ class FeedReaderDbHelperReviewHostel extends SQLiteOpenHelper {
 
     public FeedReaderDbHelperReviewHostel(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.i(TAG, "FeedReaderDbHelperReviewHostel: ");
+
     }
     public void onCreate(SQLiteDatabase db) {
-        Log.i(TAG, "onCreate: of feed ");
-        /*db.execSQL(SQL_CREATE_ENTRIES);*/
+
 
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -43,7 +42,6 @@ class FeedReaderDbHelperReviewHostel extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
     public void onCreateOriginal(SQLiteDatabase db) {
-        Log.i(TAG, "onCreate: of feed ");
         db.execSQL(SQL_CREATE_ENTRIES);
 
     }

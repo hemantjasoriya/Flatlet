@@ -51,30 +51,19 @@ public class FirstActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     fragment = new LocalityListFragment();
                     break;
-                    /*fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.content, fragment, "search");
 
-                    fragmentTransaction.commit();
-                    return true;*/
 
                 case R.id.navigation_profile:
                     SharedPreferences sharedPreferences = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
 
 
-                    if (!sharedPreferences.getString("userName","johndoe").equalsIgnoreCase("johndoe")){
-                       fragment=new SavedProfileFragment();
-                   }
-                   else {
-                       fragment=new CreateProfileFragment();
-                   }
-                   break;
-                    /*fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.content, fragment, "fragmentProfile");
+                    if (!sharedPreferences.getString("userName", "johndoe").equalsIgnoreCase("johndoe")) {
+                        fragment = new SavedProfileFragment();
+                    } else {
+                        fragment = new CreateProfileFragment();
+                    }
+                    break;
 
-                    fragmentTransaction.commit();
-                    return true;*/
                 case R.id.navigation_favourites:
                     if (accessToken == null)
                         fragment = new LogoutFavouriteFragment();
@@ -82,33 +71,19 @@ public class FirstActivity extends AppCompatActivity {
                         fragment = new FavouriteFragment();
                     break;
 
-                   /* fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.content, fragment, "fragmentFavourite");
-
-
-                    fragmentTransaction.commit();
-                    return true;*/
 
                 case R.id.navigation_more:
                     fragment = new MoreFragment();
                     break;
-                   /* fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.content, fragment, "fragmentSearch");
 
-                    fragmentTransaction.commit();
-
-                    return true;*/
             }
-             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.content, fragment, "fragmentSearch");
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.content, fragment, "fragmentSearch");
 
-                    fragmentTransaction.commit();
+            fragmentTransaction.commit();
 
-                    return true;
-
+            return true;
         }
 
     };
@@ -123,7 +98,7 @@ public class FirstActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Intent intent = getIntent();
         int i = intent.getFlags();
-        Log.i(TAG, "onCreate: Flag value is" +i);
+        Log.i(TAG, "onCreate: Flag value is" + i);
 
         fragment = new HomeFragment();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -137,9 +112,9 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment=fm.findFragmentByTag("fragmentSearch");
-        Fragment fragment1=fm.findFragmentByTag("fragmentHome");
-        if (fragment1.isVisible()){
+        Fragment fragment = fm.findFragmentByTag("fragmentSearch");
+        Fragment fragment1 = fm.findFragmentByTag("fragmentHome");
+        if (fragment1.isVisible()) {
             new AlertDialog.Builder(this)
                     .setTitle("Really Exit?")
                     .setMessage("Are you sure you want to exit?")
@@ -153,31 +128,16 @@ public class FirstActivity extends AppCompatActivity {
                             startActivity(homeIntent);
                         }
                     }).create().show();
-        }
-
-       else if (fragment.isVisible()){
+        } else if (fragment.isVisible()) {
             fragment = new HomeFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.replace(R.id.content, fragment, "fragmentSearch");
             fragmentTransaction.commit();
             navigation.setSelectedItemId(R.id.navigation_home);
-        }
-
-
-
-
-        else {
+        } else {
 
             navigation.setSelectedItemId(R.id.navigation_more);
-
         }
-            //additional code
-
-
-
-
     }
-
-
 }

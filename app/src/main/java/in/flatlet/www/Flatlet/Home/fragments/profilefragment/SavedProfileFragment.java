@@ -35,11 +35,12 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 public class SavedProfileFragment extends Fragment {
     private EditText userNameEditText;
     private EditText userEmailEditText;
-    private TextView userNameEditButton,emailEditButton,textView;
+    private TextView userNameEditButton, emailEditButton, textView;
 
-    private final String TAG="SavedProfileFragment";
-    private int i=0;
+    private final String TAG = "SavedProfileFragment";
+    private int i = 0;
     private RequestQueue queue1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,15 +51,15 @@ public class SavedProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        userNameEditText=(EditText)getActivity().findViewById(R.id.userNameEditText);
-        userEmailEditText=(EditText)getActivity().findViewById(R.id.userEmailEditText);
+        userNameEditText = (EditText) getActivity().findViewById(R.id.userNameEditText);
+        userEmailEditText = (EditText) getActivity().findViewById(R.id.userEmailEditText);
         EditText userMobileEditText = (EditText) getActivity().findViewById(R.id.userMobileEditText);
-        userNameEditButton=(TextView)getActivity().findViewById(R.id.userNameEditButton);
-        emailEditButton=(TextView)getActivity().findViewById(R.id.emailEditButton);
+        userNameEditButton = (TextView) getActivity().findViewById(R.id.userNameEditButton);
+        emailEditButton = (TextView) getActivity().findViewById(R.id.emailEditButton);
         Button logoutButton1 = (Button) getActivity().findViewById(R.id.logoutButton1);
-        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-        userNameEditText.setText(sharedPreferences.getString("userName","john doe"));
-        userEmailEditText.setText(sharedPreferences.getString("userEmail","@johndoe"));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        userNameEditText.setText(sharedPreferences.getString("userName", "john doe"));
+        userEmailEditText.setText(sharedPreferences.getString("userEmail", "@johndoe"));
         userMobileEditText.setText(sharedPreferences.getString("userMobile", "911"));
 
         //clicking on user name edit button
@@ -66,21 +67,20 @@ public class SavedProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                if (((userNameEditButton.getText().toString()).equalsIgnoreCase("Edit")) ){
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if (((userNameEditButton.getText().toString()).equalsIgnoreCase("Edit"))) {
                     userNameEditButton.setText("save changes");
                     userNameEditText.setEnabled(true);
 
-                }
-                else  {
+                } else {
 
-                        userNameEditButton.setText("Edit");
-                        userNameEditText.setEnabled(false);
-                        editor.putString("userName", userNameEditText.getText().toString());
-                        editor.apply();
-                        i++;
-                        Log.i(TAG, "onClick: value of i is " + i);
+                    userNameEditButton.setText("Edit");
+                    userNameEditText.setEnabled(false);
+                    editor.putString("userName", userNameEditText.getText().toString());
+                    editor.apply();
+                    i++;
+                    Log.i(TAG, "onClick: value of i is " + i);
                 }
 
             }
@@ -90,20 +90,18 @@ public class SavedProfileFragment extends Fragment {
         emailEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor=sharedPreferences.edit();
-                if (((emailEditButton.getText().toString()).equalsIgnoreCase("Edit")) ) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                if (((emailEditButton.getText().toString()).equalsIgnoreCase("Edit"))) {
                     emailEditButton.setText("save changes");
                     userEmailEditText.setEnabled(true);
-                }
-
-                else  {
+                } else {
                     emailEditButton.setText("Edit");
                     userEmailEditText.setEnabled(false);
-                    editor.putString("userEmail",userEmailEditText.getText().toString());
+                    editor.putString("userEmail", userEmailEditText.getText().toString());
                     editor.apply();
                     i++;
-                    Log.i(TAG, "onClick: value of i is "+i);
+                    Log.i(TAG, "onClick: value of i is " + i);
                 }
 
             }
@@ -118,37 +116,38 @@ public class SavedProfileFragment extends Fragment {
         });
 
     }
-    private void logout(){
+
+    private void logout() {
         AccountKit.logOut();
         //launching login fragment
-        Fragment fragment=new LoginFragment();
-        FragmentTransaction fragmentTransaction=getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content,fragment,"fragmetHome");
+        Fragment fragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         // changing user name in shared preferences
-        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("personalInfo",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
         // delete all rows from sqlite database
         FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
         SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
-        db_favourite.execSQL("delete from "+ FeedReaderContract.FeedEntry.TABLE_NAME);
+        db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.i(TAG, "onStop: ");
-        if (i>0 && MySingleton.getInstance(getContext()).isOnline()) {
+        if (i > 0 && MySingleton.getInstance(getContext()).isOnline()) {
             //sending changes to database
-            SharedPreferences sharedPreferences= getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
 
-            String dbqry="UPDATE `our_users` SET `user_ka_naam`='"+sharedPreferences.getString("userName","john doe")+"'," +
-                    "`user_emailid`='"+sharedPreferences.getString("userEmail","@johndoe")+"' WHERE `user_mobile`=" +
-                    "'"+sharedPreferences.getString("userMobile", "911")+"'";
-            Log.i(TAG, "onStop: "+dbqry);
+            String dbqry = "UPDATE `our_users` SET `user_ka_naam`='" + sharedPreferences.getString("userName", "john doe") + "'," +
+                    "`user_emailid`='" + sharedPreferences.getString("userEmail", "@johndoe") + "' WHERE `user_mobile`=" +
+                    "'" + sharedPreferences.getString("userMobile", "911") + "'";
+            Log.i(TAG, "onStop: " + dbqry);
 
             String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
             String urlFinal = url.replace(" ", "%20");
@@ -172,9 +171,8 @@ public class SavedProfileFragment extends Fragment {
             queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyRequestTag");
             MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
-        }
-        else {
-            Toast.makeText(getContext(),"Some Error Occurred. Please Try Later",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Some Error Occurred. Please Try Later", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -182,7 +180,7 @@ public class SavedProfileFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (queue1!=null){
+        if (queue1 != null) {
             queue1.cancelAll("MyRequestTag");
         }
     }

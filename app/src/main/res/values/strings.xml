@@ -137,4 +137,6 @@
     <string name="experience">Experience</string>
     <string name="welcome_three_footer">P.S. Some useful abbreviation in Kota. PG: A room without food Hostel: A room including food</string>
     <string name="about_us"><![CDATA[Flatlet is Kota’s fastest growing hostel rental network attempting to provide better rental solution via design and technology. We help you find and book a hostel all within the app. Experience the Revolutionary high field Panoramas and 360° Virtual Tour from Kota’s largest hostel database. Whatever is your budget (7000 ₹ to 19000 ₹), We have something for you. At the current time, we have hostels listed in Mahavir Nagar 1, Rajeev Gandhi Nagar, New Rajeev Gandhi Nagar. Drop by & say Hi ! to us before it’s too late. We are at]]></string>
+    <string name="refund">Generally 1 month\'s rent is deposited as security money. Please ask the Refund rules to the landlord beforehand.</string>
+    <string name="favourite">Favourite</string>
 </resources>

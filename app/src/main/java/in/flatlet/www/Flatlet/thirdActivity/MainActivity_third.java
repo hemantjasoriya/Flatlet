@@ -18,6 +18,8 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 
 public class MainActivity_third extends AppCompatActivity {
+    private String hostel_title;
+    private int imageCount;
 
     @Override
     public void onBackPressed() {
@@ -29,6 +31,9 @@ public class MainActivity_third extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hostel_title = getIntent().getStringExtra("hostel_title");
+        imageCount = getIntent().getIntExtra("imageCount",3);
+
         if (MySingleton.getInstance(getApplicationContext()).isOnline()){
             setContentView(R.layout.activity_main_third);
             MyPageAdapter myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
@@ -62,7 +67,7 @@ public class MainActivity_third extends AppCompatActivity {
 
 class MyPageAdapter extends FragmentStatePagerAdapter {
 
-    public MyPageAdapter(FragmentManager fm) {
+    MyPageAdapter(FragmentManager fm) {
 
         super(fm);
     }
@@ -75,8 +80,6 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
         //this method is going to give the position at
         //which you have to return the fragment so we have to create
         //a object of MyFragment class'
-        /*MainActivity.MyFragment myFragment = MainActivity.MyFragment.newInstance(position);
-        return myFragment;*/
         switch (position) {
             case 1:
                 return new MyWebView();

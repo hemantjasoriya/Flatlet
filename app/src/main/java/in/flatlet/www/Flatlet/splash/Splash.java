@@ -42,9 +42,6 @@ public class Splash extends AppCompatActivity {
                 @Override
                 public void run() {
                     imageView.setImageResource(R.drawable.splash);
-               /* Intent intent = new Intent(Splash.this, FirstActivity.class);
-                intent.setFlags(1);
-                startActivity(intent);*/
 
                     Intent intent = new Intent(Splash.this, WelcomeActivity.class);
                     intent.setFlags(1);

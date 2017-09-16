@@ -17,7 +17,7 @@ import in.flatlet.www.Flatlet.R;
 public class MoreFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private final String s = null;
-    private final String[] moreFragmentItems = {"How it works", "Rate us on PlayStore", "Privacy Policy","invite", "feedback", "About us"};
+    private final String[] moreFragmentItems = {"How it works", "Rate us on PlayStore", "Privacy Policy", "invite", "feedback", "About us"};
     private final int[] moreFragmentVectors = {R.drawable.ic_lightbulb_outline_black_24dp, R.drawable.ic_star_black_24dp,
             R.drawable.ic_security,
             R.drawable.ic_insert_invitation_black_24dp,

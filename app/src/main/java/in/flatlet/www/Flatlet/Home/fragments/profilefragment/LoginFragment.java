@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -46,15 +45,14 @@ public class LoginFragment extends Fragment {
 
     private final String TAG = "loginfragment";
     private static final int APP_REQUEST_CODE = 99;
-    private final RequestQueue queue2=null;
-    private final RequestQueue queue1=null;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        return inflater.inflate(R.layout.login_fragment,container, false);
+        return inflater.inflate(R.layout.login_fragment, container, false);
 
 
     }
@@ -66,15 +64,6 @@ public class LoginFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (queue1 != null) {
-            queue1.cancelAll("MyTag");
-        } else if (queue2 != null) {
-            queue2.cancelAll("MyTag");
-        }
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -84,10 +73,10 @@ public class LoginFragment extends Fragment {
         Button loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
 
-        loginButton.setOnClickListener( new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MySingleton.getInstance(getContext()).isOnline()){
+                if (MySingleton.getInstance(getContext()).isOnline()) {
                     Log.i(TAG, "button clicked ");
                     final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
                     AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
@@ -95,7 +84,7 @@ public class LoginFragment extends Fragment {
                                     LoginType.PHONE,
                                     AccountKitActivity.ResponseType.TOKEN);
                     UIManager uiManager;
-                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(),R.color.secondaryLightColor),R.drawable.splash , SkinManager.Tint.BLACK,0);
+                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(), R.color.secondaryLightColor), R.drawable.splash, SkinManager.Tint.BLACK, 0);
                     configurationBuilder.setUIManager(uiManager);
 
                     configurationBuilder.setUIManager(uiManager);
@@ -107,17 +96,12 @@ public class LoginFragment extends Fragment {
                             AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
                             configurationBuilder.build());
                     startActivityForResult(intent, APP_REQUEST_CODE);
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                }
-
-
             }
         });
-
     }
-
 
     @Override
     public void onActivityResult(
@@ -172,11 +156,6 @@ public class LoginFragment extends Fragment {
 
                                                     Intent intent = new Intent(getActivity(), FirstActivity.class);
                                                     intent.setFlags(1);
-                                                   /* intent.putExtra("locality", "");
-                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
-                                                    intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
-                                                    intent.putExtra("roomType", "rent_single_ac");
-                                                    intent.putExtra("gender", "girls");*/
                                                     getActivity().startActivity(intent);
 
                                                     // fetching data from database
@@ -278,10 +257,6 @@ public class LoginFragment extends Fragment {
 
 
 }
-
-
-
-
 
 
 
