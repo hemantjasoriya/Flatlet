@@ -50,6 +50,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
@@ -93,6 +94,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private FloatingActionButton mCallButton;
     String primary_contact;
     String secondary_contact;
+
 
 
     @Override

@@ -171,9 +171,6 @@ public class SavedProfileFragment extends Fragment {
             queue1 = MySingleton.getInstance(getActivity().getApplicationContext()).getRequestQueue();
             stringRequest.setTag("MyRequestTag");
             MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
-        } else {
-            Toast.makeText(getContext(), "Some Error Occurred. Please Try Later", Toast.LENGTH_SHORT).show();
-
         }
     }
 

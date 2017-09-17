@@ -79,7 +79,6 @@ public class CreateProfileFragment extends Fragment {
                     // filling the user data in shared preferences
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    /*Drawable drawable = getResources().getDrawable(R.drawable.ic_error);*/
                     Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_error);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
