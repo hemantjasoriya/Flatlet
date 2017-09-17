@@ -38,7 +38,6 @@ public class FirstActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            AccessToken accessToken = AccountKit.getCurrentAccessToken();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = new HomeFragment();
@@ -65,9 +64,7 @@ public class FirstActivity extends AppCompatActivity {
                     break;
 
                 case R.id.navigation_favourites:
-                    if (accessToken == null)
-                        fragment = new LogoutFavouriteFragment();
-                    else
+
                         fragment = new FavouriteFragment();
                     break;
 

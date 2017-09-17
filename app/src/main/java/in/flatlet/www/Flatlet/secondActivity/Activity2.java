@@ -5,11 +5,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,8 +39,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.accountkit.AccessToken;
-import com.facebook.accountkit.AccountKit;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -83,8 +87,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private boolean birthSort;
     private SQLiteDatabase db_favourite;
     private Cursor cursor;
-    private MenuItem menuItem;
     private int imageCount;
+    private static final int REQUEST_CALL = 1;
+    Intent callIntent;
+    private FloatingActionButton mCallButton;
+    String primary_contact;
+    String secondary_contact;
 
 
     @Override
@@ -92,6 +100,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Log.i(TAG, "onCreate: Activity2 onCreate started");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
+        init();
         FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(this);
         db_favourite = feedReaderDbHelper.getWritableDatabase();
 
@@ -99,7 +108,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         if (!pref_default.getBoolean("thirdTime", false)) {
             // <---- run your one time code here
             Log.i(TAG, "onCreate: before oncreate");
-
 
             feedReaderDbHelper.onCreateOriginal(db_favourite);
             Log.i(TAG, "onCreate: called");
@@ -134,10 +142,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Button moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ratingSubmitButton = (Button) findViewById(R.id.ratingSubmitButton);
-
-
         setSupportActionBar(toolbar);
-
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -263,6 +268,41 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
     }
+    private void init(){
+        mCallButton=(FloatingActionButton) findViewById(R.id.callOwner);
+        mCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (primary_contact!=null) {
+
+                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+primary_contact));
+                }
+                else {
+                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+secondary_contact));
+                }
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(Activity2.this, new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                    } else {
+                        startActivity(callIntent);
+                    }
+
+
+            }
+        });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUEST_CALL:
+            {
+                if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    startActivity(callIntent);
+                }else{
+                    ////
+                }
+            }
+        }
+    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -307,6 +347,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     private void parseResponse(JSONObject response) throws JSONException {
         Log.d(TAG, "parseResponse: resopse parsing initiated");
+        primary_contact = response.getString("contact_primary");
+        secondary_contact = response.getString("contact_secondary");
         location_latitude = response.getDouble("location_latitude");
         location_longitude = response.getDouble("location_longitude");
         text_single_nonac.setText(response.getString("rent_single_nonac"));
@@ -364,19 +406,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     public void onSubmitRatingButton(View view) {
         Log.i(TAG, "onSubmitRatingButton: started");
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
-            Log.i(TAG, "onSubmitRatingButton: online");
-            AccessToken accessToken = AccountKit.getCurrentAccessToken();
-            if (accessToken == null) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(Activity2.this);
-                alertDialog.setTitle("Login alert");
-                alertDialog.setIcon(R.drawable.poipo);
-                alertDialog.setMessage("You first have to login to make favourites");
-                Activity2.MyListener my = new Activity2.MyListener();
-                alertDialog.setPositiveButton("LogIn", my);
-                alertDialog.setNegativeButton("Cancel", my);
-                alertDialog.show();
-                return;
-            }
             Log.i(TAG, "onSubmitRatingButton: " + sharedPreferences.getString("hostel1_name", "yoyo"));
             if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")) {
                 ratingBarFood.setIsIndicator(false);
@@ -414,8 +443,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
                 String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
-               /* String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry="+dbqry+"&dbqry1="+dbqry1;*/
-                String url = "http://flatlet.in/webservices/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+
+                               String url = "http://flatlet.in/webservices/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
 
 
                 String urlFinal = url.replace(" ", "%20");
@@ -568,7 +597,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.activity2_action, menu);
-        menuItem = menu.findItem(R.id.favouriteactionbutton);
+        MenuItem menuItem = menu.findItem(R.id.favouriteactionbutton);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
         String[] selectionArgs = {hostel_title};
@@ -595,22 +624,10 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        AccessToken accessToken = AccountKit.getCurrentAccessToken();
         SharedPreferences sharedPreferences = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         String dbqry;
         switch (item.getItemId()) {
             case R.id.favouriteactionbutton:
-                if (accessToken == null) {
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-                    alertDialog.setTitle("Login alert");
-                    alertDialog.setIcon(R.drawable.poipo);
-                    alertDialog.setMessage("You first have to login to make favourites");
-                    MyListener my = new MyListener();
-                    alertDialog.setPositiveButton("LogIn", my);
-                    alertDialog.setNegativeButton("Cancel", my);
-                    alertDialog.show();
-                    return false;
-                }
                 if (birthSort) {
                     Log.i(TAG, "onCheckedChanged: is checked start");
                     item.setIcon(R.drawable.ic_favorite_red_24dp);

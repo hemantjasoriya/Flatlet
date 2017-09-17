@@ -3,6 +3,7 @@
     package="in.flatlet.www.Flatlet">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -61,13 +62,13 @@
         <activity
             android:name=".secondActivity.Activity2"
             android:label="CollapsingToolbar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".reviewhostel.ReviewHostel"
             android:screenOrientation="portrait" />
         <activity
             android:name=".thirdActivity.MainActivity_third"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Home.FirstActivity"
             android:screenOrientation="portrait" />
@@ -77,7 +78,7 @@
         <activity
             android:name=".welcome.WelcomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".welcome.LoginActivity"></activity>
+        <activity android:name=".welcome.LoginActivity" />
     </application>
 
 </manifest>
