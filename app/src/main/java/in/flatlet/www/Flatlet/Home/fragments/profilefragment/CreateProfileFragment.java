@@ -99,6 +99,7 @@ public class CreateProfileFragment extends Fragment {
                     editor.putString("userEmail", emailEditText.getText().toString());
                     editor.apply();
                     Intent intent = new Intent(getActivity(), FirstActivity.class);
+                    intent.setFlags(1);
                     getActivity().startActivity(intent);
                     sendToDatabase();
                 } else {
