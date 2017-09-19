@@ -1,8 +1,11 @@
 package in.flatlet.www.Flatlet.welcome;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
@@ -11,6 +14,24 @@ import in.flatlet.www.Flatlet.R;
 public class LoginActivity extends AppCompatActivity {
     Fragment fragment;
     FragmentTransaction fragmentTransaction;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton("no", null)
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                        homeIntent.addCategory(Intent.CATEGORY_HOME);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(homeIntent);
+                    }
+                }).create().show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

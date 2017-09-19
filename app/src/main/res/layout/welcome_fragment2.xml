@@ -10,33 +10,34 @@
         android:text="@string/explore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="40dp"
         android:textAlignment="center"
         android:textColor="@color/primary_text"
         android:textSize="40sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"  />
 
     <TextView
        android:id="@+id/text1"
+        android:text="@string/welcome_two_text"
+        android:layout_below="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20sp"
-        android:text="@string/welcome_two_text"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:textAlignment="center"
         android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:layout_below="@+id/text"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="29dp"/>
     <ImageView
         android:id="@+id/image1"
         app:srcCompat="@drawable/ic_hostel"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="55dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/text1"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="50dp" />
     <Button
         android:id="@+id/buttonPrev"
         android:layout_width="60dp"

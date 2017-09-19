@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
@@ -52,7 +53,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
@@ -63,37 +63,26 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private final String TAG = "Activity2";
     private Toolbar toolbar;
-    private String hostel_title, hostel_rent;
-    private String dbqry;
+    private String hostel_title, hostel_rent, eve_snacks, ownership, ame_toilet_attached, ame_elevator, dbqry, primary_contact, secondary_contact, CCTV1, rent_single_nonac, rent_single_ac, rent_double_nonac, rent_double_ac, gender1, address_secondary, title, CCTV, totalViews1;
     private Button ratingSubmitButton;
     private ListView listView;
     private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
     private TextView text_single_nonac, text_single_ac, text_double_nonac, text_double_ac, area_single_room, area_double_room, gender, locality, textViewRating, textViewTotalRating, totalViews;
     private ImageView imageHead;
-    private String CCTV;
-    private String ame_elevator;
-    private final String ame_toilet_attached = null;
-    private String eve_snacks;
-    private String ownership;
     private ProgressBar progressBar;
     private final ArrayList<String> ameTitle = new ArrayList<>();
     private final ArrayList<Integer> ameVector = new ArrayList<>();
-    private double location_latitude = 3.14;
+    private double location_latitude = 3.14, x, y;
     private double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
     private SharedPreferences sharedPreferences;
     private float rating, hostel_rating_food, hostel_rating_accommodation, hostel_rating_staff, hostel_rating_study;
-    private int total_ratings;
+    private int total_ratings, imageCount;
     private boolean birthSort;
     private SQLiteDatabase db_favourite;
     private Cursor cursor;
-    private int imageCount;
     private static final int REQUEST_CALL = 1;
     Intent callIntent;
-    private FloatingActionButton mCallButton;
-    String primary_contact;
-    String secondary_contact;
-
 
 
     @Override
@@ -192,7 +181,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 Intent intent = new Intent(Activity2.this, MainActivity_third.class);
                 intent.putExtra("hostel_title", hostel_title);
-                intent.putExtra("imageCount",imageCount);
+                intent.putExtra("imageCount", imageCount);
                 Activity2.this.startActivity(intent);
             }
         });
@@ -269,36 +258,36 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
     }
-    private void init(){
-        mCallButton=(FloatingActionButton) findViewById(R.id.callOwner);
+
+    private void init() {
+        FloatingActionButton mCallButton = (FloatingActionButton) findViewById(R.id.callOwner);
         mCallButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (primary_contact!=null) {
+                if (primary_contact != null) {
 
-                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+primary_contact));
+                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + primary_contact));
+                } else {
+                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + secondary_contact));
                 }
-                else {
-                    callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+secondary_contact));
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(Activity2.this, new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                } else {
+                    startActivity(callIntent);
                 }
-                    if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(Activity2.this, new String[]{android.Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-                    } else {
-                        startActivity(callIntent);
-                    }
 
 
             }
         });
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case REQUEST_CALL:
-            {
-                if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        switch (requestCode) {
+            case REQUEST_CALL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivity(callIntent);
-                }else{
+                } else {
                     ////
                 }
             }
@@ -324,13 +313,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("http://flatlet.in/webservices/completeHostelData.jsp?dbqry=" + dbqry, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    parseResponse(response);
-                    Log.i(TAG, "onResponse: Response sent for parsing ");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.i(TAG, "onResponse: couldn't sent the data for parsing" + e);
-                }
+                new ParsingResponseTask().execute(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -346,48 +329,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Log.i(TAG, "fetch_details: Volley Request is sent ");
     }
 
-    private void parseResponse(JSONObject response) throws JSONException {
-        Log.d(TAG, "parseResponse: resopse parsing initiated");
-        primary_contact = response.getString("contact_primary");
-        secondary_contact = response.getString("contact_secondary");
-        location_latitude = response.getDouble("location_latitude");
-        location_longitude = response.getDouble("location_longitude");
-        text_single_nonac.setText(response.getString("rent_single_nonac"));
-        text_single_ac.setText(response.getString("rent_single_ac"));
-        text_double_nonac.setText(response.getString("rent_double_nonac"));
-        text_double_ac.setText(response.getString("rent_double_ac"));
-        double x, y;
-        x = response.getInt("dim_single_length") * response.getInt("dim_single_width") * 0.001;
-        y = response.getInt("dim_double_length") * response.getInt("dim_double_width") * 0.001;
-        area_single_room.setText(String.valueOf((int) x));
-        area_double_room.setText(String.valueOf((int) y));
 
-        gender.setText(response.getString("gender"));
-        locality.setText(response.getString("address_secondary"));
-        totalViews.setText("Total Views " + String.valueOf(response.getInt("totalViews")));
-        toolbar.setTitle(response.getString("title"));
-        CCTV = response.getString("CCTV");
-        Log.i(TAG, "parseResponse: CCTV Values store in String object" + CCTV);
-        ame_elevator = response.getString("ame_elevator");
-        eve_snacks = response.getString("eve_snacks");
-        ownership = response.getString("ownership");
-        rating = (float) response.getDouble("rating");
-        hostel_rating_accommodation = (float) response.getDouble("rating_accommodation");
-        hostel_rating_food = (float) response.getDouble("rating_food");
-        Log.i(TAG, "parseResponse: hostel_rating_food "+hostel_rating_food);
-        hostel_rating_staff = (float) response.getDouble("rating_staff");
-        hostel_rating_study = (float) response.getDouble("rating_study");
-        total_ratings = response.getInt("total_ratings");
-        imageCount = Integer.parseInt(response.getString("ImgCount").replaceAll("[\n]", "").trim());
-        textViewRating.setText(rating + "");
-        textViewTotalRating.setText(String.valueOf(total_ratings));
-
-        mapFragment.getMapAsync(this);
-        Picasso.with(this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(400,300).centerCrop().into(imageHead);
-        imageHead.setAlpha(0.87f);
-        progressBar.setVisibility(View.GONE);
-
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -430,17 +372,17 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             if (sharedPreferences.getString("hostel2_name", "default residency").equals(hostel_title)) {
                 Log.i(TAG, "onSubmitRatingButton: h2 started");
-                hostel_rating_food=  ((hostel_rating_food*total_ratings)-(sharedPreferences.getInt("hostel2_food", 5)-rating_food))/total_ratings;
-                hostel_rating_staff= ((hostel_rating_staff*total_ratings)-(sharedPreferences.getInt("hostel2_staffbehaviour", 5)-rating_staff))/total_ratings;
-                hostel_rating_accommodation= ((hostel_rating_accommodation*total_ratings)-(sharedPreferences.getInt("hostel2_accommodation", 5)-rating_accommodation))/total_ratings;
-                hostel_rating_study= ((hostel_rating_study*total_ratings)-(sharedPreferences.getInt("hostel2_studyenvironment", 5)-rating_studyEnvironment))/total_ratings;
-                rating=  hostel_rating_food+hostel_rating_staff+hostel_rating_accommodation+hostel_rating_study/4;
+                hostel_rating_food = ((hostel_rating_food * total_ratings) - (sharedPreferences.getInt("hostel2_food", 5) - rating_food)) / total_ratings;
+                hostel_rating_staff = ((hostel_rating_staff * total_ratings) - (sharedPreferences.getInt("hostel2_staffbehaviour", 5) - rating_staff)) / total_ratings;
+                hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) - (sharedPreferences.getInt("hostel2_accommodation", 5) - rating_accommodation)) / total_ratings;
+                hostel_rating_study = ((hostel_rating_study * total_ratings) - (sharedPreferences.getInt("hostel2_studyenvironment", 5) - rating_studyEnvironment)) / total_ratings;
+                rating = hostel_rating_food + hostel_rating_staff + hostel_rating_accommodation + hostel_rating_study / 4;
                 Log.i(TAG, "onSubmitRatingButton: hostel2_name");
                 editor.putInt("hostel2_food", rating_food);
                 editor.putInt("hostel2_accommodation", rating_accommodation);
-                editor.putInt("hostel2_staffbehaviour",  rating_staff);
+                editor.putInt("hostel2_staffbehaviour", rating_staff);
                 editor.putInt("hostel2_studyenvironment", rating_studyEnvironment);
-                editor.putFloat("hostel2_ratingFinal",rating_final);
+                editor.putFloat("hostel2_ratingFinal", rating_final);
                 editor.apply();
                 Log.i(TAG, "onSubmitRatingButton: before query");
 
@@ -449,7 +391,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                         " WHERE `user_mobile`='" + sharedPreferences.getString("userMobile", "could not fetch") + "'";
                 String dbqry1 = "UPDATE `hostel_specs` SET `rating`='" + rating + "',`total_ratings`='" + total_ratings + "',`rating_food`='" + hostel_rating_food + "',`rating_accommodation`='" + hostel_rating_accommodation + "',`rating_staff`='" + hostel_rating_staff + "',`rating_study`='" + hostel_rating_study + "'" + "WHERE `title`='" + hostel_title + "'";
 
-                               String url = "http://flatlet.in/webservices/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
+                String url = "http://flatlet.in/webservices/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
 
 
                 String urlFinal = url.replace(" ", "%20");
@@ -474,22 +416,22 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
             } else if (sharedPreferences.getString("hostel1_name", "default residency").equals(hostel_title)) {
                 Log.i(TAG, "onSubmitRatingButton: h1 started");
-                hostel_rating_food= ((hostel_rating_food*total_ratings)-(sharedPreferences.getInt("hostel1_food", 5)-rating_food))/total_ratings;
-                Log.i(TAG, "onSubmitRatingButton: "+hostel_rating_food);
-                hostel_rating_staff= ((hostel_rating_staff*total_ratings)-(sharedPreferences.getInt("hostel1_staffbehaviour", 5)-rating_staff))/total_ratings;
-                Log.i(TAG, "onSubmitRatingButton: "+hostel_rating_staff);
-                hostel_rating_accommodation= ((hostel_rating_accommodation*total_ratings)-(sharedPreferences.getInt("hostel1_accommodation", 5)-rating_accommodation))/total_ratings;
-                Log.i(TAG, "onSubmitRatingButton: "+hostel_rating_accommodation);
-                hostel_rating_study= ((hostel_rating_study*total_ratings)-(sharedPreferences.getInt("hostel1_studyenvironment", 5)-rating_studyEnvironment))/total_ratings;
-                Log.i(TAG, "onSubmitRatingButton: "+hostel_rating_study);
-                rating=  (hostel_rating_food+hostel_rating_staff+hostel_rating_accommodation+hostel_rating_study)/4;
+                hostel_rating_food = ((hostel_rating_food * total_ratings) - (sharedPreferences.getInt("hostel1_food", 5) - rating_food)) / total_ratings;
+                Log.i(TAG, "onSubmitRatingButton: " + hostel_rating_food);
+                hostel_rating_staff = ((hostel_rating_staff * total_ratings) - (sharedPreferences.getInt("hostel1_staffbehaviour", 5) - rating_staff)) / total_ratings;
+                Log.i(TAG, "onSubmitRatingButton: " + hostel_rating_staff);
+                hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) - (sharedPreferences.getInt("hostel1_accommodation", 5) - rating_accommodation)) / total_ratings;
+                Log.i(TAG, "onSubmitRatingButton: " + hostel_rating_accommodation);
+                hostel_rating_study = ((hostel_rating_study * total_ratings) - (sharedPreferences.getInt("hostel1_studyenvironment", 5) - rating_studyEnvironment)) / total_ratings;
+                Log.i(TAG, "onSubmitRatingButton: " + hostel_rating_study);
+                rating = (hostel_rating_food + hostel_rating_staff + hostel_rating_accommodation + hostel_rating_study) / 4;
 
                 Log.i(TAG, "onSubmitRatingButton: hostel1_name");
                 editor.putInt("hostel1_food", rating_food);
                 editor.putInt("hostel1_accommodation", rating_accommodation);
-                editor.putInt("hostel1_staffbehaviour",  rating_staff);
+                editor.putInt("hostel1_staffbehaviour", rating_staff);
                 editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
-                editor.putFloat("hostel1_ratingFinal",rating_final);
+                editor.putFloat("hostel1_ratingFinal", rating_final);
                 editor.apply();
                 Log.i(TAG, "onSubmitRatingButton: before query in h1");
 
@@ -501,7 +443,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 /*String url = "http://flatlet.in/flatletsubmitbutton/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;*/
                 String url = "http://flatlet.in/webservices/flatletsubmitbutton.jsp?dbqry=" + dbqry + "&dbqry1=" + dbqry1;
 
-                Log.i(TAG, "onSubmitRatingButton: " + dbqry+"&"+dbqry1);
+                Log.i(TAG, "onSubmitRatingButton: " + dbqry + "&" + dbqry1);
 
                 String urlFinal = url.replace(" ", "%20");
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal, new Response.Listener<String>() {
@@ -522,20 +464,20 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
             } else if (sharedPreferences.getString("hostel1_name", "default residency").equals("default residency")
                     && sharedPreferences.getString("hostel2_name", "default residency").equals("default residency")) {
-                rating =  ((rating * total_ratings) + rating_final) / (total_ratings + 1);
+                rating = ((rating * total_ratings) + rating_final) / (total_ratings + 1);
                 hostel_rating_food = ((hostel_rating_food * total_ratings) + rating_food) / (total_ratings + 1);
-                hostel_rating_staff =  ((hostel_rating_staff * total_ratings) + rating_staff) / (total_ratings + 1);
-                hostel_rating_accommodation =  ((hostel_rating_accommodation * total_ratings) + rating_accommodation) / (total_ratings + 1);
-                hostel_rating_study =  ((hostel_rating_study * total_ratings) + rating_studyEnvironment) / (total_ratings + 1);
+                hostel_rating_staff = ((hostel_rating_staff * total_ratings) + rating_staff) / (total_ratings + 1);
+                hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) + rating_accommodation) / (total_ratings + 1);
+                hostel_rating_study = ((hostel_rating_study * total_ratings) + rating_studyEnvironment) / (total_ratings + 1);
                 total_ratings = (total_ratings + 1);
                 Log.i(TAG, "onSubmitRatingButton: total rating+1");
                 Log.i(TAG, "onSubmitRatingButton: both null");
                 editor.putString("hostel1_name", hostel_title);
                 editor.putInt("hostel1_food", rating_food);
                 editor.putInt("hostel1_accommodation", rating_accommodation);
-                editor.putInt("hostel1_staffbehaviour",  rating_staff);
+                editor.putInt("hostel1_staffbehaviour", rating_staff);
                 editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
-                editor.putFloat("hostel1_ratingFinal",rating_final);
+                editor.putFloat("hostel1_ratingFinal", rating_final);
                 editor.apply();
 
 
@@ -568,19 +510,19 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
             } else if (sharedPreferences.getString("hostel2_name", "default residency").equals("default residency")) {
                 Log.i(TAG, "onSubmitRatingButton: hostel 2 null");
-                rating =  ((rating * total_ratings) + rating_final) / (total_ratings + 1);
+                rating = ((rating * total_ratings) + rating_final) / (total_ratings + 1);
                 hostel_rating_food = ((hostel_rating_food * total_ratings) + rating_food) / (total_ratings + 1);
-                hostel_rating_staff =  ((hostel_rating_staff * total_ratings) + rating_staff) / (total_ratings + 1);
-                hostel_rating_accommodation =  ((hostel_rating_accommodation * total_ratings) + rating_accommodation) / (total_ratings + 1);
-                hostel_rating_study =  ((hostel_rating_study * total_ratings) + rating_studyEnvironment) / (total_ratings + 1);
+                hostel_rating_staff = ((hostel_rating_staff * total_ratings) + rating_staff) / (total_ratings + 1);
+                hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) + rating_accommodation) / (total_ratings + 1);
+                hostel_rating_study = ((hostel_rating_study * total_ratings) + rating_studyEnvironment) / (total_ratings + 1);
                 total_ratings = (total_ratings + 1);
                 Log.i(TAG, "onSubmitRatingButton: total rating+1");
                 editor.putString("hostel2_name", hostel_title);
                 editor.putInt("hostel2_food", rating_food);
                 editor.putInt("hostel2_accommodation", rating_accommodation);
-                editor.putInt("hostel2_staffbehaviour",  rating_staff);
+                editor.putInt("hostel2_staffbehaviour", rating_staff);
                 editor.putInt("hostel2_studyenvironment", rating_studyEnvironment);
-                editor.putFloat("hostel2_ratingFinal",rating_final);
+                editor.putFloat("hostel2_ratingFinal", rating_final);
                 editor.apply();
 
 
@@ -726,17 +668,62 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    private class MyListener implements DialogInterface.OnClickListener {
+    private class ParsingResponseTask extends AsyncTask<JSONObject, Void, Void> {
+
 
         @Override
-        public void onClick(DialogInterface dialog, int which) {
-            if (which == -1) {
-                Intent intent = new Intent(Activity2.this, FirstActivity.class);
-                intent.setFlags(2);
-                intent.putExtra("hostel_title", hostel_title);
-                Log.i(TAG, "onClick: ");
-                startActivity(intent);
+        protected Void doInBackground(JSONObject... response) {
+            try {
+                primary_contact = response[0].getString("contact_primary");
+                secondary_contact = response[0].getString("contact_secondary");
+                location_latitude = response[0].getDouble("location_latitude");
+                location_longitude = response[0].getDouble("location_longitude");
+                rent_single_nonac = response[0].getString("rent_single_nonac");
+                rent_single_ac = response[0].getString("rent_single_ac");
+                rent_double_nonac = response[0].getString("rent_double_nonac");
+                rent_double_ac = response[0].getString("rent_double_ac");
+                x = response[0].getInt("dim_single_length") * response[0].getInt("dim_single_width") * 0.001;
+                y = response[0].getInt("dim_double_length") * response[0].getInt("dim_double_width") * 0.001;
+                gender1 = response[0].getString("gender");
+                address_secondary = response[0].getString("address_secondary");
+                totalViews1 = String.valueOf(response[0].getInt("totalViews"));
+                title = response[0].getString("title");
+                CCTV = response[0].getString("CCTV");
+                ame_elevator = response[0].getString("ame_elevator");
+                eve_snacks = response[0].getString("eve_snacks");
+                ownership = response[0].getString("ownership");
+                rating = (float) response[0].getDouble("rating");
+                hostel_rating_accommodation = (float) response[0].getDouble("rating_accommodation");
+                hostel_rating_food = (float) response[0].getDouble("rating_food");
+                hostel_rating_staff = (float) response[0].getDouble("rating_staff");
+                hostel_rating_study = (float) response[0].getDouble("rating_study");
+                imageCount = Integer.parseInt(response[0].getString("ImgCount"));
+                total_ratings = response[0].getInt("total_ratings");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            text_single_nonac.setText(rent_single_nonac);
+            text_single_ac.setText(rent_single_ac);
+            text_double_nonac.setText(rent_double_nonac);
+            text_double_ac.setText(rent_double_ac);
+            area_single_room.setText(String.valueOf((int) x));
+            area_double_room.setText(String.valueOf((int) y));
+            gender.setText(gender1);
+            locality.setText(address_secondary);
+            totalViews.setText(totalViews1);
+            toolbar.setTitle(title);
+            textViewRating.setText(String.valueOf(rating));
+            textViewTotalRating.setText(String.valueOf(total_ratings));
+            mapFragment.getMapAsync(Activity2.this);
+            Picasso.with(Activity2.this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(400, 300).centerCrop().into(imageHead);
+            imageHead.setAlpha(0.87f);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

@@ -35,7 +35,7 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.secondActivity.Activity2;
 
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private final String MyRequestTag = "MyTag";
     private final Context context;
     private final List<GetDataAdapter> dataModelArrayList;
@@ -59,8 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         if (!pref_default.getBoolean("thirdTime", false)) {
             // <---- run your one time code here
             Log.i(TAG, "onCreate: before oncreate");
-
-
             feedReaderDbHelper.onCreateOriginal(db_favourite);
             Log.i(TAG, "onCreate: called");
             SharedPreferences.Editor editor = pref_default.edit();
@@ -166,7 +164,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 String urlFinal = url.replace(" ", "%20");
 
 
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, urlFinal,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

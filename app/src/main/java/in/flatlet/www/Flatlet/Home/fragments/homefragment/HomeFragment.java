@@ -40,9 +40,7 @@ public class HomeFragment extends Fragment {
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
         ImageView exploreNowButton = (ImageView) getActivity().findViewById(R.id.exploreNowButton);
-        /*Picasso.with(getContext()).load("http://images.flatlet.in/images/explore2.jpg").error(R.drawable.explore2).into(exploreNowButton);*/
-       /* ImageView imageRateButton = (ImageView)getActivity().findViewById(R.id.imageRateButton);
-        Picasso.with(getContext()).load("http://images.flatlet.in/images_thumbs/ratehostel.jpg").into(imageRateButton);*/
+
         reviewHostelCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +55,6 @@ public class HomeFragment extends Fragment {
                     Log.i("ExploreNow check", "onClick: " + MySingleton.getInstance(getContext()).isOnline());
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("locality", "");
-                   /* intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");*/
-                    //testing
                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");
                     intent.putExtra("roomType", "rent_single_ac");
                     intent.putExtra("gender", "girls");

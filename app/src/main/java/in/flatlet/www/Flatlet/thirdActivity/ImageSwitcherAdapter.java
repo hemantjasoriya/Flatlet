@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -52,9 +51,6 @@ class ImageSwitcherAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
         Picasso.with(context).load(GalleryURL.get(position)).error(R.drawable.ic_cctv).into(imageView);
-       /* TextView textCount = new TextView(context);
-        container.addView(textCount,0);
-        textCount.setText(position+"/"+arraySize);*/
         container.addView(imageView, 0);
         return imageView;
     }

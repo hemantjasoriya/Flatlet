@@ -1,12 +1,12 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +26,7 @@ import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
+import in.flatlet.www.Flatlet.welcome.LoginActivity;
 
 /**
  * Created by javax on 21-Aug-17.
@@ -119,12 +119,7 @@ public class SavedProfileFragment extends Fragment {
 
     private void logout() {
         AccountKit.logOut();
-        //launching login fragment
-        Fragment fragment = new LoginFragment();
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        startActivity(new Intent(getActivity(),LoginActivity.class));
         // changing user name in shared preferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -109,11 +109,9 @@ public class ReviewHostel extends AppCompatActivity {
 
         Cursor cursor = db.query(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
         int i = cursor.getCount();
-        Log.i(TAG, "onCreate: k" + i);
 
 
-       /* JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/flatlettitlefetcher/titlefetcher.jsp?count=" + i,*/
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/webservices/titlefetcher.jsp?count=" + i,
+       JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://flatlet.in/webservices/titlefetcher.jsp?count=" + i,
 
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -170,7 +168,6 @@ public class ReviewHostel extends AppCompatActivity {
                 if (start > 1) {
                     Log.i(TAG, "onTextChanged: after if" + s);
 
-
                     cursor1 = db.rawQuery("Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
                             + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s + "%'", null);
 
@@ -178,7 +175,6 @@ public class ReviewHostel extends AppCompatActivity {
                             + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s + "%'", null);
 
                     while (cursor1.moveToNext()) {
-
 
                         String title = cursor1.getString(0);
                         Log.i(TAG, "onTextChanged: " + title);
