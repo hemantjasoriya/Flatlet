@@ -85,6 +85,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     Intent callIntent;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate: Activity2 onCreate started");
@@ -112,6 +113,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         dbqry = dbqry.replace(" ", "%20");
         Log.i(TAG, "onCreate: string received from prev activity is" + hostel_title);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+
         text_single_nonac = (TextView) findViewById(R.id.text_single_nonac);
         text_single_ac = (TextView) findViewById(R.id.text_single_ac);
         text_double_nonac = (TextView) findViewById(R.id.text_double_nonac);

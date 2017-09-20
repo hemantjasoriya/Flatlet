@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -22,12 +24,14 @@ import in.flatlet.www.Flatlet.Home.fragments.profilefragment.CreateProfileFragme
 import in.flatlet.www.Flatlet.Home.fragments.profilefragment.SavedProfileFragment;
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 
 public class FirstActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private static Fragment fragment;
     private static FragmentTransaction fragmentTransaction;
+    private SQLiteDatabase db_favourite;
     BottomNavigationView navigation;
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +102,22 @@ public class FirstActivity extends AppCompatActivity {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.content, fragment, "fragmentHome");
         fragmentTransaction.commit();
+
+        Log.i(TAG, "FavouriteFragment: constructor start");
+        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(FirstActivity.this);
+        Log.i(TAG, "FavouriteFragment: after object formation");
+        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        Log.i(TAG, "FavouriteFragment: before sharedpreferences");
+        SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (!pref_default.getBoolean("thirdTime", false)) {
+            // <---- run your one time code here
+            Log.i(TAG, "onCreate: before oncreate");
+            feedReaderDbHelper.onCreateOriginal(db_favourite);
+            Log.i(TAG, "onCreate: called");
+            SharedPreferences.Editor editor = pref_default.edit();
+            editor.putBoolean("thirdTime", true);
+            editor.apply();
+        }
 
     }
 

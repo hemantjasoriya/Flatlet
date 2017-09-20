@@ -26,8 +26,10 @@ public class FavouriteFragment extends Fragment {
     private SQLiteDatabase db;
     private final String TAG = "FavouriteFragment";
     private final ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
-
     private ProgressBar progressBar;
+
+
+
 
     @Nullable
     @Override
@@ -40,13 +42,9 @@ public class FavouriteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
-
         db = new FeedReaderDbHelper(getContext()).getWritableDatabase();
-
         Log.i(TAG, "onActivityCreated: SQLite Object is Created successfully");
-
         RecyclerView favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
-
         progressBar = (ProgressBar) getActivity().findViewById(R.id.progres_bar);
         RelativeLayout RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
         addSqliteDataToList();
@@ -68,6 +66,7 @@ public class FavouriteFragment extends Fragment {
     private void addSqliteDataToList() {
         Log.i(TAG, "addSqliteDataToList: Startig to add data into Model class from SQLiteDatabase");
         progressBar.setVisibility(View.VISIBLE);
+
 
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
                 FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};

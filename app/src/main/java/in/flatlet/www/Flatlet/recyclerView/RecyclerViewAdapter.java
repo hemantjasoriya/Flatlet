@@ -210,6 +210,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         return dataModelArrayList.size();
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         final TextView hostel_rent;

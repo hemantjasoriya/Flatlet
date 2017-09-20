@@ -30,6 +30,7 @@ import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
 import com.facebook.accountkit.PhoneNumber;
+import com.facebook.login.LoginFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

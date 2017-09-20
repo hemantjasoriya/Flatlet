@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
-import in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment;
 import in.flatlet.www.Flatlet.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        fragment = new LoginFragment();
+        fragment = new in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.login_relative, fragment, "fragmentHome");
