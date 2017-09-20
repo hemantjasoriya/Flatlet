@@ -140,4 +140,10 @@
     <string name="refund">Generally 1 month\'s rent is deposited as security money. Please ask the Refund rules to the landlord beforehand.</string>
     <string name="favourite">Favourite</string>
     <string name="search_for_your_hostel">Search for your Hostel</string>
+    <string name="welcome_to_flatlet">Welcome To Flatlet</string>
+    <string name="get_started">Get Started</string>
+    <string name="flatletindia_gmail_com">flatletindia@gmail.com</string>
+    <string name="gender">Gender</string>
+    <string name="phone_numbe">Phone number*</string>
+    <string name="email_addres">Email address*</string>
 </resources>

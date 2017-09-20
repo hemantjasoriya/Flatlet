@@ -95,13 +95,12 @@ public class FilterActivity extends AppCompatActivity {
                 checkBoxSingleRoom.setChecked(true);
                 checkBoxDoubleRoom.setChecked(false);
                 checkBoxNonAc.setChecked(false);
+                checkBoxAc.setChecked(true);
                 checkBoxCCTV.setChecked(false);
                 checkBoxElevator.setChecked(false);
                 checkBoxOwner.setChecked(false);
                 checkBoxEveningSnacks.setChecked(false);
                 checkBoxToiletAttached.setChecked(false);
-
-
                 pricehtl.setChecked(false);
                 pricelth.setChecked(false);
                 dimlth.setChecked(false);

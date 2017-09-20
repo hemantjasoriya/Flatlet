@@ -13,22 +13,20 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/filterFloatingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_margin="50dp"
-            android:padding="10dp"
+            android:layout_margin="@dimen/progressbar_size"
             android:alpha="0.8"
             android:onClick="onFilterClick"
             app:backgroundTint="@color/colorAccent"
-            app:elevation="6dp"
             app:srcCompat="@drawable/ic_filter" />
 
         <ProgressBar
             android:id="@+id/progressBar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/progressbar_size"
+            android:layout_height="@dimen/progressbar_size"
             android:layout_centerInParent="true"
             android:elevation="3dp"
             android:visibility="visible" />

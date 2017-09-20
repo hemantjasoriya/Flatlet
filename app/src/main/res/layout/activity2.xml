@@ -17,7 +17,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@android:color/transparent"
@@ -30,7 +30,7 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:theme="?attr/actionBarTheme"
                     android:visibility="visible"
                     app:layout_collapseMode="parallax" />
@@ -38,18 +38,17 @@
                 <ImageView
                     android:id="@+id/imageHead"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:background="@android:drawable/ic_menu_gallery"
+                    android:layout_height="@dimen/hostel_detail_image_height"
                     android:layout_below="@+id/toolbar"
+                    android:background="@android:drawable/ic_menu_gallery"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/total_views"
-                    android:textColor="#000000"
                     android:drawableStart="@drawable/ic_eye"
-                    android:drawablePadding="4dp"
+                    android:drawablePadding="2dp"
                     android:layout_below="@+id/toolbar"
                     />
             </RelativeLayout>
@@ -60,13 +59,11 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/callOwner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_marginBottom="60dp"
-        android:layout_marginStart="60dp"
-        android:alpha="0.85"
-        android:hapticFeedbackEnabled="true"
+        android:layout_width="@dimen/progressbar_size"
+        android:layout_height="@dimen/progressbar_size"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/progressbar_size"
+        android:alpha="0.8"
         app:backgroundTint="@color/colorAccent"
         app:elevation="6dp"
         app:srcCompat="@drawable/ic_call" />
@@ -93,7 +90,7 @@
                 android:id="@+id/cardview1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/card_margin_bottom"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
@@ -101,26 +98,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-
                     <TextView
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/rent"
                         android:textAllCaps="true"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textStyle="bold" />
 
                     <ProgressBar
                         android:id="@+id/progressBar"
                         style="?android:attr/progressBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignEnd="@+id/textView2"
-                        android:layout_alignParentTop="true"
+                        android:layout_width="@dimen/progressbar_size"
+                        android:layout_height="@dimen/progressbar_size"
+                        android:layout_centerHorizontal="true"
                         android:elevation="3dp" />
 
 
@@ -129,9 +124,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView2"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/single_non_ac" />
 
                     <TextView
@@ -143,6 +139,7 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/textView"
                         android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -150,9 +147,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/single_ac" />
 
                     <TextView
@@ -162,6 +160,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/textView3"
                         android:layout_marginEnd="60dp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView3"
                         android:text="@string/n_a"
                         android:textAlignment="textEnd" />
@@ -173,7 +172,8 @@
                         android:layout_below="@+id/textView3"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/double_non_ac" />
 
                     <TextView
@@ -183,6 +183,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/textView6"
                         android:layout_marginEnd="60dp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView6"
                         android:text="@string/n_a"
                         android:textAlignment="textEnd" />
@@ -194,7 +195,8 @@
                         android:layout_below="@+id/textView6"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/double_ac" />
 
                     <TextView
@@ -203,11 +205,26 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/textView7"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginEnd="60dp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView7"
                         android:text="@string/n_a"
                         android:textAlignment="textEnd" />
+
+                    <TextView
+                        android:id="@+id/textBottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/text_double_ac"
+                        android:layout_alignStart="@id/textView7"
+                        android:layout_below="@+id/textView7"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:alpha="0.8"
+                        android:text="@string/refund"
+                        android:textAlignment="center"
+                        android:textSize="8sp" />
                 </RelativeLayout>
 
 
@@ -230,7 +247,7 @@
                         android:id="@+id/title_ame"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:text="@string/amenities"
                         android:textAlignment="center"
                         android:textAllCaps="true"
@@ -312,8 +329,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cardview2"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
@@ -327,10 +344,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/specification"
                         android:textAllCaps="true"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -338,9 +355,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text2"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:text="@string/area_single_room_sqft" />
 
                     <TextView
@@ -352,6 +370,7 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text"
                         android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textAlignment="textEnd" />
 
 
@@ -360,9 +379,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:text="@string/area_double_room_sqft" />
 
                     <TextView
@@ -375,6 +395,7 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text3"
                         android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textAlignment="textEnd" />
 
 
@@ -383,9 +404,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text3"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:text="@string/only_for" />
 
                     <TextView
@@ -398,6 +420,7 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text5"
                         android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textAlignment="textEnd" />
 
 
@@ -406,9 +429,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text5"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:text="@string/locality" />
 
                     <TextView
@@ -421,6 +445,7 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text7"
                         android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textAlignment="textEnd" />
 
                     <TextView
@@ -428,7 +453,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text7"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginStart="40dp"
                         android:text="@string/note"
                         android:textAlignment="viewStart"
@@ -443,8 +468,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardview3"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
                 android:background="#ffffff"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
@@ -460,11 +485,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:text="@string/rating"
                         android:textAllCaps="true"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:textStyle="bold" />
 
                     <TextView
@@ -485,7 +510,7 @@
                         android:layout_below="@+id/textViewRating"
                         android:layout_centerHorizontal="true"
                         android:text="@string/n_a"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:drawableLeft="@drawable/person"/>
 
 
@@ -496,8 +521,10 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textViewTotalRating"
                         android:layout_centerVertical="true"
+                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:text="@string/food" />
 
                     <RatingBar
@@ -524,7 +551,9 @@
                         android:layout_below="@+id/textView12"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:text="@string/accommodation" />
 
                     <RatingBar
@@ -551,7 +580,9 @@
                         android:layout_below="@+id/textView13"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:text="@string/staff_behaviour" />
 
                     <RatingBar
@@ -578,7 +609,9 @@
                         android:layout_below="@+id/textView14"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="40dp"
-                        android:layout_marginTop="10dp"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:text="@string/study_environment" />
 
                     <RatingBar
@@ -602,8 +635,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView15"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:elevation="5dp"
                         android:text="@string/submit"
                         android:onClick="onSubmitRatingButton"/>
@@ -618,8 +651,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_below="@id/cardview4"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
                 tools:context="in.flatlet.www.Flatlet.secondActivity" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>

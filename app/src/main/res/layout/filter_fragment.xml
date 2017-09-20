@@ -19,45 +19,37 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <SeekBar
-                    android:id="@+id/seekBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="22dp"
-                    android:visibility="visible" />
+
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/seekBar"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/set_max_rent"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/welcome_subtitle"
                     android:textStyle="bold" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv2"
                     android:text="@string/progress"
-                    android:layout_marginStart="120dp"
+                    android:textSize="@dimen/welcome_subtitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
                     android:layout_alignBottom="@+id/tv1"/>
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv1" />
             </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/tenant_type"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -68,47 +60,51 @@
             android:background="#ffffff"
             app:cardElevation="2dp"
             app:cardCornerRadius="5dp">
-
-            <RadioGroup
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/checkBoxGirls"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tenantType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:text="@string/girls"
-                    android:textSize="14sp" />
-
-
-                <RadioButton
-                    android:id="@+id/checkBoxBoys"
-                    android:layout_width="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/tenant_type"
+                    android:textSize="@dimen/welcome_subtitle"
+                    android:textStyle="bold" />
+                <RadioGroup
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:text="@string/boys"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"/>
+                    android:layout_below="@+id/tenantType"
+                    android:weightSum="2"
+                    android:padding="5dp"
+                    android:orientation="horizontal">
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/checkBoxGirls"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/girls"
+                        android:textSize="@dimen/welcome_subtitle" />
+
+
+                    <RadioButton
+                        android:id="@+id/checkBoxBoys"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/welcome_subtitle"
+                        android:text="@string/boys"
+                        android:layout_weight="1"/>
+
+                </RadioGroup>
+            </RelativeLayout>
+
+
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/room_type"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -119,44 +115,48 @@
             android:background="#ffffff"
             app:cardElevation="2dp"
             app:cardCornerRadius="5dp">
-
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/roomType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/room_type"
+                    android:textSize="@dimen/welcome_subtitle"
+                    android:textStyle="bold" />
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/roomType"
+                android:weightSum="2"
+                android:padding="5dp"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/checkBoxDoubleRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
-                    android:text="@string/double_room" />
+                    android:text="@string/double_room"
+                    android:textSize="@dimen/welcome_subtitle"/>
 
                 <RadioButton
                     android:id="@+id/checkBoxSingleRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:checked="true"
                     android:text="@string/single_room"
                     android:layout_weight="1"
-                    />
+                    android:textSize="@dimen/welcome_subtitle" />
             </RadioGroup>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/air_cooling"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,52 +165,57 @@
             android:layout_marginEnd="10dp"
             app:cardElevation="2dp"
             app:cardCornerRadius="5dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/airCooling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/air_cooling"
+                    android:textSize="@dimen/welcome_subtitle"
+                    android:textStyle="bold" />
 
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/airCooling"
+                android:weightSum="2"
+                android:padding="5dp"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/checkBoxAc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="@string/ac"
                     android:checked="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textSize="@dimen/welcome_subtitle"
+                   />
 
                 <RadioButton
                     android:id="@+id/checkBoxNonAc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
+                    android:textSize="@dimen/welcome_subtitle"
                     android:text="@string/non_ac" />
 
             </RadioGroup>
+            </RelativeLayout>
 
         </android.support.v7.widget.CardView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/amenities"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="10dp"
             android:background="#ffffff"
             app:cardElevation="2dp"
             app:cardCornerRadius="5dp"
@@ -219,19 +224,27 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
+                <TextView
+                    android:id="@+id/title_ame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/amenities"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <CheckBox
                     android:id="@+id/checkBoxElevator"
+                    android:layout_below="@+id/title_ame"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/elevator"
-                    android:textSize="14sp"
-                    android:layout_marginTop="10dp"/>
-
+                    android:textSize="14sp" />
 
                 <CheckBox
                     android:id="@+id/checkBoxEveningSnacks"
@@ -242,9 +255,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_toEndOf="@+id/checkBoxElevator"
                     android:text="@string/evening_snacks"
-                    android:textSize="14sp"
-                    />
-
+                    android:textSize="14sp" />
 
                 <CheckBox
                     android:id="@+id/checkBoxCCTV"
@@ -256,8 +267,7 @@
                     android:layout_toEndOf="@+id/checkBoxEveningSnacks"
                     android:text="@string/cctv"
                     android:textSize="14sp"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    />
+                    android:marqueeRepeatLimit="marquee_forever" />
                 <CheckBox
                     android:id="@+id/checkBoxOwner"
                     android:layout_width="wrap_content"
@@ -277,13 +287,7 @@
                     android:text="@string/attached_toilet"
                     android:textSize="14sp" />
 
-
             </RelativeLayout>
-
-
         </android.support.v7.widget.CardView>
-
-
     </LinearLayout>
-
 </android.support.v4.widget.NestedScrollView>

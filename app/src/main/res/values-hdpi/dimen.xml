@@ -1,0 +1,32 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="welcome_screen_nav">45dp</dimen>
+    <dimen name="welcome_image">130dp</dimen>
+    <dimen name="welcome_title">28sp</dimen>
+    <dimen name="welcome_subtitle">14sp</dimen>
+    <dimen name="login_title">23sp</dimen>
+    <dimen name="progressbar_size">43dp</dimen>
+    <dimen name="card_height">180dp</dimen>
+    <dimen name="favourite_button_size">35dp</dimen>
+    <dimen name="hostel_title_recycler_card">16sp</dimen>
+    <dimen name="hostel_rent_recycler_Card">14sp</dimen>
+    <dimen name="hostel_address_recycler_card">13sp</dimen>
+    <dimen name="hostel_detail_image_height">250dp</dimen>
+    <dimen name="card_margin_bottom">6dp</dimen>
+    <dimen name="subtitle_padding">2dp</dimen>
+    <dimen name="activity2_card_margin_up">3dp</dimen>
+    <dimen name="activity2_card_margin_down">5dp</dimen>
+    <dimen name="activity2_card_title_size">13sp</dimen>
+    <dimen name="aboutus_fragment_title">24sp</dimen>
+    <dimen name="aboutus_fragment_padding">0dp</dimen>
+    <dimen name="linespacing_value">4sp</dimen>
+    <dimen name="createProfileFragment_field_marginup">30dp</dimen>
+    <dimen name="sort_fragment_margin_up">5dp</dimen>
+    <dimen name="home_fragment_card_height">130dp</dimen>
+    <dimen name="home_fragment_text">15sp</dimen>
+    <dimen name="home_fragment_searchbar_height">25dp</dimen>
+</resources>

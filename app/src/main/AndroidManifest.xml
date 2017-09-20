@@ -70,7 +70,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".thirdActivity.MainActivity_third"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="true" />
         <activity
             android:name=".Home.FirstActivity"
             android:screenOrientation="portrait" />

@@ -232,26 +232,8 @@ public class LoginFragment extends Fragment {
                     });
 
 
-                } else {
-                    toastMessage = String.format(
-                            "Success:%s...",
-                            loginResult.getAuthorizationCode().substring(0, 10));
                 }
-
-                // If you have an authorization code, retrieve it from
-                // loginResult.getAuthorizationCode()
-                // and pass it to your server and exchange it for an access token.
-
-                // Success! Start your next activity...
-                   /* goToMyLoggedInActivity();*/
             }
-
-            // Surface the result to your user in an appropriate way.
-            Toast.makeText(
-                    getActivity(),
-                    toastMessage,
-                    Toast.LENGTH_LONG)
-                    .show();
         }
     }
 

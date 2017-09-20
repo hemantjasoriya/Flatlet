@@ -31,19 +31,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:textSize="28sp"
+        android:textSize="@dimen/login_title"
         android:padding="5dp"
-        android:text="Welcome To Flatlet"
+        android:text="@string/welcome_to_flatlet"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/title"
         android:padding="15dp"
-        android:text="Get Started"
+        android:text="@string/get_started"
         android:layout_centerHorizontal="true"
         android:textColor="#ffffff"
         android:background="#ef7b7b" />

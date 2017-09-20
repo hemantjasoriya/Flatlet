@@ -1,6 +1,7 @@
 package in.flatlet.www.Flatlet.recyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
             finalDbQuery = dbqry +locality;
         }
         Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is " + locality + "and roomType is " + roomType + "and dbqry is" + dbqry + "and gender is" + gender);
-        /*GET_JSON_DATA_HTTP_URL = "http://flatlet.in/flatletwebservices/partialHostelData.jsp?dbqry=" + finalDbQuery;*/
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         JSON_DATA_WEB_CALL();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -126,8 +128,9 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
+                            /*new ParseResponseTask().execute(response);*/
+                            new ParseResponseTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,response);
 
-                            JSON_PARSE_DATA_AFTER_WEBCALL(response);
                             Log.i(TAG, "onResponse: data is send further for parsing");
                         }
                     },
@@ -151,30 +154,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void JSON_PARSE_DATA_AFTER_WEBCALL(JSONArray array) {
-        for (int i = 0; i < array.length(); i++) {
-            GetDataAdapter GetDataAdapter2 = new GetDataAdapter();
-            JSONObject jsonObject;
-            try {
-                jsonObject = array.getJSONObject(i);
-                GetDataAdapter2.setName(jsonObject.getString("title"));
-                Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + jsonObject.getString("title"));
-                GetDataAdapter2.setRent(jsonObject.getString(roomType));
-                GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
-                GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
-                Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: "+((float) jsonObject.getDouble("rating")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            dataModelArrayList.add(GetDataAdapter2);
-        }
-        RecyclerView.Adapter recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this, recyclerView);
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setAlpha(1f);
-        toolbar.setAlpha(1.0f);
-        progressBar.setVisibility(View.GONE);
-    }
-
     public void onFilterClick(View view) {
         Intent intent = new Intent(MainActivity.this, FilterActivity.class);
         intent.putExtra("locality", locality);
@@ -188,6 +167,41 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         if (requestQueue!=null){
             requestQueue.cancelAll(MyRequestTag);
+        }
+    }
+
+    private class ParseResponseTask extends AsyncTask<org.json.JSONArray,Void,Void>{
+
+
+        @Override
+        protected Void doInBackground(JSONArray... array) {
+            for (int i = 0; i < array[0].length(); i++) {
+                GetDataAdapter GetDataAdapter2 = new GetDataAdapter();
+                JSONObject jsonObject;
+                try {
+                    jsonObject = array[0].getJSONObject(i);
+                    GetDataAdapter2.setName(jsonObject.getString("title"));
+                    Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + jsonObject.getString("title"));
+                    GetDataAdapter2.setRent(jsonObject.getString(roomType));
+                    GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
+                    GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
+                    Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: "+((float) jsonObject.getDouble("rating")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dataModelArrayList.add(GetDataAdapter2);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            RecyclerView.Adapter recyclerViewAdapter = new RecyclerViewAdapter(dataModelArrayList, MainActivity.this, recyclerView);
+            recyclerView.setAdapter(recyclerViewAdapter);
+            recyclerView.setAlpha(1f);
+            toolbar.setAlpha(1.0f);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

@@ -65,9 +65,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             editor.putBoolean("thirdTime", true);
             editor.apply();
         }
-
     }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.i(TAG, "onCreateViewHolder:invoked ");
@@ -87,7 +85,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         Log.i(TAG, "onBindViewHolder: " + getDataAdapter1.getCardRating());
         String title = getDataAdapter1.getName().replace(" ","%20");
-        Picasso.with(context).load("http://images.flatlet.in/images/"+title+"/Thumb/1.webp").resize(300,200).centerCrop().into(holder.imageView2);
+        Picasso.with(context).load("http://images.flatlet.in/images/"+title+"/Thumb/1.webp").resize(200,130).centerCrop().into(holder.imageView2);
         holder.imageView2.setAlpha(1.0f);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};

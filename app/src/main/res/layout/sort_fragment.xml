@@ -3,77 +3,77 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp">
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/pricelth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sort_fragment_margin_up"
             android:text="@string/price_low_to_high"
-            android:textSize="15sp"
-            android:layout_marginTop="25dp"
-            />
+            android:textSize="@dimen/activity2_card_title_size" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            />
+            android:background="@android:color/darker_gray" />
+
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/pricehtl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sort_fragment_margin_up"
             android:text="@string/price_high_to_low"
-            android:textSize="15sp"
-            android:layout_marginTop="25dp"
-            />
+            android:textSize="@dimen/activity2_card_title_size" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            />
+            android:background="@android:color/darker_gray" />
+
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/dimlth"
-            android:text="@string/a_area_low_to_high"
-            android:textSize="15sp"
-            android:layout_marginTop="25dp"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            />
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dimhtl"
-            android:text="@string/a_area_high_to_low"
-            android:textSize="15sp"
-            android:layout_marginTop="25dp"
-            />
+            android:layout_marginTop="@dimen/sort_fragment_margin_up"
+            android:text="@string/a_area_low_to_high"
+            android:textSize="@dimen/activity2_card_title_size" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="12dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="12dp"
+            android:background="@android:color/darker_gray" />
+
+        <RadioButton
+            android:id="@+id/dimhtl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sort_fragment_margin_up"
+            android:text="@string/a_area_high_to_low"
+            android:textSize="@dimen/activity2_card_title_size"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:layout_marginBottom="12dp"
-            />
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/darker_gray" />
     </RadioGroup>
 </LinearLayout>

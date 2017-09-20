@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -11,17 +10,18 @@
         android:id="@+id/personalDetailsTextView"
         android:text="@string/personal_details"
         android:layout_centerHorizontal="true"
-        android:textSize="24sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="italic"
-        />
+        android:textSize="@dimen/login_title"
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup" />
 
     <EditText
         android:id="@+id/mobileEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup"
+        android:textSize="@dimen/hostel_rent_recycler_Card"
         android:hint="@string/mobile_number"
+        android:drawableStart="@drawable/ic_phone"
+        android:drawablePadding="5dp"
         android:layout_below="@+id/personalDetailsTextView"
         android:enabled="false"/>
 
@@ -30,6 +30,7 @@
         android:id="@+id/text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/subtitle_padding"
         android:layout_below="@+id/mobileEditText">
 
         <EditText
@@ -37,7 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/your_name"
-            android:textSize="13sp"/>
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:drawablePadding="5dp"
+            android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -45,6 +48,7 @@
         android:id="@+id/text_input_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/subtitle_padding"
         android:layout_below="@+id/text_input_layout">
 
         <EditText
@@ -53,42 +57,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email_id_optional"
-            android:textSize="13sp"
-            />
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:drawablePadding="5dp"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
 
     </android.support.design.widget.TextInputLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewIdentity"
-        android:text="@string/your_identity"
-        android:layout_below="@+id/text_input_layout1"
-        android:layout_marginTop="10dp"
-        android:textSize="15sp"/>
-
-
-
     <RadioGroup
+        android:id="@+id/radioGroupIdentity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/text_input_layout1"
-        android:id="@+id/radioGroupIdentity"
-        android:layout_toEndOf="@+id/textViewIdentity"
-        android:layout_marginStart="10dp"
-        android:layout_alignTop="@+id/textViewIdentity"
-        >
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:layout_below="@+id/text_input_layout1">
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/maleRadioButton"
+            android:drawableEnd="@drawable/ic_male"
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:drawablePadding="2dp"
             android:text="@string/male"/>
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/femaleRadioButton"
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:checked="true"
+            android:drawableEnd="@drawable/ic_female"
+            android:drawablePadding="2dp"
             android:text="@string/female"/>
     </RadioGroup>
 
@@ -98,46 +99,26 @@
         android:id="@+id/saveProfileButton"
         android:text="@string/save_profile"
         android:textColor="#ffffff"
-        android:background="#c77171"
+        android:background="@color/colorAccent"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/radioGroupIdentity"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:paddingStart="20dp"
+        android:alpha="0.87"
         android:paddingEnd="10dp"/>
-
-
-
-
-
-
-
-
-
-    <!-- <EditText
-         android:id="@+id/Id"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:background="@android:color/transparent"
-         android:layout_below="@+id/text_input_layout2"
-         android:text="amandeep sharma"
-         android:editable="false">
-     </EditText>-->
-
-
-
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGOUT"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/saveProfileButton"
+        android:layout_marginTop="20dp"
         android:textColor="#ffffff"
         android:background="#e87979"
+        android:alpha="0.87"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        />
+        android:layout_marginRight="10dp" />
 
 
 </RelativeLayout>

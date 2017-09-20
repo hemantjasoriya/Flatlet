@@ -15,7 +15,7 @@
             android:text="Your Favourites"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
-            android:textSize="26sp"
+            android:textSize="@dimen/hostel_title_recycler_card"
             android:textColor="#ffffff"/>
     </android.support.v7.widget.Toolbar>
 

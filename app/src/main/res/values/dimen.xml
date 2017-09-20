@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="progressbar_size">40dp</dimen>
+    <dimen name="card_height">220dp</dimen>
+    <dimen name="favourite_button_size">50dp</dimen>
+    <dimen name="hostel_rent_recycler_card">24sp</dimen>
+    <dimen name="hostel_rent_recycler_Card">20sp</dimen>
+    <dimen name="hostel_address_recycler_card">16sp</dimen>
+    <dimen name="hostel_detail_image_height">300dp</dimen>
+    <dimen name="card_margin_bottom">10dp</dimen>
+    <dimen name="subtitle_padding">5dp</dimen>
+    <dimen name="activity2_card_margin_up">10dp</dimen>
+    <dimen name="activity2_card_margin_down">5dp</dimen>
+    <dimen name="activity2_card_title_size">14sp</dimen>
+    <dimen name="aboutus_fragment_title">32sp</dimen>
+    <dimen name="aboutus_fragment_padding">0dp</dimen>
+    <dimen name="linespacing_value">4sp</dimen>
+    <dimen name="createProfileFragment_field_marginup">60dp</dimen>
+    <dimen name="sort_fragment_margin_up">25dp</dimen>
+    <dimen name="home_fragment_card_height">150dp</dimen>
+    <dimen name="home_fragment_text">15sp</dimen>
+    <dimen name="home_fragment_searchbar_height">40dp</dimen>
+</resources>

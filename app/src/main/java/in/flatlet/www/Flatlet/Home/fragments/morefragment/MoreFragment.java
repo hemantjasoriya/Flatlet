@@ -21,7 +21,7 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
     private final int[] moreFragmentVectors = {R.drawable.ic_lightbulb_outline_black_24dp, R.drawable.ic_star_black_24dp,
             R.drawable.ic_security,
             R.drawable.ic_insert_invitation_black_24dp,
-            R.drawable.ic_feedback_black_24dp, R.drawable.ic_group_black_24dp};
+            R.drawable.ic_feedback_black_24dp, R.drawable.ic_group};
 
     @Nullable
     @Override

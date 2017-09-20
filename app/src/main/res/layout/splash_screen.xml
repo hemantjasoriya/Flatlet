@@ -6,9 +6,9 @@
     android:keepScreenOn="true">
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@drawable/splash"
+        android:layout_width="@dimen/welcome_image"
+        android:layout_height="@dimen/welcome_image"
+        android:background="@mipmap/ic_launcher"
         android:alpha="0.87"
         android:padding="10dp"
         android:layout_marginTop="120dp"
@@ -29,9 +29,9 @@
     <ProgressBar
         android:id="@+id/progres_bar"
         android:layout_below="@+id/tv1"
-        android:layout_width="50dp"
+        android:layout_width="@dimen/progressbar_size"
+        android:layout_height="@dimen/progressbar_size"
         android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"/>
 
 

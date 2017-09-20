@@ -5,7 +5,7 @@
     android:drawableStart="@drawable/ic_location_on_black_24dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    android:padding="5dp"
-    android:textSize="16sp"
-    android:drawablePadding="7dp"
+    android:padding="@dimen/subtitle_padding"
+    android:textSize="@dimen/hostel_rent_recycler_Card"
+    android:drawablePadding="@dimen/subtitle_padding"
     xmlns:android="http://schemas.android.com/apk/res/android" />
