@@ -84,7 +84,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         Log.i(TAG, "onBindViewHolder: " + getDataAdapter1.getCardRating());
-        String title = getDataAdapter1.getName().replace(" ","%20");
+        final String title = getDataAdapter1.getName().replace(" ","%20");
         Picasso.with(context).load("http://images.flatlet.in/images/"+title+"/Thumb/1.webp").resize(200,130).centerCrop().into(holder.imageView2);
         holder.imageView2.setAlpha(1.0f);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
@@ -128,7 +128,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, getDataAdapter1.getAddress());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, getDataAdapter1.getRent());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg");
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+title+"/Thumb/1.webp");
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + getDataAdapter1.getName() + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + getDataAdapter1.getAddress() + "','" + getDataAdapter1.getRent() + "'," +
