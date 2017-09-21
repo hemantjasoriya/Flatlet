@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import in.flatlet.www.Flatlet.Home.fragments.profilefragment.CreateProfileFragment;
 import in.flatlet.www.Flatlet.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -16,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         new AlertDialog.Builder(this)
                 .setTitle("Really Exit?")
                 .setMessage("Are you sure you want to exit?")
@@ -36,7 +36,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        int flag=getIntent().getFlags();
+        if (flag==0){
         fragment = new in.flatlet.www.Flatlet.Home.fragments.profilefragment.LoginFragment();
+       }
+        else {
+            fragment=new CreateProfileFragment();
+
+        }
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.login_relative, fragment, "fragmentHome");

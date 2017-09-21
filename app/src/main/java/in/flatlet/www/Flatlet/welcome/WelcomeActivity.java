@@ -1,5 +1,6 @@
 package in.flatlet.www.Flatlet.welcome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
+        sharedPreferences=getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         accessToken= AccountKit.getCurrentAccessToken();
         Button buttonPrev = (Button) findViewById(R.id.buttonPrev);
         Button buttonNext = (Button) findViewById(R.id.buttonNext);
@@ -43,9 +45,14 @@ public class WelcomeActivity extends AppCompatActivity {
                     Log.i(TAG, "onClick: " + pager.getCurrentItem());
 
                     pager.setCurrentItem(getItem(+1), true);
-                } else {
+                }
+               else {
                     if (accessToken==null){
-                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class).setFlags(0));
+                    }
+                    else if (sharedPreferences.getString("userName","johndoe").equals("johndoe")){
+                        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class).setFlags(1));
+
                     }
                     else {
                         startActivity(new Intent(WelcomeActivity.this, FirstActivity.class).setFlags(1));

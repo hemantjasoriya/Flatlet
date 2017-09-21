@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,15 +33,18 @@ import com.facebook.accountkit.PhoneNumber;
 import com.facebook.accountkit.ui.AccountKitActivity;
 import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
+import com.facebook.accountkit.ui.SkinManager;
+import com.facebook.accountkit.ui.UIManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
+import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
-import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 /**
  * Created by javax on 20-Aug-17.
@@ -85,12 +89,16 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(MySingleton.getInstance(getContext()).isOnline()){
                 Log.i(TAG, "button clicked ");
                 final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
                 AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                         new AccountKitConfiguration.AccountKitConfigurationBuilder(
                                 LoginType.PHONE,
-                                AccountKitActivity.ResponseType.TOKEN); // or .ResponseType.TOKEN
+                                AccountKitActivity.ResponseType.TOKEN);
+                    UIManager uiManager;
+                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(),R.color.secondaryLightColor),R.drawable.splash , SkinManager.Tint.BLACK,0);
+                    configurationBuilder.setUIManager(uiManager);// or .ResponseType.TOKEN
                 // ... perform additional configuration ...
                 configurationBuilder.setDefaultCountryCode("IN");
 
@@ -100,6 +108,9 @@ public class LoginFragment extends Fragment {
                 startActivityForResult(intent, APP_REQUEST_CODE);
 
             }
+            else {
+                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+                }}
         });
 
     }
@@ -150,18 +161,19 @@ public class LoginFragment extends Fragment {
                                                     Log.i(TAG, "onResponse: if chala");
                                                     Fragment fragment = new CreateProfileFragment();
                                                     android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                                    fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
+                                                    fragmentTransaction.replace(R.id.login_relative, fragment, "fragmetHome");
                                                     fragmentTransaction.addToBackStack(null);
                                                     fragmentTransaction.commit();
 
                                                 } else {
                                                     Log.i(TAG, "onResponse: else started");
-                                                    // go to main activity
-                                                    Intent intent = new Intent(getActivity(), MainActivity.class);
-                                                    intent.putExtra("locality", "");
+                                                    Intent intent = new Intent(getActivity(), FirstActivity.class);
+                                                    intent.setFlags(1);
+                                                   /* intent.putExtra("locality", "");
+                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
                                                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
                                                     intent.putExtra("roomType", "rent_single_ac");
-                                                    intent.putExtra("gender", "girls");
+                                                    intent.putExtra("gender", "girls");*/
                                                     getActivity().startActivity(intent);
 
                                                     // fetching data from database
@@ -181,6 +193,7 @@ public class LoginFragment extends Fragment {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Log.i(TAG, "onErrorResponse: main " + error);
+                                    Toast.makeText(getContext(),"Server error",Toast.LENGTH_SHORT).show();
 
                                 }
                             });
