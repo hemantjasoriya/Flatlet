@@ -103,7 +103,6 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
                             });
 
                             stringRequest.setTag("MyRequestTag");
-                            queue1.add(stringRequest);
                             MySingleton.getInstance(context).addToRequestQueue(stringRequest);
                             db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
                         }

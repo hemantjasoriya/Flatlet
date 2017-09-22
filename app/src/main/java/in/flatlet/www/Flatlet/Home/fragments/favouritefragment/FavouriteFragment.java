@@ -2,6 +2,7 @@ package in.flatlet.www.Flatlet.Home.fragments.favouritefragment;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,9 @@ public class FavouriteFragment extends Fragment {
     private SQLiteDatabase db;
     private final ArrayList<FavouriteHostelDataModel> favouriteHostelList = new ArrayList<>();
     private ProgressBar progressBar;
+    RelativeLayout RL_favourite;
+    RecyclerView favouriteRecyclerView;
+    FavouriteListRecyclerAdapter adapter;
 
 
     @Nullable
@@ -37,12 +41,14 @@ public class FavouriteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         db = new FeedReaderDbHelper(getContext()).getWritableDatabase();
-        RecyclerView favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
+         favouriteRecyclerView = (RecyclerView) getActivity().findViewById(R.id.favouriteRecyclerView);
         progressBar = (ProgressBar) getActivity().findViewById(R.id.progres_bar);
-        RelativeLayout RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
-        addSqliteDataToList();
-        FavouriteListRecyclerAdapter adapter = new FavouriteListRecyclerAdapter(getActivity(), favouriteHostelList, db);
-        if (favouriteHostelList.size() == 0) {
+         RL_favourite = (RelativeLayout) getActivity().findViewById(R.id.RL_favourite);
+
+         adapter = new FavouriteListRecyclerAdapter(getActivity(), favouriteHostelList, db);
+        /*addSqliteDataToList();*/
+        new AddToSQLiteTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+       /* if (favouriteHostelList.size() == 0) {
             RL_favourite.setBackgroundResource(R.drawable.ic_nothing_found);
             favouriteRecyclerView.setVisibility(View.INVISIBLE);
         }
@@ -51,7 +57,8 @@ public class FavouriteFragment extends Fragment {
         LinearLayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);
         favouriteRecyclerView.setAdapter(adapter);
-        progressBar.setVisibility(View.GONE);
+
+        progressBar.setVisibility(View.GONE);*/
 
 
     }
@@ -59,9 +66,7 @@ public class FavouriteFragment extends Fragment {
     private void addSqliteDataToList() {
         progressBar.setVisibility(View.VISIBLE);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+
                 String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
                         FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};
                 Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
@@ -77,20 +82,29 @@ public class FavouriteFragment extends Fragment {
 
                 }
             }
-        }).start();
-        /*String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS,
-                FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, FeedReaderContract.FeedEntry.COLUMN_NAME_RATING};
-        Cursor cursor = db.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, null, null, null, null, null);
 
-        while (cursor.moveToNext()) {
-            FavouriteHostelDataModel favouriteHostelDataModel = new FavouriteHostelDataModel();
-            favouriteHostelDataModel.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE)));
-            favouriteHostelDataModel.setAddress_secondary(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS)));
-            favouriteHostelDataModel.setUrl(cursor.getString(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL)));
-            favouriteHostelDataModel.setRent(cursor.getInt(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT)));
-            favouriteHostelDataModel.setFavouriteCardRating((float) cursor.getDouble(cursor.getColumnIndexOrThrow(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING)));
-            favouriteHostelList.add(favouriteHostelDataModel);
+    private class AddToSQLiteTask extends AsyncTask<Void,Void,Void>{
 
-        }*/
+        @Override
+        protected Void doInBackground(Void... params) {
+            addSqliteDataToList();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (favouriteHostelList.size() == 0) {
+                RL_favourite.setBackgroundResource(R.drawable.ic_nothing_found);
+                favouriteRecyclerView.setVisibility(View.INVISIBLE);
+            }
+
+            favouriteRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getContext());
+            favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);
+            favouriteRecyclerView.setAdapter(adapter);
+
+            progressBar.setVisibility(View.GONE);
+        }
     }
-}
+    }

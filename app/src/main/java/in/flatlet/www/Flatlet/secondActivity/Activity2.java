@@ -62,7 +62,7 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private Toolbar toolbar;
-    private String hostel_title, hostel_rent, eve_snacks, ownership, ame_toilet_attached, ame_elevator, dbqry, primary_contact, secondary_contact, CCTV1, rent_single_nonac, rent_single_ac, rent_double_nonac, rent_double_ac, gender1, address_secondary, title, CCTV, totalViews1;
+    private String hostel_title, hostel_rent, eve_snacks, ownership, ame_toilet_attached, ame_elevator, dbqry, primary_contact, secondary_contact, CCTV1, rent_single_nonac, rent_single_ac, rent_double_nonac, rent_double_ac, gender1, address_secondary,  CCTV, totalViews1;
     private Button ratingSubmitButton;
     private ListView listView;
     private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
@@ -131,7 +131,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         Button moreAmeButton = (Button) findViewById(R.id.moreAmeButton);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         ratingSubmitButton = (Button) findViewById(R.id.ratingSubmitButton);
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(hostel_title);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -588,8 +590,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         String[] selectionArgs = {hostel_title};
         cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
 
-
-
         cursor.moveToNext();
         if (cursor.getCount() != 0 && cursor.getString(0).equalsIgnoreCase(hostel_title)) {
 
@@ -697,7 +697,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 gender1 = response[0].getString("gender");
                 address_secondary = response[0].getString("address_secondary");
                 totalViews1 = String.valueOf(response[0].getInt("totalViews"));
-                title = response[0].getString("title");
                 CCTV = response[0].getString("CCTV");
                 ame_toilet_attached = response[0].getString("ame_toilet_attached");
                 ame_elevator = response[0].getString("ame_elevator");
@@ -729,7 +728,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             gender.setText(gender1);
             locality.setText(address_secondary);
             totalViews.setText(totalViews1);
-            toolbar.setTitle(title);
+            toolbar.setTitle(hostel_title);
             textViewRating.setText(String.format(java.util.Locale.US, "%.1f", rating));
             textViewTotalRating.setText(String.valueOf(total_ratings));
             mapFragment.getMapAsync(Activity2.this);
