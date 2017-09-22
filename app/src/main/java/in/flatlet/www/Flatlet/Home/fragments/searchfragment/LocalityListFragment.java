@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,9 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 
 
 public class LocalityListFragment extends Fragment {
-    private final static String TAG = "LocalityListFragment";
     private String dbqry;
     private String roomType;
     private String gender;
-    Spinner spinner;
     private String locality;
     private RadioButton checkBoxGirls;
     private RadioButton checkBoxBoys;
@@ -49,7 +46,6 @@ public class LocalityListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
-        Log.i(TAG, "onActivityCreated: started");
         navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
@@ -128,7 +124,6 @@ public class LocalityListFragment extends Fragment {
                     intent.putExtra("locality", "%20AND%20address_secondary=" + "'" + locality + "'");
                     intent.putExtra("roomType", roomType);
                     intent.putExtra("gender", gender);
-                    Log.i(TAG, "onClick LocalityFragment:Roomtype" + roomType + locality);
                     startActivity(intent);
                     dbqry = null;
                 }

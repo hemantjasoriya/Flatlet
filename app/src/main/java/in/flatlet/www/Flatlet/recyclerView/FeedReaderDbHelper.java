@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
-    private static final String TAG = "FeedReaderDbHelperReviewHostel";
+
     // If you change the database schema, you must increment the database version.
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FeedReaderContract.FeedEntry.TABLE_NAME + " (" +

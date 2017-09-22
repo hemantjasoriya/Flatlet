@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -18,7 +17,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +25,6 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
@@ -35,7 +32,6 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.filter.FilterActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = "MAINACTIVTY";
     private final String MyRequestTag = "MyTag";
     private FloatingActionButton filterFloatingButton;
     private List<GetDataAdapter> dataModelArrayList;
@@ -47,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private String roomType;
     private String gender;
     private Toolbar toolbar ;
-
+    WeakReference<MainActivity> mActivityWeak;
 
     @Override
     public void onBackPressed() {
@@ -59,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate:started ");
+
+
         setContentView(R.layout.activity_main);
         dataModelArrayList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView1);
@@ -81,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         });
        /* //this add a divider between two cards
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));*/
-        Log.i(TAG, "onCreate: RecyclerVIew is hinged");
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         filterFloatingButton = (FloatingActionButton) findViewById(R.id.filterFloatingButton);
         recyclerView.setHasFixedSize(true);
@@ -102,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         else {
             finalDbQuery = dbqry +locality;
         }
-        Log.i(TAG, "onCreate: DATA INCOMING CHECK locality is " + locality + "and roomType is " + roomType + "and dbqry is" + dbqry + "and gender is" + gender);
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         JSON_DATA_WEB_CALL();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -123,29 +118,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void JSON_DATA_WEB_CALL() {
         if (MySingleton.getInstance(getApplicationContext()).isOnline()){
-            Log.i(TAG, "url went to volley request is " + GET_JSON_DATA_HTTP_URL);
+
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
                     new Response.Listener<JSONArray>() {
                         @Override
                         public void onResponse(JSONArray response) {
-                            /*new ParseResponseTask().execute(response);*/
-                            new ParseResponseTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,response);
+                            new ParseResponseTask().execute(response);
 
-                            Log.i(TAG, "onResponse: data is send further for parsing");
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            error.printStackTrace();
-                            Log.i(TAG, "onErrorResponse: response error ");
+
                         }
                     });
 
             requestQueue = MySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
             jsonArrayRequest.setTag(MyRequestTag);
-            jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(2000,3,1f));
-            Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
+            jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(15000, 3, 1f));
+
             MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
         }
         else {
@@ -159,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("locality", locality);
         intent.putExtra("gender", gender);
         intent.putExtra("roomType", roomType);
-        Log.i(TAG, "onFilterClick: data sent to FilterActivity i.e. locality" + locality + gender + roomType);
+
         startActivity(intent);
     }
     @Override
@@ -170,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class ParseResponseTask extends AsyncTask<org.json.JSONArray,Void,Void>{
+    private class ParseResponseTask extends AsyncTask<org.json.JSONArray, Void, Void> {
 
 
         @Override
@@ -181,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     jsonObject = array[0].getJSONObject(i);
                     GetDataAdapter2.setName(jsonObject.getString("title"));
-                    Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: data is being extracted" + jsonObject.getString("title"));
+
                     GetDataAdapter2.setRent(jsonObject.getString(roomType));
                     GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
                     GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
-                    Log.i(TAG, "JSON_PARSE_DATA_AFTER_WEBCALL: "+((float) jsonObject.getDouble("rating")));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

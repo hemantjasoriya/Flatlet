@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,6 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 public class CreateProfileFragment extends Fragment {
     private Button logoutButton;
     private EditText mobileEditText, nameEditText, emailEditText;
-    private final String TAG = "CreateProfileFragment";
     private RadioButton maleRadioButton, femaleRadioButton;
     RequestQueue queue1;
 
@@ -127,8 +125,7 @@ public class CreateProfileFragment extends Fragment {
 
             @Override
             public void onError(final AccountKitError error) {
-                Log.i(TAG, "onError: ");
-                // Handle Error
+
             }
         });
 
@@ -158,26 +155,31 @@ public class CreateProfileFragment extends Fragment {
 
     private void logout() {
         AccountKit.logOut();
-        //launching login fragment
         Fragment fragment = new LoginFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content, fragment, "fragmetHome");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         // delete sahred preferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-        // delete all rows from sqlite database
-        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
-        SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
-        db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                // delete all rows from sqlite database
+                FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+                SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
+                db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
+            }
+        }).start();
+
     }
 
 
     private void sendToDatabase() {
-        Log.i(TAG, "sendToDatabase: started");
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         String dbqry = null;
         if (maleRadioButton.isChecked()) {
@@ -185,30 +187,27 @@ public class CreateProfileFragment extends Fragment {
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
                     getString("userEmail", "@johdoe") + "','male')";
-            Log.i(TAG, "sendToDatabase: " + dbqry);
+
         } else {
             dbqry = "INSERT INTO `our_users`(`user_ka_naam`,`user_mobile`,`user_emailid`,`sex`) VALUES ('"
                     + sharedPreferences.getString("userName", "johndoe") + "','" + sharedPreferences.
                     getString("userMobile", "911") + "','" + sharedPreferences.
                     getString("userEmail", "@johdoe") + "','female')";
-            Log.i(TAG, "sendToDatabase: " + dbqry);
+
         }
         String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
         String urlFinal = url.replace(" ", "%20");
-
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, urlFinal,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.i(TAG, "onResponse: " + response);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "onErrorResponse: " + error);
+
 
             }
         });

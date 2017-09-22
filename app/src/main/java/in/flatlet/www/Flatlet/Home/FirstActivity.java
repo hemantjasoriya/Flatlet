@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import in.flatlet.www.Flatlet.Home.fragments.favouritefragment.FavouriteFragment;
@@ -28,7 +27,6 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 
 public class FirstActivity extends AppCompatActivity {
-    private final static String TAG = "MainActivity";
     private static Fragment fragment;
     private static FragmentTransaction fragmentTransaction;
     private SQLiteDatabase db_favourite;
@@ -44,7 +42,6 @@ public class FirstActivity extends AppCompatActivity {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.replace(R.id.content, fragment, "fragmentHome");
-
                     fragmentTransaction.commit();
                     return true;
                 case R.id.navigation_search:
@@ -65,7 +62,7 @@ public class FirstActivity extends AppCompatActivity {
 
                 case R.id.navigation_favourites:
 
-                        fragment = new FavouriteFragment();
+                    fragment = new FavouriteFragment();
                     break;
 
 
@@ -87,7 +84,7 @@ public class FirstActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate: oncreate of firstactivity started");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -95,7 +92,6 @@ public class FirstActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Intent intent = getIntent();
         int i = intent.getFlags();
-        Log.i(TAG, "onCreate: Flag value is" + i);
 
         fragment = new HomeFragment();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -103,24 +99,22 @@ public class FirstActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.content, fragment, "fragmentHome");
         fragmentTransaction.commit();
 
-        Log.i(TAG, "FavouriteFragment: constructor start");
+
         FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(FirstActivity.this);
-        Log.i(TAG, "FavouriteFragment: after object formation");
+
         db_favourite = feedReaderDbHelper.getWritableDatabase();
-        Log.i(TAG, "FavouriteFragment: before sharedpreferences");
+
         SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!pref_default.getBoolean("thirdTime", false)) {
             // <---- run your one time code here
-            Log.i(TAG, "onCreate: before oncreate");
+
             feedReaderDbHelper.onCreateOriginal(db_favourite);
-            Log.i(TAG, "onCreate: called");
+
             SharedPreferences.Editor editor = pref_default.edit();
             editor.putBoolean("thirdTime", true);
             editor.apply();
         }
-
     }
-
 
     @Override
     public void onBackPressed() {

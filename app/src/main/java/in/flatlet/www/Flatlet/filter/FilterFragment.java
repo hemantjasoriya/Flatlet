@@ -3,7 +3,6 @@ package in.flatlet.www.Flatlet.filter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,6 @@ import in.flatlet.www.Flatlet.R;
 
 public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeListener {
     private TextView tv2;
-
-
-    private final static String TAG = "Fragment 2";
 
     @Nullable
     @Override
@@ -38,11 +34,11 @@ public class FilterFragment extends Fragment implements SeekBar.OnSeekBarChangeL
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        Log.i(TAG, "onStartTrackingTouch: ");
+
     }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-        Log.i(TAG, "onStopTrackingTouch: ");
+
     }
 }

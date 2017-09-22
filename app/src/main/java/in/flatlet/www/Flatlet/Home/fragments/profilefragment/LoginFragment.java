@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +52,6 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 public class LoginFragment extends Fragment {
 
-    private final String TAG = "loginfragment";
     public static int APP_REQUEST_CODE = 99;
     private Button loginButton;
     private FeedReaderDbHelper feedReaderDbHelper;
@@ -74,14 +73,13 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume: ");
 
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i(TAG, "onActivityCreated: ");
+
 
         loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
@@ -89,28 +87,28 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(MySingleton.getInstance(getContext()).isOnline()){
-                Log.i(TAG, "button clicked ");
-                final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
-                AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
-                        new AccountKitConfiguration.AccountKitConfigurationBuilder(
-                                LoginType.PHONE,
-                                AccountKitActivity.ResponseType.TOKEN);
+                if (MySingleton.getInstance(getContext()).isOnline()) {
+
+                    final Intent intent = new Intent(getActivity(), AccountKitActivity.class);
+                    AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
+                            new AccountKitConfiguration.AccountKitConfigurationBuilder(
+                                    LoginType.PHONE,
+                                    AccountKitActivity.ResponseType.TOKEN);
                     UIManager uiManager;
-                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(),R.color.secondaryLightColor),R.drawable.splash , SkinManager.Tint.BLACK,0);
+                    uiManager = new SkinManager(SkinManager.Skin.TRANSLUCENT, ContextCompat.getColor(getContext(), R.color.secondaryLightColor), R.drawable.splash, SkinManager.Tint.BLACK, 0);
                     configurationBuilder.setUIManager(uiManager);// or .ResponseType.TOKEN
-                // ... perform additional configuration ...
-                configurationBuilder.setDefaultCountryCode("IN");
+                    // ... perform additional configuration ...
+                    configurationBuilder.setDefaultCountryCode("IN");
 
-                intent.putExtra(
-                        AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
-                        configurationBuilder.build());
-                startActivityForResult(intent, APP_REQUEST_CODE);
+                    intent.putExtra(
+                            AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,
+                            configurationBuilder.build());
+                    startActivityForResult(intent, APP_REQUEST_CODE);
 
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
             }
-            else {
-                    Toast.makeText(getContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
-                }}
         });
 
     }
@@ -127,13 +125,11 @@ public class LoginFragment extends Fragment {
             String toastMessage = null;
             if (loginResult.getError() != null) {
                 toastMessage = loginResult.getError().getErrorType().getMessage();
-                    /*showErrorActivity(loginResult.getError());*/
+
             } else if (loginResult.wasCancelled()) {
                 toastMessage = "Login Cancelled";
             } else {
                 if (loginResult.getAccessToken() != null) {
-                    Log.i(TAG, "onActivityResult: access token");
-
                     //fetching phone no
                     AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                         @Override
@@ -145,20 +141,15 @@ public class LoginFragment extends Fragment {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userMobile", phoneNumberString);
                             editor.apply();
-                            Log.i(TAG, "onSuccess: " + phoneNumberString);
                             String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" + phoneNumberString;
-                            Log.i(TAG, "onSuccess: " + url);
-
 
                             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                                     new Response.Listener<JSONObject>() {
                                         @Override
                                         public void onResponse(JSONObject response) {
                                             // Display the first 500 characters of the response string.
-                                            Log.i(TAG, "onResponse: " + response);
                                             try {
                                                 if (response.getInt("tag") == 0) {
-                                                    Log.i(TAG, "onResponse: if chala");
                                                     Fragment fragment = new CreateProfileFragment();
                                                     android.support.v4.app.FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                                                     fragmentTransaction.replace(R.id.login_relative, fragment, "fragmetHome");
@@ -166,17 +157,11 @@ public class LoginFragment extends Fragment {
                                                     fragmentTransaction.commit();
 
                                                 } else {
-                                                    Log.i(TAG, "onResponse: else started");
+
                                                     Intent intent = new Intent(getActivity(), FirstActivity.class);
                                                     intent.setFlags(1);
-                                                   /* intent.putExtra("locality", "");
-                                                    intent.putExtra("hostel_title",getArguments().getString("hostel_title"));
-                                                    intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0%20ORDER%20BY%20RAND()");
-                                                    intent.putExtra("roomType", "rent_single_ac");
-                                                    intent.putExtra("gender", "girls");*/
                                                     getActivity().startActivity(intent);
 
-                                                    // fetching data from database
                                                     fetchDataFromDatabase();
 
                                                 }
@@ -192,20 +177,18 @@ public class LoginFragment extends Fragment {
                                     }, new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Log.i(TAG, "onErrorResponse: main " + error);
-                                    Toast.makeText(getContext(),"Server error",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Server error", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
                             RequestQueue queue1 = Volley.newRequestQueue(getActivity());
                             queue1.add(jsonObjectRequest);
 
-
                         }
 
                         @Override
                         public void onError(final AccountKitError error) {
-                            Log.i(TAG, "onError: ");
+
                             // Handle Error
                         }
                     });
@@ -216,16 +199,8 @@ public class LoginFragment extends Fragment {
                             "Success:%s...",
                             loginResult.getAuthorizationCode().substring(0, 10));
                 }
-
-                // If you have an authorization code, retrieve it from
-                // loginResult.getAuthorizationCode()
-                // and pass it to your server and exchange it for an access token.
-
-                // Success! Start your next activity...
-                   /* goToMyLoggedInActivity();*/
             }
 
-            // Surface the result to your user in an appropriate way.
             Toast.makeText(
                     getActivity(),
                     toastMessage,
@@ -241,7 +216,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                        /*SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         try {
                             editor.putString("userName", response.getString("user_ka_naam"));
@@ -259,9 +234,10 @@ public class LoginFragment extends Fragment {
                             editor.putInt("hostel2_studyenvironment", response.getInt("hostel2_studyenvironment"));
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.i(TAG, "onResponse: JSONException " + e);
+
                         }
-                        editor.apply();
+                        editor.apply();*/
+                        new MyTask().execute(response);
 
 
                     }
@@ -269,9 +245,6 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        Log.i(TAG, "onErrorResponse: " + error);
-
 
                     }
                 });
@@ -280,58 +253,102 @@ public class LoginFragment extends Fragment {
     }
 
     public void fetchFavouriteHostels() {
-        Log.i(TAG, "fetchFavouriteHostels: start");
+
         feedReaderDbHelper = new FeedReaderDbHelper(getContext());
         db_favourite = feedReaderDbHelper.getWritableDatabase();
 
         SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (!pref_default.getBoolean("thirdTime", false)) {
-            // <---- run your one time code here
-            Log.i(TAG, "onCreate: before oncreate");
-
-
             feedReaderDbHelper.onCreateOriginal(db_favourite);
-            Log.i(TAG, "onCreate: called");
             SharedPreferences.Editor editor = pref_default.edit();
             editor.putBoolean("thirdTime", true);
             editor.apply();
         }
         String url2 = "http://flatlet.in/flatletfavouritefetcher/flatletfavouritefetcher.jsp?phoneNumberString=" + phoneNumberString;
-        Log.i(TAG, "fetchFavouriteHostels: "+url2);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url2,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i(TAG, "onResponse: response start for favourite hostels");
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                Log.i(TAG, "onResponse: response from favourite fetcher");
-                                JSONObject object = response.getJSONObject(i);
-                                ContentValues values = new ContentValues();
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, object.getString("title"));
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, object.getString("secondary_address"));
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, object.getInt("rent"));
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, object.getDouble("rating"));
-                                values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, object.getString("img_url"));
-                                db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                        new SaveDBTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, response);
 
+                       /* for (int i = 0; i < response.length(); i++) {
+                            try {
+                                        JSONObject object = response.getJSONObject(i);
+                                        ContentValues values = new ContentValues();
+                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, object.getString("title"));
+                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, object.getString("secondary_address"));
+                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, object.getInt("rent"));
+                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, object.getDouble("rating"));
+                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, object.getString("img_url"));
+                                        db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
+                        }*/
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
-                        Log.i(TAG, "onErrorResponse: response error ");
+
                     }
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        Log.i(TAG, "JSON_DATA_WEB_CALL: RequestQueue's object formation");
         requestQueue.add(jsonArrayRequest);
+    }
+
+    private class MyTask extends AsyncTask<JSONObject, Void, Void> {
+
+        @Override
+        protected Void doInBackground(JSONObject... response) {
+            SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            try {
+                editor.putString("userName", response[0].getString("user_ka_naam"));
+                editor.putString("userEmail", response[0].getString("user_emailid"));
+                editor.putString("hostel1_name", response[0].getString("hostel1_name"));
+                editor.putFloat("hostel1_rating", ((float) response[0].getDouble("hostel1_rating")));
+                editor.putInt("hostel1_food", response[0].getInt("hostel1_food"));
+                editor.putInt("hostel1_accommodation", response[0].getInt("hostel1_accommodation"));
+                editor.putInt("hostel1_staffbehaviour", response[0].getInt("hostel1_staffbehaviour"));
+                editor.putInt("hostel1_studyenvironment", response[0].getInt("hostel1_studyenvironment"));
+                editor.putFloat("hostel2_rating", (float) (response[0].getDouble("hostel2_rating")));
+                editor.putInt("hostel2_food", response[0].getInt("hostel2_food"));
+                editor.putInt("hostel2_accommodation", response[0].getInt("hostel2_accommodation"));
+                editor.putInt("hostel2_staffbehaviour", response[0].getInt("hostel2_staffbehaviour"));
+                editor.putInt("hostel2_studyenvironment", response[0].getInt("hostel2_studyenvironment"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
+            editor.apply();
+            return null;
+        }
+    }
+
+    private class SaveDBTask extends AsyncTask<JSONArray, Void, Void> {
+
+        @Override
+        protected Void doInBackground(JSONArray... response) {
+            for (int i = 0; i < response[0].length(); i++) {
+                try {
+                    JSONObject object = response[0].getJSONObject(i);
+                    ContentValues values = new ContentValues();
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, object.getString("title"));
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, object.getString("secondary_address"));
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, object.getInt("rent"));
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, object.getDouble("rating"));
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, object.getString("img_url"));
+                    db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
     }
 
 

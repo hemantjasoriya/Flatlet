@@ -7,7 +7,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (MySingleton.getInstance(getContext()).isOnline()) {
-                    Log.i("ExploreNow check", "onClick: " + MySingleton.getInstance(getContext()).isOnline());
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("locality", "");
                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");

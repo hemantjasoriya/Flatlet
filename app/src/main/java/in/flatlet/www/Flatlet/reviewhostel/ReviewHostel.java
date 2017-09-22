@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,7 +43,7 @@ public class ReviewHostel extends AppCompatActivity {
     private SQLiteDatabase db;
     private RequestQueue requestQueue;
     private RequestQueue requestQueue1;
-    private static final String TAG = "ReviewHostel";
+
     private AutoCompleteTextView autoComplete;
     private Cursor cursor1;
     private final ArrayList<String> list = new ArrayList<>();
@@ -84,18 +84,12 @@ public class ReviewHostel extends AppCompatActivity {
 
         FeedReaderDbHelperReviewHostel mDbHelper = new FeedReaderDbHelperReviewHostel(this);
         db = mDbHelper.getWritableDatabase();
-        Log.i(TAG, "onCreate: of main");
 
-        // Gets the data repository in write mode
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (!prefs.getBoolean("secondTime", false)) {
-            // <---- run your one time code here
-            Log.i(TAG, "onCreate: before oncreate");
+
             mDbHelper.onCreateOriginal(db);
-            Log.i(TAG, "onCreate: called");
-
-
             // mark first time has run.
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("secondTime", true);
@@ -116,29 +110,26 @@ public class ReviewHostel extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.i(TAG, "onResponse: " + response.length());
 
-                        for (int j = 0; j < response.length(); j++) {
+                        new MyTask().execute(response);
+                        /*for (int j = 0; j < response.length(); j++) {
                             try {
                                 String title = response.getString(j);
-                                Log.i(TAG, "onResponse: " + title);
+
                                 ContentValues values = new ContentValues();
                                 values.put(FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE, title);
                                 long newRowId = db.insert(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, null, values);
-                                Log.i(TAG, "onResponse:1 " + newRowId);
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
+                        }*/
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.i(TAG, "onErrorResponse: " + error);
-
 
                     }
                 });
@@ -150,7 +141,6 @@ public class ReviewHostel extends AppCompatActivity {
         autoComplete.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.i(TAG, "beforeTextChanged: ");
                 if (start <= 7)
                     reviewCard.setVisibility(View.GONE);
 
@@ -161,37 +151,21 @@ public class ReviewHostel extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                Log.i(TAG, "onTextChanged: before if " + count);
-                Log.i(TAG, "onTextChanged: before " + before);
-                Log.i(TAG, "onTextChanged: start " + start);
                 if (start > 1) {
-                    Log.i(TAG, "onTextChanged: after if" + s);
 
                     cursor1 = db.rawQuery("Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
                             + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s + "%'", null);
 
-                    Log.i(TAG, "onTextChanged: query=" + "Select " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " from "
-                            + FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME + " WHERE " + FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE + " LIKE '%" + s + "%'", null);
-
                     while (cursor1.moveToNext()) {
-
                         String title = cursor1.getString(0);
-                        Log.i(TAG, "onTextChanged: " + title);
-                        Log.i(TAG, "onTextChanged: " + cursor1.getCount());
-
                         list.add(title);
-                        Log.i(TAG, "onTextChanged: after add" + title);
-                        Log.i(TAG, "onTextChanged: list size " + list.size());
                     }
                     adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, list);
                     autoComplete.setAdapter(adapter);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i(TAG, "afterTextChanged: ");
 
             }
         });
@@ -201,7 +175,7 @@ public class ReviewHostel extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
                 if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
-                    Log.i(TAG, "onItemClick: clicked hostel is " + adapter.getItem(arg2));
+
                     reviewHostelTitle.setText(adapter.getItem(arg2));
                     String title = adapter.getItem(arg2).replace(" ", "%20");
                     hostel_title = title;
@@ -212,18 +186,18 @@ public class ReviewHostel extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     try {
-                                        Log.i(TAG, "onResponse: ");
+
                                         reviewSecAddress.setText(response.getString("address_secondary"));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                        Log.i(TAG, "onResponse: catch " + e);
+
                                     }
                                 }
                             }, new Response.ErrorListener() {
 
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Log.i(TAG, "onErrorResponse: " + error);
+
                                 }
                             });
                     requestQueue1 = MySingleton.getInstance(getApplicationContext()).getRequestQueue();
@@ -244,7 +218,6 @@ public class ReviewHostel extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ReviewHostel.this, Activity2.class);
                 intent.putExtra("hostel_title", hostel_title);
-                Log.i(TAG, "onClick: title sent to Activity 2 is");
                 startActivity(intent);
             }
         });
@@ -260,5 +233,24 @@ public class ReviewHostel extends AppCompatActivity {
         }
     }
 
+    private class MyTask extends AsyncTask<JSONArray, Void, Void> {
+
+        @Override
+        protected Void doInBackground(JSONArray... response) {
+            for (int j = 0; j < response[0].length(); j++) {
+                try {
+                    String title = response[0].getString(j);
+
+                    ContentValues values = new ContentValues();
+                    values.put(FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE, title);
+                    db.insert(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, null, values);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+    }
 
 }

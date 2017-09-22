@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,6 @@ public class SavedProfileFragment extends Fragment {
     private EditText userNameEditText;
     private EditText userEmailEditText;
     private TextView userNameEditButton, emailEditButton, textView;
-
-    private final String TAG = "SavedProfileFragment";
     private int i = 0;
     private RequestQueue queue1;
 
@@ -81,7 +78,7 @@ public class SavedProfileFragment extends Fragment {
                     editor.putString("userName", userNameEditText.getText().toString());
                     editor.apply();
                     i++;
-                    Log.i(TAG, "onClick: value of i is " + i);
+
                 }
 
             }
@@ -102,7 +99,7 @@ public class SavedProfileFragment extends Fragment {
                     editor.putString("userEmail", userEmailEditText.getText().toString());
                     editor.apply();
                     i++;
-                    Log.i(TAG, "onClick: value of i is " + i);
+
                 }
 
             }
@@ -135,7 +132,7 @@ public class SavedProfileFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop: ");
+
         if (i > 0 && MySingleton.getInstance(getContext()).isOnline()) {
             //sending changes to database
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
@@ -143,7 +140,7 @@ public class SavedProfileFragment extends Fragment {
             String dbqry = "UPDATE `our_users` SET `user_ka_naam`='" + sharedPreferences.getString("userName", "john doe") + "'," +
                     "`user_emailid`='" + sharedPreferences.getString("userEmail", "@johndoe") + "' WHERE `user_mobile`=" +
                     "'" + sharedPreferences.getString("userMobile", "911") + "'";
-            Log.i(TAG, "onStop: " + dbqry);
+
 
             String url = "http://flatlet.in/flatletuserinsert/flatletuserinsert.jsp?dbqry=" + dbqry;
             String urlFinal = url.replace(" ", "%20");
@@ -154,13 +151,12 @@ public class SavedProfileFragment extends Fragment {
                         @Override
                         public void onResponse(String response) {
                             // Display the first 500 characters of the response string.
-                            Log.i(TAG, "onResponse: " + response);
+
 
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: " + error);
 
                 }
             });

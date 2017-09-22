@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
@@ -42,9 +44,11 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     private final SQLiteDatabase db_favourite;
     private Cursor cursor;
     private RequestQueue queue1;
-    private final String TAG = "RecyclerViewAdapter";
     private final RecyclerView recyclerView;
     private int i = 0;
+    Handler mHandler = new Handler();
+    /*private static final int AD_VIEW_TYPE =1;
+    private static final int MENU_ITEM_VIEW_TYPE =0;*/
 
 
     RecyclerViewAdapter(List<GetDataAdapter> getDataAdapter, Context context, RecyclerView recyclerView) {
@@ -58,9 +62,9 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(context);
         if (!pref_default.getBoolean("thirdTime", false)) {
             // <---- run your one time code here
-            Log.i(TAG, "onCreate: before oncreate");
+
             feedReaderDbHelper.onCreateOriginal(db_favourite);
-            Log.i(TAG, "onCreate: called");
+
             SharedPreferences.Editor editor = pref_default.edit();
             editor.putBoolean("thirdTime", true);
             editor.apply();
@@ -68,38 +72,30 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.i(TAG, "onCreateViewHolder:invoked ");
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_cards, parent, false);
         return new ViewHolder(v);
+
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        Log.i(TAG, "onBindViewHolder: invoked" + position);
+
         final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(position);
-        holder.card_rating.setText(String.valueOf(getDataAdapter1.getCardRating()));
+        final String title = getDataAdapter1.getName().replace(" ", "%20");
+        Picasso.with(context).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(200, 130).centerCrop().into(holder.imageView2);
+        holder.card_rating.setText(String.format(Locale.US, "%.1f", getDataAdapter1.getCardRating()));
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
-        Log.i(TAG, "onBindViewHolder: " + getDataAdapter1.getCardRating());
-        final String title = getDataAdapter1.getName().replace(" ","%20");
-        Picasso.with(context).load("http://images.flatlet.in/images/"+title+"/Thumb/1.webp").resize(200,130).centerCrop().into(holder.imageView2);
         holder.imageView2.setAlpha(1.0f);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
         String[] selectionArgs = {getDataAdapter1.getName()};
         cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-
-        Log.i(TAG, "onBindViewHolder: before if and get count is " + cursor.getCount());
-
-
         cursor.moveToNext();
         if (cursor.getCount() != 0 && cursor.getString(0).equalsIgnoreCase(getDataAdapter1.getName())) {
-
-            Log.i(TAG, "onBindViewHolder: cursor.isnull returned true " + cursor.getString(0));
-
             holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
             i++;
             holder.toggle.setChecked(true);
@@ -109,87 +105,98 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             holder.toggle.setChecked(false);
         }
 
-
         holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
                 SharedPreferences sharedPreferences = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                 String dbqry = null;
 
+
                 if (i > 0) {
-                    Log.i(TAG, "onCheckedChanged: value of i " + i);
+
                     i = 0;
                     return;
                 }
                 if (isChecked) {
-                    Log.i(TAG, "onCheckedChanged: is checked start");
                     holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
-                    ContentValues values = new ContentValues();
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, getDataAdapter1.getName());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, getDataAdapter1.getAddress());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, getDataAdapter1.getRent());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+title+"/Thumb/1.webp");
-                    db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            ContentValues values = new ContentValues();
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, getDataAdapter1.getName());
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, getDataAdapter1.getAddress());
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, getDataAdapter1.getRent());
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + title + "/Thumb/1.webp");
+                            db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
+                            Log.i("Inserting in SQLite", "run: " + "mast add ho gya SQLite mein");
+
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context, getDataAdapter1.getName() + " added to favourites", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).start();
+
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + getDataAdapter1.getName() + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + getDataAdapter1.getAddress() + "','" + getDataAdapter1.getRent() + "'," +
-                            "'http://images.flatlet.in/images_thumbs/" + (position + 1) + "/1.jpg','"+getDataAdapter1.getCardRating()+"')";
+                            "'http://images.flatlet.in/images/" + title + "/Thumb/1.webp','" + getDataAdapter1.getCardRating() + "')";
 
-                    // checking the size of sqlite database
-                    String[] projection1 = {
-                            FeedReaderContract.FeedEntry._ID,
-                            FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE,
-                    };
-
-                    cursor = db_favourite.query(FeedReaderContract.FeedEntry.TABLE_NAME, projection1, null, null, null, null, null);
-                    int i = cursor.getCount();
-                    Log.i(TAG, "onCreate: No of entries now is" + i);
-
-                    Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show();
                 } else {
-                    Log.i(TAG, "onCheckedChanged: is checked false chala");
+
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int i = layoutManager.findFirstVisibleItemPosition();
                     int j = layoutManager.findLastVisibleItemPosition();
                     if (position >= i && position <= j) {
                         holder.toggle.setBackgroundResource(R.drawable.ic_favorite_white_24dp);
-                        db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{getDataAdapter1.getName()});
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("Delete from database", "run: " + "Mast delete ho gya SQLite se background thread mein");
+                                db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{getDataAdapter1.getName()});
+
+                            }
+                        }).start();
                         dbqry = "DELETE FROM `user_favourites` WHERE `title`='" + getDataAdapter1.getName() + "'  AND" +
                                 " `user_mobile`='" + sharedPreferences.getString("userMobile", "911") + "'";
-
                     }
                 }
+
+
                 String url = "http://flatlet.in/webservices/flatletuserinsert.jsp?dbqry="+dbqry;
                 String urlFinal = url.replace(" ", "%20");
-
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, urlFinal,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-                                Log.i(TAG, "onResponse: " + response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.i(TAG, "onErrorResponse: " + error);
+                        Toast.makeText(context, "Some Error Occured !! Please Try again", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
-
                 stringRequest.setTag(MyRequestTag);
                 MySingleton.getInstance(context).addToRequestQueue(stringRequest);
-                Log.i(TAG, "onCheckedChanged: after volley request");
+
             }
         });
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClicked on" + position + getDataAdapter1.getName());
+
                 Intent intent = new Intent(context, Activity2.class);
                 intent.putExtra("hostel_title", getDataAdapter1.getName());
                 intent.putExtra("hostel_rent",getDataAdapter1.getRent());
-                Log.i(TAG, "onClick: data sent to activity2 is " + getDataAdapter1.getName());
+
                 context.startActivity(intent);
             }
         });
@@ -203,9 +210,14 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         }
     }
 
+   /* @Override
+    public int getItemViewType(int position) {
+        return (position % 8==0)? AD_VIEW_TYPE : MENU_ITEM_VIEW_TYPE;
+    }*/
+
     @Override
     public int getItemCount() {
-        Log.i(TAG, "getItemCount: ");
+
 
         return dataModelArrayList.size();
     }
@@ -223,9 +235,9 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
         ViewHolder(View itemView) {
             super(itemView);
-            Log.i(TAG, "ViewHolder: constructor invoked and xml inflated to java object");
+
             card_rating =(TextView)itemView.findViewById(R.id.card_rating);
-            Log.i(TAG, "ViewHolder: hostel rating textview is inflated now");
+
             hostel_title = (TextView) itemView.findViewById(R.id.hostel_title);
             hostel_rent = (TextView) itemView.findViewById(R.id.hostel_rent);
             hostel_address = (TextView) itemView.findViewById(R.id.hostel_address);
@@ -234,5 +246,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
         }
     }
+
 
 }

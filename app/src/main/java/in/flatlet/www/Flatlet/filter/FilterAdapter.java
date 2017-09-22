@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 
 class FilterAdapter extends FragmentStatePagerAdapter {
-    public FilterAdapter(FragmentManager fm) {
+    FilterAdapter(FragmentManager fm) {
 
         super(fm);
     }
