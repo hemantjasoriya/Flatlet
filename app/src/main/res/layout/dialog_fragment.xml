@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textViewfood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/activity2_card_title_size"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="@dimen/activity2_card_margin_up"
+        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+        android:text="@string/food" />
+
+    <RatingBar
+        android:id="@+id/ratingBarFoodFrag"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textViewfood"
+        android:layout_marginEnd="60dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:stepSize="0.1" />
+
+
+    <TextView
+        android:id="@+id/textViewacco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewfood"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="@dimen/activity2_card_margin_up"
+        android:textSize="@dimen/activity2_card_title_size"
+        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+        android:text="@string/accommodation" />
+
+    <RatingBar
+        android:id="@+id/ratingBarAccommodationFrag"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textViewacco"
+        android:layout_marginEnd="60dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:stepSize="0.1" />
+
+
+    <TextView
+        android:id="@+id/textViewStaff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewacco"
+        android:layout_marginStart="40dp"
+        android:textSize="@dimen/activity2_card_title_size"
+        android:layout_marginTop="@dimen/activity2_card_margin_up"
+        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+        android:text="@string/staff_behaviour" />
+
+    <RatingBar
+        android:id="@+id/ratingBarStaffFrag"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textViewStaff"
+        android:layout_marginEnd="60dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:stepSize="0.1" />
+
+
+    <TextView
+        android:id="@+id/textViewStudy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textViewStaff"
+        android:layout_marginStart="40dp"
+        android:textSize="@dimen/activity2_card_title_size"
+        android:layout_marginTop="@dimen/activity2_card_margin_up"
+        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+        android:text="@string/study_environment" />
+
+    <RatingBar
+        android:id="@+id/ratingBarStudyEnvironmentFrag"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textViewStudy"
+        android:layout_marginEnd="60dp"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:stepSize="0.1" />
+</RelativeLayout>

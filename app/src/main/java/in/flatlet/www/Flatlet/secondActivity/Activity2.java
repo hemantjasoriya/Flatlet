@@ -667,6 +667,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
                 return true;
+            case R.id.report:
+                Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
+                intent.putExtra(Intent.EXTRA_SUBJECT, "your_subject");
+                intent.putExtra(Intent.EXTRA_TEXT, "your_text "+hostel_title);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }

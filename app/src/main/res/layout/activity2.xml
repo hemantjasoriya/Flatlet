@@ -1,10 +1,10 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity2_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:id="@+id/activity2_layout">
+    android:fitsSystemWindows="true">
 
 
     <android.support.design.widget.AppBarLayout
@@ -44,15 +44,15 @@
                     android:background="@android:drawable/ic_menu_gallery"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"></ImageView>
+
                 <TextView
+                    android:id="@+id/total_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/total_views"
-                    android:drawableStart="@drawable/ic_eye"
-                    android:drawablePadding="2dp"
-                    android:visibility="invisible"
                     android:layout_below="@+id/toolbar"
-                    />
+                    android:drawablePadding="2dp"
+                    android:drawableStart="@drawable/ic_eye"
+                    android:visibility="invisible" />
 
                 <ImageButton
                     android:id="@+id/imageHead1"
@@ -60,10 +60,10 @@
                     android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:scaleType="centerCrop"
                     android:layout_marginTop="96dp"
                     android:alpha="0.8"
-                    android:background="@android:drawable/ic_menu_camera" />
+                    android:background="@android:drawable/ic_menu_camera"
+                    android:scaleType="centerCrop" />
 
 
             </RelativeLayout>
@@ -141,9 +141,9 @@
                         android:layout_below="@+id/textView2"
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:text="@string/single_non_ac" />
+                        android:text="@string/single_non_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/text_single_nonac"
@@ -154,19 +154,19 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/textView"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:text="@string/single_ac" />
+                        android:text="@string/single_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/text_single_ac"
@@ -175,10 +175,10 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/textView3"
                         android:layout_marginEnd="60dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView3"
                         android:text="@string/n_a"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/textView6"
@@ -187,9 +187,9 @@
                         android:layout_below="@+id/textView3"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:text="@string/double_non_ac" />
+                        android:text="@string/double_non_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/text_double_nonac"
@@ -198,10 +198,10 @@
                         android:layout_alignParentEnd="true"
                         android:layout_alignTop="@+id/textView6"
                         android:layout_marginEnd="60dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView6"
                         android:text="@string/n_a"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/textView7"
@@ -210,9 +210,9 @@
                         android:layout_below="@+id/textView6"
                         android:layout_marginBottom="5dp"
                         android:layout_marginStart="40dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:text="@string/double_ac" />
+                        android:text="@string/double_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/text_double_ac"
@@ -222,10 +222,10 @@
                         android:layout_alignTop="@+id/textView7"
                         android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginEnd="60dp"
-                        android:textSize="@dimen/activity2_card_title_size"
                         android:layout_toEndOf="@+id/textView7"
                         android:text="@string/n_a"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/textBottom"
@@ -373,8 +373,8 @@
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:text="@string/area_single_room_sqft" />
+                        android:text="@string/area_single_room_sqft"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/area_single_room"
@@ -385,8 +385,8 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
 
                     <TextView
@@ -397,8 +397,8 @@
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_down"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:text="@string/area_double_room_sqft" />
+                        android:text="@string/area_double_room_sqft"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/area_double_room"
@@ -410,8 +410,8 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text3"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
 
                     <TextView
@@ -422,8 +422,8 @@
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_down"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:text="@string/only_for" />
+                        android:text="@string/only_for"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/gender"
@@ -435,8 +435,8 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text5"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
 
                     <TextView
@@ -447,8 +447,8 @@
                         android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_down"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:text="@string/locality" />
+                        android:text="@string/locality"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/locality"
@@ -460,8 +460,8 @@
                         android:layout_marginEnd="60dp"
                         android:layout_toEndOf="@+id/text7"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:textAlignment="textEnd" />
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <TextView
                         android:id="@+id/text1"
@@ -513,11 +513,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView11"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/n_a"
-                        android:textSize="42sp"
-                        android:textColor="#f8013b"
                         android:drawableLeft="@drawable/star1"
-                        android:drawableRight="@drawable/info"/>
+                        android:drawableRight="@drawable/info"
+                        android:text="@string/n_a"
+                        android:textColor="#f8013b"
+                        android:textSize="42sp" />
 
 
                     <TextView
@@ -526,9 +526,9 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textViewRating"
                         android:layout_centerHorizontal="true"
+                        android:drawableLeft="@drawable/person"
                         android:text="@string/n_a"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:drawableLeft="@drawable/person"/>
+                        android:textSize="@dimen/activity2_card_title_size" />
 
 
                     <TextView
@@ -538,11 +538,11 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textViewTotalRating"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/activity2_card_title_size"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
-                        android:text="@string/food" />
+                        android:text="@string/food"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <RatingBar
                         android:id="@+id/ratingBarFood"
@@ -567,11 +567,11 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView12"
                         android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
                         android:layout_marginStart="40dp"
                         android:layout_marginTop="@dimen/activity2_card_margin_up"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
-                        android:text="@string/accommodation" />
+                        android:text="@string/accommodation"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <RatingBar
                         android:id="@+id/ratingBarAccommodation"
@@ -596,11 +596,11 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView13"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="40dp"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
-                        android:text="@string/staff_behaviour" />
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/staff_behaviour"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <RatingBar
                         android:id="@+id/ratingBarStaff"
@@ -625,11 +625,11 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/textView14"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="40dp"
-                        android:textSize="@dimen/activity2_card_title_size"
-                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
-                        android:text="@string/study_environment" />
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/study_environment"
+                        android:textSize="@dimen/activity2_card_title_size" />
 
                     <RatingBar
                         android:id="@+id/ratingBarStudyEnvironment"
@@ -652,11 +652,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView15"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
                         android:elevation="5dp"
-                        android:text="@string/submit"
-                        android:onClick="onSubmitRatingButton"/>
+                        android:onClick="onSubmitRatingButton"
+                        android:text="@string/submit" />
 
 
                 </RelativeLayout>

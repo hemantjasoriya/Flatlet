@@ -6,6 +6,11 @@
         android:icon="@drawable/favourite"
         app:showAsAction="ifRoom"/>
 
+    <item android:id="@+id/report"
+        android:title="@string/report_this_hostel"
+        app:showAsAction="never"
+        />
+
 
 
 </menu>

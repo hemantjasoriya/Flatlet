@@ -146,4 +146,5 @@
     <string name="gender">Gender</string>
     <string name="phone_numbe">Phone number*</string>
     <string name="email_addres">Email address*</string>
+    <string name="report_this_hostel">Report this Hostel</string>
 </resources>
