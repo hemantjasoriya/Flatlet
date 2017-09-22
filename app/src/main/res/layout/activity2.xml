@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:id="@+id/activity2_layout">
 
 
     <android.support.design.widget.AppBarLayout
@@ -515,7 +516,9 @@
                         android:text="@string/n_a"
                         android:textSize="42sp"
                         android:textColor="#f8013b"
-                        android:drawableLeft="@drawable/star1"/>
+                        android:drawableLeft="@drawable/star1"
+                        android:drawableRight="@drawable/info"/>
+
 
                     <TextView
                         android:id="@+id/textViewTotalRating"

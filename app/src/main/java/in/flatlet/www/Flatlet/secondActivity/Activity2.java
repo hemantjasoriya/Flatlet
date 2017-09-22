@@ -172,6 +172,21 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
+
+        textViewRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putFloat("hostel_rating_food",hostel_rating_food);
+                bundle.putFloat("hostel_rating_accommodation",hostel_rating_accommodation);
+                bundle.putFloat("hostel_rating_study",hostel_rating_study);
+                bundle.putFloat("hostel_rating_staff",hostel_rating_staff);
+                MyDialogFragment fragment = new MyDialogFragment();
+                fragment.setArguments(bundle);
+                fragment.show(getSupportFragmentManager(),"fragment Dialog");
+            }
+        });
+
         ImageView imageHead = (ImageView) findViewById(R.id.imageHead);
         imageHead.setOnClickListener(new View.OnClickListener() {
             @Override
