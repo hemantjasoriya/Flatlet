@@ -27,9 +27,6 @@
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <!-- <RelativeLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent">-->
             <ImageView
                 android:id="@+id/imageHead"
                 android:layout_width="match_parent"
@@ -73,8 +70,6 @@
                 android:background="@android:drawable/ic_menu_camera"
                 android:scaleType="centerCrop" />
 
-
-            <!--</RelativeLayout>-->
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -293,7 +288,7 @@
                             android:contentDescription="@string/security_image_vector"
                             android:paddingBottom="10dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/ic_security" />
+                            app:srcCompat="@drawable/ic_geyser" />
 
                         <ImageView
                             android:id="@+id/image_ame2"
@@ -309,9 +304,9 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:padding="5dp"
+                            android:paddingBottom="15dp"
                             android:scaleType="fitCenter"
-                            app:srcCompat="@drawable/ic_ac" />
+                            app:srcCompat="@drawable/ic_studytable" />
 
                         <ImageView
                             android:id="@+id/imageView4"

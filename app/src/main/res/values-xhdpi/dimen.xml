@@ -15,7 +15,7 @@
     <dimen name="hostel_title_recycler_card">17sp</dimen>
     <dimen name="hostel_rent_recycler_Card">16sp</dimen>
     <dimen name="hostel_address_recycler_card">14sp</dimen>
-    <dimen name="hostel_detail_image_height">280dp</dimen>
+    <dimen name="hostel_detail_image_height">300dp</dimen>
     <dimen name="card_margin_bottom">8dp</dimen>
     <dimen name="subtitle_padding">3dp</dimen>
     <dimen name="activity2_card_margin_up">7dp</dimen>
