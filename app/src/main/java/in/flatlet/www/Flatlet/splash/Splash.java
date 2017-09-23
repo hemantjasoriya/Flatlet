@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -36,7 +35,7 @@ public class Splash extends AppCompatActivity {
         sharedPreferences1=getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         final AccessToken accessToken= AccountKit.getCurrentAccessToken();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String TAG = "SplashActivity";
+
         if(!(sharedPreferences.getBoolean("welcome",false)))
         {
 
@@ -56,7 +55,7 @@ public class Splash extends AppCompatActivity {
             editor.apply();
         }
         else {
-            Log.i(TAG, "onCreate:  else wala" + sharedPreferences.getBoolean("welcome",false));
+
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

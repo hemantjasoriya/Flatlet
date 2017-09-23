@@ -119,14 +119,20 @@ public class SavedProfileFragment extends Fragment {
         AccountKit.logOut();
         startActivity(new Intent(getActivity(),LoginActivity.class));
         // changing user name in shared preferences
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
-        // delete all rows from sqlite database
-        FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
-        SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
-        db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                // delete all rows from sqlite database
+                FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(getContext());
+                SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
+                db_favourite.execSQL("delete from " + FeedReaderContract.FeedEntry.TABLE_NAME);
+            }
+        }).start();
+
     }
 
     @Override
@@ -150,8 +156,6 @@ public class SavedProfileFragment extends Fragment {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            // Display the first 500 characters of the response string.
-
 
                         }
                     }, new Response.ErrorListener() {

@@ -20,7 +20,7 @@ public class MyDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_fragment, container, false);
+        View view = inflater.inflate(R.layout.dialog_fragment_rating, container, false);
         getDialog().setTitle("DialogFragment Tutorial");
         hostel_rating_food=getArguments().getFloat("hostel_rating_food");
         hostel_rating_accommodation=getArguments().getFloat("hostel_rating_accommodation");

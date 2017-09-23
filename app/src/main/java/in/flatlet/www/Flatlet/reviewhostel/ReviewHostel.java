@@ -112,19 +112,6 @@ public class ReviewHostel extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
 
                         new MyTask().execute(response);
-                        /*for (int j = 0; j < response.length(); j++) {
-                            try {
-                                String title = response.getString(j);
-
-                                ContentValues values = new ContentValues();
-                                values.put(FeedReaderContractReviewHostel.FeedEntry.COLUMN_NAME_TITLE, title);
-                                long newRowId = db.insert(FeedReaderContractReviewHostel.FeedEntry.TABLE_NAME, null, values);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
                     }
                 },
                 new Response.ErrorListener() {

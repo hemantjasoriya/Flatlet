@@ -22,7 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private String roomType;
     private String gender;
     private Toolbar toolbar ;
-    WeakReference<MainActivity> mActivityWeak;
 
     @Override
     public void onBackPressed() {
