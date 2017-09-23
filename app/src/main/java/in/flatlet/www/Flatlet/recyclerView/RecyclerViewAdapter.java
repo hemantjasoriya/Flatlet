@@ -130,7 +130,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, getDataAdapter1.getAddress());
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, getDataAdapter1.getRent());
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + title + "/Thumb/1.webp");
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+title+"/Thumb/1.webp");
                             db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                             Log.i("Inserting in SQLite", "run: " + "mast add ho gya SQLite mein");
 

@@ -164,8 +164,9 @@ public class ReviewHostel extends AppCompatActivity {
                 if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
 
                     reviewHostelTitle.setText(adapter.getItem(arg2));
-                    String title = adapter.getItem(arg2).replace(" ", "%20");
-                    hostel_title = title;
+                    String title1 = adapter.getItem(arg2);
+                    hostel_title = title1;
+                    String title= adapter.getItem(arg2).replace(" ", "%20");
 
                     jsonObjRequest = new JsonObjectRequest
                             ("http://flatlet.in/webservices/reviewdata.jsp?title=" + title, null, new Response.Listener<JSONObject>() {
@@ -191,7 +192,7 @@ public class ReviewHostel extends AppCompatActivity {
                     jsonObjRequest.setTag("MyRequestTag2");
                     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjRequest);
 
-                    Picasso.with(getApplicationContext()).load("http://images.flatlet.in/images/" + hostel_title + "/Thumb/1.webp").resize(200,150).centerCrop().into(reviewImageView);
+                    Picasso.with(getApplicationContext()).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(200,150).centerCrop().into(reviewImageView);
                     reviewCard.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
