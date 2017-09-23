@@ -41,6 +41,11 @@ public class MyDialogFragment extends DialogFragment {
         ratingBarAccommodationFrag.setRating(hostel_rating_accommodation);
         ratingBarStaffFrag.setRating(hostel_rating_staff);
         ratingBarStudyEnvironmentFrag.setRating(hostel_rating_study);
+        ratingBarFoodFrag.setIsIndicator(true);
+        ratingBarAccommodationFrag.setIsIndicator(true);
+        ratingBarStaffFrag.setIsIndicator(true);
+        ratingBarStudyEnvironmentFrag.setIsIndicator(true);
+
 
 
     }

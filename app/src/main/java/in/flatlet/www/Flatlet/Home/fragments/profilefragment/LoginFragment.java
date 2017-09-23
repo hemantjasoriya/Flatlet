@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -57,12 +59,16 @@ public class LoginFragment extends Fragment {
     private FeedReaderDbHelper feedReaderDbHelper;
     private SQLiteDatabase db_favourite;
     private String phoneNumberString;
+    private ProgressBar progressBar;
+    RelativeLayout RL;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        RL = (RelativeLayout)view.findViewById(R.id.RL);
 
 
         return view;
@@ -135,6 +141,9 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onSuccess(final Account account) {
                             // Get phone number
+                            progressBar.setVisibility(View.VISIBLE);
+                            RL.setAlpha(0.4f);
+                            progressBar.setAlpha(1);
                             PhoneNumber phoneNumber = account.getPhoneNumber();
                             phoneNumberString = (phoneNumber.toString()).replace("+91", "");
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
@@ -158,11 +167,11 @@ public class LoginFragment extends Fragment {
 
                                                 } else {
 
-                                                    Intent intent = new Intent(getActivity(), FirstActivity.class);
+                                                    fetchDataFromDatabase();
+                                                    /*Intent intent = new Intent(getActivity(), FirstActivity.class);
                                                     intent.setFlags(1);
                                                     getActivity().startActivity(intent);
-
-                                                    fetchDataFromDatabase();
+*/
 
                                                 }
                                             } catch (JSONException e) {
@@ -195,9 +204,9 @@ public class LoginFragment extends Fragment {
 
 
                 } else {
-                    toastMessage = String.format(
+                    /*toastMessage = String.format(
                             "Success:%s...",
-                            loginResult.getAuthorizationCode().substring(0, 10));
+                            loginResult.getAuthorizationCode().substring(0, 10));*/
                 }
             }
 
@@ -216,27 +225,6 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        /*SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        try {
-                            editor.putString("userName", response.getString("user_ka_naam"));
-                            editor.putString("userEmail", response.getString("user_emailid"));
-                            editor.putString("hostel1_name", response.getString("hostel1_name"));
-                            editor.putFloat("hostel1_rating", ((float) response.getDouble("hostel1_rating")));
-                            editor.putInt("hostel1_food", response.getInt("hostel1_food"));
-                            editor.putInt("hostel1_accommodation", response.getInt("hostel1_accommodation"));
-                            editor.putInt("hostel1_staffbehaviour", response.getInt("hostel1_staffbehaviour"));
-                            editor.putInt("hostel1_studyenvironment", response.getInt("hostel1_studyenvironment"));
-                            editor.putFloat("hostel2_rating", (float) (response.getDouble("hostel2_rating")));
-                            editor.putInt("hostel2_food", response.getInt("hostel2_food"));
-                            editor.putInt("hostel2_accommodation", response.getInt("hostel2_accommodation"));
-                            editor.putInt("hostel2_staffbehaviour", response.getInt("hostel2_staffbehaviour"));
-                            editor.putInt("hostel2_studyenvironment", response.getInt("hostel2_studyenvironment"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        }
-                        editor.apply();*/
                         new MyTask().execute(response);
 
 
@@ -271,21 +259,6 @@ public class LoginFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         new SaveDBTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, response);
 
-                       /* for (int i = 0; i < response.length(); i++) {
-                            try {
-                                        JSONObject object = response.getJSONObject(i);
-                                        ContentValues values = new ContentValues();
-                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE, object.getString("title"));
-                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, object.getString("secondary_address"));
-                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, object.getInt("rent"));
-                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, object.getDouble("rating"));
-                                        values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, object.getString("img_url"));
-                                        db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
                     }
                 },
                 new Response.ErrorListener() {
@@ -325,6 +298,15 @@ public class LoginFragment extends Fragment {
             }
             editor.apply();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Intent intent = new Intent(getActivity(), FirstActivity.class);
+            intent.setFlags(1);
+            getActivity().startActivity(intent);
+
         }
     }
 
