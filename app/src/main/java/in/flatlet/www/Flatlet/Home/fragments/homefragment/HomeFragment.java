@@ -1,24 +1,17 @@
 package in.flatlet.www.Flatlet.Home.fragments.homefragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
-import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.recyclerView.MainActivity;
-import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 
 
 public class HomeFragment extends Fragment {
@@ -37,7 +30,7 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
-        CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
+        /*CardView reviewHostelCard = (CardView) getActivity().findViewById(R.id.cardViewReview);
         ImageView exploreNowButton = (ImageView) getActivity().findViewById(R.id.exploreNowButton);
 
         reviewHostelCard.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +55,7 @@ public class HomeFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
 
         searchEditText.setOnClickListener(new View.OnClickListener() {
             @Override

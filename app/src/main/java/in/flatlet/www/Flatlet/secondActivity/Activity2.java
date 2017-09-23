@@ -618,12 +618,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, locality.getText().toString());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, hostel_rent);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, textViewRating.getText().toString());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumbs/1.webp");
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp");
 
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + hostel_title + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + locality.getText() + "','" + hostel_rent + "'," +
-                            "'http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumbs/1.webp','" + textViewRating.getText() + "')";
+                            "'http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp','" + textViewRating.getText() + "')";
 
                     // checking the size of sqlite database
                     String[] projection1 = {

@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/v"
     android:layout_width="match_parent"
+    android:background="@color/relativeBackground"
     android:layout_height="match_parent">
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/home_toolbar"
-        android:background="@color/colorPrimary"
-        >
+        android:background="@color/colorPrimary">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,95 +20,223 @@
             android:textSize="26sp"
             android:textColor="#ffffff"/>
     </android.support.v7.widget.Toolbar>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/home_toolbar">
-    <RelativeLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.CardView
-            android:id="@+id/searchcard"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/home_toolbar">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp">
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/segment1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/hostel_title_recycler_card"
+                        android:text="@string/city_name"
+                        android:textSize="@dimen/home_fragment_text" />
+
+                    <EditText
+                        android:id="@+id/search_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/home_fragment_searchbar_height"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:padding="4dp"
+                        android:drawableStart="@drawable/ic_search_black_24dp"
+                        android:background="@drawable/round1"
+                        android:drawablePadding="5dp"
+                        android:focusable="false"
+                        android:hint="@string/enter_locality_here" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/exploreTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/segment1"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:text="Explore Now"
+
+                android:drawableStart="@drawable/ic_compass" />
 
             <LinearLayout
+                android:id="@+id/segment2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_below="@+id/exploreTitle">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView1"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/hostel_title_recycler_card"
-                    android:text="@string/city_name"
-                    android:textSize="@dimen/home_fragment_text" />
+                    android:layout_weight="1">
 
-                <EditText
-                    android:id="@+id/search_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_fragment_searchbar_height"
-                    android:layout_marginTop="20dp"
-                    android:padding="4dp"
-                    android:drawablePadding="5dp"
-                    android:background="@drawable/round"
-                    android:drawableStart="@drawable/ic_search_black_24dp"
-                    android:focusable="false"
-                    android:hint="@string/enter_locality_here"
-                    />
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    <RelativeLayout
+                        android:id="@+id/RL1"
+                        android:background="@color/R"
+                        android:layout_width="180dp"
+                        android:layout_height="200dp">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchcard"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
-            android:padding="5dp">
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_girl" />
 
-            <ImageView
-                android:id="@+id/exploreNowButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_fragment_card_height"
-                android:layout_alignParentStart="true"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image1"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp"
+                            android:text="For Girls"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/segment1"
                 android:layout_margin="5dp"
-                android:scaleType="centerCrop"
-                android:alpha="0.87"
-                android:src="@drawable/explorenow" />
+                    app:cardElevation="5dp"
+                    android:layout_weight="1">
 
-        </android.support.v7.widget.CardView>
+                    <RelativeLayout
+                        android:id="@+id/RL2"
+                        android:layout_width="180dp"
+                        android:layout_height="200dp">
 
+                        <ImageView
+                            android:id="@+id/image2"
+                            android:layout_centerInParent="true"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:srcCompat="@drawable/ic_boy" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardViewReview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardview3"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image2"
+                            android:text="For Boys"
+                            android:layout_marginTop="30dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageRateButton"
+            <LinearLayout
+                android:id="@+id/segment3"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_fragment_card_height"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ratehostelp"
-                android:alpha="0.87"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_below="@+id/segment2">
 
-        </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView3"
+                    android:layout_width="0dp"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/RL3"
+                        android:layout_width="180dp"
+                        android:layout_height="200dp">
 
-</ScrollView>
+                        <ImageView
+                            android:id="@+id/image3"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:layout_centerInParent="true"
+                            app:srcCompat="@drawable/ic_rating" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image3"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp"
+                            android:text="Review your Hostel"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/segment1"
+                    android:layout_margin="5dp"
+                    app:cardElevation="5dp"
+                    android:layout_weight="1">
+
+                    <RelativeLayout
+                        android:id="@+id/RL4"
+                        android:background="@color/B"
+                        android:layout_width="180dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:id="@+id/image4"
+                            android:layout_centerInParent="true"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            app:srcCompat="@drawable/ic_vr" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image4"
+                            android:text="Experience 360° Virtual Tour"
+                            android:textAlignment="center"
+                            android:layout_marginTop="30dp"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 
 

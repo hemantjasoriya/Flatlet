@@ -8,13 +8,17 @@
 <color name="secondaryLightColor">#cfcfcf</color>
 <color name="secondaryDarkColor">#707070</color>
 <color name="accent">#9e9e9e</color>
-    <color name="relativeBackground">#f1f1f1</color>
+    <color name="relativeBackground">#f9f9f9</color>
 <color name="primary_text">#ffffff</color>
 <color name="secondary_text">#000000</color>
     <color name="red_error">#FFF00C0C</color>
     <color name="welcome1">#25e7ba</color>
     <color name="welcome2">#56abf1</color>
     <color name="welcome3">#f1777d</color>
+    <color name="R">#ff8282</color>
+    <color name="G">#a4a3ef</color>
+    <color name="B">#b3c8f1</color>
+    <color name="Y">#ffe356</color>
 
 
 </resources>
