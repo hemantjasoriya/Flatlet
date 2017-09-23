@@ -601,7 +601,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             birthSort = true;
         }
         cursor.close();
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
@@ -618,12 +618,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, locality.getText().toString());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, hostel_rent);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, textViewRating.getText().toString());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp");
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumb/1.webp");
 
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + hostel_title + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + locality.getText() + "','" + hostel_rent + "'," +
-                            "'http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp','" + textViewRating.getText() + "')";
+                            "'http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumb/1.webp','" + textViewRating.getText() + "')";
 
                     // checking the size of sqlite database
                     String[] projection1 = {
@@ -668,14 +668,17 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
                 return true;
-            case R.id.report:
-                Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
-                intent.putExtra(Intent.EXTRA_SUBJECT, "your_subject");
-                intent.putExtra(Intent.EXTRA_TEXT, "your_text "+hostel_title);
-                startActivity(intent);
+
+            case R.id.reportDetail:
+                Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
+                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect details for "+hostel_title);
+                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provide details for the "+hostel_title +" are incorrect.");
+                startActivity(intent2);
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+
 
     }
 

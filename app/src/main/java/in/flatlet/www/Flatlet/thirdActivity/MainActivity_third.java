@@ -1,5 +1,7 @@
 package in.flatlet.www.Flatlet.thirdActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,7 +24,7 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 public class MainActivity_third extends AppCompatActivity {
     private String hostel_title;
-    private int imageCount;
+    /*private int imageCount;*/
 
     @Override
     public void onBackPressed() {
@@ -29,10 +34,29 @@ public class MainActivity_third extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity3_action, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.reportImages:
+                Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
+                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect images for "+hostel_title);
+                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provide images for the "+hostel_title +" are incorrect.");
+                startActivity(intent2);
+        }
+        return true;
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hostel_title = getIntent().getStringExtra("hostel_title");
-        imageCount = getIntent().getIntExtra("imageCount",3);
+        /*imageCount = getIntent().getIntExtra("imageCount",3);*/
 
         if (MySingleton.getInstance(getApplicationContext()).isOnline()){
             setContentView(R.layout.activity_main_third);
