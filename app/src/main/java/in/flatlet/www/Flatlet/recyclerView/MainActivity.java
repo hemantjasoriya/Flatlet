@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(MainActivity.this, FirstActivity.class);
         intent.setFlags(1);
+
         startActivity(intent);
     }
 
@@ -172,10 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     jsonObject = array[0].getJSONObject(i);
                     GetDataAdapter2.setName(jsonObject.getString("title"));
-
                     GetDataAdapter2.setRent(jsonObject.getString(roomType));
                     GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
                     GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
+                    GetDataAdapter2.setGender(jsonObject.getString("gender"));
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -28,6 +28,7 @@
             android:textOn=""
             tools:mockup_opacity="5" />
 
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
@@ -37,6 +38,17 @@
             android:padding="@dimen/subtitle_padding"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_blank_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hostel_gender"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ff7256"
+            android:layout_marginBottom="5dp"
+            />
 
         <TextView
             android:id="@+id/hostel_title"

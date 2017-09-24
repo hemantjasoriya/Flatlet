@@ -89,6 +89,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
+        holder.gender.setText(getDataAdapter1.getGender());
         holder.imageView2.setAlpha(1.0f);
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
@@ -232,6 +233,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         final ImageView imageView2;
         final CardView cardView;
         final ToggleButton toggle;
+        final TextView gender;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -244,6 +246,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
+            gender=(TextView)itemView.findViewById(R.id.hostel_gender);
         }
     }
 
