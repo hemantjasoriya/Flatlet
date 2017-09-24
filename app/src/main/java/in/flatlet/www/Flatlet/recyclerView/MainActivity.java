@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -89,17 +90,21 @@ public class MainActivity extends AppCompatActivity {
         gender = getIntent().getStringExtra("gender");
 
         String finalDbQuery;
-        if(getIntent().getFlags()!=13){
-            finalDbQuery = dbqry + locality +"%20ORDER%20BY%20RAND()";
+        if (getIntent().getFlags() == 13) {
+            finalDbQuery = dbqry + locality;
+
         }
         else if(getIntent().getFlags()==14){
-            finalDbQuery = dbqry+"where%20gender='"+"'"+gender+"%20ORDER%20BY%20RAND()";
+            finalDbQuery = dbqry + "%20AND%20gender='" + gender + "'" + "%20ORDER%20BY%20RAND()";
+            Log.i("MainActivity", "onCreate: " + finalDbQuery);
         }
         else {
-            finalDbQuery = dbqry +locality;
+            finalDbQuery = dbqry + locality + "%20ORDER%20BY%20RAND()";
         }
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
+
         JSON_DATA_WEB_CALL();
+        Log.i("MainActivity", "onCreate:url sent to is " + GET_JSON_DATA_HTTP_URL + "and flag got is" + getIntent().getFlags());
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
