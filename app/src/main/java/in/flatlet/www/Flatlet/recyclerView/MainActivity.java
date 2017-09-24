@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-       /* //this add a divider between two cards
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));*/
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
         filterFloatingButton = (FloatingActionButton) findViewById(R.id.filterFloatingButton);
         recyclerView.setHasFixedSize(true);

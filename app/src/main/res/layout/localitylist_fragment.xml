@@ -27,7 +27,7 @@
 
 
         <android.support.v7.widget.CardView
-            android:id="@+id/cardView1"
+            android:id="@+id/cardExploreGirls"
             android:layout_margin="5dp"
             android:layout_below="@+id/spinner"
             android:layout_width="match_parent"
@@ -84,7 +84,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cardView2"
             android:layout_margin="5dp"
-            android:layout_below="@+id/cardView1"
+            android:layout_below="@+id/cardExploreGirls"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="2dp"

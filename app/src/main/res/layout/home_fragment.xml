@@ -24,7 +24,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/home_toolbar">
+        android:layout_below="@+id/home_toolbar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -58,7 +60,6 @@
                         android:layout_height="@dimen/home_fragment_searchbar_height"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
-                        android:padding="4dp"
                         android:drawableStart="@drawable/ic_search_black_24dp"
                         android:background="@drawable/round1"
                         android:drawablePadding="5dp"
@@ -67,41 +68,30 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <TextView
-                android:id="@+id/exploreTitle"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/segment1"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="24sp"
-                android:text="Explore Now"
-
-                android:drawableStart="@drawable/ic_compass" />
 
             <LinearLayout
                 android:id="@+id/segment2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:weightSum="2"
                 android:orientation="horizontal"
-                android:layout_below="@+id/exploreTitle">
+                android:layout_below="@+id/segment1">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardView1"
+                    android:id="@+id/cardExploreGirls"
+                    android:layout_height="@dimen/home_fragment_card_height_new"
                     android:layout_width="0dp"
                     android:layout_margin="5dp"
                     app:cardElevation="5dp"
-                    android:layout_height="wrap_content"
+
                     android:layout_weight="1">
 
                     <RelativeLayout
                         android:id="@+id/RL1"
                         android:background="@color/R"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/image1"
@@ -115,17 +105,20 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image1"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:text="For Girls"
-                            android:textSize="20sp"
+                            android:layout_marginTop="20dp"
+                            android:text="Explore Hostels
+for Girls"
+                            android:textAlignment="center"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cardExploreBoys"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/home_fragment_card_height_new"
                     android:layout_below="@+id/segment1"
                 android:layout_margin="5dp"
                     app:cardElevation="5dp"
@@ -133,8 +126,8 @@
 
                     <RelativeLayout
                         android:id="@+id/RL2"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/image2"
@@ -147,9 +140,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image2"
-                            android:text="For Boys"
-                            android:layout_marginTop="30dp"
-                            android:textSize="20sp"
+                            android:text="Explore Hostels
+   for Boys"
+                            android:textAlignment="center"
+                            android:layout_marginTop="20dp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             android:layout_centerHorizontal="true" />
                     </RelativeLayout>
@@ -166,17 +161,17 @@
                 android:layout_below="@+id/segment2">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cardView3"
+                    android:id="@+id/cardRateHostel"
                     android:layout_width="0dp"
                     android:layout_margin="5dp"
                     app:cardElevation="5dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/home_fragment_card_height_new"
                     android:layout_weight="1">
 
                     <RelativeLayout
                         android:id="@+id/RL3"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/image3"
@@ -190,17 +185,20 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image3"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="30dp"
-                            android:text="Review your Hostel"
-                            android:textSize="20sp"
+                            android:layout_marginTop="20dp"
+                            android:text="Rate your
+Hostel"
+                            android:textAlignment="center"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cardExploreVirtualTour"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/home_fragment_card_height_new"
                     android:layout_below="@+id/segment1"
                     android:layout_margin="5dp"
                     app:cardElevation="5dp"
@@ -209,8 +207,8 @@
                     <RelativeLayout
                         android:id="@+id/RL4"
                         android:background="@color/B"
-                        android:layout_width="180dp"
-                        android:layout_height="200dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <ImageView
                             android:id="@+id/image4"
@@ -223,10 +221,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image4"
-                            android:text="Experience 360° Virtual Tour"
+                            android:text="Experience 360°
+ Virtual Tour"
                             android:textAlignment="center"
-                            android:layout_marginTop="30dp"
-                            android:textSize="20sp"
+                            android:layout_marginTop="20dp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             android:layout_centerHorizontal="true" />
                     </RelativeLayout>

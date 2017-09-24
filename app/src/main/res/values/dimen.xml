@@ -29,4 +29,5 @@
     <dimen name="home_fragment_card_height">140dp</dimen>
     <dimen name="home_fragment_text">16sp</dimen>
     <dimen name="home_fragment_searchbar_height">30dp</dimen>
+    <dimen name="home_fragment_card_height_new">200dp</dimen>
 </resources>
