@@ -365,6 +365,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     public void onSubmitRatingButton(View view) {
 
+
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
 
 

@@ -14,7 +14,7 @@ import in.flatlet.www.Flatlet.R;
 
 
 class ImageSwitcherAdapter extends PagerAdapter {
-    private final Context context;
+    private Context context;
     private int arraySize;
     private String title;
     private ArrayList<String> GalleryURL = new ArrayList<>();
@@ -23,9 +23,9 @@ class ImageSwitcherAdapter extends PagerAdapter {
         this.context = context;
         this.arraySize = arraySize;
         this.title = title;
-
         arrayFormation();
     }
+
 
     private ArrayList arrayFormation() {
         for (int i = 1; i <= arraySize; i++) {
@@ -34,7 +34,6 @@ class ImageSwitcherAdapter extends PagerAdapter {
 
         }
         return GalleryURL;
-
 
     }
 

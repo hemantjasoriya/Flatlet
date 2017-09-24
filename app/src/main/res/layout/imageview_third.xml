@@ -10,15 +10,11 @@
        android:layout_height="match_parent">
 
    </android.support.v4.view.ViewPager>
-    <TextView
-        android:id="@+id/textCount"
+
+    <ProgressBar
+        android:id="@+id/progresBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="16sp"
-        android:padding="20dp"
-        android:visibility="gone"
-        android:text="1/8"/>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
