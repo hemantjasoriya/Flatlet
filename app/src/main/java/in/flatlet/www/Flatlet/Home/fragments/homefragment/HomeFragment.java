@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");
                     intent.putExtra("roomType", "rent_single_ac");
                     intent.putExtra("gender", "boys");
+                    intent.setFlags(14);
                     getActivity().startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
@@ -76,6 +77,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("dbqry", "Select%20*%20from%20`hostel_specs`%20where%20rent_single_ac>0");
                     intent.putExtra("roomType", "rent_single_ac");
                     intent.putExtra("gender", "girls");
+                    intent.setFlags(14);
                     getActivity().startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
