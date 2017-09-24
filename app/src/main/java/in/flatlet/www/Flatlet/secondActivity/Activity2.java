@@ -638,6 +638,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     Toast.makeText(this, "Added to favourites", Toast.LENGTH_SHORT).show();
                     birthSort = false;
 
+
                 } else {
                     item.setIcon(R.drawable.ic_favorite_white_24dp);
                     db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{hostel_title});
