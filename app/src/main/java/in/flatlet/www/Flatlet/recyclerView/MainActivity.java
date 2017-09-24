@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
         if(getIntent().getFlags()!=13){
             finalDbQuery = dbqry + locality +"%20ORDER%20BY%20RAND()";
         }
+        else if(getIntent().getFlags()==14){
+            finalDbQuery = dbqry+"where%20gender='"+"'"+gender+"%20ORDER%20BY%20RAND()";
+        }
         else {
             finalDbQuery = dbqry +locality;
         }
