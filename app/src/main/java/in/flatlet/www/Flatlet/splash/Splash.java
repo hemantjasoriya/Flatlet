@@ -32,9 +32,16 @@ public class Splash extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setContentView(R.layout.splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
+       /* ObjectAnimator animation = ObjectAnimator.ofFloat(imageView,"rotationY",0.0f,360f);
+        animation.setDuration(10000);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();*/
+        /*final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.progress_rotate);
+        imageView.setAnimation(animation);*/
         sharedPreferences1=getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
         final AccessToken accessToken= AccountKit.getCurrentAccessToken();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         if(!(sharedPreferences.getBoolean("welcome",false)))
         {
@@ -49,7 +56,7 @@ public class Splash extends AppCompatActivity {
                     overridePendingTransition(R.anim.mainfadein,R.anim.splashfadeout);
                     finish();
                 }
-            }, 2000);
+            }, 3000);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("welcome",true);
             editor.apply();

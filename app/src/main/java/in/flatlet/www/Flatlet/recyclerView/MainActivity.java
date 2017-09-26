@@ -1,5 +1,6 @@
 package in.flatlet.www.Flatlet.recyclerView;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton filterFloatingButton;
     private List<GetDataAdapter> dataModelArrayList;
     private RecyclerView recyclerView;
-    private ProgressBar progressBar;
+    private ImageView progressBar;
     private String GET_JSON_DATA_HTTP_URL = null;
     private RequestQueue requestQueue;
     private String locality;
@@ -76,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        progressBar = (ImageView) findViewById(R.id.progressBar1);
+          ObjectAnimator animation = ObjectAnimator.ofFloat(progressBar,"rotationY",0.0f,360f);
+        animation.setDuration(12000);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();
         filterFloatingButton = (FloatingActionButton) findViewById(R.id.filterFloatingButton);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
