@@ -136,7 +136,7 @@
     <string name="welcome_three_text">Experience Every Corner of the room with our 360° Virtual Tour and High field Panoramas</string>
     <string name="experience">Experience</string>
     <string name="welcome_three_footer">P.S. Some useful abbreviation in Kota. PG: A room without food Hostel: A room including food</string>
-    <string name="about_us"><![CDATA[Flatlet is Kota’s fastest growing hostel rental network attempting to provide better rental solution via design and technology. We help you find and book a hostel all within the app. Experience the Revolutionary high field Panoramas and 360° Virtual Tour from Kota’s largest hostel database. Whatever is your budget (7000 ₹ to 19000 ₹), We have something for you. At the current time, we have hostels listed in Mahavir Nagar 1, Rajeev Gandhi Nagar, New Rajeev Gandhi Nagar. Drop by & say Hi ! to us before it’s too late. We are at]]></string>
+    <string name="about_us"><![CDATA[Flatlet is Kota’s fastest growing hostel rental network attempting to provide better rental solution via design and technology. We help you find a hostel all within the app. Experience the Revolutionary high field view Panoramas and 360° Virtual Tour from Kota’s largest hostel database. Whatever is your budget (7000 ₹ to 19000 ₹), We have something for you. At the current time, we have hostels listed in Mahavir Nagar 1, Rajeev Gandhi Nagar, New Rajeev Gandhi Nagar. Drop by & say Hi ! to us before it’s too late. We are at]]></string>
     <string name="refund">Generally 1 month\'s rent is deposited as security money. Please ask the Refund rules to the landlord beforehand.</string>
     <string name="favourite">Favourite</string>
     <string name="search_for_your_hostel">Search for your Hostel</string>
@@ -147,4 +147,18 @@
     <string name="phone_numbe">Phone number*</string>
     <string name="email_addres">Email address*</string>
     <string name="report_this_hostel">Report this Hostel</string>
+    <string name="experience_360_virtual_tour">Experience 360° Virtual Tour</string>
+    <string name="rate_your_hostel">Rate your Hostel</string>
+    <string name="explore_hostels_for_boys">Explore Hostels for Boys</string>
+    <string name="explore_hostels_for_girls">Explore Hostels for Girls</string>
+    <string name="find_the_hostel_in_9_easy_steps">Find the hostel in 9 easy steps</string>
+    <string name="step1_click_on_the_enter_locality_here">STEP1: Click on the \'Enter locality here\'.</string>
+    <string name="step2_select_the_locality_gender_and_type_of_room_single_double_select_the_air_conditioning_and_press_search_button">STEP2: Select the locality, gender and type of room (single/double) select the Air conditioning and press Search Button</string>
+    <string name="step3_click_on_the_filter_button_placed_in_right_bottom_corner">STEP3: Click on the Filter button placed in right bottom corner.</string>
+    <string name="step4_select_the_essentials_you_are_looking_for">STEP4:Select the essentials you are looking for</string>
+    <string name="step5_sort_the_results_according_to_price_or_area_of_the_room">STEP5:Sort the results according to Price or Area of the room.</string>
+    <string name="step6_click_on_the_hostel_card">STEP6:Click on the hostel card.</string>
+    <string name="step7_click_on_the_image_header_to_see_full_hq_images_and_360_virtual_tour">STEP7: Click on the image header to see full HQ images and 360 Virtual Tour</string>
+    <string name="step8_swipe_right_to_see_images_from_the_stack">STEP8:Swipe right to see images from the stack</string>
+    <string name="step9_click_on_the_360_tab_and_enjoy_vr_tour">STEP9:Click on the 360° tab and Enjoy VR Tour</string>
 </resources>

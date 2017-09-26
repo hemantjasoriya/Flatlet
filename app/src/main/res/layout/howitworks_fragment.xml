@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,10 +12,217 @@
         android:elevation="4dp"
         android:background="@color/colorPrimary"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textAlignment="center"
-        android:text=""/>
 
-</LinearLayout>
+    <ScrollView
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/tutorial_title_margin"
+                android:padding="10dp"
+                android:text="@string/find_the_hostel_in_9_easy_steps"
+                android:textSize="@dimen/tutorial_title_size"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/step1"
+                android:layout_below="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:text="@string/step1_click_on_the_enter_locality_here" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image1"
+        android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@+id/step1" />
+
+            <TextView
+                android:id="@+id/step2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image1"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+                android:text="@string/step2_select_the_locality_gender_and_type_of_room_single_double_select_the_air_conditioning_and_press_search_button" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="328dp"
+                android:layout_below="@+id/step2" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image3"
+                android:layout_below="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="553dp"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/step3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image3"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step3_click_on_the_filter_button_placed_in_right_bottom_corner" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image4"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/step3" />
+
+            <TextView
+                android:id="@+id/step4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image4"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step4_select_the_essentials_you_are_looking_for" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image5"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step4" />
+
+            <TextView
+                android:id="@+id/step5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image5"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step5_sort_the_results_according_to_price_or_area_of_the_room" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image6"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step5" />
+
+            <TextView
+                android:id="@+id/step6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image6"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step6_click_on_the_hostel_card" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image7"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step6" />
+
+
+            <TextView
+                android:id="@+id/step7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image7"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step7_click_on_the_image_header_to_see_full_hq_images_and_360_virtual_tour" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image8"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step7" />
+
+            <TextView
+                android:id="@+id/step8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image8"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step8_swipe_right_to_see_images_from_the_stack" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image9"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step8" />
+
+            <TextView
+                android:id="@+id/step9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image9"
+                android:textSize="@dimen/tutorial_steps_title"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:text="@string/step9_click_on_the_360_tab_and_enjoy_vr_tour" />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:id="@+id/image10"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@+id/step9" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

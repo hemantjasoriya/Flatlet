@@ -106,10 +106,9 @@
                             android:layout_below="@+id/image1"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="20dp"
-                            android:text="Explore Hostels
-for Girls"
+                            android:text="@string/explore_hostels_for_girls"
                             android:textAlignment="center"
-                            android:textSize="14sp"
+                            android:textSize="@dimen/home_fragment_card_title"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -140,8 +139,7 @@ for Girls"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image2"
-                            android:text="Explore Hostels
-   for Boys"
+                            android:text="@string/explore_hostels_for_boys"
                             android:textAlignment="center"
                             android:layout_marginTop="20dp"
                             android:textSize="14sp"
@@ -186,8 +184,7 @@ for Girls"
                             android:layout_below="@+id/image3"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="20dp"
-                            android:text="Rate your
-Hostel"
+                            android:text="@string/rate_your_hostel"
                             android:textAlignment="center"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -221,8 +218,7 @@ Hostel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/image4"
-                            android:text="Experience 360°
- Virtual Tour"
+                            android:text="@string/experience_360_virtual_tour"
                             android:textAlignment="center"
                             android:layout_marginTop="20dp"
                             android:textSize="14sp"

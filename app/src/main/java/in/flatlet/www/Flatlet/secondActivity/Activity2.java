@@ -674,7 +674,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             case R.id.reportDetail:
                 Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
                 intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect details for "+hostel_title);
-                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provide details for the "+hostel_title +" are incorrect.");
+                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provided details for the " + hostel_title + " are incorrect.");
                 startActivity(intent2);
 
             default:

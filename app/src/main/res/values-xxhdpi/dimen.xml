@@ -30,4 +30,9 @@
     <dimen name="home_fragment_text">18sp</dimen>
     <dimen name="home_fragment_searchbar_height">35dp</dimen>
     <dimen name="home_fragment_card_height_new">200dp</dimen>
+    <dimen name="home_fragment_card_title">14sp</dimen>
+    <dimen name="tutorial_title_margin">22dp</dimen>
+    <dimen name="tutorial_title_size">26sp</dimen>
+    <dimen name="tutorial_steps_title">18sp</dimen>
+    <dimen name="custom_progressbar">80dp</dimen>
 </resources>

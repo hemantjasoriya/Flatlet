@@ -1,14 +1,9 @@
 package in.flatlet.www.Flatlet.thirdActivity;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +13,7 @@ import in.flatlet.www.Flatlet.R;
 
 
 public class ImageSwitcherFragment extends Fragment {
-    private String TAG = "ImageSwitcherFragment";
+   /* private String TAG = "ImageSwitcherFragment";*/
 
 
     @Nullable
@@ -30,14 +25,14 @@ public class ImageSwitcherFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i(TAG, "onActivityCreated: called");
+       /* Log.i(TAG, "onActivityCreated: called");
 
         ConnectivityManager cm =
                 (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo info = cm.getActiveNetworkInfo();
-       /* boolean isConnected = info != null && info.isConnectedOrConnecting();
-        boolean isWiFi = info.getType() == ConnectivityManager.TYPE_WIFI;*/
+       *//* boolean isConnected = info != null && info.isConnectedOrConnecting();
+        boolean isWiFi = info.getType() == ConnectivityManager.TYPE_WIFI;*//*
         if (info.getType() == ConnectivityManager.TYPE_WIFI) {
             // do something
             Log.i(TAG, "onActivityCreated: internet type WIFI");
@@ -83,7 +78,7 @@ public class ImageSwitcherFragment extends Fragment {
             } else {
                 Log.i(TAG, "onActivityCreated: Kuch nhi pata chal rha");
             }
-        }
+        }*/
         ProgressBar progressBar = (ProgressBar) getActivity().findViewById(R.id.progresBar);
         String title = getActivity().getIntent().getStringExtra("hostel_title").replace(" ", "%20");
         int arraySize = getActivity().getIntent().getIntExtra("imageCount", 3);

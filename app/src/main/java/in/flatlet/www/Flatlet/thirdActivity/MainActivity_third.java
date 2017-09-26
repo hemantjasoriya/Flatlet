@@ -46,7 +46,7 @@ public class MainActivity_third extends AppCompatActivity {
             case R.id.reportImages:
                 Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
                 intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect images for "+hostel_title);
-                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provide images for the "+hostel_title +" are incorrect.");
+                intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provided images for the " + hostel_title + " are incorrect.");
                 startActivity(intent2);
         }
         return true;

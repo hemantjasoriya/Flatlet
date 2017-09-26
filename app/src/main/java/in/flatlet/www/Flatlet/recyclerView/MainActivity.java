@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
         progressBar = (ImageView) findViewById(R.id.progressBar1);
           ObjectAnimator animation = ObjectAnimator.ofFloat(progressBar,"rotationY",0.0f,360f);
-        animation.setDuration(12000);
+        animation.setDuration(4500);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.start();
         filterFloatingButton = (FloatingActionButton) findViewById(R.id.filterFloatingButton);
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(getIntent().getFlags()==14){
             finalDbQuery = dbqry + "%20AND%20gender='" + gender + "'" + "%20ORDER%20BY%20RAND()";
-            Log.i("MainActivity", "onCreate: " + finalDbQuery);
+
         }
         else {
             finalDbQuery = dbqry + locality + "%20ORDER%20BY%20RAND()";
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
 
         JSON_DATA_WEB_CALL();
-        Log.i("MainActivity", "onCreate:url sent to is " + GET_JSON_DATA_HTTP_URL + "and flag got is" + getIntent().getFlags());
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

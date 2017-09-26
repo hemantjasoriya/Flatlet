@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import in.flatlet.www.Flatlet.Home.fragments.searchfragment.LocalityListFragment;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
@@ -30,11 +32,16 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.home_fragment, container, false);
 
 
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ArrayList<String> virtualTourName = new ArrayList<>();
+        virtualTourName.add(0, "Royal%20Cottage%208");
+        virtualTourName.add(1, "Shourya%20Residency");
+        virtualTourName.add(2, "");
         navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView cardExploreGirls = (CardView) getActivity().findViewById(R.id.cardExploreGirls);
