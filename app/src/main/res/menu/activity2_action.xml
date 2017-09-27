@@ -8,7 +8,6 @@
 
     <item android:id="@+id/reportDetail"
         android:title="Report the details"
-        android:icon="@drawable/ic_report"
         app:showAsAction="never" />
 
 

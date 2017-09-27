@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,7 +37,7 @@ public class FilterActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        Log.i("bjb", "onCreate:last ");
+
 
     }
 
@@ -117,31 +116,31 @@ public class FilterActivity extends AppCompatActivity {
 
                     if (checkBoxBoys.isChecked()) {
                         query = query + " AND gender='boys' ";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
                     if (checkBoxGirls.isChecked()) {
                         query = query + " AND gender='girls' ";
-                        Log.i(TAG, "onOptionsItemSelected: string formed yet is" + query);
+
                     }
                     if (checkBoxEveningSnacks.isChecked()) {
                         query = query + " AND ame_eve_snacks=1";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
                     if (checkBoxElevator.isChecked()) {
                         query = query + " AND ame_elevator=1";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
                     if (checkBoxToiletAttached.isChecked()) {
                         query = query + " AND ame_toilet_attached=1";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
                     if (checkBoxCCTV.isChecked()) {
                         query = query + " AND CCTV=1";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
                     if (checkBoxOwner.isChecked()) {
                         query = query + " AND ownership=1";
-                        Log.i(TAG, "onOptionsItemSelected: query formed yet is" + query);
+
                     }
 
                     query = query.replace(" ", "%20");
@@ -200,10 +199,10 @@ public class FilterActivity extends AppCompatActivity {
                     intent.putExtra("locality", locality);
                     intent.putExtra("dbqry", query);
                     intent.putExtra("roomType", roomType);
-                    Log.i(TAG, "onOptionsItemSelected: Data sent to MainActivity is locality and query" + locality + query);
+
                     startActivity(intent);
                     query = null;
-                    Log.i(TAG, "onOptionsItemSelected:query after null " + query);
+
                 }
         }
         return true;

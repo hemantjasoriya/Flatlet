@@ -168,10 +168,6 @@ public class LoginFragment extends Fragment {
                                                 } else {
 
                                                     fetchDataFromDatabase();
-                                                    /*Intent intent = new Intent(getActivity(), FirstActivity.class);
-                                                    intent.setFlags(1);
-                                                    getActivity().startActivity(intent);
-*/
 
                                                 }
                                             } catch (JSONException e) {

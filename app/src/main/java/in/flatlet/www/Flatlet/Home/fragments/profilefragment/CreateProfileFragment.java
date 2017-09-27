@@ -45,7 +45,7 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
  */
 
 public class CreateProfileFragment extends Fragment {
-    private Button logoutButton;
+
     private EditText mobileEditText, nameEditText, emailEditText;
     private RadioButton maleRadioButton, femaleRadioButton;
     RequestQueue queue1;
@@ -61,7 +61,6 @@ public class CreateProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        logoutButton = (Button) getActivity().findViewById(R.id.logoutButton);
         Button saveProfileButton = (Button) getActivity().findViewById(R.id.saveProfileButton);
         mobileEditText = (EditText) getActivity().findViewById(R.id.mobileEditText);
         nameEditText = (EditText) getActivity().findViewById(R.id.nameEditText);
@@ -129,13 +128,6 @@ public class CreateProfileFragment extends Fragment {
             }
         });
 
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout();
-            }
-        });
     }
 
     @Override

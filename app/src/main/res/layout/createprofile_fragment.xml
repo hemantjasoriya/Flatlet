@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <TextView
+        android:id="@+id/personalDetailsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/personalDetailsTextView"
-        android:text="@string/personal_details"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/login_title"
-        android:layout_marginTop="@dimen/createProfileFragment_field_marginup" />
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup"
+        android:text="@string/personal_details"
+        android:textSize="@dimen/login_title" />
 
     <EditText
         android:id="@+id/mobileEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/createProfileFragment_field_marginup"
-        android:textSize="@dimen/hostel_rent_recycler_Card"
-        android:hint="@string/mobile_number"
-        android:drawableStart="@drawable/ic_phone"
-        android:drawablePadding="5dp"
         android:layout_below="@+id/personalDetailsTextView"
-        android:enabled="false"/>
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/ic_phone"
+        android:enabled="false"
+        android:hint="@string/mobile_number"
+        android:textSize="@dimen/hostel_rent_recycler_Card" />
 
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/subtitle_padding"
-        android:layout_below="@+id/mobileEditText">
+        android:layout_below="@+id/mobileEditText"
+        android:layout_marginTop="@dimen/subtitle_padding">
 
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/your_name"
-            android:drawableStart="@drawable/ic_person_black_24dp"
             android:drawablePadding="5dp"
-            android:textSize="@dimen/hostel_rent_recycler_Card"/>
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:hint="@string/your_name"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -48,17 +49,17 @@
         android:id="@+id/text_input_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/subtitle_padding"
-        android:layout_below="@+id/text_input_layout">
+        android:layout_below="@+id/text_input_layout"
+        android:layout_marginTop="@dimen/subtitle_padding">
 
         <EditText
-            android:inputType="textEmailAddress"
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email_id_optional"
-            android:drawableStart="@drawable/ic_email_black_24dp"
             android:drawablePadding="5dp"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:hint="@string/email_id_optional"
+            android:inputType="textEmailAddress"
             android:textSize="@dimen/hostel_rent_recycler_Card" />
 
     </android.support.design.widget.TextInputLayout>
@@ -68,57 +69,41 @@
         android:id="@+id/radioGroupIdentity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text_input_layout1"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:layout_below="@+id/text_input_layout1">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/maleRadioButton"
-            android:drawableEnd="@drawable/ic_male"
-            android:textSize="@dimen/hostel_rent_recycler_Card"
-            android:drawablePadding="2dp"
-            android:text="@string/male"/>
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <RadioButton
             android:id="@+id/femaleRadioButton"
-            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableEnd="@drawable/ic_female"
-            android:drawablePadding="2dp"
-            android:text="@string/female"/>
+            android:text="@string/female"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
     </RadioGroup>
 
     <Button
+        android:id="@+id/saveProfileButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/saveProfileButton"
-        android:text="@string/save_profile"
-        android:textColor="#ffffff"
-        android:background="@color/colorAccent"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/radioGroupIdentity"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:alpha="0.87"
+        android:background="@color/colorAccent"
+        android:paddingEnd="10dp"
         android:paddingStart="20dp"
-        android:alpha="0.87"
-        android:paddingEnd="10dp"/>
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOGOUT"
-        android:layout_below="@+id/saveProfileButton"
-        android:layout_marginTop="20dp"
-        android:textColor="#ffffff"
-        android:background="#e87979"
-        android:alpha="0.87"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:text="@string/save_profile"
+        android:textColor="#ffffff" />
 
 
 </RelativeLayout>

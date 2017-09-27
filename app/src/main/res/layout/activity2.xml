@@ -43,10 +43,7 @@
                 android:layout_height="wrap_content"
                 android:theme="?attr/actionBarTheme"
                 android:visibility="visible"
-                app:layout_collapseMode="pin"
-                />
-
-
+                app:layout_collapseMode="pin" />
 
 
             <TextView
@@ -62,13 +59,22 @@
                 android:id="@+id/imageHead1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="96dp"
-                android:alpha="0.8"
+                android:alpha="0.9"
                 android:background="@android:drawable/ic_menu_camera"
                 android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="60dp"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:alpha="0.6"
+                android:textAlignment="center"
+                android:text="Click here to see the complete Gallery" />
 
 
 
@@ -79,9 +85,9 @@
         android:id="@+id/callOwner"
         android:layout_width="@dimen/progressbar_size"
         android:layout_height="@dimen/progressbar_size"
-        android:layout_gravity="bottom|left"
+        android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/progressbar_size"
-        android:alpha="0.8"
+        android:alpha="0.87"
         app:backgroundTint="@color/colorAccent"
         app:elevation="6dp"
         app:srcCompat="@drawable/ic_call" />
@@ -331,9 +337,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:paddingBottom="10dp"
-                            android:text="@string/_6_more"
-                            android:textAlignment="viewStart"
+                            android:text="@string/more_small"
                             android:textColor="@color/colorAccent"
                             android:textSize="14sp" />
 

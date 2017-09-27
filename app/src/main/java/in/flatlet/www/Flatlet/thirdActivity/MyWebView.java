@@ -39,6 +39,7 @@ public class MyWebView extends Fragment {
         String hostel_title = getActivity().getIntent().getStringExtra("hostel_title");
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(false);
         webView.setWebChromeClient(new WebChromeClient() {
 
             @Override
@@ -51,6 +52,7 @@ public class MyWebView extends Fragment {
                 }
             }
         });
+
         webView.setWebViewClient(new WebViewClient() {
 
             @Override

@@ -84,6 +84,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     Intent callIntent;
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +124,45 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         totalViews = (TextView) findViewById(R.id.total_views);
         textViewRating = (TextView) findViewById(R.id.textViewRating);
         textViewTotalRating = (TextView) findViewById(R.id.textViewTotalRating);
-        ratingBarFood = (RatingBar) findViewById(R.id.ratingBarFood);
+        ratingBarFood.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (rating < 1.0f)
+                    ratingBar.setRating(1.0f);
+            }
+        });
         ratingBarStaff = (RatingBar) findViewById(R.id.ratingBarStaff);
+        ratingBarStaff.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (rating < 1.0f)
+                    ratingBar.setRating(1.0f);
+            }
+        });
         ratingBarAccommodation = (RatingBar) findViewById(R.id.ratingBarAccommodation);
+        ratingBarAccommodation.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (rating < 1.0f)
+                    ratingBar.setRating(1.0f);
+            }
+        });
         ratingBarStudyEnvironment = (RatingBar) findViewById(R.id.ratingBarStudyEnvironment);
+        ratingBarStudyEnvironment.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                if (rating < 1.0f)
+                    ratingBar.setRating(1.0f);
+            }
+        });
         gender = (TextView) findViewById(R.id.gender);
         locality = (TextView) findViewById(R.id.locality);
         imageHead = (ImageView) findViewById(R.id.imageHead);
@@ -367,6 +407,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
 
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+            Toast.makeText(getApplicationContext(), "Thank you ! Ratings submitted successfully", Toast.LENGTH_SHORT).show();
 
 
             if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")) {
@@ -421,7 +462,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(getApplicationContext(), "Some Error occurred, Please press Submit again", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -470,6 +511,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Some Error occurred, Please press Submit again", Toast.LENGTH_LONG).show();
 
                     }
                 });
@@ -512,6 +554,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), "Some Error occurred, Please press Submit again", Toast.LENGTH_LONG).show();
 
 
                     }
@@ -743,16 +786,5 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    /*private class sendToDatabaseTask extends AsyncTask<Void,Void,Void>{
-        @Override
-        protected Void doInBackground(Void... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
-    }*/
 }
 

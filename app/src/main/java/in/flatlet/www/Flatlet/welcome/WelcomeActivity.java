@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,20 +41,23 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (getItem(1) < 3) {
-                    Log.i(TAG, "onClick: " + pager.getCurrentItem());
+
 
                     pager.setCurrentItem(getItem(+1), true);
                 }
                else {
                     if (accessToken==null){
                         startActivity(new Intent(WelcomeActivity.this,LoginActivity.class).setFlags(0));
+                        finish();
                     }
                     else if (sharedPreferences.getString("userName","johndoe").equals("johndoe")){
                         startActivity(new Intent(WelcomeActivity.this,LoginActivity.class).setFlags(1));
+                        finish();
 
                     }
                     else {
                         startActivity(new Intent(WelcomeActivity.this, FirstActivity.class).setFlags(1));
+                        finish();
                     }
                 }
             }
@@ -63,7 +65,7 @@ public class WelcomeActivity extends AppCompatActivity {
         buttonPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "onClick: " + pager.getCurrentItem());
+
                 pager.setCurrentItem(getItemPrev(+1), true);
 
             }

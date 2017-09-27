@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +83,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
         final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(position);
         final String title = getDataAdapter1.getName().replace(" ", "%20");
-        Picasso.with(context).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(200, 130).centerCrop().into(holder.imageView2);
+        Picasso.with(context).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(200, 120).centerCrop().into(holder.imageView2);
         holder.card_rating.setText(String.format(Locale.US, "%.1f", getDataAdapter1.getCardRating()));
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());
@@ -133,7 +132,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+title+"/Thumb/1.webp");
                             db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
-                            Log.i("Inserting in SQLite", "run: " + "mast add ho gya SQLite mein");
 
                             mHandler.post(new Runnable() {
                                 @Override
@@ -158,7 +156,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.i("Delete from database", "run: " + "Mast delete ho gya SQLite se background thread mein");
                                 db_favourite.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{getDataAdapter1.getName()});
 
                             }
@@ -211,10 +208,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         }
     }
 
-   /* @Override
-    public int getItemViewType(int position) {
-        return (position % 8==0)? AD_VIEW_TYPE : MENU_ITEM_VIEW_TYPE;
-    }*/
 
     @Override
     public int getItemCount() {

@@ -28,6 +28,7 @@
         android:background="@drawable/round"
         android:drawableStart="@drawable/ic_search_black_24dp"
         android:drawablePadding="5dp"
+        android:focusable="true"
         android:hint="@string/search_for_your_hostel"
         android:maxLines="1"
         android:inputType="text"/>

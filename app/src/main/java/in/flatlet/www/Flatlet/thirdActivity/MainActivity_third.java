@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,7 +23,7 @@ import in.flatlet.www.Flatlet.Utility.MySingleton;
 
 public class MainActivity_third extends AppCompatActivity {
     private String hostel_title;
-    /*private int imageCount;*/
+
 
     @Override
     public void onBackPressed() {
@@ -56,7 +55,6 @@ public class MainActivity_third extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hostel_title = getIntent().getStringExtra("hostel_title");
-        /*imageCount = getIntent().getIntExtra("imageCount",3);*/
 
         if (MySingleton.getInstance(getApplicationContext()).isOnline()){
             setContentView(R.layout.activity_main_third);
@@ -66,6 +64,7 @@ public class MainActivity_third extends AppCompatActivity {
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
             ViewPager pager = (ViewPager) findViewById(R.id.pager);
             pager.setAdapter(myPageAdapter);
+            getSupportActionBar().setTitle(hostel_title);
             //now when the pager changes we wanna change the tab and vice-versa
             tabLayout.setupWithViewPager(pager);
             pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -99,7 +98,7 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         String TAG = "MainActivity";
-        Log.i(TAG, "getItem:called ");
+
 
         //this method is going to give the position at
         //which you have to return the fragment so we have to create
