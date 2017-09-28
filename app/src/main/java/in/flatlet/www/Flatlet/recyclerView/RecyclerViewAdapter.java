@@ -83,7 +83,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
         final GetDataAdapter getDataAdapter1 = dataModelArrayList.get(position);
         final String title = getDataAdapter1.getName().replace(" ", "%20");
-        Picasso.with(context).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(200, 120).centerCrop().into(holder.imageView2);
+        Picasso.with(context).load("http://images.flatlet.in/images/" + title + "/Thumb/1.webp").resize(250, 120).centerCrop().into(holder.imageView2);
         holder.card_rating.setText(String.format(Locale.US, "%.1f", getDataAdapter1.getCardRating()));
         holder.hostel_title.setText(getDataAdapter1.getName());
         holder.hostel_rent.setText(getDataAdapter1.getRent());

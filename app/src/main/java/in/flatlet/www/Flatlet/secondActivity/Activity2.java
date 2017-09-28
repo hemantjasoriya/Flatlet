@@ -124,6 +124,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         totalViews = (TextView) findViewById(R.id.total_views);
         textViewRating = (TextView) findViewById(R.id.textViewRating);
         textViewTotalRating = (TextView) findViewById(R.id.textViewTotalRating);
+        ratingBarFood = (RatingBar) findViewById(R.id.ratingBarFood);
         ratingBarFood.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 
             @Override
@@ -767,7 +768,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Picasso.with(Activity2.this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(400, 300).centerCrop().into(imageHead);
+            Picasso.with(Activity2.this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(250, 180).centerCrop().into(imageHead);
             text_single_nonac.setText(rent_single_nonac);
             text_single_ac.setText(rent_single_ac);
             text_double_nonac.setText(rent_double_nonac);

@@ -43,8 +43,8 @@ public class MainActivity_third extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.reportImages:
-                Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
-                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect images for "+hostel_title);
+                Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "flatletindia@gmail.com"));
+                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect images for " + hostel_title);
                 intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provided images for the " + hostel_title + " are incorrect.");
                 startActivity(intent2);
         }
@@ -56,7 +56,7 @@ public class MainActivity_third extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         hostel_title = getIntent().getStringExtra("hostel_title");
 
-        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
             setContentView(R.layout.activity_main_third);
             MyPageAdapter myPageAdapter = new MyPageAdapter(getSupportFragmentManager());
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -80,9 +80,8 @@ public class MainActivity_third extends AppCompatActivity {
                     }
                 });
             }
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -97,17 +96,16 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        String TAG = "MainActivity";
-
 
         //this method is going to give the position at
         //which you have to return the fragment so we have to create
         //a object of MyFragment class'
         switch (position) {
-            case 1:
-                return new MyWebView();
+
             case 0:
                 return new ImageSwitcherFragment();
+            case 1:
+                return new MyWebView();
 
         }
         return null;
@@ -130,7 +128,7 @@ class MyPageAdapter extends FragmentStatePagerAdapter {
                 return "Gallery";
 
         }
-       /* return "Page" + position;*/
+
         return null;
     }
 

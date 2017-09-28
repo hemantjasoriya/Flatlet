@@ -1,5 +1,7 @@
 package in.flatlet.www.Flatlet.Home.fragments.morefragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,11 +49,10 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.content, fragment, "how it works");
-
                 fragmentTransaction.commit();
                 break;
             case 1:
-                Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s + position, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=in.flatlet.www.Flatlet")));
                 break;
 
             case 2:
@@ -66,7 +67,7 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
                 Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s + position, Toast.LENGTH_SHORT).show();
                 break;
             case 4:
-                fragment = new FeedBackFragment();
+                fragment = new FAQFragment();
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.content, fragment, "feedback");

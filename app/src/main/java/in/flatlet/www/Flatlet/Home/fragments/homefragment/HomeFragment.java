@@ -25,12 +25,25 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 public class HomeFragment extends Fragment {
     BottomNavigationView navigation;
+    ArrayList<String> virtualTourName;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.home_fragment, container, false);
 
+        virtualTourName = new ArrayList<>();
+        virtualTourName.add(0, "Royal Cottage 8");
+        virtualTourName.add(1, "Shourya Residency");
+        virtualTourName.add(2, "Vansh Villa Girls");
+        virtualTourName.add(3, "Omkarmay Villa");
+        virtualTourName.add(4, "Abhilasha Residency");
+        virtualTourName.add(5, "Harihar Residency");
+        virtualTourName.add(6, "Galaxy Heights");
+        virtualTourName.add(7, "Nanees Home");
+        virtualTourName.add(8, "Ganga Residency");
+        virtualTourName.add(9, "Urmila Residency");
+        virtualTourName.add(10, "Supreme Residency");
+        return inflater.inflate(R.layout.home_fragment, container, false);
 
 
     }
@@ -38,10 +51,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ArrayList<String> virtualTourName = new ArrayList<>();
-        virtualTourName.add(0, "Royal%20Cottage%208");
-        virtualTourName.add(1, "Shourya%20Residency");
-        virtualTourName.add(2, "");
+
         navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
         EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
         CardView cardExploreGirls = (CardView) getActivity().findViewById(R.id.cardExploreGirls);
@@ -96,9 +106,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MainActivity_third.class);
-                intent.putExtra("hostel_title", "Shourya%20Residency");
-                intent.putExtra("imageCount", 1);
-                startActivity(intent);
+                if (virtualTourName.size() > 0) {
+                    intent.putExtra("hostel_title", virtualTourName.get((int) (Math.random() * 10)));
+                    intent.putExtra("imageCount", 1);
+                    startActivity(intent);
+                } else {
+                    intent.putExtra("hostel_title", "Abhilasha Residency");
+                    intent.putExtra("imageCount", 1);
+                    startActivity(intent);
+                }
+
+
             }
         });
 
