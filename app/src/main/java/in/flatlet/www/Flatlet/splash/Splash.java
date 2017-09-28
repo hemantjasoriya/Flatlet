@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -36,7 +35,7 @@ import in.flatlet.www.Flatlet.welcome.WelcomeActivity;
 
 public class Splash extends AppCompatActivity {
     private ImageView imageView;
-    private AccessToken accessToken;
+
     SharedPreferences sharedPreferences1;
     private final String TAG = "Splash";
 
@@ -44,7 +43,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate: oncreate chala");
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+       /* getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);*/
         setContentView(R.layout.splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
         sharedPreferences1 = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
@@ -127,7 +126,7 @@ public class Splash extends AppCompatActivity {
                     Log.i(TAG, "onErrorResponse: chala");
                 }
             });
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(3000, 2,
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(12000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
 

@@ -419,7 +419,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 hostel_rating_staff = ((hostel_rating_staff * total_ratings) - (sharedPreferences.getInt("hostel2_staffbehaviour", 5) - rating_staff)) / total_ratings;
                 hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) - (sharedPreferences.getInt("hostel2_accommodation", 5) - rating_accommodation)) / total_ratings;
                 hostel_rating_study = ((hostel_rating_study * total_ratings) - (sharedPreferences.getInt("hostel2_studyenvironment", 5) - rating_studyEnvironment)) / total_ratings;
-                rating = hostel_rating_food + hostel_rating_staff + hostel_rating_accommodation + hostel_rating_study / 4;
+                rating = (hostel_rating_food + hostel_rating_staff + hostel_rating_accommodation + hostel_rating_study) / 4;
 
                 editor.putInt("hostel2_food", rating_food);
                 editor.putInt("hostel2_accommodation", rating_accommodation);
@@ -461,14 +461,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             } else if (sharedPreferences.getString("hostel1_name", "default residency").equals(hostel_title)) {
 
                 ratingSubmitButton.setText("Edit");
+
                 hostel_rating_food = ((hostel_rating_food * total_ratings) - (sharedPreferences.getInt("hostel1_food", 5) - rating_food)) / total_ratings;
-
                 hostel_rating_staff = ((hostel_rating_staff * total_ratings) - (sharedPreferences.getInt("hostel1_staffbehaviour", 5) - rating_staff)) / total_ratings;
-
                 hostel_rating_accommodation = ((hostel_rating_accommodation * total_ratings) - (sharedPreferences.getInt("hostel1_accommodation", 5) - rating_accommodation)) / total_ratings;
-
                 hostel_rating_study = ((hostel_rating_study * total_ratings) - (sharedPreferences.getInt("hostel1_studyenvironment", 5) - rating_studyEnvironment)) / total_ratings;
-
                 rating = (hostel_rating_food + hostel_rating_staff + hostel_rating_accommodation + hostel_rating_study) / 4;
 
 
