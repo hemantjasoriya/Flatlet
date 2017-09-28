@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -355,18 +354,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         }
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        hostel_title = savedInstanceState.getString("hostel_title");
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        outState.putString("hostel_title", hostel_title);
-    }
 
 
     private void fetch_details() {
@@ -408,9 +395,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
 
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
-            Toast.makeText(getApplicationContext(), "Thank you ! Ratings submitted successfully", Toast.LENGTH_SHORT).show();
-
-
             if (ratingSubmitButton.getText().toString().equalsIgnoreCase("Edit")) {
                 ratingBarFood.setIsIndicator(false);
                 ratingBarAccommodation.setIsIndicator(false);
@@ -443,6 +427,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 editor.putInt("hostel2_studyenvironment", rating_studyEnvironment);
                 editor.putFloat("hostel2_ratingFinal", rating_final);
                 editor.apply();
+                // update rating
+                textViewRating.setText(String.format(java.util.Locale.US, "%.1f", rating));
 
                 // sending rating to user database
                 String dbqry = "UPDATE `our_users` SET `hostel2_name`='" + hostel_title + "',`hostel2_food`='" + rating_food + "',`hostel2_accommodation`='" + rating_accommodation + "',`hostel2_staffbehaviour`='" + rating_staff + "',`hostel2_studyenvironment`='" + rating_studyEnvironment + "'" +
@@ -492,6 +478,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
                 editor.putFloat("hostel1_ratingFinal", rating_final);
                 editor.apply();
+                // update ratings
+                textViewRating.setText(String.format(java.util.Locale.US, "%.1f", rating));
 
 
                 // sending rating to user database
@@ -536,6 +524,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 editor.putInt("hostel1_studyenvironment", rating_studyEnvironment);
                 editor.putFloat("hostel1_ratingFinal", rating_final);
                 editor.apply();
+                // update rating
+                textViewRating.setText(String.format(java.util.Locale.US, "%.1f", rating));
+                textViewTotalRating.setText(String.valueOf(total_ratings));
 
 
                 // sending rating to user database
@@ -581,6 +572,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 editor.putInt("hostel2_studyenvironment", rating_studyEnvironment);
                 editor.putFloat("hostel2_ratingFinal", rating_final);
                 editor.apply();
+                // update rating
+                textViewRating.setText(String.format(java.util.Locale.US, "%.1f", rating));
+                textViewTotalRating.setText(String.valueOf(total_ratings));
 
 
                 // sending rating to user database
@@ -609,6 +603,11 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
             } else {
                 Toast.makeText(getApplicationContext(), "you can not review more than 2 hostels", Toast.LENGTH_SHORT).show();
+                ratingBarFood.setRating(5);
+                ratingBarAccommodation.setRating(5);
+                ratingBarStaff.setRating(5);
+                ratingBarStudyEnvironment.setRating(5);
+                return;
             }
 
 
@@ -768,7 +767,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Picasso.with(Activity2.this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(250, 180).centerCrop().into(imageHead);
+            Picasso.with(Activity2.this).load("http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp").resize(400, 300).centerCrop().into(imageHead);
             text_single_nonac.setText(rent_single_nonac);
             text_single_ac.setText(rent_single_ac);
             text_double_nonac.setText(rent_double_nonac);

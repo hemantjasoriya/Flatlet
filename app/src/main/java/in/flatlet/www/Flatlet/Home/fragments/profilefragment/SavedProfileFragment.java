@@ -39,6 +39,7 @@ public class SavedProfileFragment extends Fragment {
     private int i = 0;
     private RequestQueue queue1;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class SavedProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         userNameEditText = (EditText) getActivity().findViewById(R.id.userNameEditText);
         userEmailEditText = (EditText) getActivity().findViewById(R.id.userEmailEditText);
         EditText userMobileEditText = (EditText) getActivity().findViewById(R.id.userMobileEditText);
@@ -70,6 +72,7 @@ public class SavedProfileFragment extends Fragment {
                 if (((userNameEditButton.getText().toString()).equalsIgnoreCase("Edit"))) {
                     userNameEditButton.setText("save changes");
                     userNameEditText.setEnabled(true);
+
 
                 } else {
 

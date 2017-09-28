@@ -283,6 +283,7 @@ public class LoginFragment extends Fragment {
                 editor.putInt("hostel1_accommodation", response[0].getInt("hostel1_accommodation"));
                 editor.putInt("hostel1_staffbehaviour", response[0].getInt("hostel1_staffbehaviour"));
                 editor.putInt("hostel1_studyenvironment", response[0].getInt("hostel1_studyenvironment"));
+                editor.putString("hostel2_name", response[0].getString("hostel2_name"));
                 editor.putFloat("hostel2_rating", (float) (response[0].getDouble("hostel2_rating")));
                 editor.putInt("hostel2_food", response[0].getInt("hostel2_food"));
                 editor.putInt("hostel2_accommodation", response[0].getInt("hostel2_accommodation"));

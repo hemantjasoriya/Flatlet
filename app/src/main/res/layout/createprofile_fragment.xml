@@ -41,7 +41,9 @@
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:hint="@string/your_name"
-            android:textSize="@dimen/hostel_rent_recycler_Card" />
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:imeOptions="actionNext"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -60,7 +62,8 @@
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:hint="@string/email_id_optional"
             android:inputType="textEmailAddress"
-            android:textSize="@dimen/hostel_rent_recycler_Card" />
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:maxLines="1" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -103,7 +106,8 @@
         android:paddingEnd="10dp"
         android:paddingStart="20dp"
         android:text="@string/save_profile"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textAllCaps="false" />
 
 
 </RelativeLayout>
