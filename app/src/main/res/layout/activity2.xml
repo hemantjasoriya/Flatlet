@@ -124,7 +124,7 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="@dimen/activity2_card_margin_up"
@@ -132,7 +132,9 @@
                         android:text="@string/rent"
                         android:textAllCaps="true"
                         android:textSize="@dimen/activity2_card_title_size"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:background="@color/com_accountkit_default_skin_background" />
 
                     <ProgressBar
                         android:id="@+id/progressBar"

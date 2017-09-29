@@ -32,11 +32,22 @@
         android:alpha="0.8"
         android:background="@mipmap/ic_launcher"/>
 
+    <TextView
+        android:id="@+id/noHostelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progressBar1"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Fetching Hostels..."
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.Toolbar
@@ -49,6 +60,7 @@
         android:minHeight="56dp"
         android:theme="?attr/actionBarTheme"
         app:title="@string/Flatlet" />
+
 
 </RelativeLayout>
 

@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -193,16 +194,23 @@ public class LoginFragment extends Fragment {
 
                         @Override
                         public void onError(final AccountKitError error) {
-
                             // Handle Error
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                            builder.setTitle("Some error occured")
+                                    .setMessage("Please try again!")
+                                    .setIcon(R.drawable.ic_no_internet)
+                                    .setPositiveButton("OK", null).create();
+                            builder.setCancelable(false);
+                            builder.show();
+
                         }
                     });
 
 
                 } else {
-                    /*toastMessage = String.format(
+                    toastMessage = String.format(
                             "Success:%s...",
-                            loginResult.getAuthorizationCode().substring(0, 10));*/
+                            loginResult.getAuthorizationCode().substring(0, 10));
                 }
             }
 

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private String roomType;
     private String gender;
     private Toolbar toolbar ;
+    private TextView noHostelTextView;
 
     @Override
     public void onBackPressed() {
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
         locality = getIntent().getStringExtra("locality");
+        noHostelTextView = (TextView) findViewById(R.id.noHostelTextView);
         String dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
         gender = getIntent().getStringExtra("gender");
