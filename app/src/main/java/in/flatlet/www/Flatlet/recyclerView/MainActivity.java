@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private String locality;
     private String roomType;
     private String gender;
-    private Toolbar toolbar ;
+    private Toolbar toolbar;
     private TextView noHostelTextView;
 
     @Override
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dataModelArrayList = new ArrayList<>();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView1);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         progressBar = (ImageView) findViewById(R.id.progressBar1);
-          ObjectAnimator animation = ObjectAnimator.ofFloat(progressBar,"rotationY",0.0f,360f);
+        ObjectAnimator animation = ObjectAnimator.ofFloat(progressBar, "rotationY", 0.0f, 360f);
         animation.setDuration(5500);
         animation.setInterpolator(new AccelerateDecelerateInterpolator());
         animation.start();
@@ -101,12 +101,10 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getFlags() == 13) {
             finalDbQuery = dbqry + locality;
 
-        }
-        else if(getIntent().getFlags()==14){
+        } else if (getIntent().getFlags() == 14) {
             finalDbQuery = dbqry + "%20AND%20gender='" + gender + "'" + "%20ORDER%20BY%20RAND()";
 
-        }
-        else {
+        } else {
             finalDbQuery = dbqry + locality + "%20ORDER%20BY%20RAND()";
         }
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
@@ -118,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dy > 0) {
                     filterFloatingButton.hide();
                     toolbar.setVisibility(View.GONE);
-                }
-                else {
+                } else {
 
                     filterFloatingButton.show();
                     toolbar.setVisibility(View.VISIBLE);
@@ -129,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void JSON_DATA_WEB_CALL() {
-        if (MySingleton.getInstance(getApplicationContext()).isOnline()){
+        if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
                     new Response.Listener<JSONArray>() {
@@ -151,9 +148,8 @@ public class MainActivity extends AppCompatActivity {
             jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(15000, 3, 1f));
 
             MySingleton.getInstance(this).addToRequestQueue(jsonArrayRequest);
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"No Internet Connection ! Please Try Again",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -166,10 +162,11 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        if (requestQueue!=null){
+        if (requestQueue != null) {
             requestQueue.cancelAll(MyRequestTag);
         }
     }
