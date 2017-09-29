@@ -12,7 +12,6 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -37,13 +36,18 @@ public class Splash extends AppCompatActivity {
     private ImageView imageView;
 
     SharedPreferences sharedPreferences1;
-    private final String TAG = "Splash";
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate: oncreate chala");
-       /* getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);*/
+
         setContentView(R.layout.splash_screen);
         imageView = (ImageView) findViewById(R.id.imageView);
         sharedPreferences1 = getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
@@ -56,14 +60,13 @@ public class Splash extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
-                        Log.i(TAG, "onResponse: response chal gya " + response.getString("version_name") + response.getInt("priority"));
 
                         int mandatoryUpdate = response.getInt("priority");
                         String versionAvailable = response.getString("version_name");
 
                         if (mandatoryUpdate == 1 && versionAvailable.equalsIgnoreCase(BuildConfig.VERSION_NAME)) {
-                            new AlertDialog.Builder(Splash.this)
-                                    .setTitle("Update Alert")
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Splash.this);
+                            builder.setTitle("Update Alert")
                                     .setMessage("There is some mandatory update available")
                                     .setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
                                         @Override
@@ -72,7 +75,10 @@ public class Splash extends AppCompatActivity {
                                             startActivity(intent);
                                             finish();
                                         }
-                                    }).create().show();
+                                    }).create();
+                            builder.setCancelable(false);
+                            builder.show();
+
                         } else {
 
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -80,7 +86,7 @@ public class Splash extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Log.i(TAG, "run: 3 sec ruk rha main");
+
 
                                         Intent intent = new Intent(Splash.this, WelcomeActivity.class);
                                         intent.setFlags(1);
@@ -88,7 +94,7 @@ public class Splash extends AppCompatActivity {
                                         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
                                         finish();
                                     }
-                                }, 3000);
+                                }, 1500);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.putBoolean("welcome", true);
                                 editor.apply();
@@ -97,7 +103,6 @@ public class Splash extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Log.i(TAG, "run: 3 sec ruk rhe else mein");
                                         if (accessToken == null) {
                                             startActivity(new Intent(Splash.this, LoginActivity.class).setFlags(0));
                                         } else if (sharedPreferences1.getString("userName", "johndoe").equals("johndoe")) {
@@ -105,12 +110,13 @@ public class Splash extends AppCompatActivity {
 
                                         } else {
                                             startActivity(new Intent(Splash.this, FirstActivity.class).setFlags(1));
+
                                         }
                                         imageView.setImageResource(R.mipmap.ic_launcher);
                                         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
                                         finish();
                                     }
-                                }, 3000);
+                                }, 1500);
                             }
 
                         }
@@ -123,7 +129,45 @@ public class Splash extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: chala");
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    if (!(sharedPreferences.getBoolean("welcome", false))) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                                Intent intent = new Intent(Splash.this, WelcomeActivity.class);
+                                intent.setFlags(1);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
+                                finish();
+                            }
+                        }, 1500);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("welcome", true);
+                        editor.apply();
+                    } else {
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if (accessToken == null) {
+                                    startActivity(new Intent(Splash.this, LoginActivity.class).setFlags(0));
+                                } else if (sharedPreferences1.getString("userName", "johndoe").equals("johndoe")) {
+                                    startActivity(new Intent(Splash.this, LoginActivity.class).setFlags(1));
+
+                                } else {
+                                    startActivity(new Intent(Splash.this, FirstActivity.class).setFlags(1));
+                                }
+                                imageView.setImageResource(R.mipmap.ic_launcher);
+                                overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
+                                finish();
+                            }
+                        }, 1500);
+                    }
+
                 }
             });
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(12000, 0,
@@ -132,22 +176,29 @@ public class Splash extends AppCompatActivity {
 
 
         } else {
-            new AlertDialog.Builder(this)
-                    .setTitle("No Internet Connection")
-                    .setMessage("Please make sure you have working internet available")
-                    .setNegativeButton("Turn on Internet", new DialogInterface.OnClickListener() {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("No Internet Connection")
+                    .setMessage("Please make sure you have Internet Turned On")
+                    .setIcon(R.drawable.ic_no_internet)
+                    .setNegativeButton("Go to Settings", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(new Intent(Settings.ACTION_SETTINGS));
+                            finish();
                         }
                     })
-                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            onResume();
+                            finish();
+
 
                         }
-                    }).create().show();
+                    }).create();
+            builder.setCancelable(false);
+            builder.show();
+
+
         }
 
     }

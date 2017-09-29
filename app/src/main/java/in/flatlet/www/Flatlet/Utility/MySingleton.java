@@ -54,4 +54,16 @@ public class MySingleton {
                 activeNetwork.isConnectedOrConnecting();
     }
 
+    //method for checking if connected to  internet but no access to it
+   /* private boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+*/
 }

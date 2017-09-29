@@ -84,20 +84,19 @@ public class FavouriteFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (favouriteHostelList.size() == 0) {
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 lp.addRule(RelativeLayout.CENTER_IN_PARENT);
                 ImageView imageView = new ImageView(getContext());
                 RL_favourite.addView(imageView, lp);
                 RL_favourite.removeView(favouriteRecyclerView);
-                imageView.getLayoutParams().width = 900;
+                imageView.getLayoutParams().width = 1100;
                 imageView.getLayoutParams().height = 900;
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setAlpha(0.7f);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setAlpha(0.9f);
                 imageView.setImageResource(R.drawable.nf);
 
 
             }
-
             favouriteRecyclerView.setHasFixedSize(true);
             LinearLayoutManager recyclerViewLayoutManager = new LinearLayoutManager(getContext());
             favouriteRecyclerView.setLayoutManager(recyclerViewLayoutManager);

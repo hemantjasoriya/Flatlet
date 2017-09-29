@@ -122,8 +122,8 @@ public class FirstActivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentByTag("fragmentSearch");
         Fragment fragment1 = fm.findFragmentByTag("fragmentHome");
         if (fragment1.isVisible()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Really Exit?")
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Hey !")
                     .setMessage("Are you sure you want to exit?")
                     .setNegativeButton("no", null)
                     .setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -135,7 +135,10 @@ public class FirstActivity extends AppCompatActivity {
                             startActivity(homeIntent);
                             finish();
                         }
-                    }).create().show();
+                    }).create();
+            builder.setCancelable(false);
+            builder.show();
+
         } else if (fragment.isVisible()) {
             fragment = new HomeFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
