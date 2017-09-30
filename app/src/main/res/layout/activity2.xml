@@ -293,9 +293,8 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
+                            android:padding="5dp"
                             android:contentDescription="@string/security_image_vector"
-                            android:paddingBottom="15dp"
-                            android:scaleType="fitCenter"
                             app:srcCompat="@drawable/ic_geyser" />
 
                         <ImageView
@@ -303,7 +302,8 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:paddingBottom="15dp"
+                            android:padding="5dp"
+                            android:alpha="0.8"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/ic_ame_cleaning" />
 
@@ -312,7 +312,7 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:paddingBottom="15dp"
+                            android:padding="5dp"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/ic_studytable" />
 
@@ -321,17 +321,16 @@
                             android:layout_width="0dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
-                            android:paddingBottom="15dp"
+                            android:padding="5dp"
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/ic_ame_ro" />
 
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="50dp"
-                            android:layout_marginEnd="22dp"
+                            android:layout_marginEnd="0dp"
                             android:layout_weight="1"
-                            android:paddingBottom="10dp"
-                            android:scaleType="fitCenter"
+                            android:paddingTop="5dp"
                             app:srcCompat="@drawable/ic_ame_laundry" />
 
                         <Button
@@ -341,7 +340,7 @@
                             android:layout_weight="1"
                             android:text="@string/more_small"
                             android:textColor="@color/colorAccent"
-                            android:textSize="14sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -479,6 +478,7 @@
                         android:layout_below="@+id/text7"
                         android:layout_marginBottom="@dimen/activity2_card_margin_up"
                         android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
                         android:text="@string/note"
                         android:textAlignment="viewStart"
                         android:textSize="8sp" />

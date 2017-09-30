@@ -112,7 +112,7 @@ public class Splash extends AppCompatActivity {
                                             startActivity(new Intent(Splash.this, FirstActivity.class).setFlags(1));
 
                                         }
-                                        imageView.setImageResource(R.mipmap.ic_launcher);
+                                        imageView.setImageResource(R.drawable.splash3);
                                         overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
                                         finish();
                                     }
@@ -161,7 +161,7 @@ public class Splash extends AppCompatActivity {
                                 } else {
                                     startActivity(new Intent(Splash.this, FirstActivity.class).setFlags(1));
                                 }
-                                imageView.setImageResource(R.mipmap.ic_launcher);
+                                imageView.setImageResource(R.drawable.splash3);
                                 overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
                                 finish();
                             }

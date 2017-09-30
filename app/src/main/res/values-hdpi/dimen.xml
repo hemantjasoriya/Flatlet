@@ -35,4 +35,5 @@
     <dimen name="tutorial_title_size">22sp</dimen>
     <dimen name="tutorial_steps_title">16sp</dimen>
     <dimen name="custom_progressbar">65dp</dimen>
+    <dimen name="faq_answer_text_size">14sp</dimen>
 </resources>

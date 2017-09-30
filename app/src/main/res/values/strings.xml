@@ -136,7 +136,7 @@
     <string name="welcome_three_text">Experience Every Corner of the room with our 360° Virtual Tour and High field Panoramas</string>
     <string name="experience">Experience</string>
     <string name="welcome_three_footer">P.S. Some useful abbreviation in Kota. PG: A room without food Hostel: A room including food</string>
-    <string name="about_us"><![CDATA[Flatlet is Kota’s fastest growing hostel rental network attempting to provide better rental solution via design and technology. We help you find a hostel all within the app. Experience the Revolutionary high field view Panoramas and 360° Virtual Tour from Kota’s largest hostel database. Whatever is your budget (7000 ₹ to 19000 ₹), We have something for you. At the current time, we have hostels listed in Mahavir Nagar 1, Rajeev Gandhi Nagar, New Rajeev Gandhi Nagar. Drop by & say Hi ! to us before it’s too late. We are at]]></string>
+    <string name="about_us"><![CDATA[Flatlet is Kota’s fastest growing hostel rental network attempting to provide a better rental solution via design and technology. We help you find a hostel all within the app. Experience the Revolutionary high field view Panoramas and 360° Virtual Tour from Kota’s largest hostel database. Whatever is your budget (7000 ₹ to 19000 ₹), We have something for you. At the current time, we have hostels listed in Mahavir Nagar 1, Rajeev Gandhi Nagar, New Rajeev Gandhi Nagar. Drop by & say Hi ! to us before it’s too late. We are at]]></string>
     <string name="refund">Generally 1 month\'s rent is deposited as security money. Please ask the Refund rules to the landlord beforehand.</string>
     <string name="favourite">Favourite</string>
     <string name="search_for_your_hostel">Search for your Hostel</string>
@@ -162,4 +162,6 @@
     <string name="step8_swipe_right_to_see_images_from_the_stack">STEP8:Swipe right to see images from the stack</string>
     <string name="step9_click_on_the_360_tab_and_enjoy_vr_tour">STEP9:Click on the 360° tab and Enjoy VR Tour</string>
     <string name="more_small">more</string>
+    <string name="email">Email</string>
+    <string name="contact_no">Contact no.</string>
 </resources>

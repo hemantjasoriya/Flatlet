@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
         locality = getIntent().getStringExtra("locality");
-        noHostelTextView = (TextView) findViewById(R.id.noHostelTextView);
         String dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
         gender = getIntent().getStringExtra("gender");

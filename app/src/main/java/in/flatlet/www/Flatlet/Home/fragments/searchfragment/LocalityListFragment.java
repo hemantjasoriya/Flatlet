@@ -1,6 +1,8 @@
 package in.flatlet.www.Flatlet.Home.fragments.searchfragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +50,7 @@ public class LocalityListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Button searchButton = (Button) getActivity().findViewById(R.id.searchButton);
         navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
+
         checkBoxBoys = (RadioButton) getActivity().findViewById(R.id.checkBoxBoys);
         checkBoxGirls = (RadioButton) getActivity().findViewById(R.id.checkBoxGirls);
         checkBoxSingleRoom = (RadioButton) getActivity().findViewById(R.id.checkBoxSingleRoom);
@@ -54,6 +58,12 @@ public class LocalityListFragment extends Fragment {
         checkBoxAc = (RadioButton) getActivity().findViewById(R.id.checkBoxAc);
         checkBoxNonAc = (RadioButton) getActivity().findViewById(R.id.checkBoxNonAc);
         Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getString("userGender", "male").equalsIgnoreCase("male")) {
+            checkBoxBoys.setChecked(true);
+        }
+        Log.i("TAG", "onActivityCreated: " + sharedPreferences.getString("userGender", "male"));
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.localityArray,
                 android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

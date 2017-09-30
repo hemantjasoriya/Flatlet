@@ -49,6 +49,7 @@ public class CreateProfileFragment extends Fragment {
     private EditText mobileEditText, nameEditText, emailEditText;
     private RadioButton maleRadioButton, femaleRadioButton;
     RequestQueue queue1;
+    String userGender;
 
 
     @Nullable
@@ -68,6 +69,12 @@ public class CreateProfileFragment extends Fragment {
         TextView personalDetailsTextView = (TextView) getActivity().findViewById(R.id.personalDetailsTextView);
         maleRadioButton = (RadioButton) getActivity().findViewById(R.id.maleRadioButton);
         femaleRadioButton = (RadioButton) getActivity().findViewById(R.id.femaleRadioButton);
+
+        if (maleRadioButton.isChecked()) {
+            userGender = "male";
+        } else {
+            userGender = "female";
+        }
 
         //handling button click of save profile
         saveProfileButton.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +102,7 @@ public class CreateProfileFragment extends Fragment {
                     }
                     editor.putString("userName", nameEditText.getText().toString());
                     editor.putString("userEmail", emailEditText.getText().toString());
+                    editor.putString("userGender", userGender);
                     editor.apply();
                     Intent intent = new Intent(getActivity(), FirstActivity.class);
                     intent.setFlags(1);
