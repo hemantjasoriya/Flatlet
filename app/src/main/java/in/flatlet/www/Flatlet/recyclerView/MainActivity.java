@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 dataModelArrayList.add(GetDataAdapter2);
+
             }
             return null;
         }
