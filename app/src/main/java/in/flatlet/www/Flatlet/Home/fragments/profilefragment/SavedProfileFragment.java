@@ -120,7 +120,7 @@ public class SavedProfileFragment extends Fragment {
 
     private void logout() {
         AccountKit.logOut();
-        startActivity(new Intent(getActivity(),LoginActivity.class));
+        startActivity(new Intent(getActivity(), LoginActivity.class));
         // changing user name in shared preferences
         new Thread(new Runnable() {
             @Override
