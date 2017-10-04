@@ -206,6 +206,7 @@ public class ReviewHostel extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ReviewHostel.this, Activity2.class);
                 intent.putExtra("hostel_title", hostel_title);
+                intent.putExtra("hostel_rent", "");
                 startActivity(intent);
             }
         });

@@ -676,7 +676,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     int i = cursor.getCount();
 
 
-                    Toast.makeText(this, "Added to favourites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, hostel_title + " added to favourites", Toast.LENGTH_SHORT).show();
                     birthSort = false;
 
 

@@ -1,7 +1,6 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -10,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +34,6 @@ import com.facebook.login.LoginFragment;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
@@ -96,9 +95,9 @@ public class CreateProfileFragment extends Fragment {
                     editor.putString("userName", nameEditText.getText().toString());
                     editor.putString("userEmail", emailEditText.getText().toString());
                     editor.apply();
-                    Intent intent = new Intent(getActivity(), FirstActivity.class);
+                   /* Intent intent = new Intent(getActivity(), FirstActivity.class);
                     intent.setFlags(1);
-                    getActivity().startActivity(intent);
+                    getActivity().startActivity(intent);*/
                     sendToDatabase();
                 } else {
                     Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
@@ -194,12 +193,12 @@ public class CreateProfileFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.i("CreateProfileFragment", "onResponse: ");
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Log.i("CreateProfileFragment", "onErrorResponse: ");
 
             }
         });
