@@ -59,8 +59,11 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
         holder.hostel_title.setText(favouriteHostelDataModel.getTitle());
 
         holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
-
-        holder.hostel_rent.setText(String.valueOf(favouriteHostelDataModel.getRent()));
+        if (String.valueOf(favouriteHostelDataModel.getRent()).equals("0")) {
+            holder.hostel_rent.setText("Rent Not Selected");
+        } else {
+            holder.hostel_rent.setText(String.valueOf(favouriteHostelDataModel.getRent()));
+        }
         holder.favouriteCardRating.setText(String.valueOf(favouriteHostelDataModel.getFavouriteCardRating()));
 
         Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
