@@ -1,0 +1,685 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity2_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:layout_collapseMode="parallax">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:titleEnabled="false"
+            app:title="hahahahl"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/imageHead"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hostel_detail_image_height"
+                android:layout_below="@+id/toolbar"
+                android:background="@android:drawable/ic_menu_gallery"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="?attr/actionBarTheme"
+                android:visibility="visible"
+                app:layout_collapseMode="pin" />
+
+
+            <TextView
+                android:id="@+id/total_views"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:drawablePadding="2dp"
+                android:drawableStart="@drawable/ic_eye"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/imageHead1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="96dp"
+                android:alpha="0.9"
+                android:background="@android:drawable/ic_menu_camera"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="60dp"
+                android:textSize="20sp"
+                android:padding="15dp"
+                android:alpha="0.6"
+                android:textAlignment="center"
+                android:text="Click here to see the complete Gallery" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/callOwner"
+        android:layout_width="@dimen/progressbar_size"
+        android:layout_height="@dimen/progressbar_size"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/progressbar_size"
+        android:alpha="0.87"
+        app:backgroundTint="@color/Green"
+        app:elevation="6dp"
+        app:srcCompat="@drawable/ic_call" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:paddingTop="0dp">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_margin_bottom"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/rent"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:background="@color/com_accountkit_default_skin_background" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="@dimen/progressbar_size"
+                        android:layout_height="@dimen/progressbar_size"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="3dp" />
+
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView2"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/single_non_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/text_single_nonac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/textView"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/single_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/text_single_ac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView3"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/textView3"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView3"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/double_non_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/text_double_nonac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView6"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/textView6"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView6"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/double_ac"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/text_double_ac"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView7"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/textView7"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/textBottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/text_double_ac"
+                        android:layout_alignStart="@id/textView7"
+                        android:layout_below="@+id/textView7"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:alpha="0.8"
+                        android:text="@string/refund"
+                        android:textAlignment="center"
+                        android:textSize="8sp" />
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardview1"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/title_ame"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:text="@string/amenities"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/ll1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/title_ame"
+                        android:orientation="horizontal"
+                        android:weightSum="6">
+
+                        <ImageView
+                            android:id="@+id/image_ame1"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:contentDescription="@string/security_image_vector"
+                            app:srcCompat="@drawable/ic_geyser" />
+
+                        <ImageView
+                            android:id="@+id/image_ame2"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:alpha="0.8"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/ic_ame_cleaning" />
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/ic_studytable" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            app:srcCompat="@drawable/ic_ame_ro" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="0dp"
+                            android:layout_weight="1"
+                            android:paddingTop="5dp"
+                            app:srcCompat="@drawable/ic_ame_laundry" />
+
+                        <Button
+                            android:id="@+id/moreAmeButton"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:text="@string/more_small"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardview2"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/specification"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text2"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/area_single_room_sqft"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/area_single_room"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/text"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/text"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+
+                    <TextView
+                        android:id="@+id/text3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:text="@string/area_double_room_sqft"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/area_double_room"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/text3"
+                        android:layout_alignBottom="@+id/text3"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/text3"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+
+                    <TextView
+                        android:id="@+id/text5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text3"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:text="@string/only_for"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/text5"
+                        android:layout_alignBottom="@+id/text5"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/text5"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+
+                    <TextView
+                        android:id="@+id/text7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text5"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_down"
+                        android:text="@string/locality"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/locality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/text7"
+                        android:layout_alignBottom="@+id/text7"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="60dp"
+                        android:layout_toEndOf="@+id/text7"
+                        android:text="@string/n_a"
+                        android:textAlignment="textEnd"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text7"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_up"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:text="@string/note"
+                        android:textAlignment="viewStart"
+                        android:textSize="8sp" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardview4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cardview3"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
+                android:background="#ffffff"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/rating"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/activity2_card_title_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView11"
+                        android:layout_centerHorizontal="true"
+                        android:drawableLeft="@drawable/star1"
+                        android:drawableRight="@drawable/info"
+                        android:text="@string/n_a"
+                        android:textColor="#f8013b"
+                        android:textSize="42sp" />
+
+
+                    <TextView
+                        android:id="@+id/textViewTotalRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewRating"
+                        android:layout_centerHorizontal="true"
+                        android:drawableLeft="@drawable/person"
+                        android:text="@string/n_a"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textViewTotalRating"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/food"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBarFood"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView12"
+                        android:layout_marginEnd="60dp"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:stepSize="1" />
+
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView12"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/accommodation"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBarAccommodation"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView13"
+                        android:layout_marginEnd="60dp"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:stepSize="1" />
+
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView13"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/staff_behaviour"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBarStaff"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView14"
+                        android:layout_marginEnd="60dp"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:stepSize="1" />
+
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/textView14"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:text="@string/study_environment"
+                        android:textSize="@dimen/activity2_card_title_size" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBarStudyEnvironment"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignTop="@+id/textView15"
+                        android:layout_marginEnd="60dp"
+                        android:isIndicator="false"
+                        android:numStars="5"
+                        android:rating="5"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:stepSize="1" />
+
+                    <Button
+                        android:id="@+id/ratingSubmitButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView15"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                        android:layout_marginTop="@dimen/activity2_card_margin_up"
+                        android:elevation="5dp"
+                        android:onClick="onSubmitRatingButton"
+                        android:text="@string/submit" />
+
+
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <fragment
+                android:id="@+id/map_fragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:layout_below="@id/cardview4"
+                android:layout_marginBottom="@dimen/activity2_card_margin_down"
+                android:layout_marginTop="@dimen/activity2_card_margin_down"
+                tools:context="in.flatlet.www.Flatlet.secondActivity" />
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

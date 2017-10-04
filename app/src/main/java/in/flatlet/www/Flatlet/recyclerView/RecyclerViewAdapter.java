@@ -239,6 +239,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
+            toggle.bringToFront();
             gender=(TextView)itemView.findViewById(R.id.hostel_gender);
         }
     }

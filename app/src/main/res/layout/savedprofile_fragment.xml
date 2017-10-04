@@ -24,8 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name*"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="5dp"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
@@ -76,8 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
-            android:drawableStart="@drawable/ic_email_black_24dp"
-            android:drawablePadding="5dp"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
@@ -125,8 +121,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/contact_no"
-            android:drawableStart="@drawable/ic_call"
-            android:drawablePadding="5dp"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 

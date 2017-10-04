@@ -60,9 +60,7 @@
                         android:layout_height="@dimen/home_fragment_searchbar_height"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
-                        android:drawableStart="@drawable/ic_search_black_24dp"
                         android:background="@drawable/round1"
-                        android:drawablePadding="5dp"
                         android:focusable="false"
                         android:hint="@string/enter_locality_here" />
                 </LinearLayout>

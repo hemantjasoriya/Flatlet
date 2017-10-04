@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.85"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/text"
+        android:text="@string/explore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/welcome_title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="@string/welcome_two_text"
+        android:layout_below="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/welcome_subtitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp" />
+
+    <ImageView
+        android:id="@+id/image1"
+        app:srcCompat="@drawable/ic_hostel"
+        android:layout_width="@dimen/welcome_image"
+        android:layout_height="@dimen/welcome_image"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/buttonPrev"
+        android:layout_width="@dimen/welcome_screen_nav"
+        android:layout_height="@dimen/welcome_screen_nav"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/ic_back"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:background="@drawable/ic_next"
+        android:layout_width="@dimen/welcome_screen_nav"
+        android:layout_height="@dimen/welcome_screen_nav"
+        android:layout_marginEnd="10dp" />
+
+
+</RelativeLayout>

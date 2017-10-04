@@ -3,12 +3,10 @@ package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +27,6 @@ import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
 import com.facebook.accountkit.AccountKitError;
 import com.facebook.accountkit.PhoneNumber;
-import com.facebook.login.LoginFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,8 +34,6 @@ import java.util.regex.Pattern;
 import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
-import in.flatlet.www.Flatlet.recyclerView.FeedReaderContract;
-import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 
 /**
  * Created by javax on 21-Aug-17.
@@ -55,6 +50,7 @@ public class CreateProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.createprofile_fragment, container, false);
     }
 
@@ -85,15 +81,21 @@ public class CreateProfileFragment extends Fragment {
                     SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_error);
+
+
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 
                     if (nameEditText.getText().toString().matches("")) {
-                        nameEditText.setError("Please enter name", drawable);
+                        nameEditText.setError("You can't leave this blank", drawable);
                         return;
                     }
 
                     if (!isEmailValid(emailEditText.getText().toString())) {
                         emailEditText.setError("Please enter a valid email id", drawable);
+                        return;
+                    }
+                    if (!isNameValid(nameEditText.getText().toString())) {
+                        nameEditText.setError("Please enter a valid name ", drawable);
                         return;
                     }
                     if (!maleRadioButton.isChecked() && !femaleRadioButton.isChecked()) {
@@ -153,7 +155,14 @@ public class CreateProfileFragment extends Fragment {
         return matcher.matches();
     }
 
-    private void logout() {
+    private static boolean isNameValid(String name) {
+        String expression = "^[\\p{L} .'-]+$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
+
+   /* private void logout() {
         AccountKit.logOut();
         Fragment fragment = new LoginFragment();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -175,7 +184,7 @@ public class CreateProfileFragment extends Fragment {
             }
         }).start();
 
-    }
+    }*/
 
 
     private void sendToDatabase() {

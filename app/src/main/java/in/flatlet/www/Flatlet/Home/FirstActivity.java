@@ -29,8 +29,8 @@ import in.flatlet.www.Flatlet.recyclerView.FeedReaderDbHelper;
 public class FirstActivity extends AppCompatActivity {
     private static Fragment fragment;
     private static FragmentTransaction fragmentTransaction;
-    private SQLiteDatabase db_favourite;
     BottomNavigationView navigation;
+
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -102,7 +102,7 @@ public class FirstActivity extends AppCompatActivity {
 
         FeedReaderDbHelper feedReaderDbHelper = new FeedReaderDbHelper(FirstActivity.this);
 
-        db_favourite = feedReaderDbHelper.getWritableDatabase();
+        SQLiteDatabase db_favourite = feedReaderDbHelper.getWritableDatabase();
 
         SharedPreferences pref_default = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!pref_default.getBoolean("thirdTime", false)) {

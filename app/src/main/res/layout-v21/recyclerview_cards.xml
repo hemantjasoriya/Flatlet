@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardview1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="2dp"
+    android:layout_marginTop="@dimen/activity2_card_margin_down"
+    android:animateLayoutChanges="true">
+
+    <RelativeLayout
+        android:id="@+id/cl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/subtitle_padding">
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="@dimen/favourite_button_size"
+            android:layout_height="@dimen/favourite_button_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ic_favorite_white_24dp"
+            android:textOff=""
+            android:textOn=""
+            tools:mockup_opacity="5" />
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height"
+            android:alpha="0.5"
+            android:contentDescription="@string/primary_card"
+            android:padding="@dimen/subtitle_padding"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_blank_image" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hostel_gender"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_marginStart="10dp"
+            android:textColor="#ff7256"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:id="@+id/hostel_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="@string/hostel_title"
+            android:textSize="@dimen/hostel_title_recycler_card"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hostel_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/imageView2"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
+            android:text="@string/hostel_rent"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/hostel_rent"
+            android:layout_centerHorizontal="true"
+            android:layout_toStartOf="@+id/hostel_rent"
+            android:padding="5dp"
+            android:text="₹"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <TextView
+            android:id="@+id/hostel_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/card_rating"
+            android:layout_alignStart="@+id/hostel_title"
+            android:layout_below="@+id/hostel_title"
+            android:padding="@dimen/subtitle_padding"
+            android:text="@string/hostel_address"
+            android:textColor="@color/secondaryDarkColor"
+            android:textSize="@dimen/hostel_address_recycler_card" />
+
+        <TextView
+            android:id="@+id/card_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/hostel_rent"
+            android:layout_marginEnd="10dp"
+            android:drawablePadding="2dp"
+            android:drawableStart="@drawable/star1"
+            android:padding="@dimen/subtitle_padding"
+            android:text=""
+            android:textColor="#fde60a19"
+            android:textSize="@dimen/hostel_address_recycler_card" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

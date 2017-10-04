@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userProfileTextView"
+        android:text="@string/user_profile"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/login_title"
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userNameLinearLayout"
+        android:layout_below="@+id/userProfileTextView"
+        android:layout_marginTop="@dimen/createProfileFragment_field_marginup"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name*"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:drawablePadding="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <EditText
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameEditText"
+            android:inputType="textPersonName"
+            android:enabled="false"
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:layout_marginStart="10dp"
+            android:maxLines="1"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userNameEditButton"
+            android:clickable="true"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/secondary_text"
+            android:text="@string/edit"
+            android:layout_marginStart="13dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/userNameView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/userNameLinearLayout"
+        android:layout_marginStart="5dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailLinearLayout"
+        android:layout_below="@+id/userNameView"
+        android:layout_marginTop="@dimen/subtitle_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:drawablePadding="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userEmailEditText"
+            android:inputType="textEmailAddress"
+            android:enabled="false"
+            android:textSize="@dimen/activity2_card_title_size"
+            android:maxLines="1"
+            android:layout_marginStart="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailEditButton"
+            android:textSize="12sp"
+            android:clickable="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/secondary_text"
+            android:text="@string/edit"
+            android:layout_marginStart="2dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/emailView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/emailLinearLayout"
+        android:layout_marginStart="5dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mobileLinearLayout"
+        android:layout_below="@+id/emailView"
+        android:layout_marginTop="@dimen/subtitle_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_no"
+            android:drawableStart="@drawable/ic_call"
+            android:drawablePadding="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="@dimen/hostel_rent_recycler_Card" />
+
+        <EditText
+            android:textIsSelectable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/userMobileEditText"
+            android:inputType="phone"
+            android:enabled="false"
+            android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:maxLines="1"
+            android:layout_marginStart="10dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/mobileView"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/mobileLinearLayout"
+        android:layout_marginStart="5dp" />
+
+    <TextView
+        android:id="@+id/error"
+        android:text="*These fields can not be left blank"
+        android:textColor="@color/red_error"
+        android:textSize="14sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logoutButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/logoutButton1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textColor="#ffffff"
+        android:background="#e76565"
+        android:elevation="2dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/welcome_title"
+        android:layout_below="@+id/mobileView"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

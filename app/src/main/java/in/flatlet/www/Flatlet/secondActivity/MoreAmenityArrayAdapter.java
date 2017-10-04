@@ -20,6 +20,7 @@ class MoreAmenityArrayAdapter extends ArrayAdapter {
     private final ArrayList<String> ameTitle;
     private final ArrayList<Integer> ameVector;
 
+
     MoreAmenityArrayAdapter(Context context, ArrayList<String> ameTitle, ArrayList<Integer> ameVector) {
         super(context, R.layout.listitems, ameTitle);
         this.context = context;
@@ -38,6 +39,9 @@ class MoreAmenityArrayAdapter extends ArrayAdapter {
         textView.setText(ameTitle.get(position));
         ImageView imageView = (ImageView) convertView.findViewById(R.id.list_vector);
         imageView.setImageResource(ameVector.get(position));
+        /*Drawable drawable = ResourcesCompat.getDrawable(getContext().getResources(), ameVector.get(position), null);
+        imageView.setImageDrawable(drawable);
+        *//*imageView.setBackgroundResource(ameVector.get(position));*/
         return convertView;
     }
 }
