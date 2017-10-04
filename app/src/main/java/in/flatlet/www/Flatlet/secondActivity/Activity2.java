@@ -81,6 +81,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private boolean birthSort;
     private SQLiteDatabase db_favourite;
     private Cursor cursor;
+
     private static final int REQUEST_CALL = 1;
     Intent callIntent;
 
