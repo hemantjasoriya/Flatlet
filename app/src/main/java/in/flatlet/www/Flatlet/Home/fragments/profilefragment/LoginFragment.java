@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        RL = (RelativeLayout)view.findViewById(R.id.RL);
+        RL = (RelativeLayout) view.findViewById(R.id.RL);
 
 
         return view;

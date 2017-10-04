@@ -6,9 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
@@ -46,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private String gender;
     private Toolbar toolbar;
     private TextView noHostelTextView;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override
     public void onBackPressed() {
@@ -88,11 +94,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAlpha(0.7f);
         toolbar.setAlpha(0.7f);
         filterFloatingButton = (FloatingActionButton) findViewById(R.id.filterFloatingButton);
+        filterFloatingButton.bringToFront();
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewlayoutManager);
         locality = getIntent().getStringExtra("locality");
-        noHostelTextView = (TextView) findViewById(R.id.noHostelTextView);
         String dbqry = getIntent().getStringExtra("dbqry");
         roomType = getIntent().getStringExtra("roomType");
         gender = getIntent().getStringExtra("gender");
@@ -110,19 +116,42 @@ public class MainActivity extends AppCompatActivity {
         GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
 
         JSON_DATA_WEB_CALL();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    filterFloatingButton.hide();
-                    toolbar.setVisibility(View.GONE);
-                } else {
 
-                    filterFloatingButton.show();
-                    toolbar.setVisibility(View.VISIBLE);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if version is >lollipop then animate the FAB while scrolling up and down
+
+
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    if (dy > 0) {
+                        filterFloatingButton.hide();
+                        toolbar.setVisibility(View.GONE);
+                    } else {
+
+                        filterFloatingButton.show();
+                        toolbar.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-        });
+            });
+
+        } else {
+            Log.i("MainActivity", "onCreate android version is : " + android.os.Build.VERSION.SDK_INT);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    if (dy > 0) {
+                        filterFloatingButton.hide();
+                        toolbar.setVisibility(View.GONE);
+                    } else {
+
+                        filterFloatingButton.show();
+                        toolbar.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+        }
+
     }
 
     private void JSON_DATA_WEB_CALL() {

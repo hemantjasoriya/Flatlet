@@ -18,7 +18,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -89,8 +91,16 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         finish();
     }
 
+    static {
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+        Log.i("Activity2", "static initializer: vector");
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2);
@@ -254,7 +264,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
 
-                while (ameTitle.size() < 11) {
+                while (ameTitle.size() < 14) {
                     ameTitle.add(0, "CCTV Surveillance");
                     ameTitle.add(1, "Elevator");
                     ameTitle.add(2, "Attached Toilet");
@@ -266,10 +276,13 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     ameTitle.add(8, "Security Guard");
                     ameTitle.add(9, "Geyser");
                     ameTitle.add(10, "Study Table");
+                    ameTitle.add(11, "Breakfast");
+                    ameTitle.add(12, "Lunch");
+                    ameTitle.add(13, "Dinner");
                 }
 
 
-                while (ameVector.size() < 11) {
+                while (ameVector.size() < 14) {
 
                     if ("1".equalsIgnoreCase(CCTV)) {
                         ameVector.add(0, R.drawable.ic_cctv);
@@ -302,6 +315,9 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     ameVector.add(8, R.drawable.ic_security);
                     ameVector.add(9, R.drawable.ic_geyser);
                     ameVector.add(10, R.drawable.ic_studytable);
+                    ameVector.add(11, R.drawable.ic_breakfast);
+                    ameVector.add(12, R.drawable.ic_lunch);
+                    ameVector.add(13, R.drawable.ic_dinner);
                 }
                 listView = new ListView(Activity2.this);
 
@@ -323,6 +339,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
 
     private void init() {
         FloatingActionButton mCallButton = (FloatingActionButton) findViewById(R.id.callOwner);
+        mCallButton.bringToFront();
         mCallButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

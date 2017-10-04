@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import in.flatlet.www.Flatlet.Home.fragments.morefragment.FAQFragment.FAQFragment;
+import in.flatlet.www.Flatlet.Home.fragments.morefragment.HowItWorksFragment.HowItWorksFagment;
 import in.flatlet.www.Flatlet.R;
 
 
@@ -64,7 +65,11 @@ public class MoreFragment extends Fragment implements AdapterView.OnItemClickLis
                 fragmentTransaction.commit();
                 break;
             case 3:
-                Toast.makeText(getActivity().getApplicationContext(), "you clicked on " + s + position, Toast.LENGTH_SHORT).show();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=in.flatlet.www.Flatlet");
+                sendIntent.setType("text/html");
+                startActivity(sendIntent);
                 break;
             case 4:
                 fragment = new FAQFragment();

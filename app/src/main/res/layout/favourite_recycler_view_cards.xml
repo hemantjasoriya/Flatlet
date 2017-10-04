@@ -24,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="12dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/ic_favorite_white_24dp"
+            app:srcCompat="@drawable/ic_favorite_white_24dp"
             android:textOff=""
             android:textOn=""
             tools:mockup_opacity="5" />
@@ -92,8 +92,6 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/hostel_rent"
             android:layout_marginEnd="10dp"
-            android:drawablePadding="2dp"
-            android:drawableStart="@drawable/star1"
             android:padding="@dimen/subtitle_padding"
             android:text=""
             android:textColor="#fde60a19"

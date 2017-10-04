@@ -42,7 +42,7 @@
         android:layout_width="@dimen/welcome_screen_nav"
         android:layout_height="@dimen/welcome_screen_nav"
         android:layout_marginStart="10dp"
-        android:background="@drawable/ic_back"
+        android:background="@drawable/left_chevron"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
     <Button
@@ -50,7 +50,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:padding="5dp"
-        android:background="@drawable/ic_next"
+        android:background="@drawable/keyboard_right_arrow_button"
         android:layout_width="@dimen/welcome_screen_nav"
         android:layout_height="@dimen/welcome_screen_nav"
         android:layout_marginEnd="10dp" />

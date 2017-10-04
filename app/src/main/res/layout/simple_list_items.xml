@@ -2,10 +2,8 @@
     android:text="Mahavir nagar 1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:drawableStart="@drawable/ic_location_on_black_24dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
     android:padding="@dimen/subtitle_padding"
     android:textSize="@dimen/hostel_rent_recycler_Card"
-    android:drawablePadding="@dimen/subtitle_padding"
     xmlns:android="http://schemas.android.com/apk/res/android" />

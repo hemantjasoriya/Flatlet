@@ -1,54 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:id="@+id/RL1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RL1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/relativeBackground"
-    tools:context="in.flatlet.www.Flatlet.recyclerView.MainActivity"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    tools:context="in.flatlet.www.Flatlet.recyclerView.MainActivity">
 
 
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/filterFloatingButton"
-            android:layout_width="@dimen/progressbar_size"
-            android:layout_height="@dimen/progressbar_size"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/fab_margin"
-            android:alpha="0.8"
-            android:onClick="onFilterClick"
-            app:backgroundTint="@color/colorAccent"
-            app:srcCompat="@drawable/ic_filter" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/filterFloatingButton"
+        android:layout_width="@dimen/progressbar_size"
+        android:layout_height="@dimen/progressbar_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:alpha="0.8"
+        android:onClick="onFilterClick"
+        app:backgroundTint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_filter" />
 
     <ImageView
         android:id="@+id/progressBar1"
         android:layout_width="@dimen/custom_progressbar"
         android:layout_height="@dimen/custom_progressbar"
         android:layout_centerInParent="true"
-        android:elevation="3dp"
         android:alpha="0.8"
-        android:background="@mipmap/ic_launcher"/>
-
-    <TextView
-        android:id="@+id/noHostelTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/progressBar1"
-        android:layout_centerHorizontal="true"
-        android:fontFamily="sans-serif-condensed"
-        android:text="Fetching Hostels..."
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:elevation="3dp" />
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

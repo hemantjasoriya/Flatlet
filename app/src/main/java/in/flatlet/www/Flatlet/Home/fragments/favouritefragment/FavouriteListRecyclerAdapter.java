@@ -60,8 +60,8 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
 
         holder.hostel_address.setText(favouriteHostelDataModel.getAddress_secondary());
 
-        holder.hostel_rent.setText(favouriteHostelDataModel.getRent() + "");
-        holder.favouriteCardRating.setText(favouriteHostelDataModel.getFavouriteCardRating() + "");
+        holder.hostel_rent.setText(String.valueOf(favouriteHostelDataModel.getRent()));
+        holder.favouriteCardRating.setText(String.valueOf(favouriteHostelDataModel.getFavouriteCardRating()));
 
         Picasso.with(context).load(favouriteHostelDataModel.getUrl()).into(holder.imageView2);
         holder.toggle.setBackgroundResource(R.drawable.ic_favorite_red_24dp);

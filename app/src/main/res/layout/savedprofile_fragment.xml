@@ -24,8 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name*"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="5dp"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
@@ -75,9 +73,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email_addres"
-            android:drawableStart="@drawable/ic_email_black_24dp"
-            android:drawablePadding="5dp"
+            android:text="@string/email"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
@@ -87,8 +83,9 @@
             android:id="@+id/userEmailEditText"
             android:inputType="textEmailAddress"
             android:enabled="false"
-            android:textSize="@dimen/hostel_rent_recycler_Card"
-            android:layout_marginStart="10dp"/>
+            android:textSize="@dimen/activity2_card_title_size"
+            android:maxLines="1"
+            android:layout_marginStart="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,7 +96,7 @@
             android:textColor="@color/colorPrimary"
             android:textColorHighlight="@color/secondary_text"
             android:text="@string/edit"
-            android:layout_marginStart="13dp" />
+            android:layout_marginStart="2dp" />
 
     </LinearLayout>
 
@@ -123,9 +120,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/phone_number"
-            android:drawableStart="@drawable/ic_call"
-            android:drawablePadding="5dp"
+            android:text="@string/contact_no"
             android:layout_marginStart="5dp"
             android:textSize="@dimen/hostel_rent_recycler_Card"/>
 
@@ -137,6 +132,7 @@
             android:inputType="phone"
             android:enabled="false"
             android:textSize="@dimen/hostel_rent_recycler_Card"
+            android:maxLines="1"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
