@@ -1,6 +1,7 @@
 package in.flatlet.www.Flatlet.Home.fragments.profilefragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.facebook.accountkit.PhoneNumber;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import in.flatlet.www.Flatlet.Home.FirstActivity;
 import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 
@@ -105,9 +107,9 @@ public class CreateProfileFragment extends Fragment {
                     editor.putString("userEmail", emailEditText.getText().toString());
                     editor.putString("userGender", userGender);
                     editor.apply();
-                   /* Intent intent = new Intent(getActivity(), FirstActivity.class);
+                    Intent intent = new Intent(getActivity(), FirstActivity.class);
                     intent.setFlags(1);
-                    getActivity().startActivity(intent);*/
+                    getActivity().startActivity(intent);
                     sendToDatabase();
                 } else {
                     Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
