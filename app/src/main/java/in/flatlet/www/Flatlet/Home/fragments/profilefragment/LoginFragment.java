@@ -325,7 +325,6 @@ public class LoginFragment extends Fragment {
 
         }
     }
-
     private class SaveDBTask extends AsyncTask<JSONArray, Void, Void> {
 
         @Override
