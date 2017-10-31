@@ -45,7 +45,7 @@ class ImageSwitcherAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
-        Picasso.with(context).load(GalleryURL.get(position)).error(R.drawable.ic_blank_image).into(imageView);
+        Picasso.with(context).load(GalleryURL.get(position)).placeholder(R.drawable.ic_picture).error(R.drawable.ic_blank_image).into(imageView);
         container.addView(imageView, 0);
         return imageView;
     }
