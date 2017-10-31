@@ -160,6 +160,7 @@ public class LoginFragment extends Fragment {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("userMobile", phoneNumberString);
+
                             editor.apply();
                             String url = "http://flatlet.in/flatletusercheck/flatletusercheck.jsp?phoneNumberString=" + phoneNumberString;
 
