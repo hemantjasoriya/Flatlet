@@ -83,7 +83,12 @@
         <activity
             android:name=".welcome.WelcomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".welcome.LoginActivity" />
+        <activity
+            android:name=".welcome.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Home.fragments.homefragment.ExploreVirtualTour"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

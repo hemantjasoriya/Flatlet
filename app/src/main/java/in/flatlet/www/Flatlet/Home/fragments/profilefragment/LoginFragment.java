@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -88,6 +89,7 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+
         loginButton = (Button) getActivity().findViewById(R.id.loginButton);
 
 
@@ -126,6 +128,14 @@ public class LoginFragment extends Fragment {
             final int requestCode,
             final int resultCode,
             final Intent data) {
+
+
+        //disabling any touch gesture during this period
+
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == APP_REQUEST_CODE) { // confirm that this response matches your request
             AccountKitLoginResult loginResult = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);

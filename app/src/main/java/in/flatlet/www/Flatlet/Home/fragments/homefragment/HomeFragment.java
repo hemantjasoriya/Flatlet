@@ -20,7 +20,6 @@ import in.flatlet.www.Flatlet.R;
 import in.flatlet.www.Flatlet.Utility.MySingleton;
 import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
-import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 
 public class HomeFragment extends Fragment {
@@ -105,7 +104,8 @@ public class HomeFragment extends Fragment {
         cardExploreVirtualTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity_third.class);
+                /*Intent intent = new Intent(getActivity(), MainActivity_third.class);*/
+                Intent intent = new Intent(getActivity(), ExploreVirtualTour.class);
                 if (virtualTourName.size() > 0) {
                     intent.putExtra("hostel_title", virtualTourName.get((int) (Math.random() * 10)));
                     intent.putExtra("imageCount", 1);

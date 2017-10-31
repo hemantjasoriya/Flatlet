@@ -85,27 +85,29 @@ public class HowItWorksFagment extends Fragment {
 
         List<String> questionTwo = new ArrayList<>();
         questionTwo.add("http://images.flatlet.in/tutorial/2.webp");
+        questionTwo.add("http://images.flatlet.in/tutorial/3.webp");
 
         List<String> questionThree = new ArrayList<>();
-        questionThree.add("http://images.flatlet.in/tutorial/3.webp");
+        questionThree.add("http://images.flatlet.in/tutorial/4.webp");
 
         List<String> questionFour = new ArrayList<>();
-        questionFour.add("http://images.flatlet.in/tutorial/4.webp");
+        questionFour.add("http://images.flatlet.in/tutorial/5.webp");
+
 
         List<String> questionFive = new ArrayList<>();
-        questionFive.add("http://images.flatlet.in/tutorial/5.webp");
+        questionFive.add("http://images.flatlet.in/tutorial/6.webp");
 
         List<String> questionSix = new ArrayList<>();
-        questionSix.add("http://images.flatlet.in/tutorial/6.webp");
+        questionSix.add("http://images.flatlet.in/tutorial/7.webp");
 
         List<String> questionSeven = new ArrayList<>();
-        questionSeven.add("http://images.flatlet.in/tutorial/7.webp");
+        questionSeven.add("http://images.flatlet.in/tutorial/8.webp");
 
         List<String> questionEight = new ArrayList<>();
-        questionEight.add("http://images.flatlet.in/tutorial/8.webp");
+        questionEight.add("http://images.flatlet.in/tutorial/9.webp");
 
         List<String> questionNine = new ArrayList<>();
-        questionNine.add("http://images.flatlet.in/tutorial/9.webp");
+        questionNine.add("http://images.flatlet.in/tutorial/10.webp");
 
 
         listHash.put(listDataHeader1.get(0), questionOne);

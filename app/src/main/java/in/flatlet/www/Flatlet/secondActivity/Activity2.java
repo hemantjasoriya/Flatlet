@@ -63,7 +63,7 @@ import in.flatlet.www.Flatlet.thirdActivity.MainActivity_third;
 
 public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private Toolbar toolbar;
-    private String hostel_title, hostel_rent, eve_snacks, ownership, ame_toilet_attached, ame_elevator, dbqry, primary_contact, secondary_contact, CCTV1, rent_single_nonac, rent_single_ac, rent_double_nonac, rent_double_ac, gender1, address_secondary,  CCTV, totalViews1;
+    private String hostel_title, hostel_rent, eve_snacks, ownership, ame_toilet_attached, ame_elevator, dbqry, primary_contact, secondary_contact, CCTV1, rent_single_nonac, rent_single_ac, rent_double_nonac, rent_double_ac, gender1, address_secondary, CCTV, totalViews1;
     private Button ratingSubmitButton;
     private ListView listView;
     private RatingBar ratingBarFood, ratingBarStaff, ratingBarAccommodation, ratingBarStudyEnvironment;
@@ -229,14 +229,14 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         textViewRating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putFloat("hostel_rating_food",hostel_rating_food);
-                bundle.putFloat("hostel_rating_accommodation",hostel_rating_accommodation);
-                bundle.putFloat("hostel_rating_study",hostel_rating_study);
-                bundle.putFloat("hostel_rating_staff",hostel_rating_staff);
+                Bundle bundle = new Bundle();
+                bundle.putFloat("hostel_rating_food", hostel_rating_food);
+                bundle.putFloat("hostel_rating_accommodation", hostel_rating_accommodation);
+                bundle.putFloat("hostel_rating_study", hostel_rating_study);
+                bundle.putFloat("hostel_rating_staff", hostel_rating_staff);
                 MyDialogFragment fragment = new MyDialogFragment();
                 fragment.setArguments(bundle);
-                fragment.show(getSupportFragmentManager(),"fragment Dialog");
+                fragment.show(getSupportFragmentManager(), "fragment Dialog");
             }
         });
 
@@ -319,6 +319,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     ameVector.add(11, R.drawable.ic_breakfast);
                     ameVector.add(12, R.drawable.ic_lunch);
                     ameVector.add(13, R.drawable.ic_dinner);
+
                 }
                 listView = new ListView(Activity2.this);
 
@@ -371,7 +372,6 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
     }
-
 
 
     private void fetch_details() {
@@ -677,12 +677,12 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, locality.getText().toString());
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, hostel_rent);
                     values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, textViewRating.getText().toString());
-                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumb/1.webp");
+                    values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp");
 
                     db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
                     dbqry = "INSERT INTO `user_favourites`( `title`, `user_mobile`, `secondary_address`, `rent`, `img_url`, `rating`) VALUES ('" + hostel_title + "'" +
                             ",'" + sharedPreferences.getString("userMobile", "911") + "','" + locality.getText() + "','" + hostel_rent + "'," +
-                            "'http://images.flatlet.in/images/"+hostel_title.replace(" ","%20")+"/Thumb/1.webp','" + textViewRating.getText() + "')";
+                            "'http://images.flatlet.in/images/" + hostel_title.replace(" ", "%20") + "/Thumb/1.webp','" + textViewRating.getText() + "')";
 
                     // checking the size of sqlite database
                     String[] projection1 = {
@@ -730,8 +730,8 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
                 return true;
 
             case R.id.reportDetail:
-                Intent intent2 = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "flatletindia@gmail.com"));
-                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect details for "+hostel_title);
+                Intent intent2 = new Intent(Intent.ACTION_VIEW, Uri.parse("mailto:" + "flatletindia@gmail.com"));
+                intent2.putExtra(Intent.EXTRA_SUBJECT, "Reporting Incorrect details for " + hostel_title);
                 intent2.putExtra(Intent.EXTRA_TEXT, "Hi there !! the provided details for the " + hostel_title + " are incorrect.");
                 startActivity(intent2);
 
