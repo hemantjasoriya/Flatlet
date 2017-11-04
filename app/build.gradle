@@ -42,7 +42,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.google.android.gms:play-services-auth:11.4.2'
     implementation 'com.facebook.android:account-kit-sdk:4.+'
-    implementation 'com.facebook.android:facebook-android-sdk:4.23.+'
+    implementation 'com.facebook.android:facebook-android-sdk:4.27.+'
 
     testImplementation 'junit:junit:4.12'
 

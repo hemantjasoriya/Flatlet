@@ -64,4 +64,9 @@ public class ExploreVirtualTour extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
