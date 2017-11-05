@@ -22,6 +22,7 @@ import in.flatlet.www.Flatlet.recyclerView.MainActivity;
 public class FilterActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+  /*  String test;*/
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,6 +30,7 @@ public class FilterActivity extends AppCompatActivity {
         setContentView(R.layout.filter_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+       /* test = "hey jassu";*/
 
         FilterAdapter adapter = new FilterAdapter(getSupportFragmentManager());
 
@@ -41,6 +43,27 @@ public class FilterActivity extends AppCompatActivity {
 
     }
 
+    /*@Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String retrieved = savedInstanceState.getString("test");
+        Log.i(TAG, "onRestoreInstanceState: "+retrieved+"ho gya");
+        if (retrieved!=null){
+            Toast.makeText(getApplicationContext(),"The String restored is"+retrieved,Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"Nothing Retrieved",Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("test",test);
+        Log.i(TAG, "onSaveInstanceState: "+test +"add ho gya");
+    }
+*/
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);

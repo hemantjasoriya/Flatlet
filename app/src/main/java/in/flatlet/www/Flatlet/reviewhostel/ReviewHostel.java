@@ -204,10 +204,15 @@ public class ReviewHostel extends AppCompatActivity {
         reviewCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReviewHostel.this, Activity2.class);
-                intent.putExtra("hostel_title", hostel_title);
-                intent.putExtra("hostel_rent", "0");
-                startActivity(intent);
+                if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+                    Intent intent = new Intent(ReviewHostel.this, Activity2.class);
+                    intent.putExtra("hostel_title", hostel_title);
+                    intent.putExtra("hostel_rent", "0");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection! Please Try Again", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

@@ -73,7 +73,7 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
                 new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (!isChecked) {
+                        if (!isChecked && MySingleton.getInstance(context).isOnline()) {
                             SharedPreferences sharedPreferences = context.getSharedPreferences("personalInfo", Context.MODE_PRIVATE);
                             favouriteHostelList.remove(position);
                             notifyDataSetChanged();
@@ -109,6 +109,8 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
                             stringRequest.setTag("MyRequestTag");
                             MySingleton.getInstance(context).addToRequestQueue(stringRequest);
                             db.delete(FeedReaderContract.FeedEntry.TABLE_NAME, FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?", new String[]{favouriteHostelDataModel.getTitle()});
+                        } else if (!MySingleton.getInstance(context).isOnline()) {
+                            Toast.makeText(context, "No Internet Connection! Please Try Again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
