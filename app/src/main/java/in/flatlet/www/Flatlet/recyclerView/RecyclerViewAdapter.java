@@ -191,11 +191,17 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, Activity2.class);
-                intent.putExtra("hostel_title", getDataAdapter1.getName());
-                intent.putExtra("hostel_rent",getDataAdapter1.getRent());
+                if (MySingleton.getInstance(context).isOnline()) {
+                    Intent intent = new Intent(context, Activity2.class);
+                    intent.putExtra("hostel_title", getDataAdapter1.getName());
+                    intent.putExtra("hostel_rent", getDataAdapter1.getRent());
 
-                context.startActivity(intent);
+                    context.startActivity(intent);
+                } else {
+                    Toast.makeText(context, "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.volley.Request;
@@ -116,9 +117,13 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Activity2.class);
-                intent.putExtra("hostel_title", favouriteHostelDataModel.getTitle());
-                context.startActivity(intent);
+                if (MySingleton.getInstance(context).isOnline()) {
+                    Intent intent = new Intent(context, Activity2.class);
+                    intent.putExtra("hostel_title", favouriteHostelDataModel.getTitle());
+                    context.startActivity(intent);
+                } else {
+                    Toast.makeText(context, "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

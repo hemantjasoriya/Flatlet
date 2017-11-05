@@ -244,19 +244,28 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         imageHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity2.this, MainActivity_third.class);
-                intent.putExtra("hostel_title", hostel_title);
-                intent.putExtra("imageCount", imageCount);
-                Activity2.this.startActivity(intent);
+                if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+                    Intent intent = new Intent(Activity2.this, MainActivity_third.class);
+                    intent.putExtra("hostel_title", hostel_title);
+                    intent.putExtra("imageCount", imageCount);
+                    Activity2.this.startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
         imageHead1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Activity2.this, MainActivity_third.class);
-                intent.putExtra("hostel_title", hostel_title);
-                intent.putExtra("imageCount", imageCount);
-                Activity2.this.startActivity(intent);
+                if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+                    Intent intent = new Intent(Activity2.this, MainActivity_third.class);
+                    intent.putExtra("hostel_title", hostel_title);
+                    intent.putExtra("imageCount", imageCount);
+                    Activity2.this.startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         fetch_details();
