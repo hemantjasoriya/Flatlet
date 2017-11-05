@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import in.flatlet.www.Flatlet.Home.fragments.homefragment.HomeFragment;
 import in.flatlet.www.Flatlet.R;
@@ -85,6 +86,8 @@ public class LocalityListFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +139,10 @@ public class LocalityListFragment extends Fragment {
                     intent.putExtra("gender", gender);
                     startActivity(intent);
                     dbqry = null;
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection!! Please Try Again", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 

@@ -35,6 +35,13 @@ public class ExploreVirtualTour extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
 
         webView = findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();

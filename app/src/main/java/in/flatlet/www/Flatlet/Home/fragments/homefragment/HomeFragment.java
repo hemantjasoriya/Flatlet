@@ -62,8 +62,14 @@ public class HomeFragment extends Fragment {
         cardRateHostel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ReviewHostel.class);
-                startActivity(intent);
+                if (MySingleton.getInstance(getContext()).isOnline()) {
+                    Intent intent = new Intent(getActivity(), ReviewHostel.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -104,16 +110,19 @@ public class HomeFragment extends Fragment {
         cardExploreVirtualTour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent intent = new Intent(getActivity(), MainActivity_third.class);*/
-                Intent intent = new Intent(getActivity(), ExploreVirtualTour.class);
-                if (virtualTourName.size() > 0) {
-                    intent.putExtra("hostel_title", virtualTourName.get((int) (Math.random() * 10)));
-                    intent.putExtra("imageCount", 1);
-                    startActivity(intent);
+                if (MySingleton.getInstance(getContext()).isOnline()) {
+                    Intent intent = new Intent(getActivity(), ExploreVirtualTour.class);
+                    if (virtualTourName.size() > 0) {
+                        intent.putExtra("hostel_title", virtualTourName.get((int) (Math.random() * 10)));
+                        intent.putExtra("imageCount", 1);
+                        startActivity(intent);
+                    } else {
+                        intent.putExtra("hostel_title", "Abhilasha Residency");
+                        intent.putExtra("imageCount", 1);
+                        startActivity(intent);
+                    }
                 } else {
-                    intent.putExtra("hostel_title", "Abhilasha Residency");
-                    intent.putExtra("imageCount", 1);
-                    startActivity(intent);
+                    Toast.makeText(getContext(), "No Internet Connection ! Please Try Again", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -123,11 +132,13 @@ public class HomeFragment extends Fragment {
         searchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 LocalityListFragment localityListFragment = new LocalityListFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.content, localityListFragment, "locality search");
                 fragmentTransaction.commit();
                 navigation.setSelectedItemId(R.id.navigation_search);
+
             }
         });
 
