@@ -42,7 +42,6 @@ class FavouriteListRecyclerAdapter extends RecyclerView.Adapter<FavouriteListRec
         this.favouriteHostelList = favouriteHostelList;
         this.db = db;
 
-
     }
 
     @Override
