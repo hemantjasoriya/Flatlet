@@ -39,6 +39,24 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_blank_image" />
 
+        <ImageView
+            android:id="@+id/locationVector"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/ic_distance"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/hostel_title" />
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_below="@+id/locationVector"
+            android:layout_centerHorizontal="true"
+            android:text="443m"
+            android:layout_alignBaseline="@+id/hostel_address"
+            android:padding="@dimen/subtitle_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

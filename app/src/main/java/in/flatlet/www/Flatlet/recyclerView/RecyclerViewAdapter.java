@@ -69,6 +69,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             editor.apply();
         }
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -89,7 +90,16 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         holder.gender.setText(getDataAdapter1.getGender());
+        holder.distance.setText(String.valueOf(getDataAdapter1.getDistance()));
+       /* if (getDataAdapter1.getDistance()!= 0) {
+            holder.distance.setText(String.valueOf(getDataAdapter1.getDistance()));
+
+        } else {
+            holder.distance.setText("N/A");
+        }
+*/
         holder.imageView2.setAlpha(1.0f);
+
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
         String[] projection = {FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE};
         String[] selectionArgs = {getDataAdapter1.getName()};
@@ -130,7 +140,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_SECONDARY_ADDRESS, getDataAdapter1.getAddress());
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RENT, getDataAdapter1.getRent());
                             values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_RATING, getDataAdapter1.getCardRating());
-                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/"+title+"/Thumb/1.webp");
+                            values.put(FeedReaderContract.FeedEntry.COLUMN_NAME_IMG_URL, "http://images.flatlet.in/images/" + title + "/Thumb/1.webp");
                             db_favourite.insert(FeedReaderContract.FeedEntry.TABLE_NAME, null, values);
 
                             mHandler.post(new Runnable() {
@@ -166,7 +176,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                 }
 
 
-                String url = "http://flatlet.in/webservices/flatletuserinsert.jsp?dbqry="+dbqry;
+                String url = "http://flatlet.in/webservices/flatletuserinsert.jsp?dbqry=" + dbqry;
                 String urlFinal = url.replace(" ", "%20");
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, urlFinal,
@@ -233,11 +243,12 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         final CardView cardView;
         final ToggleButton toggle;
         final TextView gender;
+        final TextView distance;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            card_rating =(TextView)itemView.findViewById(R.id.card_rating);
+            card_rating = (TextView) itemView.findViewById(R.id.card_rating);
 
             hostel_title = (TextView) itemView.findViewById(R.id.hostel_title);
             hostel_rent = (TextView) itemView.findViewById(R.id.hostel_rent);
@@ -246,7 +257,8 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             cardView = (CardView) itemView.findViewById(R.id.cardview1);
             toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
             toggle.bringToFront();
-            gender=(TextView)itemView.findViewById(R.id.hostel_gender);
+            gender = (TextView) itemView.findViewById(R.id.hostel_gender);
+            distance = itemView.findViewById(R.id.distance);
         }
     }
 

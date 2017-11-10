@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private String gender;
     private Toolbar toolbar;
     private TextView noHostelTextView;
+   /* private int distance;*/
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -106,14 +107,23 @@ public class MainActivity extends AppCompatActivity {
         String finalDbQuery;
         if (getIntent().getFlags() == 13) {
             finalDbQuery = dbqry + locality;
+            GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
 
         } else if (getIntent().getFlags() == 14) {
             finalDbQuery = dbqry + "%20AND%20gender='" + gender + "'" + "%20ORDER%20BY%20RAND()";
+            GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
+
+        } else if (getIntent().getFlags() == 15) {
+            finalDbQuery = dbqry;
+            GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelDataDistance.jsp?dbqry=" + finalDbQuery + "&locality=" + locality;
+            GET_JSON_DATA_HTTP_URL = GET_JSON_DATA_HTTP_URL.replace(" ", "%20");
+
 
         } else {
             finalDbQuery = dbqry + locality + "%20ORDER%20BY%20RAND()";
+            GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
         }
-        GET_JSON_DATA_HTTP_URL = "http://flatlet.in/webservices/partialHostelData.jsp?dbqry=" + finalDbQuery;
+
 
         JSON_DATA_WEB_CALL();
 
@@ -156,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void JSON_DATA_WEB_CALL() {
         if (MySingleton.getInstance(getApplicationContext()).isOnline()) {
+            Log.i("TAG", "JSON_DATA_WEB_CALL: url sent is" + GET_JSON_DATA_HTTP_URL);
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(GET_JSON_DATA_HTTP_URL,
                     new Response.Listener<JSONArray>() {
@@ -214,10 +225,15 @@ public class MainActivity extends AppCompatActivity {
                     GetDataAdapter2.setRent(jsonObject.getString(roomType));
                     GetDataAdapter2.setAddress(jsonObject.getString("address_secondary"));
                     GetDataAdapter2.setCardRating((float) jsonObject.getDouble("rating"));
-                    GetDataAdapter2.setGender(jsonObject.getString("gender"));
+                    GetDataAdapter2.setGender(gender);
+                    GetDataAdapter2.setDistance(jsonObject.getInt("distance"));
+
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
                 dataModelArrayList.add(GetDataAdapter2);
 

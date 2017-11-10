@@ -16,7 +16,93 @@
         <item>Mahaveer Nagar 1</item>
         <item>Rajeev Gandhi Nagar</item>
         <item>New Rajeev Gandhi Nagar</item>
+        <item>Kunhadi</item>
+    </string-array>
 
+    <string-array name="coachingArray">
+        <item>Aakash Institute</item>
+        <item>Ables Education</item>
+        <item>Allen Career Institute</item>
+        <item>Bansal Classes</item>
+        <item>Btrix Medical Classes</item>
+        <item>Career Point</item>
+        <item>Etoos Education</item>
+        <item>Motion</item>
+        <item>Nucleus Education</item>
+        <item>Photon Academy</item>
+        <item>Resonance</item>
+        <item>Vibrant Academy</item>
+
+    </string-array>
+    <string-array name="aakashArray">
+        <item>PMC Tower CP-13 Indra Vihar </item>
+    </string-array>
+
+    <string-array name="ablesArray">
+        <item>Ables</item>
+    </string-array>
+
+    <string-array name="allenArray">
+        <item>Saakar</item>
+        <item>Sabal</item>
+        <item>Safalya 1,2</item>
+        <item>Safalya 3</item>
+        <item>Samanvaya</item>
+        <item>Samarth</item>
+        <item>Samayik</item>
+        <item>Samyak</item>
+        <item>Sangyan</item>
+        <item>Sankalp</item>
+        <item>Sarokar</item>
+        <item>Satyarth</item>
+        <item>Savinay</item>
+        <item>Sukalp</item>
+    </string-array>
+
+    <string-array name="bansalArray">
+        <item>Bansal Tower A-10 IPIA Road</item>
+
+    </string-array>
+
+    <string-array name="btrixArray">
+        <item>Btrix</item>
+    </string-array>
+
+    <string-array name="cpArray">
+        <item>CP Tower 1,2</item>
+        <item>CP 112-B Shakti Nagar</item>
+    </string-array>
+
+    <string-array name="etoosArray">
+        <item>Etoos</item>
+    </string-array>
+
+    <string-array name='motionArray'>
+        <item>Motion(New Building)353 RGN</item>
+        <item>Motion 394 RGN</item>
+        <item>Motion 50 RGN</item>
+        <item>Motion 357 RGN</item>
+
+    </string-array>
+
+    <string-array name="nucleusArray">
+        <item>Nucleus 92 RGN </item>
+    </string-array>
+    <string-array name="photonArray">
+        <item>Photon Academy</item>
+    </string-array>
+
+    <string-array name="resonanceArray">
+        <item>CG Tower A-46</item>
+        <item>C-13 New Jawahar Nagar</item>
+        <item>J2 Jawahar Nagar</item>
+        <item>CLPD Campus Talwandi</item>
+        <item>Medical and PCCP Division</item>
+        <item>Station Campus</item>
+    </string-array>
+
+    <string-array name="vibrantArray">
+        <item>Vibrant Tower A-14(A)</item>
     </string-array>
     <string name="id">ID :</string>
     <string name="hostel_rent">hostel_rent</string>

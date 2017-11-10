@@ -14,6 +14,16 @@ class GetDataAdapter {
 
     private String gender;
 
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    private int distance;
+
 
     public float getCardRating() {
         return cardRating;

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import in.flatlet.www.Flatlet.reviewhostel.ReviewHostel;
 public class HomeFragment extends Fragment {
     BottomNavigationView navigation;
     ArrayList<String> virtualTourName;
+    ImageView inst1, inst2, inst3, inst4, inst5, inst6, inst7, inst8, inst9, inst10, inst11, inst12;
 
     @Nullable
     @Override
@@ -51,12 +53,24 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        navigation = (BottomNavigationView) getActivity().findViewById(R.id.navigation);
-        EditText searchEditText = (EditText) getActivity().findViewById(R.id.search_edit_text);
-        CardView cardExploreGirls = (CardView) getActivity().findViewById(R.id.cardExploreGirls);
-        CardView cardExploreBoys = (CardView) getActivity().findViewById(R.id.cardExploreBoys);
-        CardView cardRateHostel = (CardView) getActivity().findViewById(R.id.cardRateHostel);
-        CardView cardExploreVirtualTour = (CardView) getActivity().findViewById(R.id.cardExploreVirtualTour);
+        navigation = getActivity().findViewById(R.id.navigation);
+        EditText searchEditText = getActivity().findViewById(R.id.search_edit_text);
+        CardView cardExploreGirls = getActivity().findViewById(R.id.cardExploreGirls);
+        CardView cardExploreBoys = getActivity().findViewById(R.id.cardExploreBoys);
+        CardView cardRateHostel = getActivity().findViewById(R.id.cardRateHostel);
+        CardView cardExploreVirtualTour = getActivity().findViewById(R.id.cardExploreVirtualTour);
+        inst1 = getActivity().findViewById(R.id.inst1);
+        inst2 = getActivity().findViewById(R.id.inst2);
+        inst3 = getActivity().findViewById(R.id.inst3);
+        inst4 = getActivity().findViewById(R.id.inst4);
+        inst5 = getActivity().findViewById(R.id.inst5);
+        inst6 = getActivity().findViewById(R.id.inst6);
+        inst7 = getActivity().findViewById(R.id.inst7);
+        inst8 = getActivity().findViewById(R.id.inst8);
+        inst9 = getActivity().findViewById(R.id.inst9);
+        inst10 = getActivity().findViewById(R.id.inst10);
+        inst11 = getActivity().findViewById(R.id.inst11);
+        inst12 = getActivity().findViewById(R.id.inst12);
 
 
         cardRateHostel.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +155,91 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        inst1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("allen");
+            }
+        });
+
+        inst2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("bansal");
+            }
+        });
+        inst3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("resonance");
+            }
+        });
+        inst4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("vibrant");
+            }
+        });
+        inst5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("motion");
+            }
+        });
+        inst6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("careerpoint");
+            }
+        });
+        inst7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("aakash");
+            }
+        });
+        inst8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("nucleus");
+            }
+        });
+        inst9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("ables");
+            }
+        });
+        inst10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("photon");
+            }
+        });
+        inst11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("btrix");
+            }
+        });
+        inst12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCoachingLocalityFragment("etoos");
+            }
+        });
+
+
+    }
+
+    private void openCoachingLocalityFragment(String arg) {
+        CoachingLocalityFragment coachingLocalityFragment = new CoachingLocalityFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content, coachingLocalityFragment, "fragmentSearch");
+        Bundle bundle = new Bundle();
+        bundle.putString("arg", arg);
+        coachingLocalityFragment.setArguments(bundle);
+        transaction.commit();
 
 
     }
