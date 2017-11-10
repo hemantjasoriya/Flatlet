@@ -39,11 +39,11 @@
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_blank_image" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/locationVector"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/ic_distance"
+            app:srcCompat="@drawable/distance"
             android:layout_centerHorizontal="true"
             android:layout_alignBottom="@+id/hostel_title" />
 

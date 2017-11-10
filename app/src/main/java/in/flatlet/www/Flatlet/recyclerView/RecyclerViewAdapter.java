@@ -239,7 +239,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         final TextView card_rating;
         final TextView hostel_title;
         final TextView hostel_address;
-        final ImageView imageView2;
+        final ImageView imageView2, locationVector;
         final CardView cardView;
         final ToggleButton toggle;
         final TextView gender;
@@ -259,6 +259,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             toggle.bringToFront();
             gender = (TextView) itemView.findViewById(R.id.hostel_gender);
             distance = itemView.findViewById(R.id.distance);
+            locationVector = itemView.findViewById(R.id.locationVector);
         }
     }
 
