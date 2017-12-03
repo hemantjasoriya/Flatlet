@@ -151,7 +151,6 @@ public class CoachingLocalityFragment extends Fragment {
                 break;
             }
 
-
         }
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
