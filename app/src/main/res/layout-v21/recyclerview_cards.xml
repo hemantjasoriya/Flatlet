@@ -5,9 +5,9 @@
     android:id="@+id/cardview1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="2dp"
     android:layout_marginTop="@dimen/activity2_card_margin_down"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="true"
+    app:cardElevation="2dp">
 
     <RelativeLayout
         android:id="@+id/cl"
@@ -43,29 +43,28 @@
             android:id="@+id/locationVector"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/distance"
-            android:layout_centerHorizontal="true"
-            android:layout_alignBottom="@+id/hostel_title" />
+            android:layout_alignBottom="@+id/hostel_address"
+            android:layout_toStartOf="@+id/distance"
+            app:srcCompat="@drawable/ic_distance" />
 
         <TextView
             android:id="@+id/distance"
-            android:layout_below="@+id/locationVector"
-            android:layout_centerHorizontal="true"
-            android:text="443m"
-            android:layout_alignBaseline="@+id/hostel_address"
-            android:padding="@dimen/subtitle_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/hostel_address"
+            android:layout_toStartOf="@+id/card_rating"
+            android:padding="@dimen/subtitle_padding"
+            android:text="443m" />
+
+        <TextView
             android:id="@+id/hostel_gender"
-            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp"
             android:layout_marginStart="10dp"
-            android:textColor="#ff7256"
-            android:layout_marginBottom="5dp" />
+            android:textColor="#ff7256" />
 
         <TextView
             android:id="@+id/hostel_title"
@@ -92,6 +91,7 @@
             android:textSize="@dimen/hostel_rent_recycler_Card" />
 
         <TextView
+            android:id="@+id/rupeeSign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/hostel_rent"

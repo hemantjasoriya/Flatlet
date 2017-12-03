@@ -251,4 +251,16 @@
     <string name="email">Email</string>
     <string name="contact_no">Contact no.</string>
     <string name="click_here_to_see_the_complete_gallery">Click here to see the complete Gallery</string>
+    <string name="allen">Allen</string>
+    <string name="bansal_classes">Bansal Classes</string>
+    <string name="resonance">Resonance</string>
+    <string name="vibrant_academy">Vibrant Academy</string>
+    <string name="motion">Motion</string>
+    <string name="career_point">Career Point</string>
+    <string name="aakash_institute">Aakash institute</string>
+    <string name="nucleus">Nucleus</string>
+    <string name="ables">Ables</string>
+    <string name="photon_academy">Photon Academy</string>
+    <string name="btrix">Btrix</string>
+    <string name="etoos_education">Etoos Education</string>
 </resources>

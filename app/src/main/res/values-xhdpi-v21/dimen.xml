@@ -26,14 +26,18 @@
     <dimen name="linespacing_value">5sp</dimen>
     <dimen name="createProfileFragment_field_marginup">40dp</dimen>
     <dimen name="sort_fragment_margin_up">10dp</dimen>
-    <dimen name="home_fragment_card_height">140dp</dimen>
+    <dimen name="home_fragment_card_height">120dp</dimen>
     <dimen name="home_fragment_text">16sp</dimen>
     <dimen name="home_fragment_searchbar_height">30dp</dimen>
-    <dimen name="home_fragment_card_height_new">200dp</dimen>
+    <dimen name="home_fragment_card_height_new">170dp</dimen>
     <dimen name="home_fragment_card_title">14sp</dimen>
     <dimen name="tutorial_title_margin">21dp</dimen>
     <dimen name="tutorial_title_size">24sp</dimen>
     <dimen name="tutorial_steps_title">16sp</dimen>
     <dimen name="custom_progressbar">70dp</dimen>
     <dimen name="faq_answer_text_size">15sp</dimen>
+    <dimen name="circularCardHeight">75dp</dimen>
+    <dimen name="circularCardWidth">65dp</dimen>
+    <dimen name="circularCardMargin">6dp</dimen>
+    <dimen name="cicularCardText">12sp</dimen>
 </resources>

@@ -72,6 +72,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     private ProgressBar progressBar;
     private final ArrayList<String> ameTitle = new ArrayList<>();
     private final ArrayList<Integer> ameVector = new ArrayList<>();
+    private final ArrayList<String> callNumber = new ArrayList<>();
     private double location_latitude = 3.14, x, y;
     private double location_longitude = 3.14;
     private SupportMapFragment mapFragment;
@@ -349,11 +350,13 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     private void init() {
-        FloatingActionButton mCallButton = (FloatingActionButton) findViewById(R.id.callOwner);
+        FloatingActionButton mCallButton = findViewById(R.id.callOwner);
         mCallButton.bringToFront();
         mCallButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (primary_contact != null) {
 
                     callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + primary_contact));
@@ -757,6 +760,7 @@ public class Activity2 extends AppCompatActivity implements OnMapReadyCallback {
         @Override
         protected Void doInBackground(JSONObject... response) {
             try {
+
                 primary_contact = response[0].getString("contact_primary");
                 secondary_contact = response[0].getString("contact_secondary");
                 location_latitude = response[0].getDouble("location_latitude");

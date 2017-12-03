@@ -90,14 +90,15 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         holder.hostel_rent.setText(getDataAdapter1.getRent());
         holder.hostel_address.setText(getDataAdapter1.getAddress());
         holder.gender.setText(getDataAdapter1.getGender());
-        holder.distance.setText(String.valueOf(getDataAdapter1.getDistance()));
-       /* if (getDataAdapter1.getDistance()!= 0) {
+        holder.distance.setText(String.valueOf(getDataAdapter1.getDistance()) + "m");
+
+        if (getDataAdapter1.getDistance() != 0) {
             holder.distance.setText(String.valueOf(getDataAdapter1.getDistance()));
 
         } else {
-            holder.distance.setText("N/A");
+            holder.distance.setAlpha(0);
+            holder.locationVector.setImageAlpha(0);
         }
-*/
         holder.imageView2.setAlpha(1.0f);
 
         String selection = FeedReaderContract.FeedEntry.COLUMN_NAME_TITLE + " = ?";
@@ -248,16 +249,15 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
         ViewHolder(View itemView) {
             super(itemView);
 
-            card_rating = (TextView) itemView.findViewById(R.id.card_rating);
-
-            hostel_title = (TextView) itemView.findViewById(R.id.hostel_title);
-            hostel_rent = (TextView) itemView.findViewById(R.id.hostel_rent);
-            hostel_address = (TextView) itemView.findViewById(R.id.hostel_address);
-            imageView2 = (ImageView) itemView.findViewById(R.id.imageView2);
-            cardView = (CardView) itemView.findViewById(R.id.cardview1);
-            toggle = (ToggleButton) itemView.findViewById(R.id.toggleButton);
+            card_rating = itemView.findViewById(R.id.card_rating);
+            hostel_title = itemView.findViewById(R.id.hostel_title);
+            hostel_rent = itemView.findViewById(R.id.hostel_rent);
+            hostel_address = itemView.findViewById(R.id.hostel_address);
+            imageView2 = itemView.findViewById(R.id.imageView2);
+            cardView = itemView.findViewById(R.id.cardview1);
+            toggle = itemView.findViewById(R.id.toggleButton);
             toggle.bringToFront();
-            gender = (TextView) itemView.findViewById(R.id.hostel_gender);
+            gender = itemView.findViewById(R.id.hostel_gender);
             distance = itemView.findViewById(R.id.distance);
             locationVector = itemView.findViewById(R.id.locationVector);
         }

@@ -76,6 +76,18 @@ public class CoachingLocalityFragment extends Fragment {
 
         assert arg != null;
         switch (arg) {
+            case "aakash": {
+                spinner1Selected();
+                spinner1.setSelection(0);
+                spinner2Selected(R.array.aakashArray);
+                break;
+            }
+            case "ables": {
+                spinner1Selected();
+                spinner1.setSelection(1);
+                spinner2Selected(R.array.ablesArray);
+                break;
+            }
             case "allen": {
                 spinner1Selected();
                 spinner1.setSelection(2);
@@ -86,6 +98,44 @@ public class CoachingLocalityFragment extends Fragment {
                 spinner1Selected();
                 spinner1.setSelection(3);
                 spinner2Selected(R.array.bansalArray);
+                break;
+            }
+            case "btrix": {
+                spinner1Selected();
+                spinner1.setSelection(4);
+                spinner2Selected(R.array.btrixArray);
+                break;
+            }
+            case "careerpoint": {
+                spinner1Selected();
+                spinner1.setSelection(5);
+                spinner2Selected(R.array.cpArray);
+                break;
+            }
+            case "etoos": {
+                spinner1Selected();
+                spinner1.setSelection(6);
+                spinner2Selected(R.array.etoosArray);
+                break;
+
+            }
+            case "motion": {
+                spinner1Selected();
+                spinner1.setSelection(7);
+                spinner2Selected(R.array.motionArray);
+                break;
+            }
+            case "nucleus": {
+                spinner1Selected();
+                spinner1.setSelection(8);
+                spinner2Selected(R.array.nucleusArray);
+                break;
+            }
+
+            case "photon": {
+                spinner1Selected();
+                spinner1.setSelection(9);
+                spinner2Selected(R.array.photonArray);
                 break;
             }
             case "resonance": {
@@ -101,58 +151,6 @@ public class CoachingLocalityFragment extends Fragment {
                 break;
             }
 
-            case "motion": {
-                spinner1Selected();
-                spinner1.setSelection(7);
-                spinner2Selected(R.array.motionArray);
-                break;
-            }
-            case "careerpoint": {
-                spinner1Selected();
-                spinner1.setSelection(5);
-                spinner2Selected(R.array.cpArray);
-                break;
-            }
-            case "aakash": {
-                spinner1Selected();
-                spinner1.setSelection(0);
-                spinner2Selected(R.array.aakashArray);
-                break;
-            }
-            case "nucleus": {
-                spinner1Selected();
-                spinner1.setSelection(8);
-                spinner2Selected(R.array.nucleusArray);
-                break;
-            }
-
-            case "ables": {
-                spinner1Selected();
-                spinner1.setSelection(1);
-                spinner2Selected(R.array.ablesArray);
-                break;
-            }
-            case "photon": {
-                spinner1Selected();
-                spinner1.setSelection(9);
-                spinner2Selected(R.array.photonArray);
-                break;
-            }
-
-            case "btrix": {
-                spinner1Selected();
-                spinner1.setSelection(4);
-                spinner2Selected(R.array.btrixArray);
-                break;
-            }
-
-            case "etoos": {
-                spinner1Selected();
-                spinner1.setSelection(6);
-                spinner2Selected(R.array.etoosArray);
-                break;
-
-            }
 
         }
 

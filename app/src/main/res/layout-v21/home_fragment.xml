@@ -85,16 +85,17 @@
                         android:orientation="horizontal">
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
-                            android:layout_margin="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst1"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/allen" />
 
                             <TextView
@@ -102,22 +103,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst1"
                                 android:layout_centerHorizontal="true"
-                                android:text="Allen"
-                                android:textSize="14sp"
+                                android:text="@string/allen"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst2"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/bc" />
 
                             <TextView
@@ -125,23 +127,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst2"
                                 android:layout_centerHorizontal="true"
-                                android:text="Bansal Classes"
+                                android:text="@string/bansal_classes"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst3"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/resonance" />
 
                             <TextView
@@ -149,23 +152,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst3"
                                 android:layout_centerHorizontal="true"
-                                android:text="Resonance"
-
-                                android:textSize="14sp"
+                                android:text="@string/resonance"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst4"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/vibrant" />
 
                             <TextView
@@ -173,23 +176,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst4"
                                 android:layout_centerHorizontal="true"
-                                android:text="Vibrant Academy"
+                                android:text="@string/vibrant_academy"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst5"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/motion" />
 
                             <TextView
@@ -197,24 +201,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst5"
                                 android:layout_centerHorizontal="true"
-                                android:text="Motion"
+                                android:text="@string/motion"
                                 android:textAlignment="center"
-
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst6"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="5dp"
                                 android:src="@drawable/cp" />
 
                             <TextView
@@ -222,24 +226,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst6"
                                 android:layout_centerHorizontal="true"
-                                android:text="Career Point"
+                                android:text="@string/career_point"
                                 android:textAlignment="center"
-
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst7"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/aakash" />
 
                             <TextView
@@ -247,23 +251,24 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst7"
                                 android:layout_centerHorizontal="true"
-                                android:text="Aakash institute"
+                                android:text="@string/aakash_institute"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst8"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/nucleus" />
 
                             <TextView
@@ -271,23 +276,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst8"
                                 android:layout_centerHorizontal="true"
-                                android:text="Nucleus"
-
-                                android:textSize="14sp"
+                                android:text="@string/nucleus"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst9"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/ables" />
 
                             <TextView
@@ -295,23 +300,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst9"
                                 android:layout_centerHorizontal="true"
-                                android:text="Ables"
-
-                                android:textSize="14sp"
+                                android:text="@string/ables"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst10"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/photon" />
 
                             <TextView
@@ -319,22 +324,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst10"
                                 android:layout_centerHorizontal="true"
-                                android:text="Photon Academy"
-                                android:textSize="14sp"
+                                android:text="@string/photon_academy"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst11"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/btrix" />
 
                             <TextView
@@ -342,22 +348,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst11"
                                 android:layout_centerHorizontal="true"
-                                android:text="Btrix"
-                                android:textSize="14sp"
+                                android:text="@string/btrix"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="@dimen/circularCardWidth"
-                            android:layout_height="@dimen/circularCardHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_margin="@dimen/circularCardMargin"
                             android:padding="3dp">
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/inst12"
-                                android:layout_width="70dp"
-                                android:layout_height="70dp"
+                                android:layout_width="@dimen/circularCardWidth"
+                                android:layout_height="@dimen/circularCardHeight"
                                 android:layout_centerInParent="true"
+                                android:padding="4dp"
                                 android:src="@drawable/etoos" />
 
                             <TextView
@@ -365,9 +372,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/inst12"
                                 android:layout_centerHorizontal="true"
-                                android:text="Etoos Education"
+                                android:text="@string/etoos_education"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/cicularCardText"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 
